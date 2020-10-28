@@ -57,6 +57,16 @@ flutter:
     - images/kakao_icon.png
     - images/naver_icon.png
     - images/check_icon.png
+    - images/mark.png
+    - images/alarm.png
+    - images/home.png
+    - images/person.png
+    - images/support.png
+    - images/car_home.png
+    - images/notice_home.png
+    - images/profile_home.png
+    - images/search_home.png
+    -
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
 

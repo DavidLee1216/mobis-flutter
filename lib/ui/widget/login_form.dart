@@ -107,7 +107,7 @@ class LoginForm extends StatelessWidget {
                           child: FlatButton(
                             child: Text('아이디로 로그인하기', style: TextStyle(fontSize: 14, color: Colors.white),),
                             onPressed: () {
-                              Navigator.of(context).pushReplacementNamed('/idlogin');
+                              Navigator.of(context).pushNamed('/idlogin');
                             },
                           ),
                         ),

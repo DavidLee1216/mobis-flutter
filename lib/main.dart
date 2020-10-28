@@ -4,6 +4,7 @@ import 'package:hyundai_mobis/ui/screen/login_screen.dart';
 import 'package:hyundai_mobis/ui/screen/register_screen.dart';
 import 'package:hyundai_mobis/ui/screen/id_login_screen.dart';
 import 'package:hyundai_mobis/ui/screen/home_screen.dart';
+import 'package:hyundai_mobis/ui/screen/notice_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -24,11 +25,13 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       routes: {
-        '/': (context) => LoginScreen(),
+        '/': (context) => HomeScreen(),
         '/login': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
         '/home': (context) => HomeScreen(),
         '/idlogin': (context) => IdLoginScreen(),
+        '/notice': (context)=>NoticeScreen(),
+//        '/my_page': (context)=>MyPageScree(),
       },
     );
   }
