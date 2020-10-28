@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "718160528610",
+    "firebase_url": "https://mobis-flutter.firebaseio.com",
+    "project_id": "mobis-flutter",
+    "storage_bucket": "mobis-flutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:718160528610:android:a82e62d954268ce0874abb",
+        "android_client_info": {
+          "package_name": "com.example.hyundai_mobis"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "718160528610-qjb24hv05mrealjm5npnf2hghle7v2tu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBMk9XEeRQbYy3ZoXzvACMes8L5brmhkF4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "718160528610-qjb24hv05mrealjm5npnf2hghle7v2tu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

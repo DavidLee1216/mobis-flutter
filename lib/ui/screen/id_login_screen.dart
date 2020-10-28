@@ -7,7 +7,7 @@ import 'package:hyundai_mobis/ui/widget/loading_indication.dart';
 class IdLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
+//    return BlocListener<AuthBloc, AuthState>(
 //      cubit: BlocProvider.of<AuthBloc>(context),
 //      listener: (BuildContext context, state) {
 //        if (state.isAuthenticated()) {
@@ -15,22 +15,34 @@ class IdLoginScreen extends StatelessWidget {
 //          return;
 //        }
 //      },
-      child: BlocBuilder<AuthBloc, AuthState>(
-          cubit: BlocProvider.of<AuthBloc>(context),
-          builder: (context, state) {
-            return Scaffold(
-              resizeToAvoidBottomPadding: false,
-              appBar: AppBar(title: Text('로그인')),
-              body: Stack(
-                children: [
-                  IdLoginForm(errorMsg: state.errorMsg),//
-                  Positioned(
-                    child: LoadingIndicator(isLoading: state.isLoading),//
-                  ),
-                ],
-              ),
-            );
-          }),
+//      child: BlocBuilder<AuthBloc, AuthState>(
+//          cubit: BlocProvider.of<AuthBloc>(context),
+//          builder: (context, state) {
+//            return Scaffold(
+//              resizeToAvoidBottomPadding: false,
+//              appBar: AppBar(title: Text('로그인')),
+//              body: Stack(
+//                children: [
+//                  IdLoginForm(errorMsg: state.errorMsg),//
+//                  Positioned(
+//                    child: LoadingIndicator(isLoading: state.isLoading),//
+//                  ),
+//                ],
+//              ),
+//            );
+//          }),
+    return Scaffold(
+      resizeToAvoidBottomPadding: false,
+      appBar: AppBar(
+        leading: BackButton(color: Colors.black),
+        title: Text('로그인'),
+        centerTitle: true,
+      ),
+      body: Stack(
+        children: [
+          IdLoginForm(), //
+        ],
+      ),
     );
   }
 }

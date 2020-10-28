@@ -26,28 +26,50 @@ class _IdLoginFormState extends State<IdLoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    final AuthBloc bloc = BlocProvider.of<AuthBloc>(context);
+//    final AuthBloc bloc = BlocProvider.of<AuthBloc>(context);
 
-    var idField = TextFormField(
-      decoration: InputDecoration(
-        hintText: '아이디',
-      ),
-      keyboardType: TextInputType.text,
-      validator: (value) => value.isEmpty ? "아이디를 입력하세요." : null,
-      controller: _idController,
-    );
+    var idField = Container(
+        height: 40,
+        child: TextFormField(
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: Colors.white,
+//                  contentPadding: EdgeInsets.only(left: 30, ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(2),
+              borderSide: BorderSide(color: Colors.grey, width: 1),
+            ),
+            contentPadding: EdgeInsets.only(left: 10),
+            hintText: '아이디',
+          ),
+          keyboardType: TextInputType.text,
+          validator: (value) => value.isEmpty ? "아이디를 입력하세요." : null,
+          style: TextStyle(fontSize: 16.0,),
+          controller: _idController,
+        ));
 
-    var passwordField = Padding(
-      padding: const EdgeInsets.only(top: 8.0),
-      child: TextFormField(
-        decoration: InputDecoration(
-          hintText: '비밀번호',
-        ),
-        obscureText: true,
-        validator: (value) => value.isEmpty ? "비밀번호를 입력하세요." : null,
-        controller: _passwordController,
-      ),
-    );
+    var passwordField = Container(
+        height: 40,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: TextFormField(
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+//                  contentPadding: EdgeInsets.only(left: 30, ),
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(2),
+                borderSide: BorderSide(color: Colors.grey, width: 1),
+              ),
+              contentPadding: EdgeInsets.only(left: 10),
+              hintText: '비밀번호',
+            ),
+            obscureText: true,
+            validator: (value) => value.isEmpty ? "비밀번호를 입력하세요." : null,
+            style: TextStyle(fontSize: 16.0),
+            controller: _passwordController,
+          ),
+        ));
 
     onLoginButtonPresed() {
 //      if (_formKey.currentState.validate()) {
@@ -64,32 +86,37 @@ class _IdLoginFormState extends State<IdLoginForm> {
       Navigator.of(context).pushNamed('/register');
     }
 
-    var loginButton = Padding(
-      padding: const EdgeInsets.only(top: 32.0),
+    var loginButton = Container(
+      width: MediaQuery.of(context).size.width - 50,
+      height: 40,
       child: RaisedButton(
         padding: EdgeInsets.all(10.0),
         elevation: 5.0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),
-        color: Colors.indigo,
+        color: Color.fromRGBO(0, 63, 114, 1),
         child: Text(
           '로그인하기',
-          style: TextStyle(fontSize: 20, color: Colors.white),
+          style: TextStyle(fontSize: 16, color: Colors.white),
         ),
         onPressed: onLoginButtonPresed,
       ),
     );
 
-    var registerButton = Padding(
-      padding: const EdgeInsets.only(top: 8.0),
-      child: FlatButton(
-        onPressed: onRegisterButtonPressed,
-        child: Text('회원가입',
-          style: TextStyle(fontSize: 16, color: Colors.indigo),
-        ),
-        color: Colors.white,
-      ),
+    var registerButton = Container(
+         height: 40,
+         child: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: FlatButton(
+            onPressed: onRegisterButtonPressed,
+            child: Text(
+              '회원가입',
+              style: TextStyle(fontSize: 16, color: Colors.indigo),
+            ),
+            color: Colors.white,
+          ),
+       )
     );
 
 //    var errorMessageField = widget.errorMsg.isNotEmpty
@@ -108,14 +135,26 @@ class _IdLoginFormState extends State<IdLoginForm> {
         child: Form(
           key: _formKey,
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
+              SizedBox(
+                height: 20,
+              ),
               idField,
+              SizedBox(
+                height: 20,
+              ),
               passwordField,
+              SizedBox(
+                height: 20,
+              ),
               loginButton,
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Padding(padding: EdgeInsets.only(left: 100),),
+                  Padding(
+                    padding: EdgeInsets.only(right: 100),
+                  ),
                   registerButton,
                 ],
               )

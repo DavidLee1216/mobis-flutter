@@ -7,7 +7,7 @@ import 'package:hyundai_mobis/ui/widget/loading_indication.dart';
 class LoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return BlocListener<AuthBloc, AuthState>(
+//    return BlocListener<AuthBloc, AuthState>(
 //      cubit: BlocProvider.of<AuthBloc>(context),
 //      listener: (BuildContext context, state) {
 //        if (state.isAuthenticated()) {
@@ -15,19 +15,28 @@ class LoginScreen extends StatelessWidget {
 //          return;
 //        }
 //      },
-      child: BlocBuilder<AuthBloc, AuthState>(
-          cubit: BlocProvider.of<AuthBloc>(context),
-          builder: (context, state) {
+//      child: BlocBuilder<AuthBloc, AuthState>(
+//          cubit: BlocProvider.of<AuthBloc>(context),
+//          builder: (context, state) {
+//            return Scaffold(
+//              resizeToAvoidBottomPadding: false,
+//              appBar: AppBar(title: Text('로그인')),
+//              body: Stack(
+//                children: [
+//                  LoginForm(),//
+//                ],
+//              ),
+//            );
+//          }),
+//    );
             return Scaffold(
               resizeToAvoidBottomPadding: false,
-              appBar: AppBar(title: Text('로그인')),
+//              appBar: AppBar(title: Text('로그인')),
               body: Stack(
                 children: [
                   LoginForm(),//
                 ],
               ),
             );
-          }),
-    );
   }
 }

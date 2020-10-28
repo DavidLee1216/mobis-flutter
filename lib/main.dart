@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
     ]);
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.white,
+        primarySwatch: Colors.blue,
         primaryColor: Colors.white,
       ),
       initialRoute: '/',
