@@ -5,12 +5,9 @@ import 'package:hyundai_mobis/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-abstract class AuthEvent extends Equatable {}
+abstract class AuthEvent{}
 
 class AuthEventAppStarted extends AuthEvent {
-  @override
-  // TODO: implement props
-  List<Object> get props => throw UnimplementedError();
 }
 
 class AuthEventSignIn extends AuthEvent {

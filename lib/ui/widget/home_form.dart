@@ -171,7 +171,9 @@ class _HomeFormState extends State<HomeForm> {
                                             ],
                                           ),
                                           color: Colors.white,
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.of(context).pushNamed('/simpleSearch');
+                                          },
                                         ),
                                       ),
                                       Container(

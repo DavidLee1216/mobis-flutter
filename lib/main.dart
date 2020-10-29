@@ -1,13 +1,39 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hyundai_mobis/ui/screen/login_screen.dart';
+import 'package:hyundai_mobis/ui/screen/part_simple_search_screen.dart';
 import 'package:hyundai_mobis/ui/screen/register_screen.dart';
 import 'package:hyundai_mobis/ui/screen/id_login_screen.dart';
 import 'package:hyundai_mobis/ui/screen/home_screen.dart';
 import 'package:hyundai_mobis/ui/screen/notice_screen.dart';
+import 'package:hyundai_mobis/bloc/auth_bloc.dart';
+import 'package:hyundai_mobis/bloc/notice_bloc.dart';
+import 'package:hyundai_mobis/repository/user_repository.dart';
+import 'package:hyundai_mobis/repository/notice_repository.dart';
 
-void main() {
-  runApp(MyApp());
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  UserRepository userRepository = UserRepository();
+  NoticeRepository noticeRepository = NoticeRepository();
+  runApp(
+    BlocProvider<AuthBloc>(
+      create: (context) => AuthBloc(userRepository: userRepository)
+        ..add(AuthEventAppStarted()),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider<NoticeBloc>(
+            create: (context) => NoticeBloc(
+              noticeRepository: noticeRepository,
+            ),
+          ),
+        ],
+        child: MyApp(),
+      ),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -31,6 +57,7 @@ class MyApp extends StatelessWidget {
         '/home': (context) => HomeScreen(),
         '/idlogin': (context) => IdLoginScreen(),
         '/notice': (context)=>NoticeScreen(),
+        '/simpleSearch': (context)=>PartSimpleSearchScreen(),
 //        '/my_page': (context)=>MyPageScree(),
       },
     );
