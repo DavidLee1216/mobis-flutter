@@ -93,8 +93,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
   bool searched = false;
   List<RadioModel> manufacturerData = new List<RadioModel>();
   List<RadioModel> marketData = new List<RadioModel>();
-  String location1DropdownValue = '';
-  String location2DropdownValue = '';
+  String location1DropdownValue = 'aaa';
+  String location2DropdownValue = 'aaa';
 
   var partNumberController = TextEditingController();
 

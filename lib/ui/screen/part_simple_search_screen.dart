@@ -95,7 +95,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
   bool searched = false;
   List<RadioModel> manufacturerData = new List<RadioModel>();
   List<RadioModel> carKindData = new List<RadioModel>();
-  String modelDropdownValue = '';
+  String modelDropdownValue = 'aaa';
 
   var partNameController = TextEditingController();
 
