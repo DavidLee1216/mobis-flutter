@@ -99,6 +99,8 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
 
   var partNameController = TextEditingController();
 
+  var partNumberController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -222,6 +224,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
+            value: modelDropdownValue,
             hint: Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
@@ -304,6 +307,37 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
             ],
           ),
         ));
+    var partNumber = Container(
+        padding: EdgeInsets.all(10.0),
+        child: Container(
+          height: 30,
+          child: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: 20),
+                child: Text('부품번호'),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width * 0.6,
+                child: TextField(
+                  decoration: InputDecoration(
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(1),
+                      borderSide: BorderSide(color: Colors.grey, width: 1),
+                    ),
+                    contentPadding: EdgeInsets.only(left: 10),
+                  ),
+                  keyboardType: TextInputType.text,
+                  style: TextStyle(fontSize: 14.0),
+                  controller: partNumberController,
+                ),
+              )
+            ],
+          ),
+        ));
 
     var searchButton = Center(
         child: Container(
@@ -330,6 +364,26 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
       ),
     ));
 
+    var generalSearchItems = Container(
+      child: Column(
+        children: [
+          cardKindItem,
+          Divider(
+            height: 2,
+            color: Colors.black54,
+          ),
+          modelItem,
+          Divider(
+            height: 2,
+            color: Colors.black54,
+          ),
+          partName,
+        ],
+      ),
+    );
+    var partNumberSearchItems = Container(
+      child: partNumber,
+    );
 
     return ListView(
       children: [
@@ -352,6 +406,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                       ),
                 onPressed: () {
                   searchType = false;
+                  searched = false;
                   setState(() {});
                 },
               ),
@@ -373,6 +428,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                       ),
                 onPressed: () {
                   searchType = true;
+                  searched = false;
                   setState(() {});
                 },
               ),
@@ -419,25 +475,9 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
           height: 2,
           color: Colors.black54,
         ),
-        cardKindItem,
-        Divider(
-          height: 2,
-          color: Colors.black54,
-        ),
-        modelItem,
-        Divider(
-          height: 2,
-          color: Colors.black54,
-        ),
-        partName,
-        Divider(
-          height: 2,
-          color: Colors.black54,
-        ),
+        !searchType?generalSearchItems:partNumberSearchItems,
         searchButton,
-        Divider(
-          color: Colors.black54,
-        ),
+        SizedBox(height: 30),
         searched?SimpleSearchResultsForm():Container(),
       ],
     );

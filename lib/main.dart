@@ -1,4 +1,3 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -12,10 +11,10 @@ import 'package:hyundai_mobis/bloc/auth_bloc.dart';
 import 'package:hyundai_mobis/bloc/notice_bloc.dart';
 import 'package:hyundai_mobis/repository/user_repository.dart';
 import 'package:hyundai_mobis/repository/notice_repository.dart';
+import 'package:hyundai_mobis/ui/screen/part_market_search_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
   UserRepository userRepository = UserRepository();
   NoticeRepository noticeRepository = NoticeRepository();
   runApp(
@@ -58,6 +57,7 @@ class MyApp extends StatelessWidget {
         '/idlogin': (context) => IdLoginScreen(),
         '/notice': (context)=>NoticeScreen(),
         '/simpleSearch': (context)=>PartSimpleSearchScreen(),
+        '/marketSearch': (context)=>PartMarketSearchScreen(),
 //        '/my_page': (context)=>MyPageScree(),
       },
     );

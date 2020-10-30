@@ -94,69 +94,69 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   @override
   Stream<AuthState> mapEventToState(event) async* {
-    if (event is AuthEventAppStarted) {
-      yield* _mapAppStartedToState(event);
-    }
-    if (event is AuthEventSignIn) {
-      yield* _mapSignInToState(event);
-    }
-    if (event is AuthEventSignUp) {
-      yield* _mapSignUpToState(event);
-    }
-    if (event is AuthEventSignOut) {
-      yield* _mapSignedOutToState(event);
-    }
+//    if (event is AuthEventAppStarted) {
+//      yield* _mapAppStartedToState(event);
+//    }
+//    if (event is AuthEventSignIn) {
+//      yield* _mapSignInToState(event);
+//    }
+//    if (event is AuthEventSignUp) {
+//      yield* _mapSignUpToState(event);
+//    }
+//    if (event is AuthEventSignOut) {
+//      yield* _mapSignedOutToState(event);
+//    }
   }
 
-  Stream<AuthState> _mapAppStartedToState(AuthEventAppStarted event) async* {
-    try {
-      bool isSignedIn = await userRepository.isSignedIn();
-      if (isSignedIn) {
-        final user = await userRepository.getUser();
-        yield (state.success(uid: user.uid));
-      } else {
-        yield (state.unauthenticated(''));
-      }
-    } catch (e) {
-      yield state.unauthenticated(e.toString());
-    }
-  }
-
-  Stream<AuthState> _mapSignInToState(AuthEventSignIn event) async* {
-    try {
-      yield state.submitting();
-      final user = await userRepository.signInWithCredentials(
-        id: event.id,
-        password: event.password,
-      );
-      yield state.success(uid: user.uid);
-    } catch (e) {
-      yield state.unauthenticated(e.toString());
-    }
-  }
-
-  Stream<AuthState> _mapSignUpToState(AuthEventSignUp event) async* {
-    try {
-      yield state.submitting();
-      final user = await userRepository.signUp(
-        email: event.email,
-        password: event.password,
-      );
-      yield state.success(uid: user.uid);
-    } catch (e) {
-      yield state.unauthenticated(e.toString());
-    }
-  }
-
-  Stream<AuthState> _mapSignedOutToState(AuthEventSignOut event) async* {
-    try {
-      await userRepository.signOut();
-      yield state.unauthenticated('');
-      if (event.completeCallback != null) {
-        event.completeCallback();
-      }
-    } catch (e) {
-      yield state.unauthenticated(e.toString());
-    }
-  }
+//  Stream<AuthState> _mapAppStartedToState(AuthEventAppStarted event) async* {
+//    try {
+//      bool isSignedIn = await userRepository.isSignedIn();
+//      if (isSignedIn) {
+//        final user = await userRepository.getUser();
+//        yield (state.success(uid: user.uid));
+//      } else {
+//        yield (state.unauthenticated(''));
+//      }
+//    } catch (e) {
+//      yield state.unauthenticated(e.toString());
+//    }
+//  }
+//
+//  Stream<AuthState> _mapSignInToState(AuthEventSignIn event) async* {
+//    try {
+//      yield state.submitting();
+//      final user = await userRepository.signInWithCredentials(
+//        id: event.id,
+//        password: event.password,
+//      );
+//      yield state.success(uid: user.uid);
+//    } catch (e) {
+//      yield state.unauthenticated(e.toString());
+//    }
+//  }
+//
+//  Stream<AuthState> _mapSignUpToState(AuthEventSignUp event) async* {
+//    try {
+//      yield state.submitting();
+//      final user = await userRepository.signUp(
+//        email: event.email,
+//        password: event.password,
+//      );
+//      yield state.success(uid: user.uid);
+//    } catch (e) {
+//      yield state.unauthenticated(e.toString());
+//    }
+//  }
+//
+//  Stream<AuthState> _mapSignedOutToState(AuthEventSignOut event) async* {
+//    try {
+//      await userRepository.signOut();
+//      yield state.unauthenticated('');
+//      if (event.completeCallback != null) {
+//        event.completeCallback();
+//      }
+//    } catch (e) {
+//      yield state.unauthenticated(e.toString());
+//    }
+//  }
 }

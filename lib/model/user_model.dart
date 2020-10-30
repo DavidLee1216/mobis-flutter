@@ -1,5 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' as auth;
 
 class User {
   String email;
@@ -46,10 +44,4 @@ class User {
     postCode: map['postCode'],
   );
 
-  factory User.fromFirebaseUser(auth.User user) => User(
-    uid: user.uid,
-    email: user.email,
-    displayName: user.displayName,
-    phoneNumber: user.phoneNumber,
-  );
 }

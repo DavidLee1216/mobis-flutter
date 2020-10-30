@@ -1,6 +1,5 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,7 +27,7 @@ class NoticeSearchContentEvent extends NoticeEvent{
 
 class NoticeState{
   EnumNoticeEvent kind;
-  Stream<QuerySnapshot> noticeStream;
+  Stream<String> noticeStream;
   NoticeState({this.kind=EnumNoticeEvent.None, this.noticeStream=const Stream.empty()});
 
   NoticeState _setProps({EnumNoticeEvent kind, Stream noticeStream})=>NoticeState(kind: kind??this.kind, noticeStream: noticeStream??this.noticeStream);
