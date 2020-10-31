@@ -86,6 +86,10 @@ class _IdLoginFormState extends State<IdLoginForm> {
       Navigator.of(context).pushNamed('/register');
     }
 
+    onGetPassButtonPressed() {
+      Navigator.of(context).pushNamed('/getpass');
+    }
+
     var loginButton = Container(
       width: MediaQuery.of(context).size.width - 50,
       height: 40,
@@ -117,6 +121,21 @@ class _IdLoginFormState extends State<IdLoginForm> {
             color: Colors.white,
           ),
        )
+    );
+
+    var getPassButton = Container(
+        height: 40,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: FlatButton(
+            onPressed: onGetPassButtonPressed,
+            child: Text(
+              '비밀번호 찾기',
+              style: TextStyle(fontSize: 16, color: Colors.indigo),
+            ),
+            color: Colors.white,
+          ),
+        )
     );
 
 //    var errorMessageField = widget.errorMsg.isNotEmpty
@@ -156,6 +175,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
                     padding: EdgeInsets.only(right: 100),
                   ),
                   registerButton,
+                  getPassButton,
                 ],
               )
 //              errorMessageField,

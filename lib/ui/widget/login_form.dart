@@ -19,9 +19,9 @@ class LoginForm extends StatelessWidget {
                 Center(
                   child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        SizedBox(height: MediaQuery.of(context).size.height/5,),
+                        SizedBox(height: MediaQuery.of(context).size.height/6,),
                         Text(
                           '새로운 공간경험을 선사합니다.',
                           style: TextStyle(fontSize: 20, color: Colors.white),
@@ -34,7 +34,7 @@ class LoginForm extends StatelessWidget {
                         Text('커넥티비티 기술을 만들어 갑니다.',
                           style: TextStyle(fontSize: 14, color: Colors.white),
                         ),
-                        SizedBox(height: MediaQuery.of(context).size.height/6,),
+                        SizedBox(height: MediaQuery.of(context).size.height/7,),
                         Container(
                           width: MediaQuery.of(context).size.width-50,
                           height: 40,
@@ -42,8 +42,11 @@ class LoginForm extends StatelessWidget {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0),),
                             color: Colors.green,
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.25),
+                                ),
                                 Image.asset('images/naver_icon.png', width:20, height: 20),
                                 SizedBox(width: 10,),
                                 Text('네이버 로그인',
@@ -64,8 +67,11 @@ class LoginForm extends StatelessWidget {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0),),
                             color: Color.fromRGBO(241, 208, 49, 1),
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.25),
+                                ),
                                 Image.asset('images/kakao_icon.png', width:20, height: 20,),
                                 SizedBox(width: 10,),
                                 Text('카카오톡 로그인',
@@ -86,8 +92,11 @@ class LoginForm extends StatelessWidget {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5.0), side: BorderSide(color: Colors.red, width: 1.0, style: BorderStyle.solid)),
                             color: Colors.white,
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisAlignment: MainAxisAlignment.start,
                               children: [
+                                Padding(
+                                  padding: EdgeInsets.only(left: MediaQuery.of(context).size.width*0.25),
+                                ),
                                 Image.asset('images/google_icon.png', width:20, height: 20),
                                 SizedBox(width: 10,),
                                 Text('구글 로그인',
@@ -131,7 +140,7 @@ class LoginForm extends StatelessWidget {
                             },
                           ),
                         ),
-
+                        Expanded(child: SizedBox(height: 20,)),
                       ],
                     ),
                 ),

@@ -338,7 +338,7 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                       child: Text('구매요청', style: TextStyle(fontSize: 12, color: Colors.white),),
                       color: Color.fromRGBO(0, 63, 114, 1),
                       onPressed: (){
-
+                        Navigator.of(context).pushNamed('/purchase');
                       },
                     )):
                     Container(

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hyundai_mobis/ui/screen/cart_screen.dart';
 import 'package:hyundai_mobis/ui/screen/login_screen.dart';
 import 'package:hyundai_mobis/ui/screen/part_simple_search_screen.dart';
 import 'package:hyundai_mobis/ui/screen/register_screen.dart';
@@ -12,6 +13,8 @@ import 'package:hyundai_mobis/bloc/notice_bloc.dart';
 import 'package:hyundai_mobis/repository/user_repository.dart';
 import 'package:hyundai_mobis/repository/notice_repository.dart';
 import 'package:hyundai_mobis/ui/screen/part_market_search_screen.dart';
+import 'package:hyundai_mobis/ui/screen/pass_reset_screen.dart';
+import 'package:hyundai_mobis/ui/screen/purchase_request_screen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +48,7 @@ class MyApp extends StatelessWidget {
     ]);
     return MaterialApp(
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
         primaryColor: Colors.white,
       ),
       initialRoute: '/',
@@ -53,12 +56,15 @@ class MyApp extends StatelessWidget {
         '/': (context) => HomeScreen(),
         '/login': (context) => LoginScreen(),
         '/register': (context) => RegisterScreen(),
+        '/getpass': (context) => GetPassScreen(),
         '/home': (context) => HomeScreen(),
         '/idlogin': (context) => IdLoginScreen(),
         '/notice': (context)=>NoticeScreen(),
         '/simpleSearch': (context)=>PartSimpleSearchScreen(),
         '/marketSearch': (context)=>PartMarketSearchScreen(),
-//        '/my_page': (context)=>MyPageScree(),
+        '/purchase': (context)=>PurchaseRequestScreen(),
+        '/addToCart': (context)=>AddToCardScreen(),
+//        '/my_page': (context)=>MyPageScreen(),
       },
     );
   }
