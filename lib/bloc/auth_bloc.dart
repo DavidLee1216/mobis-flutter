@@ -15,9 +15,6 @@ class AuthEventSignIn extends AuthEvent {
 
   AuthEventSignIn({@required this.id, @required this.password});
 
-  @override
-  // TODO: implement props
-  List<Object> get props => throw UnimplementedError();
 }
 
 class AuthEventSignUp extends AuthEvent {
@@ -25,9 +22,6 @@ class AuthEventSignUp extends AuthEvent {
 
   AuthEventSignUp({@required this.email, @required this.password});
 
-  @override
-  // TODO: implement props
-  List<Object> get props => throw UnimplementedError();
 }
 
 class AuthEventSignOut extends AuthEvent {
@@ -35,9 +29,6 @@ class AuthEventSignOut extends AuthEvent {
 
   AuthEventSignOut({this.completeCallback});
 
-  @override
-  // TODO: implement props
-  List<Object> get props => throw UnimplementedError();
 }
 
 class AuthState {
@@ -94,12 +85,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   @override
   Stream<AuthState> mapEventToState(event) async* {
-//    if (event is AuthEventAppStarted) {
-//      yield* _mapAppStartedToState(event);
-//    }
-//    if (event is AuthEventSignIn) {
-//      yield* _mapSignInToState(event);
-//    }
+    if (event is AuthEventAppStarted) {
+      yield* _mapAppStartedToState(event);
+    }
+    if (event is AuthEventSignIn) {
+      yield* _mapSignInToState(event);
+    }
 //    if (event is AuthEventSignUp) {
 //      yield* _mapSignUpToState(event);
 //    }
@@ -108,33 +99,34 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 //    }
   }
 
-//  Stream<AuthState> _mapAppStartedToState(AuthEventAppStarted event) async* {
+  Stream<AuthState> _mapAppStartedToState(AuthEventAppStarted event) async* {
 //    try {
 //      bool isSignedIn = await userRepository.isSignedIn();
 //      if (isSignedIn) {
 //        final user = await userRepository.getUser();
 //        yield (state.success(uid: user.uid));
 //      } else {
-//        yield (state.unauthenticated(''));
+        yield (state.unauthenticated(''));
 //      }
 //    } catch (e) {
 //      yield state.unauthenticated(e.toString());
 //    }
-//  }
-//
-//  Stream<AuthState> _mapSignInToState(AuthEventSignIn event) async* {
-//    try {
-//      yield state.submitting();
+  }
+
+  Stream<AuthState> _mapSignInToState(AuthEventSignIn event) async* {
+    try {
+      yield state.submitting();
 //      final user = await userRepository.signInWithCredentials(
 //        id: event.id,
 //        password: event.password,
 //      );
 //      yield state.success(uid: user.uid);
-//    } catch (e) {
-//      yield state.unauthenticated(e.toString());
-//    }
-//  }
-//
+      yield state.success(uid: '1');
+    } catch (e) {
+      yield state.unauthenticated(e.toString());
+    }
+  }
+
 //  Stream<AuthState> _mapSignUpToState(AuthEventSignUp event) async* {
 //    try {
 //      yield state.submitting();

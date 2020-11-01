@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hyundai_mobis/ui/screen/cart_screen.dart';
 import 'package:hyundai_mobis/ui/widget/custom_radio_button.dart';
 
 class PurchaseRequestForm extends StatefulWidget {
@@ -215,8 +216,8 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 ),
               ),
               Container(
-                  width: 12,
-                  height: 12,
+//                  width: 12,
+//                  height: 12,
                   child: Text(
                     count.toString(),
                     style: TextStyle(fontSize: 12, color: Colors.black),
@@ -331,7 +332,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     );
@@ -346,7 +347,10 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
             child: RaisedButton(
               child: Text('장바구니', style: TextStyle(fontSize: 12, color: Colors.white), textAlign: TextAlign.center,),
               onPressed: (){
-                Navigator.of(context).pushNamed('/addToCart');
+                if(optionData[0].isSelected==false && optionData[1].isSelected==false)
+                  return;
+                bool kind = optionData[0].isSelected ? true:false;
+                Navigator.pushNamed(context, CartScreen.routeName, arguments: CartScreenArguments(kind));
               },
             ),
           ),

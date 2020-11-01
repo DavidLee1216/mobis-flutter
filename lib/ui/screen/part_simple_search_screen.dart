@@ -14,12 +14,12 @@ class _PartSimpleSearchScreenState extends State<PartSimpleSearchScreen> {
     setState(() {
       _selectedIndex = index;
       if (index == 0)
-        Navigator.of(context).pushNamed('notification');
-      else if (index == 0)
-        Navigator.of(context).pushNamed('home');
-      else if (index == 0)
-        Navigator.of(context).pushNamed('my_page');
-      else if (index == 0) Navigator.of(context).pushNamed('support');
+        Navigator.of(context).pushNamed('/notification');
+      else if (index == 1)
+        Navigator.of(context).pushNamed('/home');
+      else if (index == 2)
+        Navigator.of(context).pushNamed('/my_page');
+      else if (index == 3) Navigator.of(context).pushNamed('/support');
     });
   }
 

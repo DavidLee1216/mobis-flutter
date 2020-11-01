@@ -164,6 +164,7 @@ class _GetPassFormState extends State<GetPassForm> {
         ],
       ),
     );
+
     var emptyCircleItem = Container(
       width: 20,
       height: 20,
@@ -174,6 +175,7 @@ class _GetPassFormState extends State<GetPassForm> {
         ),
       ),
     );
+
     var yearDropdownmenu = Container(
         width: 80,
         height: 30,
@@ -217,6 +219,7 @@ class _GetPassFormState extends State<GetPassForm> {
             }).toList(),
           ),
         ));
+
     var monthDropdownmenu = Container(
         width: 80,
         height: 30,
@@ -261,6 +264,7 @@ class _GetPassFormState extends State<GetPassForm> {
             }).toList(),
           ),
         ));
+
     getDaysFromYearMonth(int year, int month) {
       if (month == 1 ||
           month == 3 ||
@@ -358,6 +362,7 @@ class _GetPassFormState extends State<GetPassForm> {
             }).toList(),
           ),
         ));
+
     var phoneNumberItem = Container(
       height: 30,
       width: 200,
@@ -379,6 +384,7 @@ class _GetPassFormState extends State<GetPassForm> {
         controller: _phoneNumberController,
       ),
     );
+
     var phoneItem = Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -419,6 +425,7 @@ class _GetPassFormState extends State<GetPassForm> {
         ],
       ),
     );
+
     var emailItem = Container(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -455,9 +462,11 @@ class _GetPassFormState extends State<GetPassForm> {
         ],
       ),
     );
+
     var checkedItem = Container(
       child: Image.asset('images/check_icon.png'),
     );
+
     var authRequestItem = Container(
       padding: EdgeInsets.only(top: 10),
       child: Column(
@@ -575,6 +584,7 @@ class _GetPassFormState extends State<GetPassForm> {
         ],
       ),
     );
+
     var mobileAuthConfirmItem = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -605,6 +615,7 @@ class _GetPassFormState extends State<GetPassForm> {
         ),
       ],
     );
+
     var emailAuthConfirmItem = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -620,6 +631,7 @@ class _GetPassFormState extends State<GetPassForm> {
         ),
       ],
     );
+
     var authConfirmItem = Container(
       padding: EdgeInsets.only(top: 10),
       child: Column(
@@ -719,6 +731,7 @@ class _GetPassFormState extends State<GetPassForm> {
         ],
       ),
     );
+
     var passField = Container(
         height: 30,
         child: TextField(
@@ -854,6 +867,7 @@ class _GetPassFormState extends State<GetPassForm> {
         ),
       ),
     );
+
     var infoConfirmOrChangeItem = Container(
       padding: EdgeInsets.only(top: 10),
       child: Column(
@@ -889,6 +903,7 @@ class _GetPassFormState extends State<GetPassForm> {
         ],
       ),
     );
+
     var gotoLoginButton = Container(
       decoration: BoxDecoration(
         border: Border(
@@ -910,6 +925,7 @@ class _GetPassFormState extends State<GetPassForm> {
         ),
       ),
     );
+
     return Container(
       child: Column(
         children: [

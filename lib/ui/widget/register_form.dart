@@ -32,6 +32,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
   @override
   Widget build(BuildContext context) {
+
     DateTime selectedDate = DateTime.now();
     var idField = TextField(
       decoration: InputDecoration(
@@ -45,6 +46,7 @@ class _RegisterFormState extends State<RegisterForm> {
       style: TextStyle(fontSize: 16.0),
       controller: _idController,
     );
+
     var passField = TextField(
     decoration: InputDecoration(
       enabledBorder: OutlineInputBorder(
@@ -57,6 +59,7 @@ class _RegisterFormState extends State<RegisterForm> {
     style: TextStyle(fontSize: 16.0),
     controller: _passwordController,
       );
+
     var repassField = TextField(
     decoration: InputDecoration(
       enabledBorder: OutlineInputBorder(
@@ -69,6 +72,7 @@ class _RegisterFormState extends State<RegisterForm> {
     style: TextStyle(fontSize: 16.0),
     controller: _repasswordController,
     );
+
     var idDupConfirmButton = ButtonTheme(
       minWidth: MediaQuery.of(context).size.width/5,
       height: 40,
@@ -83,6 +87,7 @@ class _RegisterFormState extends State<RegisterForm> {
         onPressed: () {},
       ),
     );
+
     var emailField = TextField(
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
@@ -95,6 +100,7 @@ class _RegisterFormState extends State<RegisterForm> {
       style: TextStyle(fontSize: 16.0),
       controller: _emailController,
     );
+
     var emailDupConfirmButton = ButtonTheme(
       minWidth: MediaQuery.of(context).size.width/5,
       height: 40,
@@ -109,6 +115,7 @@ class _RegisterFormState extends State<RegisterForm> {
         onPressed: () {},
       ),
     );
+
     var nameField = TextField(
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
@@ -152,6 +159,7 @@ class _RegisterFormState extends State<RegisterForm> {
       controller: _birthdayController,
       onTap: ()=>_selectedDate(context),
     );
+
     var maleRadio = ListTile(
       title: const Text('남자', style: TextStyle(fontSize: 16, color: Colors.black),),
       leading: Radio(
@@ -164,6 +172,7 @@ class _RegisterFormState extends State<RegisterForm> {
         },
       ),
     );
+
     var femaleRadio = ListTile(
       title: const Text('여자', style: TextStyle(fontSize: 16, color: Colors.black),),
       leading: Radio(
@@ -176,6 +185,7 @@ class _RegisterFormState extends State<RegisterForm> {
         },
       ),
     );
+
     var phoneNumberField =  TextField(
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
@@ -203,6 +213,7 @@ class _RegisterFormState extends State<RegisterForm> {
          onPressed: () {},
        ),
      );
+
     var phoneAuthField =  TextField(
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
@@ -215,6 +226,7 @@ class _RegisterFormState extends State<RegisterForm> {
       style: TextStyle(fontSize: 16.0),
       controller: _authNumberVerifyController,
     );
+
     var phoneAuthConfirmButton =  ButtonTheme(
       minWidth: MediaQuery.of(context).size.width/4,
       height: 40,
@@ -229,6 +241,7 @@ class _RegisterFormState extends State<RegisterForm> {
         onPressed: () {},
       ),
     );
+
      var address1Field = TextField(
        decoration: InputDecoration(
          enabledBorder: OutlineInputBorder(
@@ -241,6 +254,7 @@ class _RegisterFormState extends State<RegisterForm> {
        style: TextStyle(fontSize: 16.0),
        controller: _address1Controller,
      );
+
     var address2Field = TextField(
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
@@ -253,6 +267,7 @@ class _RegisterFormState extends State<RegisterForm> {
       style: TextStyle(fontSize: 16.0),
       controller: _address2Controller,
     );
+
     var address3Field = TextField(
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
@@ -281,6 +296,7 @@ class _RegisterFormState extends State<RegisterForm> {
          onPressed: () {},
        ),
      );
+
     var carNumber1Field = TextField(
       decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
@@ -293,6 +309,7 @@ class _RegisterFormState extends State<RegisterForm> {
       style: TextStyle(fontSize: 16.0),
       controller: _carNumber1Controller,
     );
+
     var carNumber2Field = TextField(
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
@@ -305,6 +322,7 @@ class _RegisterFormState extends State<RegisterForm> {
       style: TextStyle(fontSize: 16.0),
       controller: _carNumber2Controller,
     );
+
     var registerButton = Container(
       padding: EdgeInsets.symmetric(horizontal: 50),
       height: 40,

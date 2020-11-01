@@ -14,17 +14,16 @@ class _HomeFormState extends State<HomeForm> {
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
-      if(index==0)
-        Navigator.of(context).pushNamed('/notice');
-      else if(index==0)
+      if (index == 0)
+        Navigator.of(context).pushNamed('/notification');
+      else if (index == 1)
         Navigator.of(context).pushNamed('/home');
-//      else if(index==0)
-//        Navigator.of(context).pushNamed('/my_page');
-//      else if(index==0)
-//        Navigator.of(context).pushNamed('/support');
-
+      else if (index == 2)
+        Navigator.of(context).pushNamed('/my_page');
+      else if (index == 3) Navigator.of(context).pushNamed('/support');
     });
   }
+
   double countItemSize(double parentWidth, double parentHeight){
     double width = (parentWidth-40)/2;
     double height = (parentHeight*2/3 - 40 - kBottomNavigationBarHeight)/2-10;
@@ -32,6 +31,7 @@ class _HomeFormState extends State<HomeForm> {
   }
   @override
   Widget build(BuildContext context) {
+    _selectedIndex = 1;
     var itemSize = countItemSize(MediaQuery.of(context).size.width, MediaQuery.of(context).size.height);
     var imageSize = itemSize/2.0;
     return Scaffold(
@@ -42,7 +42,7 @@ class _HomeFormState extends State<HomeForm> {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height,
                     color: Color.fromRGBO(0, 71, 135, 1),
-                    child: Column(
+                    child: ListView(
                       children: [
                         Container(
                           height: MediaQuery.of(context).size.height/3.0,
@@ -75,90 +75,46 @@ class _HomeFormState extends State<HomeForm> {
                             ],
                           ),
                         ),
-                        Expanded(
-                          child: Container(
-                            decoration: new BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: new BorderRadius.only(
-                                topLeft: const Radius.circular(40.0),
-                                topRight: const Radius.circular(40.0),
-                              ),
+                        Container(
+                          height: MediaQuery.of(context).size.height*2/3.0-kBottomNavigationBarHeight,
+                          decoration: new BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: new BorderRadius.only(
+                              topLeft: const Radius.circular(40.0),
+                              topRight: const Radius.circular(40.0),
                             ),
-                            child: Center(
-                              child: Column(
-                                children: [
-                                  SizedBox(height: 20,),
-                                  Row(
+                          ),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                SizedBox(height: 20,),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Text('안녕하세요, 고객님.'),
+                                    SizedBox(width: MediaQuery.of(context).size.width/5.0,),
+                                    Container(
+                                      width: 90,//MediaQuery.of(context).size.width/5.0,
+                                      height: 30,
+                                      child: RaisedButton(
+                                        color: Color.fromRGBO(0, 63, 114, 1),
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(15.0),
+                                          side: BorderSide(color: Colors.blueGrey, width: 1.0, style: BorderStyle.solid),
+                                        ),
+                                        child: Text('로그인', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 14),),
+                                        onPressed: () {
+                                          Navigator.of(context).pushNamed('/login');
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Row(
                                     crossAxisAlignment: CrossAxisAlignment.center,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      Text('안녕하세요, 고객님.'),
-                                      SizedBox(width: MediaQuery.of(context).size.width/5.0,),
-                                      Container(
-                                        width: 90,//MediaQuery.of(context).size.width/5.0,
-                                        height: 30,
-                                        child: RaisedButton(
-                                          color: Color.fromRGBO(0, 63, 114, 1),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(15.0),
-                                            side: BorderSide(color: Colors.blueGrey, width: 1.0, style: BorderStyle.solid),
-                                          ),
-                                          child: Text('로그인', textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 14),),
-                                          onPressed: () {
-                                            Navigator.of(context).pushNamed('/login');
-                                          },
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  Row(
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          width: itemSize,
-                                          height: itemSize,
-                                          padding: EdgeInsets.all(10),
-                                          child: RaisedButton(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-//                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Image.asset('images/notice_home.png', width: imageSize, height: imageSize,),
-                                                Text('공지사항', textAlign: TextAlign.center, style: TextStyle(fontSize: 12),)
-                                              ],
-                                            ),
-                                            color: Colors.white,
-                                            onPressed: () {
-                                              Navigator.of(context).pushNamed('/notice');
-                                            },
-                                          ),
-                                        ),
-                                        Container(
-                                          width: itemSize,
-                                          height: itemSize,
-                                          padding: EdgeInsets.all(10),
-                                          child: RaisedButton(
-                                            child: Column(
-                                              crossAxisAlignment: CrossAxisAlignment.center,
-//                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Image.asset('images/search_home.png', width: imageSize, height: imageSize),
-                                                Text('부품판매점검색', textAlign: TextAlign.center, style: TextStyle(fontSize: 12),)
-                                              ],
-                                            ),
-                                            color: Colors.white,
-                                            onPressed: () {
-                                              Navigator.of(context).pushNamed('/marketSearch');
-                                            },
-                                          ),
-                                        ),
-                                      ]
-                                  ),
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.center,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children:[
                                       Container(
                                         width: itemSize,
                                         height: itemSize,
@@ -166,15 +122,15 @@ class _HomeFormState extends State<HomeForm> {
                                         child: RaisedButton(
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.center,
-//                                            mainAxisAlignment: MainAxisAlignment.center,
+//                                              mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              Image.asset('images/car_home.png', width: imageSize, height: imageSize),
-                                              Text('부품검색', textAlign: TextAlign.center, style: TextStyle(fontSize: 12),)
+                                              Image.asset('images/notice_home.png', width: imageSize, height: imageSize,),
+                                              Text('공지사항', textAlign: TextAlign.center, style: TextStyle(fontSize: 12),)
                                             ],
                                           ),
                                           color: Colors.white,
                                           onPressed: () {
-                                            Navigator.of(context).pushNamed('/simpleSearch');
+                                            Navigator.of(context).pushNamed('/notice');
                                           },
                                         ),
                                       ),
@@ -185,20 +141,65 @@ class _HomeFormState extends State<HomeForm> {
                                         child: RaisedButton(
                                           child: Column(
                                             crossAxisAlignment: CrossAxisAlignment.center,
-//                                            mainAxisAlignment: MainAxisAlignment.center,
+//                                              mainAxisAlignment: MainAxisAlignment.center,
                                             children: [
-                                              Image.asset('images/profile_home.png', width: imageSize, height: imageSize),
-                                              Text('마이페이지', textAlign: TextAlign.center, style: TextStyle(fontSize: 12),)
+                                              Image.asset('images/search_home.png', width: imageSize, height: imageSize),
+                                              Text('부품판매점검색', textAlign: TextAlign.center, style: TextStyle(fontSize: 12),)
                                             ],
                                           ),
                                           color: Colors.white,
-                                          onPressed: () {},
+                                          onPressed: () {
+                                            Navigator.of(context).pushNamed('/marketSearch');
+                                          },
                                         ),
                                       ),
-                                    ],
-                                  ),
-                                ],
-                              ),
+                                    ]
+                                ),
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children:[
+                                    Container(
+                                      width: itemSize,
+                                      height: itemSize,
+                                      padding: EdgeInsets.all(10),
+                                      child: RaisedButton(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+//                                            mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset('images/car_home.png', width: imageSize, height: imageSize),
+                                            Text('부품검색', textAlign: TextAlign.center, style: TextStyle(fontSize: 12),)
+                                          ],
+                                        ),
+                                        color: Colors.white,
+                                        onPressed: () {
+                                          Navigator.of(context).pushNamed('/simpleSearch');
+                                        },
+                                      ),
+                                    ),
+                                    Container(
+                                      width: itemSize,
+                                      height: itemSize,
+                                      padding: EdgeInsets.all(10),
+                                      child: RaisedButton(
+                                        child: Column(
+                                          crossAxisAlignment: CrossAxisAlignment.center,
+//                                            mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset('images/profile_home.png', width: imageSize, height: imageSize),
+                                            Text('마이페이지', textAlign: TextAlign.center, style: TextStyle(fontSize: 12),)
+                                          ],
+                                        ),
+                                        color: Colors.white,
+                                        onPressed: () {
+                                          Navigator.of(context).pushNamed('/my_page');
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ],
                             ),
                           ),
                         ),

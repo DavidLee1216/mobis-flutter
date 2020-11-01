@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:hyundai_mobis/bloc/auth_bloc.dart';
 import 'package:hyundai_mobis/ui/widget/loading_indication.dart';
 import 'package:flutter/material.dart';
@@ -26,7 +28,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
 
   @override
   Widget build(BuildContext context) {
-//    final AuthBloc bloc = BlocProvider.of<AuthBloc>(context);
+    final AuthBloc bloc = BlocProvider.of<AuthBloc>(context);
 
     var idField = Container(
         height: 40,
@@ -72,14 +74,14 @@ class _IdLoginFormState extends State<IdLoginForm> {
         ));
 
     onLoginButtonPresed() {
-//      if (_formKey.currentState.validate()) {
-//        FocusScope.of(context).requestFocus(FocusNode());
-//        bloc.add(AuthEventSignIn(
-//          id: _idController.text,
-//          password: _passwordController.text,
-//        ));
-//      }
-      Navigator.of(context).pushNamed('/home');
+      if (_formKey.currentState.validate()) {
+        FocusScope.of(context).requestFocus(FocusNode());
+        bloc.add(AuthEventSignIn(
+          id: _idController.text,
+          password: _passwordController.text,
+        ));
+        Navigator.of(context).pushNamed('/home');
+      }
     }
 
     onRegisterButtonPressed() {
