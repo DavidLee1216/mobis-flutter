@@ -21,6 +21,7 @@ import 'package:hyundai_mobis/ui/screen/notification_screen.dart';
 import 'package:hyundai_mobis/ui/screen/my_page_screen.dart';
 import 'package:hyundai_mobis/ui/screen/my_info_screen.dart';
 import 'package:hyundai_mobis/ui/screen/my_coupon_screen.dart';
+import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -28,8 +29,8 @@ Future<void> main() async {
   NoticeRepository noticeRepository = NoticeRepository();
   runApp(
     BlocProvider<AuthBloc>(
-      create: (context) => AuthBloc(userRepository: userRepository)
-        ..add(AuthEventAppStarted()),
+      create: (context) =>
+          AuthBloc(userRepository: userRepository)..add(AuthEventAppStarted()),
       child: MultiBlocProvider(
         providers: [
           BlocProvider<NoticeBloc>(
@@ -57,26 +58,27 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
         primaryColor: Colors.white,
       ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => HomeScreen(),
-        '/login': (context) => LoginScreen(),
-        '/register': (context) => RegisterScreen(),
-        '/getpass': (context) => GetPassScreen(),
-        '/home': (context) => HomeScreen(),
-        '/idlogin': (context) => IdLoginScreen(),
-        '/notice': (context)=>NoticeScreen(),
-        '/notification': (context)=>NotificationScreen(),
-        '/simpleSearch': (context)=>PartSimpleSearchScreen(),
-        '/marketSearch': (context)=>PartMarketSearchScreen(),
-        '/purchase': (context)=>PurchaseRequestScreen(),
-        '/addToCart': (context)=>CartScreen(),
-        '/delivery': (context)=>DeliveryScreen(),
-        '/visit': (context)=>VisitScreen(),
-        '/my_page': (context)=>MyPageScreen(),
-        '/my_info': (context)=>MyInfoScreen(),
-        '/coupon': (context)=>MyCouponScreen(),
-      },
+      home: NavigationBar(),
+      // initialRoute: '/',
+      // routes: {
+      //   '/': (context) => HomeScreen(),
+      //   '/login': (context) => LoginScreen(),
+      //   '/register': (context) => RegisterScreen(),
+      //   '/getpass': (context) => GetPassScreen(),
+      //   '/home': (context) => HomeScreen(),
+      //   '/idlogin': (context) => IdLoginScreen(),
+      //   '/notice': (context) => NoticeScreen(),
+      //   '/notification': (context) => NotificationScreen(),
+      //   '/simpleSearch': (context) => PartSimpleSearchScreen(),
+      //   '/marketSearch': (context) => PartMarketSearchScreen(),
+      //   '/purchase': (context) => PurchaseRequestScreen(),
+      //   '/addToCart': (context) => CartScreen(),
+      //   '/delivery': (context) => DeliveryScreen(),
+      //   '/visit': (context) => VisitScreen(),
+      //   '/my_page': (context) => MyPageScreen(),
+      //   '/my_info': (context) => MyInfoScreen(),
+      //   '/coupon': (context) => MyCouponScreen(),
+      // },
     );
   }
 }

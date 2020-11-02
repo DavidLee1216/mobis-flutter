@@ -15,25 +15,9 @@ class MyPageScreen extends StatefulWidget {
 
 class _MyPageScreenState extends State<MyPageScreen> {
   bool searchIconClicked = false;
-  int _selectedIndex = 0;
-
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      if (index == 0)
-        Navigator.of(context).pushNamed('/notification');
-      else if (index == 1)
-        Navigator.of(context).pushNamed('/home');
-      else if (index == 2)
-        Navigator.of(context).pushNamed('/my_page');
-      else if (index == 3) Navigator.of(context).pushNamed('/support');
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    _selectedIndex = 2;
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(color: Colors.black),
@@ -45,50 +29,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
           children: [
             MyPageWidget(),
           ],
-        ), //
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('images/alarm.png'),
-              color: Colors.grey,
-            ),
-            activeIcon: ImageIcon(
-              AssetImage('images/alarm.png'),
-              color: Colors.black,
-            ),
-            title: Text(
-              '알람',
-              style: TextStyle(fontSize: 12),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/home.png'), color: Colors.grey),
-            activeIcon:
-                ImageIcon(AssetImage('images/home.png'), color: Colors.black),
-            title: Text('홈', style: TextStyle(fontSize: 12)),
-          ),
-          BottomNavigationBarItem(
-            icon:
-                ImageIcon(AssetImage('images/person.png'), color: Colors.grey),
-            activeIcon:
-                ImageIcon(AssetImage('images/person.png'), color: Colors.black),
-            title: Text('마이페이지', style: TextStyle(fontSize: 12)),
-          ),
-          BottomNavigationBarItem(
-            icon:
-                ImageIcon(AssetImage('images/support.png'), color: Colors.grey),
-            activeIcon: ImageIcon(AssetImage('images/support.png'),
-                color: Colors.black),
-            title: Text('고객센터', style: TextStyle(fontSize: 12)),
-          ),
-        ],
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        showUnselectedLabels: true,
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }
@@ -100,10 +41,7 @@ class MyPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = MediaQuery
-        .of(context)
-        .size
-        .width;
+    var screenWidth = MediaQuery.of(context).size.width;
 
     var loginButton = Container(
       child: ButtonTheme(
@@ -139,7 +77,7 @@ class MyPageWidget extends StatelessWidget {
       textAlign: TextAlign.center,
     );
 
-    greetingAuthentcated(String name){
+    greetingAuthentcated(String name) {
       return Text(
         '안녕하세요, $name고객님.',
         style: TextStyle(
@@ -175,18 +113,20 @@ class MyPageWidget extends StatelessWidget {
               SizedBox(
                 height: 30,
               ),
-              state.isAuthenticated()?greetingAuthentcated('양**'):greetingUnauthenticated,
+              state.isAuthenticated()
+                  ? greetingAuthentcated('양**')
+                  : greetingUnauthenticated,
               SizedBox(
                 height: 20,
               ),
-              state.isAuthenticated()?Container(): Column(
-                children:[
-                  loginButton,
-                  SizedBox(
-                    height: 20,
-                  ),
-                ]
-              ),
+              state.isAuthenticated()
+                  ? Container()
+                  : Column(children: [
+                      loginButton,
+                      SizedBox(
+                        height: 20,
+                      ),
+                    ]),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -205,27 +145,32 @@ class MyPageWidget extends StatelessWidget {
                         ]),
                     child: Column(
                       children: [
-                        state.isAuthenticated() ? Column(
-                          children: [
-                            Container(
-                              height: 50,
-                              child: ListTile(
-                                title: Text(
-                                  'My info (차량 정보 등 고객 정보 수정)',
-                                  style: TextStyle(fontSize: 14),
-                                ),
-                                trailing: Icon(
-                                  Icons.keyboard_arrow_right,
-                                  color: Colors.black,
-                                ),
-                                onTap: (){
-                                  Navigator.of(context).pushNamed('/my_info');
-                                },
-                              ),
-                            ),
-                            Divider(color: Colors.black54,),
-                          ],
-                        ) : Container(),
+                        state.isAuthenticated()
+                            ? Column(
+                                children: [
+                                  Container(
+                                    height: 50,
+                                    child: ListTile(
+                                      title: Text(
+                                        'My info (차량 정보 등 고객 정보 수정)',
+                                        style: TextStyle(fontSize: 14),
+                                      ),
+                                      trailing: Icon(
+                                        Icons.keyboard_arrow_right,
+                                        color: Colors.black,
+                                      ),
+                                      onTap: () {
+                                        Navigator.of(context)
+                                            .pushNamed('/my_info');
+                                      },
+                                    ),
+                                  ),
+                                  Divider(
+                                    color: Colors.black54,
+                                  ),
+                                ],
+                              )
+                            : Container(),
                         Container(
                           height: 50,
                           child: ListTile(
@@ -237,7 +182,7 @@ class MyPageWidget extends StatelessWidget {
                               Icons.keyboard_arrow_right,
                               color: Colors.black,
                             ),
-                            onTap: (){
+                            onTap: () {
                               queryModal.mainModalBottomSheet(context);
                             }, //askDialog(),
                           ),
@@ -245,27 +190,32 @@ class MyPageWidget extends StatelessWidget {
                         Divider(
                           color: Colors.black54,
                         ),
-                        state.isAuthenticated() ? Column(
-                          children: [
-                            Container(
-                              height: 50,
-                              child: ListTile(
-                                title: Text(
-                                  'My 쿠폰',
-                                  style: TextStyle(fontSize: 14),
-                                ),
-                                trailing: Icon(
-                                  Icons.keyboard_arrow_right,
-                                  color: Colors.black,
-                                ),
-                                onTap: (){
-                                  Navigator.of(context).pushNamed('/coupon');
-                                },
-                              ),
-                            ),
-                            Divider(color: Colors.black54,),
-                          ],
-                        ) : Container(),
+                        state.isAuthenticated()
+                            ? Column(
+                                children: [
+                                  Container(
+                                    height: 50,
+                                    child: ListTile(
+                                      title: Text(
+                                        'My 쿠폰',
+                                        style: TextStyle(fontSize: 14),
+                                      ),
+                                      trailing: Icon(
+                                        Icons.keyboard_arrow_right,
+                                        color: Colors.black,
+                                      ),
+                                      onTap: () {
+                                        Navigator.of(context)
+                                            .pushNamed('/coupon');
+                                      },
+                                    ),
+                                  ),
+                                  Divider(
+                                    color: Colors.black54,
+                                  ),
+                                ],
+                              )
+                            : Container(),
                         Container(
                           height: 50,
                           child: ListTile(
@@ -277,7 +227,7 @@ class MyPageWidget extends StatelessWidget {
                               Icons.keyboard_arrow_right,
                               color: Colors.black,
                             ),
-                            onTap: (){
+                            onTap: () {
                               Navigator.of(context).pushNamed('/notice');
                             },
                           ),
@@ -292,17 +242,20 @@ class MyPageWidget extends StatelessWidget {
                 child: Row(
                   children: [
                     Expanded(
-                      child: SizedBox(width: 20,),
+                      child: SizedBox(
+                        width: 20,
+                      ),
                     ),
-                    FlatButton(child: Text('로그아웃', style: TextStyle(fontSize: 14, color: Colors.black54),)),
+                    FlatButton(
+                        child: Text(
+                      '로그아웃',
+                      style: TextStyle(fontSize: 14, color: Colors.black54),
+                    )),
                   ],
                 ),
               )
-
             ],
           );
-        }
-    );
+        });
   }
 }
-
