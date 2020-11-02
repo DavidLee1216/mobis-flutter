@@ -11,20 +11,6 @@ class PartSimpleSearchScreen extends StatefulWidget {
 }
 
 class _PartSimpleSearchScreenState extends State<PartSimpleSearchScreen> {
-  int _selectedIndex = 0;
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      if (index == 0)
-        pushTo(context, NavigationBar(index: 0,));
-      else if (index == 1)
-        pushTo(context, NavigationBar(index: 1,));
-      else if (index == 2)
-        pushTo(context, NavigationBar(index: 2,));
-      else if (index == 3)
-        pushTo(context, NavigationBar(index: 1,));
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,32 +26,6 @@ class _PartSimpleSearchScreenState extends State<PartSimpleSearchScreen> {
             Expanded(child: SimpleSearchListWidget()),
           ],
         ), //
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedFontSize: 12,
-        unselectedFontSize: 12,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications_none),
-            label: '알람',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: '홈',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: '마이페이지',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.support_agent_outlined),
-            label: '고객센터',
-          ),
-        ],
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        onTap: _onItemTapped,
       ),
     );
   }

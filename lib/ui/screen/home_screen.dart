@@ -132,7 +132,7 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                           onPressed: () {
-                            pushTo(context, PartMarketSearchScreen());
+                            pushTo(context, NavigationBar(index: 4,));
                           },
                         ),
                       ),
@@ -155,7 +155,7 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                           onPressed: () {
-                            pushTo(context, PartSimpleSearchScreen());
+                            pushTo(context, NavigationBar(index: 5,));
                           },
                         ),
                       ),
