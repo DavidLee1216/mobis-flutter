@@ -5,6 +5,7 @@ import 'package:hyundai_mobis/ui/screen/my_page_screen.dart';
 import 'package:hyundai_mobis/ui/screen/notice_screen.dart';
 import 'package:hyundai_mobis/ui/screen/part_market_search_screen.dart';
 import 'package:hyundai_mobis/ui/screen/part_simple_search_screen.dart';
+import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
 import 'package:hyundai_mobis/utils/navigation.dart';
 
 const kPrimaryColor = Color.fromRGBO(0, 71, 135, 1);
@@ -177,7 +178,7 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                           onPressed: () {
-                            pushTo(context, MyPageScreen());
+                            pushTo(context, NavigationBar(index: 2,));
                           },
                         ),
                       ),

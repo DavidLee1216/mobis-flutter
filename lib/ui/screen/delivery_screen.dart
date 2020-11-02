@@ -13,9 +13,15 @@ class DeliveryScreen extends StatelessWidget {
 
   static const routeName = '/delivery';
 
+  final String productName;
+  final String companyMark;
+  final int count;
+
+  const DeliveryScreen({Key key, this.productName, this.companyMark, this.count}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final ScreenArguments args = ModalRoute.of(context).settings.arguments;
+//    final ScreenArguments args = ModalRoute.of(context).settings.arguments;
     return Scaffold(
         appBar: AppBar(
           leading: BackButton(color: Colors.black),
@@ -23,7 +29,7 @@ class DeliveryScreen extends StatelessWidget {
           centerTitle: true,
         ),
         body: SafeArea(
-          child: DeliveryInfoForm(productName: args.productName, companyMark: args.companyMark, count: args.count,),
+          child: DeliveryInfoForm(productName: productName, companyMark: companyMark, count: count,),
         ),
     );
   }

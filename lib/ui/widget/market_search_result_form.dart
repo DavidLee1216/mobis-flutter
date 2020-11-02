@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hyundai_mobis/bloc/notice_bloc.dart';
+import 'package:hyundai_mobis/ui/screen/home_screen.dart';
+import 'package:hyundai_mobis/ui/screen/purchase_request_screen.dart';
+import 'package:hyundai_mobis/utils/navigation.dart';
 
 class MarketSearchResultsForm extends StatefulWidget {
   @override
@@ -302,7 +305,7 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                             padding: EdgeInsets.symmetric(vertical: 2.0),
                             child: OutlineButton(
                               borderSide: BorderSide(
-                                color: Color.fromRGBO(0, 63, 114, 1), //Color of the border
+                                color: kPrimaryColor, //Color of the border
                                 style: BorderStyle.solid, //Style of the border
                                 width: 1, //width of the border
                               ),
@@ -336,9 +339,9 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                     height: 25,
                     child: RaisedButton(
                       child: Text('구매요청', style: TextStyle(fontSize: 12, color: Colors.white),),
-                      color: Color.fromRGBO(0, 63, 114, 1),
+                      color: kPrimaryColor,
                       onPressed: (){
-                        Navigator.of(context).pushNamed('/purchase');
+                        pushTo(context, PurchaseRequestScreen());
                       },
                     )):
                     Container(

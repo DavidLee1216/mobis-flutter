@@ -58,9 +58,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
         primaryColor: Colors.white,
       ),
-      home: NavigationBar(),
+      home: NavigationBar(index: 1,),
       // initialRoute: '/',
-      // routes: {
+       routes: {
       //   '/': (context) => HomeScreen(),
       //   '/login': (context) => LoginScreen(),
       //   '/register': (context) => RegisterScreen(),
@@ -78,7 +78,7 @@ class MyApp extends StatelessWidget {
       //   '/my_page': (context) => MyPageScreen(),
       //   '/my_info': (context) => MyInfoScreen(),
       //   '/coupon': (context) => MyCouponScreen(),
-      // },
+       },
     );
   }
 }

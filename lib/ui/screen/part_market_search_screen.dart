@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:hyundai_mobis/ui/screen/home_screen.dart';
+import 'package:hyundai_mobis/ui/screen/notification_screen.dart';
 import 'package:hyundai_mobis/ui/widget/market_search_result_form.dart';
 import 'package:hyundai_mobis/ui/widget/custom_radio_button.dart';
+
+import 'package:hyundai_mobis/ui/screen/my_page_screen.dart';
+import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
+import 'package:hyundai_mobis/utils/navigation.dart';
 
 class PartMarketSearchScreen extends StatefulWidget {
   @override
@@ -8,17 +14,19 @@ class PartMarketSearchScreen extends StatefulWidget {
 }
 
 class _PartMarketSearchScreenState extends State<PartMarketSearchScreen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 1;
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
       if (index == 0)
-        Navigator.of(context).pushNamed('/notification');
+        pushTo(context, NavigationBar(index: 0,));
       else if (index == 1)
-        Navigator.of(context).pushNamed('/home');
+        pushTo(context, NavigationBar(index: 1,));
       else if (index == 2)
-        Navigator.of(context).pushNamed('/my_page');
-      else if (index == 3) Navigator.of(context).pushNamed('/support');
+        pushTo(context, NavigationBar(index: 2,));
+      else if (index == 3)
+        pushTo(context, NavigationBar(index: 1,));
     });
   }
 
@@ -38,46 +46,29 @@ class _PartMarketSearchScreenState extends State<PartMarketSearchScreen> {
         ), //
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedFontSize: 12,
+        unselectedFontSize: 12,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('images/alarm.png'),
-              color: Colors.grey,
-            ),
-            activeIcon: ImageIcon(
-              AssetImage('images/alarm.png'),
-              color: Colors.black,
-            ),
-            title: Text(
-              '알람',
-              style: TextStyle(fontSize: 12),
-            ),
+            icon: Icon(Icons.notifications_none),
+            label: '알람',
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/home.png'), color: Colors.grey),
-            activeIcon:
-            ImageIcon(AssetImage('images/home.png'), color: Colors.black),
-            title: Text('홈', style: TextStyle(fontSize: 12)),
+            icon: Icon(Icons.home_outlined),
+            label: '홈',
           ),
           BottomNavigationBarItem(
-            icon:
-            ImageIcon(AssetImage('images/person.png'), color: Colors.grey),
-            activeIcon:
-            ImageIcon(AssetImage('images/person.png'), color: Colors.black),
-            title: Text('마이페이지', style: TextStyle(fontSize: 12)),
+            icon: Icon(Icons.person_outline),
+            label: '마이페이지',
           ),
           BottomNavigationBarItem(
-            icon:
-            ImageIcon(AssetImage('images/support.png'), color: Colors.grey),
-            activeIcon: ImageIcon(AssetImage('images/support.png'),
-                color: Colors.black),
-            title: Text('고객센터', style: TextStyle(fontSize: 12)),
+            icon: Icon(Icons.support_agent_outlined),
+            label: '고객센터',
           ),
         ],
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black,
-        showUnselectedLabels: true,
         onTap: _onItemTapped,
       ),
     );

@@ -2,8 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hyundai_mobis/bloc/auth_bloc.dart';
 import 'package:hyundai_mobis/bloc/notice_bloc.dart';
+import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
 import 'package:hyundai_mobis/ui/widget/notice_form.dart';
 import 'package:hyundai_mobis/ui/widget/loading_indication.dart';
+import 'package:hyundai_mobis/ui/screen/home_screen.dart';
+import 'package:hyundai_mobis/utils/navigation.dart';
 
 class NoticeScreen extends StatefulWidget {
   @override
@@ -17,14 +20,16 @@ class _NoticeScreenState extends State<NoticeScreen> {
     setState(() {
       _selectedIndex = index;
       if (index == 0)
-        Navigator.of(context).pushNamed('/notification');
+        pushTo(context, NavigationBar(index: 0,));
       else if (index == 1)
-        Navigator.of(context).pushNamed('/home');
+        pushTo(context, NavigationBar(index: 1,));
       else if (index == 2)
-        Navigator.of(context).pushNamed('/my_page');
-      else if (index == 3) Navigator.of(context).pushNamed('/support');
+        pushTo(context, NavigationBar(index: 2,));
+      else if (index == 3)
+        pushTo(context, NavigationBar(index: 1,));
     });
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -56,46 +61,29 @@ class _NoticeScreenState extends State<NoticeScreen> {
         ), //
       ),
       bottomNavigationBar: BottomNavigationBar(
+        selectedFontSize: 12,
+        unselectedFontSize: 12,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('images/alarm.png'),
-              color: Colors.grey,
-            ),
-            activeIcon: ImageIcon(
-              AssetImage('images/alarm.png'),
-              color: Colors.black,
-            ),
-            title: Text(
-              '알람',
-              style: TextStyle(fontSize: 12),
-            ),
+            icon: Icon(Icons.notifications_none),
+            label: '알람',
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/home.png'), color: Colors.grey),
-            activeIcon:
-                ImageIcon(AssetImage('images/home.png'), color: Colors.black),
-            title: Text('홈', style: TextStyle(fontSize: 12)),
+            icon: Icon(Icons.home_outlined),
+            label: '홈',
           ),
           BottomNavigationBarItem(
-            icon:
-                ImageIcon(AssetImage('images/person.png'), color: Colors.grey),
-            activeIcon:
-                ImageIcon(AssetImage('images/person.png'), color: Colors.black),
-            title: Text('마이페이지', style: TextStyle(fontSize: 12)),
+            icon: Icon(Icons.person_outline),
+            label: '마이페이지',
           ),
           BottomNavigationBarItem(
-            icon:
-                ImageIcon(AssetImage('images/support.png'), color: Colors.grey),
-            activeIcon: ImageIcon(AssetImage('images/support.png'),
-                color: Colors.black),
-            title: Text('고객센터', style: TextStyle(fontSize: 12)),
+            icon: Icon(Icons.support_agent_outlined),
+            label: '고객센터',
           ),
         ],
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
         selectedItemColor: Colors.black,
-        showUnselectedLabels: true,
         onTap: _onItemTapped,
       ),
     );
@@ -140,7 +128,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     var searchButton = ButtonTheme(
       minWidth: MediaQuery.of(context).size.width / 5,
       height: 40,
-      buttonColor: Color.fromRGBO(0, 63, 114, 1),
+      buttonColor: kPrimaryColor,
       child: RaisedButton(
         child: Text('검색',
             textAlign: TextAlign.center,

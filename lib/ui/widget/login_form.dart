@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hyundai_mobis/ui/screen/id_login_screen.dart';
+import 'package:hyundai_mobis/utils/navigation.dart';
 
 class LoginForm extends StatelessWidget {
   @override
@@ -158,7 +160,7 @@ class LoginForm extends StatelessWidget {
                     style: TextStyle(fontSize: 14, color: Colors.white),
                   ),
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/idlogin');
+                    pushTo(context, IdLoginScreen());
                   },
                 ),
               ),

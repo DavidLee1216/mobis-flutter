@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hyundai_mobis/bloc/notice_bloc.dart';
+import 'package:hyundai_mobis/ui/screen/home_screen.dart';
 
 class SimpleSearchResultsForm extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  Text("'에이컨'", style: TextStyle(fontSize: 14, color: Color.fromRGBO(0, 63, 114, 1)),),
+                  Text("'에이컨'", style: TextStyle(fontSize: 14, color: kPrimaryColor),),
                   Text("에 대한 검색 결과(총 11건)", style: TextStyle(fontSize: 14, color: Colors.black),),
                 ],
               ),

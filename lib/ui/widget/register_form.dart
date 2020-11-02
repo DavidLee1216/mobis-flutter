@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hyundai_mobis/ui/screen/home_screen.dart';
 
 enum Gender{male, female}
 class RegisterForm extends StatefulWidget {
@@ -83,7 +84,7 @@ class _RegisterFormState extends State<RegisterForm> {
           borderRadius: BorderRadius.circular(5.0),
           side: BorderSide(color: Colors.blueGrey, width: 1.0, style: BorderStyle.solid),
         ),
-        child: Text('중복확인', textAlign: TextAlign.center, style: TextStyle(color: Color.fromRGBO(0, 63, 114, 1),)),
+        child: Text('중복확인', textAlign: TextAlign.center, style: TextStyle(color: kPrimaryColor,)),
         onPressed: () {},
       ),
     );
@@ -111,7 +112,7 @@ class _RegisterFormState extends State<RegisterForm> {
           borderRadius: BorderRadius.circular(5.0),
           side: BorderSide(color: Colors.blueGrey, width: 1.0, style: BorderStyle.solid),
         ),
-        child: Text('중복확인', textAlign: TextAlign.center, style: TextStyle(color: Color.fromRGBO(0, 63, 114, 1),)),
+        child: Text('중복확인', textAlign: TextAlign.center, style: TextStyle(color: kPrimaryColor,)),
         onPressed: () {},
       ),
     );
@@ -209,7 +210,7 @@ class _RegisterFormState extends State<RegisterForm> {
            borderRadius: BorderRadius.circular(5.0),
            side: BorderSide(color: Colors.blueGrey, width: 1.0, style: BorderStyle.solid),
          ),
-         child: Text('인증번호 받기', textAlign: TextAlign.center, style: TextStyle(color: Color.fromRGBO(0, 63, 114, 1),),),
+         child: Text('인증번호 받기', textAlign: TextAlign.center, style: TextStyle(color: kPrimaryColor,),),
          onPressed: () {},
        ),
      );
@@ -237,7 +238,7 @@ class _RegisterFormState extends State<RegisterForm> {
           borderRadius: BorderRadius.circular(5.0),
           side: BorderSide(color: Colors.blueGrey, width: 1.0, style: BorderStyle.solid),
         ),
-        child: Text('인증번호 확인', textAlign: TextAlign.center, style: TextStyle(color: Color.fromRGBO(0, 63, 114, 1),)),
+        child: Text('인증번호 확인', textAlign: TextAlign.center, style: TextStyle(color: kPrimaryColor,)),
         onPressed: () {},
       ),
     );
@@ -292,7 +293,7 @@ class _RegisterFormState extends State<RegisterForm> {
            borderRadius: BorderRadius.circular(5.0),
            side: BorderSide(color: Colors.blueGrey, width: 1.0, style: BorderStyle.solid),
          ),
-         child: Text('우편번호 검색', textAlign: TextAlign.center, style: TextStyle(color: Color.fromRGBO(0, 63, 114, 1),)),
+         child: Text('우편번호 검색', textAlign: TextAlign.center, style: TextStyle(color: kPrimaryColor,)),
          onPressed: () {},
        ),
      );
@@ -328,7 +329,7 @@ class _RegisterFormState extends State<RegisterForm> {
       height: 40,
       child: RaisedButton(
         padding: EdgeInsets.symmetric(horizontal: 50),
-        color: Color.fromRGBO(0, 63, 114, 1),
+        color: kPrimaryColor,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
           side: BorderSide(color: Colors.blueGrey, width: 1.0, style: BorderStyle.solid),
@@ -542,9 +543,9 @@ class _RegisterFormState extends State<RegisterForm> {
                children: [
                  Icon(
                    Icons.warning,
-                   color: Color.fromRGBO(0, 63, 114, 1),
+                   color: kPrimaryColor,
                  ),
-                 Text('공백 특수기호 없이 특수문자만 입력하세요', style: TextStyle(color: Color.fromRGBO(0, 63, 114, 1), fontSize:12), ),
+                 Text('공백 특수기호 없이 특수문자만 입력하세요', style: TextStyle(color: kPrimaryColor, fontSize:12), ),
                ],
              ),
            ),

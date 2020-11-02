@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hyundai_mobis/ui/screen/home_screen.dart';
 
 class DeliveryInfoForm extends StatefulWidget {
   final productName;
@@ -226,19 +227,19 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
                   child: OutlineButton(
                     padding: EdgeInsets.only(left: 8.0),
                     borderSide: BorderSide(
-                      color: Color.fromRGBO(0, 63, 114, 1),
+                      color: kPrimaryColor,
                     ),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
                       side: BorderSide(
-                          color: Color.fromRGBO(0, 63, 114, 1),
+                          color: kPrimaryColor,
                           width: 1.0,
                           style: BorderStyle.solid),
                     ),
                     child: Text('우편번호 검색',
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                          color: Color.fromRGBO(0, 63, 114, 1),
+                          color: kPrimaryColor,
                         )),
                     onPressed: () {},
                   ),
@@ -318,7 +319,7 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ButtonTheme(
-            buttonColor: Color.fromRGBO(0, 63, 114, 1),
+            buttonColor: kPrimaryColor,
             child: RaisedButton(
               child: Text('구매요청', style: TextStyle(fontSize: 12, color: Colors.white), textAlign: TextAlign.center,),
               onPressed: (){

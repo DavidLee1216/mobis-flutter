@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hyundai_mobis/ui/screen/delivery_screen.dart';
 import 'package:hyundai_mobis/ui/screen/visit_screen.dart';
+import 'package:hyundai_mobis/ui/screen/home_screen.dart';
+import 'package:hyundai_mobis/utils/navigation.dart';
 
 class CartProductForm extends StatefulWidget {
   final price;
@@ -35,7 +37,7 @@ class _CartProductFormState extends State<CartProductForm> {
           },
           tristate: false,
           value: checkState,
-          activeColor: Color.fromRGBO(0, 63, 114, 1),
+          activeColor: kPrimaryColor,
         ),
         Text(
           widget.productName,
@@ -162,7 +164,8 @@ class _CartProductFormState extends State<CartProductForm> {
                         ),
                         onTap: () {
                           if(checkState) {
-                            Navigator.pushNamed(context, DeliveryScreen.routeName, arguments: ScreenArguments(widget.productName, widget.companyMark, count));
+                            pushTo(context, DeliveryScreen(productName: widget.productName, companyMark: widget.companyMark, count: count,));
+//                            Navigator.pushNamed(context, DeliveryScreen.routeName, arguments: ScreenArguments(widget.productName, widget.companyMark, count));
                           }
                         },
                       )
@@ -182,7 +185,8 @@ class _CartProductFormState extends State<CartProductForm> {
                           ),
                           onTap: () {
                             if(checkState) {
-                              Navigator.pushNamed(context, VisitScreen.routeName, arguments: ScreenArguments(widget.productName, widget.companyMark, count));
+                              pushTo(context, VisitScreen(productName: widget.productName, companyMark: widget.companyMark, count: count,));
+//                              Navigator.pushNamed(context, VisitScreen.routeName, arguments: ScreenArguments(widget.productName, widget.companyMark, count));
                             }
                           },
                         )

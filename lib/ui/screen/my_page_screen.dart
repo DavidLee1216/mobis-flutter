@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hyundai_mobis/bloc/auth_bloc.dart';
 import 'package:hyundai_mobis/bloc/notice_bloc.dart';
+import 'package:hyundai_mobis/ui/screen/login_screen.dart';
+import 'package:hyundai_mobis/ui/screen/my_coupon_screen.dart';
+import 'package:hyundai_mobis/ui/screen/my_info_screen.dart';
+import 'package:hyundai_mobis/ui/screen/notification_screen.dart';
 import 'package:hyundai_mobis/ui/widget/notice_form.dart';
 import 'package:hyundai_mobis/ui/widget/loading_indication.dart';
 import 'package:hyundai_mobis/ui/screen/my_page_query_screen.dart';
+import 'package:hyundai_mobis/utils/navigation.dart';
 
 class MyPageScreen extends StatefulWidget {
   @override
@@ -63,7 +68,7 @@ class MyPageWidget extends StatelessWidget {
                 color: Colors.white,
               )),
           onPressed: () {
-            Navigator.of(context).pushNamed('/login');
+            pushTo(context, LoginScreen());
           },
         ),
       ),
@@ -160,8 +165,7 @@ class MyPageWidget extends StatelessWidget {
                                         color: Colors.black,
                                       ),
                                       onTap: () {
-                                        Navigator.of(context)
-                                            .pushNamed('/my_info');
+                                        pushTo(context, MyInfoScreen());
                                       },
                                     ),
                                   ),
@@ -205,8 +209,7 @@ class MyPageWidget extends StatelessWidget {
                                         color: Colors.black,
                                       ),
                                       onTap: () {
-                                        Navigator.of(context)
-                                            .pushNamed('/coupon');
+                                        pushTo(context, MyCouponScreen());
                                       },
                                     ),
                                   ),
@@ -228,7 +231,7 @@ class MyPageWidget extends StatelessWidget {
                               color: Colors.black,
                             ),
                             onTap: () {
-                              Navigator.of(context).pushNamed('/notice');
+                              pushTo(context, NotificationScreen());
                             },
                           ),
                         ),

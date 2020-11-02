@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:hyundai_mobis/ui/screen/home_screen.dart';
 import 'package:hyundai_mobis/ui/screen/my_page_screen.dart';
+import 'package:hyundai_mobis/ui/screen/notice_screen.dart';
 import 'package:hyundai_mobis/ui/screen/notification_screen.dart';
 
 class NavigationBar extends StatefulWidget {
+  final int index;
+
+  const NavigationBar({Key key, this.index}) : super(key: key);
   @override
   _NavigationBarState createState() => _NavigationBarState();
 }
@@ -16,7 +20,11 @@ class _NavigationBarState extends State<NavigationBar> {
     MyPageScreen(),
     HomeScreen(),
   ];
-
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.index;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

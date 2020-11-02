@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:hyundai_mobis/ui/screen/home_screen.dart';
 import 'package:hyundai_mobis/ui/widget/custom_radio_button.dart';
 
 class GetPassForm extends StatefulWidget {
@@ -30,7 +31,7 @@ class _GetPassFormState extends State<GetPassForm> {
         width: 20,
         height: 20,
         decoration: new BoxDecoration(
-          color: Color.fromRGBO(0, 63, 114, 1),
+          color: kPrimaryColor,
           shape: BoxShape.circle,
         ),
         child: Text(
@@ -412,12 +413,12 @@ class _GetPassFormState extends State<GetPassForm> {
               children: [
                 Icon(
                   Icons.warning,
-                  color: Color.fromRGBO(0, 63, 114, 1),
+                  color: kPrimaryColor,
                 ),
                 Text(
                   '공백 특수기호 없이 특수문자만 입력하세요',
                   style: TextStyle(
-                      color: Color.fromRGBO(0, 63, 114, 1), fontSize: 12),
+                      color: kPrimaryColor, fontSize: 12),
                 ),
               ],
             ),
@@ -557,7 +558,7 @@ class _GetPassFormState extends State<GetPassForm> {
                             Container(
                               width: MediaQuery.of(context).size.width * 0.3,
                               child: RaisedButton(
-                                color: Color.fromRGBO(0, 63, 114, 1),
+                                color: kPrimaryColor,
                                 child: Text(
                                   '발송하기',
                                   style: TextStyle(
@@ -706,7 +707,7 @@ class _GetPassFormState extends State<GetPassForm> {
                           Container(
                             width: MediaQuery.of(context).size.width * 0.3,
                             child: RaisedButton(
-                              color: Color.fromRGBO(0, 63, 114, 1),
+                              color: kPrimaryColor,
                               child: Text(
                                 '인증',
                                 style: TextStyle(
@@ -797,13 +798,13 @@ class _GetPassFormState extends State<GetPassForm> {
                   children: [
                     Icon(
                       Icons.warning,
-                      color: Color.fromRGBO(0, 63, 114, 1),
+                      color: kPrimaryColor,
                     ),
                     Expanded(
                         child: Text(
                       '8~20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.',
                       style: TextStyle(
-                          color: Color.fromRGBO(0, 63, 114, 1), fontSize: 12),
+                          color: kPrimaryColor, fontSize: 12),
                     )),
                   ],
                 ),
@@ -814,7 +815,7 @@ class _GetPassFormState extends State<GetPassForm> {
               SizedBox(
                 width: double.infinity,
                 child: RaisedButton(
-                  color: Color.fromRGBO(0, 63, 114, 1),
+                  color: kPrimaryColor,
                   child: Text(
                     '변경하기',
                     style: TextStyle(fontSize: 14, color: Colors.white),

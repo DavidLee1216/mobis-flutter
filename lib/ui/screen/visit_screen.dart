@@ -6,9 +6,16 @@ class VisitScreen extends StatelessWidget {
 
   static const routeName = '/visit';
 
+  final productName;
+  final companyMark;
+  final count;
+
+  const VisitScreen({Key key, this.productName, this.companyMark, this.count}) : super(key: key);
+
+
   @override
   Widget build(BuildContext context) {
-    final ScreenArguments args = ModalRoute.of(context).settings.arguments;
+//    final ScreenArguments args = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(color: Colors.black),
@@ -16,7 +23,7 @@ class VisitScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: VisitInfoForm(productName: args.productName, companyMark: args.companyMark, count: args.count,),
+        child: VisitInfoForm(productName: productName, companyMark: companyMark, count: count,),
       ),
 
     );

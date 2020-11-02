@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hyundai_mobis/ui/widget/cart_product_form.dart';
+import 'package:hyundai_mobis/ui/screen/home_screen.dart';
 
 class CartScreenArguments {
   final bool delivery_kind; //true: 택배, false:방문
@@ -9,11 +10,15 @@ class CartScreenArguments {
 
 class CartScreen extends StatelessWidget {
   static const routeName = '/addToCart';
+  final delivery_kind;
+
+  const CartScreen({Key key, this.delivery_kind}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final CartScreenArguments args = ModalRoute.of(context).settings.arguments;
-    return AddToCartScreen(deliver_kind: args.delivery_kind,);
+//    final CartScreenArguments args = ModalRoute.of(context).settings.arguments;
+//    return AddToCartScreen(deliver_kind: args.delivery_kind,);
+      return AddToCartScreen(deliver_kind: delivery_kind,);
   }
 }
 
@@ -46,7 +51,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                   },
                   tristate: false,
                   value: checkAllState,
-                  activeColor: Color.fromRGBO(0, 63, 114, 1),
+                  activeColor: kPrimaryColor,
                 ),
                 Text(
                   '전체 선택',
@@ -61,14 +66,14 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
             padding: EdgeInsets.only(right: 20),
             child: OutlineButton(
               borderSide: BorderSide(
-                color: Color.fromRGBO(0, 63, 114, 1), //Color of the border
+                color: kPrimaryColor, //Color of the border
                 style: BorderStyle.solid, //Style of the border
                 width: 1, //width of the border
               ),
               child: Row(
                 children: [
-                  Icon(Icons.clear, color: Color.fromRGBO(0, 63, 114, 1),),
-                  Text('선택 상품 삭제', style: TextStyle(fontSize: 12, color: Color.fromRGBO(0, 63, 114, 1)),),
+                  Icon(Icons.clear, color: kPrimaryColor,),
+                  Text('선택 상품 삭제', style: TextStyle(fontSize: 12, color: kPrimaryColor),),
                 ],
               ),
               onPressed: (){
@@ -99,7 +104,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ButtonTheme(
-            buttonColor: Color.fromRGBO(0, 63, 114, 1),
+            buttonColor: kPrimaryColor,
             child: RaisedButton(
               child: Text('구매요청', style: TextStyle(fontSize: 12, color: Colors.white), textAlign: TextAlign.center,),
               onPressed: (){

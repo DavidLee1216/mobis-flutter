@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hyundai_mobis/ui/screen/cart_screen.dart';
 import 'package:hyundai_mobis/ui/widget/custom_radio_button.dart';
+import 'package:hyundai_mobis/ui/screen/home_screen.dart';
+import 'package:hyundai_mobis/utils/navigation.dart';
 
 class PurchaseRequestForm extends StatefulWidget {
   final String partNumber;
@@ -323,12 +325,12 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               children: [
                 Icon(
                   Icons.warning,
-                  color: Color.fromRGBO(0, 63, 114, 1),
+                  color: kPrimaryColor,
                 ),
                 Text(
                   '공백 특수기호 없이 특수문자만 입력하세요',
                   style: TextStyle(
-                      color: Color.fromRGBO(0, 63, 114, 1), fontSize: 12),
+                      color: kPrimaryColor, fontSize: 12),
                 ),
               ],
             ),
@@ -343,14 +345,15 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ButtonTheme(
-            buttonColor: Color.fromRGBO(0, 63, 114, 1),
+            buttonColor: kPrimaryColor,
             child: RaisedButton(
               child: Text('장바구니', style: TextStyle(fontSize: 12, color: Colors.white), textAlign: TextAlign.center,),
               onPressed: (){
                 if(optionData[0].isSelected==false && optionData[1].isSelected==false)
                   return;
                 bool kind = optionData[0].isSelected ? true:false;
-                Navigator.pushNamed(context, CartScreen.routeName, arguments: CartScreenArguments(kind));
+                pushTo(context, CartScreen(delivery_kind: kind,));
+//                Navigator.pushNamed(context, CartScreen.routeName, arguments: CartScreenArguments(kind));
               },
             ),
           ),
@@ -359,11 +362,11 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
 //            padding: EdgeInsets.symmetric(vertical: 2.0),
             child: OutlineButton(
               borderSide: BorderSide(
-                color: Color.fromRGBO(0, 63, 114, 1), //Color of the border
+                color: kPrimaryColor, //Color of the border
                 style: BorderStyle.solid, //Style of the border
                 width: 1, //width of the border
               ),
-              child: Text('바로구매', style: TextStyle(fontSize: 12, color: Color.fromRGBO(0, 63, 114, 1)),),
+              child: Text('바로구매', style: TextStyle(fontSize: 12, color: kPrimaryColor),),
               onPressed: (){
 
               },

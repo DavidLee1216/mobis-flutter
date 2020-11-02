@@ -1,9 +1,15 @@
 import 'dart:developer';
 
 import 'package:hyundai_mobis/bloc/auth_bloc.dart';
+import 'package:hyundai_mobis/ui/screen/pass_reset_screen.dart';
+import 'package:hyundai_mobis/ui/screen/register_screen.dart';
 import 'package:hyundai_mobis/ui/widget/loading_indication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hyundai_mobis/utils/navigation.dart';
+import 'package:hyundai_mobis/ui/screen/home_screen.dart';
+
+import 'navigation_bar.dart';
 
 class IdLoginForm extends StatefulWidget {
   final String errorMsg;
@@ -80,16 +86,16 @@ class _IdLoginFormState extends State<IdLoginForm> {
           id: _idController.text,
           password: _passwordController.text,
         ));
-        Navigator.of(context).pushNamed('/home');
+        pushTo(context, NavigationBar(index: 1,));
       }
     }
 
     onRegisterButtonPressed() {
-      Navigator.of(context).pushNamed('/register');
+      pushTo(context, RegisterScreen());
     }
 
     onGetPassButtonPressed() {
-      Navigator.of(context).pushNamed('/getpass');
+      pushTo(context, GetPassScreen());
     }
 
     var loginButton = Container(
