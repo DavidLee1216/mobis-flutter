@@ -28,23 +28,28 @@ class HomeScreen extends StatelessWidget {
           width: double.infinity,
           color: kPrimaryColor,
           padding: const EdgeInsets.only(top: 10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: Stack(
+            alignment: AlignmentDirectional.bottomCenter,
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 2),
-                child: Image.asset('images/mark.jpg'),
-              ),
-              Expanded(
-                child: Column(
-                  children: [
-                    Text('지속가능한 친환경 기술을 선도합니다.', style: kTitleStyle),
-                    SizedBox(height: 5),
-                    Text('현대모비스는 무한하고 청정한 미래자동차의', style: kSubtitleStyle),
-                    Text('전동화 부품기술을 만들어 갑니다.', style: kSubtitleStyle),
-                  ],
-                ),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(top: 2),
+                    child: Image.asset('images/mark.jpg'),
+                  ),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Text('지속가능한 친환경 기술을 선도합니다.', style: kTitleStyle),
+                        SizedBox(height: 5),
+                        Text('현대모비스는 무한하고 청정한 미래자동차의', style: kSubtitleStyle),
+                        Text('전동화 부품기술을 만들어 갑니다.', style: kSubtitleStyle),
+                      ],
+                    ),
+                  ),
+                ],
               ),
               Container(
                 margin: const EdgeInsets.only(bottom: kMarginSpace),
