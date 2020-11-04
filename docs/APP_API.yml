@@ -1,0 +1,490 @@
+openapi: '3.0.2'
+info:
+  title: Mobis App API
+  description: Mobis part search app API
+  version: 0.1.0
+
+# servers:
+#   - url: http://localhost:3000/app
+#     description: Local server
+
+paths:
+  /signin:
+    post:
+      summary: sign in
+      tags:
+        - AUTH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Access token, Refresh token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    example: <jwt token ...>
+                  refreshToken:
+                    type: string
+                    example: <jwt token ...>
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /signup:
+    post:
+      summary: sing up
+      tags:
+        - AUTH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - username
+                - password
+                - email
+                - legalname
+                - dateofbirth
+                - sexcode
+                - mobile
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+                  description: SHA265 Hashed
+                email:
+                  type: string
+                legalName:
+                  type: string
+                dateOfBirth:
+                  type: string
+                  example: '20201104'
+                  description: yyyyMMdd
+                sexCode:
+                  type: string
+                  example: 'M'
+                  description: 'M: Male, F: Female'
+                mobile:
+                  type: string
+                  example: '010-1234-5678'
+                zipcode:
+                  type: string
+                  example: '12345'
+                  description: must be string not numberic variable
+                address:
+                  type: string
+                addressExtended:
+                  type: string
+                vlp:
+                  type: string
+                  description: Vehicle License Plate
+                vin:
+                  type: string
+                  description: Vehicle Identification Number
+                ntoken:
+                  type: string
+                  description: naver refresh token
+                ktoken:
+                  type: string
+                  description: kakao refresh token
+                gtoken:
+                  type: string
+                  description: google id token
+
+      responses:
+        '200':
+          description: Access token, Refresh token
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  accessToken:
+                    type: string
+                    example: <jwt token ...>
+                  refreshToken:
+                    type: string
+                    example: <jwt token ...>
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /username/{username}:
+    get:
+      summary: username check
+      description: check username is already exists
+      tags:
+        - AUTH
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: not exists
+        '500':
+          description: exists
+
+  /email/{email}:
+    get:
+      summary: email check
+      description: check email is already exists
+      tags:
+        - AUTH
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: not exists
+        '500':
+          description: exists
+
+  /validateSMS/{mobile}:
+    get:
+      summary: validate mobile number
+      description: "1. check if there is less than 3 rows with the same mobile nubmer in the APP_USER_AUTH table\n2. generate random 6 numbers\n3. send sms to the provided number\n4. insert on the APP_USER_AUTH table"
+      tags:
+        - AUTH
+      parameters:
+        - name: mobile
+          in: path
+          required: true
+          schema:
+            type: string
+            example: 010-1234-5678
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: string
+                    description: APP_USER_AUTH.USER_USER_SEQ
+                    
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /validateEmail/{email}:
+    get:
+      summary: validate email address
+      description: "1. check if there is less than 3 rows with the same email in the APP_USER_AUTH table\n2. generate random 6 numbers\n3. send email to the provided address\n4. insert on the APP_USER_AUTH table"
+      tags:
+        - AUTH
+      parameters:
+        - name: email
+          in: path
+          required: true
+          schema:
+            type: string
+            example: asdfg@qwert.zxc
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                properties:
+                  code:
+                    type: string
+                    description: APP_USER_AUTH.USER_USER_SEQ
+        '500':
+          description: error
+          content:
+            text/plain:
+              schema:
+                type: string
+                example: error message
+
+  /validateCode/{code}:
+    get:
+      summary: validate auth code
+      tags:
+        - AUTH
+      parameters:
+        - name: code
+          in: path
+          required: true
+          schema:
+            type: string
+            example: '123456'
+      responses:
+        '200':
+          description: ok
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /resetPassword:
+    post:
+      summary: rest password
+      tags:
+        - AUTH
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - code
+                - password
+              properties:
+                code:
+                  type: string
+                  description: APP_USER_AUTH.USER_USER_SEQ
+                password:
+                  type: string
+                  description: SHA265 Hashed
+      responses:
+        '200':
+          description: 'ok'
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /notice:
+    get:
+      summary: announcement list
+      tags:
+        - APP
+      parameters:
+        - name: search
+          in: query
+          schema:
+            type: string
+        - name: page
+          in: query
+          schema:
+            type: integer
+            example: 1
+        - name: limit
+          in: query
+          schema:
+            type: integer
+            example: 10
+      responses:
+        '200':
+          description: list of announcements without content
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Notice'
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /addCart:
+    post:
+      summary: add to cart
+      description: use session id if username is not provided
+      tags:
+        - APP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - ptno
+                - agentCode
+                - qty
+                - deliveryCode
+              properties:
+                ptno:
+                  type: string
+                  description: APP_USER_AUTH.USER_USER_SEQ
+                  example: 86316D9000
+                agentCode:
+                  type: string
+                  example: C359
+                qty:
+                  type: integer
+                  example: 1
+                deliveryCode:
+                  type: string
+                  description: 'P: Pickup, D: Deliver to home'
+                  example: 'P'
+                username:
+                  type: string
+      responses:
+        '200':
+          description: 'ok'
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /delCart:
+    post:
+      summary: delete from cart
+      tags:
+        - APP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - seq
+              properties:
+                seq:
+                  type: integer
+                  description: ORDER_CART.ORDER_CART_SEQ
+      responses:
+        '200':
+          description: 'ok'
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /order:
+    post:
+      summary: place an order
+      tags:
+        - APP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - products
+                - name
+                - mobile
+              properties:
+                products:
+                  type: array
+                  items:
+                    $ref: '#/components/schemas/Order'
+                name:
+                  type: string
+                mobile:
+                  type: string
+                  example: '010-1234-5678'
+                zipcode:
+                  type: string
+                  example: '12345'
+                  description: must be string not numberic variable
+                address:
+                  type: string
+                addressExtended:
+                  type: string
+                pickupTime:
+                  type: string
+                  format: date-time
+                username:
+                  type: string
+      responses:
+        '200':
+          description: 'ok'
+        '500':
+          $ref: '#/components/responses/Error'
+
+  /profile:
+    post:
+      summary: update user profile
+      security:
+        - bearerAuth: []
+      tags:
+        - APP
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                mobile:
+                  type: string
+                  example: '010-1234-5678'
+                email:
+                  type: string
+                zipcode:
+                  type: string
+                  example: '12345'
+                  description: must be string not numberic variable
+                address:
+                  type: string
+                addressExtended:
+                  type: string
+      responses:
+        '200':
+          description: 'ok'
+        '500':
+          $ref: '#/components/responses/Error'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  responses:
+    Error:
+      description: error
+      content:
+        text/plain:
+          schema:
+            type: string
+            example: error message
+
+  schemas:
+    Notice:
+      type: object
+      properties:
+        seq:
+          type: integer
+          description: APP_NOTICE.APP_NOTICE_SEQ
+        title:
+          type: string
+          description: APP_NOTICE.TITLE
+        content:
+          type: string
+          description: APP_NOTICE.CONTENT
+        createdDate:
+          type: string
+          format: date-time
+          description: APP_NOTICE.REG_DTM
+    Order:
+      type: object
+      properties:
+        ptno:
+          type: string
+          description: APP_USER_AUTH.USER_USER_SEQ
+          example: 86316D9000
+        agentCode:
+          type: string
+          example: C359
+        qty:
+          type: integer
+          example: 1
+        deliveryCode:
+          type: string
+          description: 'P: Pickup, D: Deliver to home'
+          example: 'P'
+        username:
+          type: string
