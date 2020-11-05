@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/screen/home_screen.dart';
 import 'package:hyundai_mobis/ui/widget/custom_radio_button.dart';
+import 'package:hyundai_mobis/common.dart';
 
 class GetPassForm extends StatefulWidget {
   @override
@@ -15,6 +15,8 @@ class _GetPassFormState extends State<GetPassForm> {
   int authStep = 1;
   bool mobileAuth = true; //if false, then email auth
   bool findEmail = true; //if false, then password reset
+  String authSeq = '';
+  String foundEmail = '';
 
   final _phoneNumberController = TextEditingController();
 
@@ -24,6 +26,9 @@ class _GetPassFormState extends State<GetPassForm> {
 
   final _passwordController = TextEditingController();
   final _repasswordController = TextEditingController();
+
+
+
   @override
   Widget build(BuildContext context) {
     circleNumber(int number) {
@@ -566,6 +571,10 @@ class _GetPassFormState extends State<GetPassForm> {
                                 ),
                                 onPressed: () {
                                   if (authStep == 2) {
+                                    if(mobileAuth)
+                                      validate_SMS(_phoneNumberController.text);
+                                    else
+                                      validate_email(_emailController.text);
                                     setState(() {
                                       authStep++;
                                     });
@@ -714,10 +723,17 @@ class _GetPassFormState extends State<GetPassForm> {
                                     fontSize: 14, color: Colors.white),
                               ),
                               onPressed: () {
-                                if (authStep == 3)
+                                if (authStep == 3) {
+                                  if(mobileAuth)
+                                    authSeq = validate_code(_authNumberController.text);
+                                  if(authSeq=='')
+                                    return;
+                                  if(findEmail)
+                                    foundEmail = get_email(authSeq);
                                   setState(() {
                                     authStep++;
                                   });
+                                }
                               },
                             ),
                           ),
@@ -820,7 +836,11 @@ class _GetPassFormState extends State<GetPassForm> {
                     '변경하기',
                     style: TextStyle(fontSize: 14, color: Colors.white),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    if(_passwordController.text!='' && _passwordController.text==_repasswordController.text){
+                      reset_password(_passwordController.text, authSeq);
+                    }
+                  },
                 ),
               ),
             ],
@@ -858,7 +878,7 @@ class _GetPassFormState extends State<GetPassForm> {
                 ),
                 Container(
                   child: Text(
-                    'yj***64@gmail.com',
+                    foundEmail,
                     style: TextStyle(fontSize: 14, color: Colors.black),
                   ),
                 )

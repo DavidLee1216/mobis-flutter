@@ -1,5 +1,5 @@
 import 'dart:developer';
-
+import 'package:http/http.dart' as http;
 import 'package:hyundai_mobis/bloc/auth_bloc.dart';
 import 'package:hyundai_mobis/ui/screen/pass_reset_screen.dart';
 import 'package:hyundai_mobis/ui/screen/register_screen.dart';
@@ -10,6 +10,7 @@ import 'package:hyundai_mobis/utils/navigation.dart';
 import 'package:hyundai_mobis/ui/screen/home_screen.dart';
 
 import 'navigation_bar.dart';
+import 'package:hyundai_mobis/common.dart';
 
 class IdLoginForm extends StatefulWidget {
   final String errorMsg;
@@ -79,14 +80,18 @@ class _IdLoginFormState extends State<IdLoginForm> {
           ),
         ));
 
-    onLoginButtonPresed() {
+    onLoginButtonPressed() {
       if (_formKey.currentState.validate()) {
         FocusScope.of(context).requestFocus(FocusNode());
-        bloc.add(AuthEventSignIn(
-          id: _idController.text,
-          password: _passwordController.text,
-        ));
-        pushTo(context, NavigationBar(index: 1,));
+        http.post(API+'signin', body: {'username':_idController.text, 'password':_passwordController.text}).then((value) {
+          if(value.statusCode==200) {
+            bloc.add(AuthEventSignIn(
+              id: _idController.text,
+              password: _passwordController.text,
+            ));
+            pushTo(context, NavigationBar(index: 1,));
+          }
+        });
       }
     }
 
@@ -112,7 +117,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
           '로그인하기',
           style: TextStyle(fontSize: 16, color: Colors.white),
         ),
-        onPressed: onLoginButtonPresed,
+        onPressed: onLoginButtonPressed,
       ),
     );
 
