@@ -109,7 +109,8 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                           onPressed: () {
-                            pushTo(context, NoticeScreen());
+                            Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___)=>NavigationBar(index: 6,)));
+//                            pushTo(context, NavigationBar(index: 6,));
                           },
                         ),
                       ),
@@ -132,7 +133,8 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                           onPressed: () {
-                            pushTo(context, NavigationBar(index: 4,));
+                            Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___)=>NavigationBar(index: 4,)));
+//                            pushTo(context, NavigationBar(index: 4,));
                           },
                         ),
                       ),
@@ -155,7 +157,8 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                           onPressed: () {
-                            pushTo(context, NavigationBar(index: 5,));
+                            Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___)=>NavigationBar(index: 5,)));
+//                            pushTo(context, NavigationBar(index: 5,));
                           },
                         ),
                       ),
@@ -178,7 +181,8 @@ class HomeScreen extends StatelessWidget {
                             ],
                           ),
                           onPressed: () {
-                            pushTo(context, NavigationBar(index: 2,));
+                            Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___)=>NavigationBar(index: 2,)));
+//                            pushTo(context, NavigationBar(index: 2,));
                           },
                         ),
                       ),

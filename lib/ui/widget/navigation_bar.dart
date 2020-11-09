@@ -24,6 +24,7 @@ class _NavigationBarState extends State<NavigationBar> {
     HomeScreen(),
     PartMarketSearchScreen(),
     PartSimpleSearchScreen(),
+    NoticeScreen(),
   ];
   @override
   void initState() {

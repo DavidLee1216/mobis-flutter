@@ -60,32 +60,6 @@ class _NoticeScreenState extends State<NoticeScreen> {
           ],
         ), //
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        selectedFontSize: 12,
-        unselectedFontSize: 12,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.notifications_none),
-            label: '알람',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
-            label: '홈',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
-            label: '마이페이지',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.support_agent_outlined),
-            label: '고객센터',
-          ),
-        ],
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        onTap: _onItemTapped,
-      ),
     );
   }
 }

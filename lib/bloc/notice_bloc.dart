@@ -27,7 +27,7 @@ class NoticeSearchContentEvent extends NoticeEvent{
 
 class NoticeState{
   EnumNoticeEvent kind;
-  Stream<String> noticeStream;
+  Stream<Notice> noticeStream;
   NoticeState({this.kind=EnumNoticeEvent.None, this.noticeStream=const Stream.empty()});
 
   NoticeState _setProps({EnumNoticeEvent kind, Stream noticeStream})=>NoticeState(kind: kind??this.kind, noticeStream: noticeStream??this.noticeStream);
@@ -54,7 +54,7 @@ class NoticeState{
 }
 
 class NoticeBloc extends Bloc<NoticeEvent, NoticeState>{
-  NoticeRepository noticeRepository;
+  Notice noticeRepository;
   NoticeBloc({this.noticeRepository}):super(NoticeState());
 
   @override

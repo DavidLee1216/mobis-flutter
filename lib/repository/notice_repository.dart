@@ -1,6 +1,12 @@
 
-class NoticeRepository{
-  NoticeRepository();
+class Notice{
+
+  String title;
+  String content;
+  String seq;
+  DateTime date;
+
+  Notice();
 
   Stream<String> getTitleNoticeStream(String title) {
 
