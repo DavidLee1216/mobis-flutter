@@ -15,21 +15,6 @@ class NoticeScreen extends StatefulWidget {
 
 class _NoticeScreenState extends State<NoticeScreen> {
   bool searchIconClicked = false;
-  int _selectedIndex = 0;
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      if (index == 0)
-        pushTo(context, NavigationBar(index: 0,));
-      else if (index == 1)
-        pushTo(context, NavigationBar(index: 1,));
-      else if (index == 2)
-        pushTo(context, NavigationBar(index: 2,));
-      else if (index == 3)
-        pushTo(context, NavigationBar(index: 1,));
-    });
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -150,78 +135,89 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 class NoticeListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        NoticeForm(
-          title: '시스템 개선 작업 안내',
-          date: '2020.10.09',
-          text:
-              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-        ),
-        Divider(
-          color: Colors.black54,
-        ),
-        NoticeForm(
-          title: '[이벤트]미세먼지 이겨내요',
-          date: '2020.10.09',
-          text:
-              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-        ),
-        Divider(
-          color: Colors.black54,
-        ),
-        NoticeForm(
-          title: '시스템 개선 작업 안내',
-          date: '2020.10.09',
-          text:
-              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-        ),
-        Divider(
-          color: Colors.black54,
-        ),
-        NoticeForm(
-          title: '시스템 개선 작업 안내',
-          date: '2020.10.09',
-          text:
-              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-        ),
-        Divider(
-          color: Colors.black54,
-        ),
-        NoticeForm(
-          title: '시스템 개선 작업 안내',
-          date: '2020.10.09',
-          text:
-              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-        ),
-        Divider(
-          color: Colors.black54,
-        ),
-        NoticeForm(
-          title: '시스템 개선 작업 안내',
-          date: '2020.10.09',
-          text:
-              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-        ),
-        Divider(
-          color: Colors.black54,
-        ),
-        NoticeForm(
-          title: '시스템 개선 작업 안내',
-          date: '2020.10.09',
-          text:
-              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-        ),
-        Divider(
-          color: Colors.black54,
-        ),
-        NoticeForm(
-          title: '시스템 개선 작업 안내',
-          date: '2020.10.09',
-          text:
-              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-        ),
-      ],
+    return BlocBuilder<NoticeBloc, NoticeState>(
+      cubit: BlocProvider.of<NoticeBloc>(context),
+      builder: (BuildContext context, state){
+        return ListView.builder(
+          itemBuilder: (BuildContext context, int index){
+            return NoticeForm(title: state.noticeList[index].title, date: state.noticeList[index].date.toString(), text: state.noticeList[index].content,);
+          },
+          itemCount: state.noticeList.length,
+        );
+      },
     );
+//    return ListView(
+//      children: [
+//        NoticeForm(
+//          title: '시스템 개선 작업 안내',
+//          date: '2020.10.09',
+//          text:
+//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+//        ),
+//        Divider(
+//          color: Colors.black54,
+//        ),
+//        NoticeForm(
+//          title: '[이벤트]미세먼지 이겨내요',
+//          date: '2020.10.09',
+//          text:
+//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+//        ),
+//        Divider(
+//          color: Colors.black54,
+//        ),
+//        NoticeForm(
+//          title: '시스템 개선 작업 안내',
+//          date: '2020.10.09',
+//          text:
+//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+//        ),
+//        Divider(
+//          color: Colors.black54,
+//        ),
+//        NoticeForm(
+//          title: '시스템 개선 작업 안내',
+//          date: '2020.10.09',
+//          text:
+//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+//        ),
+//        Divider(
+//          color: Colors.black54,
+//        ),
+//        NoticeForm(
+//          title: '시스템 개선 작업 안내',
+//          date: '2020.10.09',
+//          text:
+//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+//        ),
+//        Divider(
+//          color: Colors.black54,
+//        ),
+//        NoticeForm(
+//          title: '시스템 개선 작업 안내',
+//          date: '2020.10.09',
+//          text:
+//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+//        ),
+//        Divider(
+//          color: Colors.black54,
+//        ),
+//        NoticeForm(
+//          title: '시스템 개선 작업 안내',
+//          date: '2020.10.09',
+//          text:
+//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+//        ),
+//        Divider(
+//          color: Colors.black54,
+//        ),
+//        NoticeForm(
+//          title: '시스템 개선 작업 안내',
+//          date: '2020.10.09',
+//          text:
+//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+//        ),
+//      ],
+//    );
   }
 }
