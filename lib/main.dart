@@ -26,7 +26,7 @@ import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   UserRepository userRepository = UserRepository();
-  Notice noticeRepository = Notice();
+  NoticeRepository noticeRepository = NoticeRepository();
   runApp(
     BlocProvider<AuthBloc>(
       create: (context) =>

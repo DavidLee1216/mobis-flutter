@@ -17,6 +17,12 @@ class _NoticeScreenState extends State<NoticeScreen> {
   bool searchIconClicked = false;
 
   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<NoticeBloc>(context).add(NoticeLoadEvent());
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -138,12 +144,20 @@ class NoticeListWidget extends StatelessWidget {
     return BlocBuilder<NoticeBloc, NoticeState>(
       cubit: BlocProvider.of<NoticeBloc>(context),
       builder: (BuildContext context, state){
-        return ListView.builder(
-          itemBuilder: (BuildContext context, int index){
-            return NoticeForm(title: state.noticeList[index].title, date: state.noticeList[index].date.toString(), text: state.noticeList[index].content,);
-          },
-          itemCount: state.noticeList.length,
-        );
+        if(state is NoticeState){
+          if (state.noticeList.isEmpty) {
+            return Center(
+              child: Text('자료 없음'),
+            );
+          }
+          return ListView.builder(
+            itemBuilder: (BuildContext context, int index){
+              return NoticeForm(title: state.noticeList[index].title, date: state.noticeList[index].date.toString(), text: state.noticeList[index].content,);
+            },
+            itemCount: state.noticeList.length,
+          );
+        }
+        return Container();
       },
     );
 //    return ListView(

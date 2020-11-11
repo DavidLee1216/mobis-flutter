@@ -8,13 +8,9 @@ import 'package:hyundai_mobis/repository/notice_repository.dart';
 
 abstract class NoticeEvent{}
 
-enum EnumNoticeEvent{None, Drop, SearchClick, TitleSearch, ContentSearch}
+enum EnumNoticeEvent{Load, TitleSearch, ContentSearch}
 
-class NoticeDropClickedEvent extends NoticeEvent{}
-
-class NoticeSearchClickedEvent extends NoticeEvent{}
-
-class NoticeSearchFinisedEvent extends NoticeEvent{}
+class NoticeLoadEvent extends NoticeEvent{}
 
 class NoticeSearchTitleEvent extends NoticeEvent{
   final String searchWord;
@@ -25,6 +21,10 @@ class NoticeSearchContentEvent extends NoticeEvent{
   NoticeSearchContentEvent({@required this.searchWord});
 }
 
+abstract class NoticeBaseState extends Equatable {
+  NoticeBaseState([List noticeList = const []]) : super(noticeList);
+}
+
 class NoticeState{
   EnumNoticeEvent kind;
   List<Notice> noticeList;
@@ -33,21 +33,10 @@ class NoticeState{
   NoticeState _setProps({EnumNoticeEvent kind, List<Notice> noticeList})=>NoticeState(kind: kind??this.kind, noticeList: noticeList??this.noticeList);
 
   factory NoticeState.init()=>NoticeState();
-  NoticeState dropClicked(){
-    log(kind.toString());
-    if(kind!=EnumNoticeEvent.Drop)
-      return _setProps(kind: EnumNoticeEvent.Drop);
-    else
-      return _setProps(kind: EnumNoticeEvent.None);
-    log(kind.toString());
-  }
-  NoticeState searchClicked()=>_setProps(kind: EnumNoticeEvent.SearchClick);
   NoticeState searchTitle(List<Notice> noticeList)=>_setProps(kind: EnumNoticeEvent.TitleSearch, noticeList: noticeList);
   NoticeState searchContent(List<Notice> noticeList)=>_setProps(kind: EnumNoticeEvent.ContentSearch, noticeList: noticeList);
 
   bool isSearch()=>(kind==EnumNoticeEvent.TitleSearch||kind==EnumNoticeEvent.ContentSearch);
-  bool isDrop()=>(kind==EnumNoticeEvent.Drop);
-  bool isSearchClicked()=>(kind==EnumNoticeEvent.SearchClick);
 }
 
 class NoticeBloc extends Bloc<NoticeEvent, NoticeState>{
@@ -59,30 +48,31 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState>{
 
   @override
   Stream<NoticeState> mapEventToState(NoticeEvent event) async* {
-    if(event is NoticeDropClickedEvent){
+    if(event is NoticeLoadEvent){
       try{
-        yield state.dropClicked();
+        final stream = await noticeRepository.getTitleNoticeStream('');
+//        state.searchTitle(stream);
+        yield NoticeState(kind:EnumNoticeEvent.TitleSearch, noticeList:stream);
       } catch(e){
-
+        yield NoticeState(kind:EnumNoticeEvent.TitleSearch, noticeList:List<Notice>());
       }
-    }
-    else if(event is NoticeSearchClickedEvent){
-      state.searchClicked();
     }
     else if(event is NoticeSearchTitleEvent){
       try{
         final stream = await noticeRepository.getTitleNoticeStream(event.searchWord);
+//        state.searchTitle(stream);
         yield NoticeState(kind:EnumNoticeEvent.TitleSearch, noticeList:stream);
       }catch(e){
-
+        yield NoticeState(kind:EnumNoticeEvent.TitleSearch, noticeList:List<Notice>());
       }
     }
     else if(event is NoticeSearchContentEvent){
       try{
         final stream = await noticeRepository.getContentNoticeStream(event.searchWord);
+//        state.searchContent(stream);
         yield NoticeState(kind:EnumNoticeEvent.ContentSearch, noticeList:stream);
       }catch(e){
-
+        yield NoticeState(kind:EnumNoticeEvent.TitleSearch, noticeList:List<Notice>());
       }
     }
   }

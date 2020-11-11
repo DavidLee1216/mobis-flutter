@@ -24,7 +24,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^6.0.5
-  equatable:
+  equatable: ^0.2.0
   provider: ^4.3.2+2
   http: ^0.12.2
 

@@ -16,7 +16,7 @@ class Notice {
 class NoticeRepository{
 
   Future<List<Notice>> getTitleNoticeStream(String title) async {
-    final response = await http.get(API+'/notice?search=$title&page=3&limit=10');
+    final response = await http.get(API+'/notice?search=$title&page=1&limit=10');
     if(response.statusCode==200){
       final data = json.decode(response.body) as List;
       return data.map((e) {
@@ -31,7 +31,7 @@ class NoticeRepository{
   }
 
   Future<List<Notice>> getContentNoticeStream(String keyword) async {
-    final response = await http.get(API+'/notice?search=$keyword&page=3&limit=10');
+    final response = await http.get(API+'/notice?search=$keyword&page=1&limit=10');
     if(response.statusCode==200){
       final data = json.decode(response.body) as List;
       return data.map((e) {
