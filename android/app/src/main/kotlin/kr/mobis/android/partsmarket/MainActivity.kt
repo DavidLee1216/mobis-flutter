@@ -1,4 +1,4 @@
-package com.example.hyundai_mobis
+package kr.mobis.android.partsmarket
 
 import io.flutter.embedding.android.FlutterActivity
 

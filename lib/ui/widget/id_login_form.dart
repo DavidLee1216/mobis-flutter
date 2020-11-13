@@ -80,19 +80,21 @@ class _IdLoginFormState extends State<IdLoginForm> {
           ),
         ));
 
-    onLoginButtonPressed() {
+    Future<void > signIn(String username, String password) async {
       if (_formKey.currentState.validate()) {
         FocusScope.of(context).requestFocus(FocusNode());
-        http.post(API+'signin', body: {'username':_idController.text, 'password':_passwordController.text}).then((value) {
-          if(value.statusCode==200) {
-            bloc.add(AuthEventSignIn(
-              id: _idController.text,
-              password: _passwordController.text,
-            ));
-            pushTo(context, NavigationBar(index: 1,));
-          }
-        });
+        if(await bloc.userRepository.signIn(username, password)==true){
+          bloc.add(AuthEventSignIn(
+            id: username,
+            password: password,
+          ));
+          pushTo(context, NavigationBar(index: 1,));
+        }
       }
+    }
+
+    onLoginButtonPressed() {
+      signIn(_idController.text, _passwordController.text);
     }
 
     onRegisterButtonPressed() {

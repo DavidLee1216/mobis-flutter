@@ -23,6 +23,8 @@ import 'package:hyundai_mobis/ui/screen/my_info_screen.dart';
 import 'package:hyundai_mobis/ui/screen/my_coupon_screen.dart';
 import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
 
+import 'bloc/cart_bloc.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   UserRepository userRepository = UserRepository();
@@ -38,6 +40,7 @@ Future<void> main() async {
               noticeRepository: noticeRepository,
             ),
           ),
+          BlocProvider<CartBloc>(create: (context)=>CartBloc()),
         ],
         child: MyApp(),
       ),

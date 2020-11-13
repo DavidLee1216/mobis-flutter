@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hyundai_mobis/bloc/auth_bloc.dart';
 import 'package:http/http.dart' as http;
+import 'package:hyundai_mobis/model/user_model.dart';
+import 'package:hyundai_mobis/repository/user_repository.dart';
 import 'package:hyundai_mobis/ui/screen/id_login_screen.dart';
 import 'package:hyundai_mobis/ui/screen/login_screen.dart';
 import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
@@ -36,6 +38,10 @@ class _RegisterFormState extends State<RegisterForm> {
 
   String sexCode = 'M';
 
+  String _birthday = '';
+
+  String seq = '';
+
   @override
   void dispose() {
     _idController.dispose();
@@ -54,17 +60,23 @@ class _RegisterFormState extends State<RegisterForm> {
     super.dispose();
   }
 
-  void register_user(String id, String mobile, String legalName, String vin, String zipcode, String dateOfBirth, String vlp, String address, String addressExtended, String password, String sexCode, String email) {
-    if(_formKey.currentState.validate()){
-      if(signup(id, mobile, legalName, vin, zipcode, dateOfBirth, vlp, address, addressExtended, password, sexCode, email))
-          pushTo(context, IdLoginScreen());
-    }
-  }
 
 
   @override
   Widget build(BuildContext context) {
-    
+    final AuthBloc bloc = BlocProvider.of<AuthBloc>(context);
+
+    Future<void> register_user(String id, String mobile, String email, String password, String legalName, String dateOfBirth, String sexCode, String zipcode, String address, String addressExtended, String vin, String vlp) async {
+      if(_formKey.currentState.validate() && seq!=''){
+        User user = User(address: address, addressExtended: addressExtended, dateofBirth: dateOfBirth, email: email, gtoken: '', ktoken: '', legalName: legalName, mobile: mobile,
+            ntoken: '', password: password, sexCode: sexCode, username: id, vin: vin, vlp: vlp, zipcode: zipcode);
+        if(await bloc.userRepository.signUp(user)==true)
+          Navigator.of(context).pop();
+
+      }
+    }
+
+
     DateTime selectedDate = DateTime.now();
     var idField = TextFormField(
       decoration: InputDecoration(
@@ -188,7 +200,8 @@ class _RegisterFormState extends State<RegisterForm> {
           selectedDate = picked;
         });
       }
-      _birthdayController.text = selectedDate.year.toString()+"년 "+selectedDate.month.toString()+"월 "+selectedDate.day.toString()+"일";
+      _birthdayController.text = selectedDate.year.toString()+"년"+selectedDate.month.toString()+"월"+selectedDate.day.toString()+"일";
+      _birthday = selectedDate.year.toString()+selectedDate.month.toString()+selectedDate.day.toString();
     }
 
     var birthdayField = TextFormField(
@@ -290,9 +303,8 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
         child: Text('인증번호 확인', textAlign: TextAlign.center, style: TextStyle(color: kPrimaryColor,)),
         onPressed: () {
-          if(validate_code(_authNumberVerifyController.text)==''){
-
-          }
+          seq = validate_code(_authNumberVerifyController.text);
+          seq = '123';
         },
       ),
     );
@@ -389,310 +401,313 @@ class _RegisterFormState extends State<RegisterForm> {
           side: BorderSide(color: Colors.blueGrey, width: 1.0, style: BorderStyle.solid),
         ),
         child: Text('가입하기', textAlign: TextAlign.center, style: TextStyle(color: Colors.white),),
-        onPressed: () {
-          register_user(_idController.text, _phoneNumberController.text, _nameController.text, '', _address1Controller.text, _birthdayController.text, '', _address2Controller.text, _address3Controller.text, _passwordController.text, sexCode, _emailController.text);
+        onPressed: () async {
+         await register_user(_idController.text, _phoneNumberController.text, _emailController.text, _passwordController.text, _nameController.text, _birthday, sexCode, _address1Controller.text, _address2Controller.text, _address3Controller.text, _carNumber1Controller.text, _carNumber2Controller.text);
         },
       ),
     );
 
-     return ListView(
-       scrollDirection: Axis.vertical,
-       shrinkWrap: true,
-       padding: EdgeInsets.all(20),
-       children: <Widget>
-       [
-        Container(
-          padding: EdgeInsets.only(top: 20),
-          child: Padding(
-             padding: const EdgeInsets.only(left: 8.0),
-             child: Text(
-              '아이디',
-              style: TextStyle(
-                fontSize: 16,
+     return Form(
+       key: _formKey,
+       child: ListView(
+         scrollDirection: Axis.vertical,
+         shrinkWrap: true,
+         padding: EdgeInsets.all(20),
+         children: <Widget>
+         [
+          Container(
+            padding: EdgeInsets.only(top: 20),
+            child: Padding(
+               padding: const EdgeInsets.only(left: 8.0),
+               child: Text(
+                '아이디',
+                style: TextStyle(
+                  fontSize: 16,
+                ),
               ),
             ),
           ),
-        ),
-        SizedBox(height: 10,),
-        Container(
-          height: 40,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child:
-            Row(
-              children: [
-                Expanded(child: idField,),
-                SizedBox(width: 10,),
-                idDupConfirmButton,
-              ],
-            ),
-          ),
-        ),
-        SizedBox(height: 10,),
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Text(
-              '비밀번호',
-              style: TextStyle(
-                fontSize: 16,
+          SizedBox(height: 10,),
+          Container(
+            height: 40,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child:
+              Row(
+                children: [
+                  Expanded(child: idField,),
+                  SizedBox(width: 10,),
+                  idDupConfirmButton,
+                ],
               ),
             ),
           ),
-        ),
-        SizedBox(height: 10,),
-        Container(
-          height: 40,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: passField,
-          ),
-        ),
-        SizedBox(height: 10,),
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Text(
-              '비밀번호 확인',
-              style: TextStyle(
-                fontSize: 16,
+          SizedBox(height: 10,),
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text(
+                '비밀번호',
+                style: TextStyle(
+                  fontSize: 16,
+                ),
               ),
             ),
           ),
-        ),
-         SizedBox(height: 10,),
-        Container(
-          height: 40,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: repassField,
+          SizedBox(height: 10,),
+          Container(
+            height: 40,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: passField,
+            ),
           ),
-        ),
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Text(
-              '이메일',
-              style: TextStyle(
-                fontSize: 16,
+          SizedBox(height: 10,),
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text(
+                '비밀번호 확인',
+                style: TextStyle(
+                  fontSize: 16,
+                ),
               ),
             ),
           ),
-        ),
-         SizedBox(height: 10,),
-        Container(
-          height: 40,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: Row(
-              children: [
-                Expanded(child: emailField),
-                SizedBox(width: 10,),
-                emailDupConfirmButton,
-              ],
+           SizedBox(height: 10,),
+          Container(
+            height: 40,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: repassField,
             ),
           ),
-        ),
-         SizedBox(height: 10,),
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Text(
-              '이름',
-              style: TextStyle(
-                fontSize: 16,
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text(
+                '이메일',
+                style: TextStyle(
+                  fontSize: 16,
+                ),
               ),
             ),
           ),
-        ),
-         SizedBox(height: 10,),
-        Container(
-          height: 40,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: nameField,
-          ),
-        ),
-         SizedBox(height: 10,),
-        Container(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 8.0),
-            child: Text(
-              '생년월일',
-              style: TextStyle(
-                fontSize: 16,
+           SizedBox(height: 10,),
+          Container(
+            height: 40,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: Row(
+                children: [
+                  Expanded(child: emailField),
+                  SizedBox(width: 10,),
+                  emailDupConfirmButton,
+                ],
               ),
             ),
           ),
-        ),
-         SizedBox(height: 10,),
-        Container(
-          height: 40,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: birthdayField,
+           SizedBox(height: 10,),
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text(
+                '이름',
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            ),
           ),
-        ),
-         SizedBox(height: 10,),
-         Container(
-           child: Padding(
-             padding: const EdgeInsets.only(left: 8.0),
-             child: Text(
-               '성별',
-               style: TextStyle(
-                 fontSize: 16,
-               ),
-             ),
-           ),
-         ),
-         SizedBox(height: 10,),
-        Column(
-          children: [
-            maleRadio,
-            femaleRadio,
-          ],
-        ),
-         SizedBox(height: 10,),
-         Container(
-           child: Padding(
-             padding: const EdgeInsets.only(left: 8.0),
-             child: Text(
-               '휴대폰',
-               style: TextStyle(
-                 fontSize: 16,
-               ),
-             ),
-           ),
-         ),
-         SizedBox(height: 10,),
-         Container(
-           height: 40,
-           child: Padding(
-             padding: const EdgeInsets.symmetric(horizontal: 10.0),
-             child: Row(
-               children: [
-                 Expanded(child: phoneNumberField),
-                 SizedBox(width: 10,),
-                 phoneAuthGetButton,
-               ],
-             ),
-           ),
-         ),
-         SizedBox(height: 10,),
-         Container(
-           height: 40,
-           child: Padding(
-             padding: const EdgeInsets.symmetric(horizontal: 10.0),
-             child: Row(
-               children: [
-                 Expanded(child: phoneAuthField,),
-                 SizedBox(width: 10,),
-                 phoneAuthConfirmButton,
-               ],
-             ),
-           ),
-         ),
-         Container(
-           child: Padding(
-             padding: const EdgeInsets.only(left: 20),
-             child: Row(
-               children: [
-                 Icon(
-                   Icons.warning,
-                   color: kPrimaryColor,
+           SizedBox(height: 10,),
+          Container(
+            height: 40,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: nameField,
+            ),
+          ),
+           SizedBox(height: 10,),
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 8.0),
+              child: Text(
+                '생년월일',
+                style: TextStyle(
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ),
+           SizedBox(height: 10,),
+          Container(
+            height: 40,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              child: birthdayField,
+            ),
+          ),
+           SizedBox(height: 10,),
+           Container(
+             child: Padding(
+               padding: const EdgeInsets.only(left: 8.0),
+               child: Text(
+                 '성별',
+                 style: TextStyle(
+                   fontSize: 16,
                  ),
-                 Text('공백 특수기호 없이 특수문자만 입력하세요', style: TextStyle(color: kPrimaryColor, fontSize:12), ),
-               ],
-             ),
-           ),
-         ),
-         SizedBox(height: 10,),
-         Container(
-           child: Padding(
-             padding: const EdgeInsets.only(left: 8.0),
-             child: Text(
-               '주소',
-               style: TextStyle(
-                 fontSize: 16,
                ),
              ),
            ),
-         ),
-         SizedBox(height: 10,),
-         Container(
-           height: 40,
-           child: Padding(
-             padding: const EdgeInsets.symmetric(horizontal: 10.0),
-             child: Row(
-               children: [
-                 Expanded(child: address1Field,),
-                 SizedBox(width: 10,),
-                 postSearchButton,
-               ],
-             ),
-           ),
-         ),
-         SizedBox(height: 10,),
-         Container(
-           height: 40,
-           child: Padding(
-             padding: const EdgeInsets.symmetric(horizontal: 10.0),
-             child: address2Field,
-           ),
-         ),
-         SizedBox(height: 10,),
-         Container(
-           height: 40,
-           child: Padding(
-             padding: const EdgeInsets.symmetric(horizontal: 10.0),
-             child: address3Field,
-           ),
-         ),
-         SizedBox(height: 10,),
-         Container(
-           child: Padding(
-             padding: const EdgeInsets.only(left: 8.0),
-             child: Text(
-               '차량번호(옵션)',
-               style: TextStyle(
-                 fontSize: 16,
+           SizedBox(height: 10,),
+          Column(
+            children: [
+              maleRadio,
+              femaleRadio,
+            ],
+          ),
+           SizedBox(height: 10,),
+           Container(
+             child: Padding(
+               padding: const EdgeInsets.only(left: 8.0),
+               child: Text(
+                 '휴대폰',
+                 style: TextStyle(
+                   fontSize: 16,
+                 ),
                ),
              ),
            ),
-         ),
-         SizedBox(height: 10,),
-         Container(
-           height: 40,
-           child: Padding(
-             padding: const EdgeInsets.symmetric(horizontal: 10.0),
-             child: carNumber1Field,
-           ),
-         ),
-         SizedBox(height: 10,),
-         Container(
-           child: Padding(
-             padding: const EdgeInsets.only(left: 8.0),
-             child: Text(
-               '차대번호(옵션)',
-               style: TextStyle(
-                 fontSize: 16,
+           SizedBox(height: 10,),
+           Container(
+             height: 40,
+             child: Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 10.0),
+               child: Row(
+                 children: [
+                   Expanded(child: phoneNumberField),
+                   SizedBox(width: 10,),
+                   phoneAuthGetButton,
+                 ],
                ),
              ),
            ),
-         ),
-         SizedBox(height: 10,),
-         Container(
-           height: 40,
-           child: Padding(
-             padding: const EdgeInsets.symmetric(horizontal: 10.0),
-             child: carNumber2Field,
+           SizedBox(height: 10,),
+           Container(
+             height: 40,
+             child: Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 10.0),
+               child: Row(
+                 children: [
+                   Expanded(child: phoneAuthField,),
+                   SizedBox(width: 10,),
+                   phoneAuthConfirmButton,
+                 ],
+               ),
+             ),
            ),
-         ),
-         SizedBox(height: 50,),
-         registerButton,
-         SizedBox(height: 40,),
-       ],
-    );
+           Container(
+             child: Padding(
+               padding: const EdgeInsets.only(left: 20),
+               child: Row(
+                 children: [
+                   Icon(
+                     Icons.warning,
+                     color: kPrimaryColor,
+                   ),
+                   Text('공백 특수기호 없이 특수문자만 입력하세요', style: TextStyle(color: kPrimaryColor, fontSize:12), ),
+                 ],
+               ),
+             ),
+           ),
+           SizedBox(height: 10,),
+           Container(
+             child: Padding(
+               padding: const EdgeInsets.only(left: 8.0),
+               child: Text(
+                 '주소',
+                 style: TextStyle(
+                   fontSize: 16,
+                 ),
+               ),
+             ),
+           ),
+           SizedBox(height: 10,),
+           Container(
+             height: 40,
+             child: Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 10.0),
+               child: Row(
+                 children: [
+                   Expanded(child: address1Field,),
+                   SizedBox(width: 10,),
+                   postSearchButton,
+                 ],
+               ),
+             ),
+           ),
+           SizedBox(height: 10,),
+           Container(
+             height: 40,
+             child: Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 10.0),
+               child: address2Field,
+             ),
+           ),
+           SizedBox(height: 10,),
+           Container(
+             height: 40,
+             child: Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 10.0),
+               child: address3Field,
+             ),
+           ),
+           SizedBox(height: 10,),
+           Container(
+             child: Padding(
+               padding: const EdgeInsets.only(left: 8.0),
+               child: Text(
+                 '차량번호(옵션)',
+                 style: TextStyle(
+                   fontSize: 16,
+                 ),
+               ),
+             ),
+           ),
+           SizedBox(height: 10,),
+           Container(
+             height: 40,
+             child: Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 10.0),
+               child: carNumber1Field,
+             ),
+           ),
+           SizedBox(height: 10,),
+           Container(
+             child: Padding(
+               padding: const EdgeInsets.only(left: 8.0),
+               child: Text(
+                 '차대번호(옵션)',
+                 style: TextStyle(
+                   fontSize: 16,
+                 ),
+               ),
+             ),
+           ),
+           SizedBox(height: 10,),
+           Container(
+             height: 40,
+             child: Padding(
+               padding: const EdgeInsets.symmetric(horizontal: 10.0),
+               child: carNumber2Field,
+             ),
+           ),
+           SizedBox(height: 50,),
+           registerButton,
+           SizedBox(height: 40,),
+         ],
+    ),
+     );
   }
 
 }

@@ -58,6 +58,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
     marketData.add(RadioModel(false, '', '직영점'));
     marketData.add(RadioModel(false, '', '대리점(매장)'));
     marketData.add(RadioModel(false, '', '대리점(온라인몰)'));
+    manufacturerData[0].isSelected = true;
+    marketData[0].isSelected = true;
   }
 
   @override

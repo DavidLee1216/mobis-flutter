@@ -1,47 +1,75 @@
 
 class User {
+  String username;
   String email;
-  String uid;
-  String displayName;
-  String phoneNumber;
-  String address1;
-  String address2;
-  String postCode;
-  String id;
+  String legalName;
+  String mobile;
+  String address;
+  String addressExtended;
+  String zipcode;
+  String dateofBirth;
+  String password;
+  String sexCode;
+  String vin;
+  String vlp;
+  String gtoken;
+  String ktoken;
+  String ntoken;
 
   User({
-    this.uid,
-    this.id,
+    this.address,
+    this.addressExtended,
+    this.dateofBirth,
     this.email,
-    this.displayName,
-    this.phoneNumber,
-    this.address1,
-    this.address2,
-    this.postCode,
+    this.gtoken,
+    this.ktoken,
+    this.legalName,
+    this.mobile,
+    this.ntoken,
+    this.password,
+    this.sexCode,
+    this.username,
+    this.vin,
+    this.vlp,
+    this.zipcode,
   });
 
   Map<String, dynamic> toMap() {
     return {
-      'uid': uid,
-      'id': id,
+      'address': address,
+      'addressExtended': addressExtended,
+      'dateofBirth': dateofBirth,
       'email': email,
-      'displayName': displayName,
-      'phoneNumber': phoneNumber,
-      'address1': address1,
-      'address2': address2,
-      'postCode': postCode,
+      'gtoken': gtoken,
+      'ktoken': ktoken,
+      'legalName': legalName,
+      'mobile': mobile,
+      'ntoken': ntoken,
+      'password': password,
+      'sexCode': sexCode,
+      'username': username,
+      'vin': vin,
+      'vlp': vlp,
+      'zipcode': zipcode,
     };
   }
 
   factory User.fromMap(Map<String, dynamic> map) => User(
-    uid: map['uid'],
-    id: map['id'],
+    address: map['address'],
+    addressExtended: map['addressExtended'],
+    dateofBirth: map['dateofBirth'],
     email: map['email'],
-    displayName: map['displayName'],
-    phoneNumber: map['phoneNumber'],
-    address1: map['address1'],
-    address2: map['address2'],
-    postCode: map['postCode'],
+    gtoken: map['gtoken'],
+    ktoken: map['ktoken'],
+    legalName: map['legalName'],
+    mobile: map['mobile'],
+    ntoken: map['ntoken'],
+    password: map['password'],
+    sexCode: map['sexCode'],
+    username: map['username'],
+    vin: map['vin'],
+    vlp: map['vlp'],
+    zipcode: map['zipcode'],
   );
 
 }

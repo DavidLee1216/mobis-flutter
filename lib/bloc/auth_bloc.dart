@@ -1,6 +1,8 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
+import 'package:hyundai_mobis/common.dart';
+import 'package:hyundai_mobis/model/user_model.dart';
 import 'package:hyundai_mobis/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -18,9 +20,9 @@ class AuthEventSignIn extends AuthEvent {
 }
 
 class AuthEventSignUp extends AuthEvent {
-  final String email, password;
+  final User user;
 
-  AuthEventSignUp({@required this.email, @required this.password});
+  AuthEventSignUp({@required this.user,});
 
 }
 
@@ -32,32 +34,28 @@ class AuthEventSignOut extends AuthEvent {
 }
 
 class AuthState {
-  String uid;
   String errorMsg;
   String id;
   String password;
   bool isLoading;
 
   AuthState({
-    this.uid = '',
     this.errorMsg = '',
     this.id = '',
     this.password = '',
     this.isLoading = false,
   });
 
-  bool isAuthenticated() => uid.isNotEmpty;
+  bool isAuthenticated() => id.isNotEmpty;
 
   bool hasError() => errorMsg.isNotEmpty;
 
   AuthState _setProps(
-      {String uid,
-        String errorMsg,
+      { String errorMsg,
         String id,
         String password,
         bool isLoading}) =>
       AuthState(
-        uid: uid ?? this.uid,
         errorMsg: errorMsg ?? '',
         id: id ?? this.id,
         password: password ?? this.password,
@@ -66,8 +64,8 @@ class AuthState {
 
   factory AuthState.init() => AuthState();
 
-  AuthState success({@required String uid}) =>
-      _setProps(uid: uid, isLoading: false);
+  AuthState success({@required String id}) =>
+      _setProps(id: id, isLoading: false);
 
   AuthState unauthenticated(String errorMsg) =>
       AuthState.init()..errorMsg = errorMsg;
@@ -91,54 +89,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (event is AuthEventSignIn) {
       yield* _mapSignInToState(event);
     }
-//    if (event is AuthEventSignUp) {
-//      yield* _mapSignUpToState(event);
-//    }
-//    if (event is AuthEventSignOut) {
-//      yield* _mapSignedOutToState(event);
-//    }
   }
 
   Stream<AuthState> _mapAppStartedToState(AuthEventAppStarted event) async* {
-//    try {
-//      bool isSignedIn = await userRepository.isSignedIn();
-//      if (isSignedIn) {
-//        final user = await userRepository.getUser();
-//        yield (state.success(uid: user.uid));
-//      } else {
-        yield (state.unauthenticated(''));
-//      }
-//    } catch (e) {
-//      yield state.unauthenticated(e.toString());
-//    }
+     yield (state.unauthenticated(''));
   }
 
   Stream<AuthState> _mapSignInToState(AuthEventSignIn event) async* {
     try {
       yield state.submitting();
-//      final user = await userRepository.signInWithCredentials(
-//        id: event.id,
-//        password: event.password,
-//      );
-//      yield state.success(uid: user.uid);
-      yield state.success(uid: '1');
+      yield state.success(id: event.id);
+      globalUsername = event.id;
     } catch (e) {
       yield state.unauthenticated(e.toString());
     }
   }
-
-//  Stream<AuthState> _mapSignUpToState(AuthEventSignUp event) async* {
-//    try {
-//      yield state.submitting();
-//      final user = await userRepository.signUp(
-//        email: event.email,
-//        password: event.password,
-//      );
-//      yield state.success(uid: user.uid);
-//    } catch (e) {
-//      yield state.unauthenticated(e.toString());
-//    }
-//  }
 //
 //  Stream<AuthState> _mapSignedOutToState(AuthEventSignOut event) async* {
 //    try {

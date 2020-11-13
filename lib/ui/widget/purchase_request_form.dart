@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hyundai_mobis/bloc/cart_bloc.dart';
+import 'package:hyundai_mobis/model/order_model.dart';
 import 'package:hyundai_mobis/ui/screen/cart_screen.dart';
 import 'package:hyundai_mobis/ui/widget/custom_radio_button.dart';
-import 'package:hyundai_mobis/ui/screen/home_screen.dart';
 import 'package:hyundai_mobis/utils/navigation.dart';
+import 'package:hyundai_mobis/common.dart';
+import 'package:hyundai_mobis/model/product_model.dart';
 
 class PurchaseRequestForm extends StatefulWidget {
   final String partNumber;
@@ -10,6 +14,7 @@ class PurchaseRequestForm extends StatefulWidget {
   final String englishPartName;
   final int price;
   final String companyMark;
+  final String agentCode;
 
   const PurchaseRequestForm(
       {Key key,
@@ -17,7 +22,8 @@ class PurchaseRequestForm extends StatefulWidget {
       this.koreanPartName,
       this.englishPartName,
       this.price,
-      this.companyMark})
+      this.companyMark,
+      this.agentCode})
       : super(key: key);
   @override
   _PurchaseRequestFormState createState() => _PurchaseRequestFormState();
@@ -34,11 +40,38 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
     optionData.add(RadioModel(false, '', '방문 수령'));
   }
 
+
   @override
   Widget build(BuildContext context) {
+
+    final CartBloc bloc = BlocProvider.of<CartBloc>(context);
+
     var firstColumnWidth = MediaQuery.of(context).size.width * 0.3;
     var secondColumnWidth = MediaQuery.of(context).size.width * 0.6;
     var screenWidth = MediaQuery.of(context).size.width;
+
+    Future<bool> addToCart() async{
+      String deliveryCode = optionData[0].isSelected?'P':'V';
+      Product product = new Product(widget.agentCode, deliveryCode, widget.partNumber, globalUsername, count);
+      if(await add_to_cart(product)==true)
+      {
+        bloc.add(AddCartEvent(product));
+        return true;
+      }
+      else
+        return false;
+    }
+
+    Future<bool> orderNow() async{
+      DateTime timeNow = DateTime.now();
+      String deliveryCode = optionData[0].isSelected?'P':'V';
+      Product product = new Product(widget.agentCode, deliveryCode, widget.partNumber, globalUsername, count);
+      Order orderObject = new Order(globalUser.username, globalUser.legalName, globalUser.mobile, globalUser.zipcode, globalUser.addressExtended, timeNow.toString(), globalUser.address, product);
+      if(await order(orderObject)==true)
+      {
+
+      }
+    }
 
     var partNumberItem = Container(
 //      padding: EdgeInsets.all(10.0),
@@ -348,12 +381,14 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
             buttonColor: kPrimaryColor,
             child: RaisedButton(
               child: Text('장바구니', style: TextStyle(fontSize: 12, color: Colors.white), textAlign: TextAlign.center,),
-              onPressed: (){
+              onPressed: () async{
                 if(optionData[0].isSelected==false && optionData[1].isSelected==false)
                   return;
                 bool kind = optionData[0].isSelected ? true:false;
-                pushTo(context, CartScreen(delivery_kind: kind,));
-//                Navigator.pushNamed(context, CartScreen.routeName, arguments: CartScreenArguments(kind));
+                if(await addToCart()==true)
+                {
+                  pushTo(context, CartScreen(delivery_kind: kind,));
+                }
               },
             ),
           ),
@@ -367,8 +402,9 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 width: 1, //width of the border
               ),
               child: Text('바로구매', style: TextStyle(fontSize: 12, color: kPrimaryColor),),
-              onPressed: (){
-
+              onPressed: () async {
+                if(await orderNow()==true)
+                {}
               },
             ),
           )

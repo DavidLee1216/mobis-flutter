@@ -253,7 +253,11 @@ class MyPageWidget extends StatelessWidget {
                         child: Text(
                       '로그아웃',
                       style: TextStyle(fontSize: 14, color: Colors.black54),
-                    )),
+                    ),
+                      onPressed: (){
+
+                      },
+                    ),
                   ],
                 ),
               )

@@ -61,8 +61,10 @@ class SearchBarWidget extends StatefulWidget {
 }
 
 class _SearchBarWidgetState extends State<SearchBarWidget> {
+
   String dropdownValue = '제목';
   final _keywordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     var dropdownmenu = DropdownButtonHideUnderline(
@@ -102,10 +104,10 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             )),
         onPressed: () {
           if (dropdownValue == '제목')
-            BlocProvider.of<NoticeBloc>(context).add(NoticeSearchTitleEvent());
+            BlocProvider.of<NoticeBloc>(context).add(NoticeSearchTitleEvent(searchWord: _keywordController.text));
           if (dropdownValue == '내용')
             BlocProvider.of<NoticeBloc>(context)
-                .add(NoticeSearchContentEvent());
+                .add(NoticeSearchContentEvent(searchWord: _keywordController.text));
         },
       ),
     );
@@ -138,14 +140,39 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   }
 }
 
-class NoticeListWidget extends StatelessWidget {
+class NoticeListWidget extends StatefulWidget {
+
+  @override
+  _NoticeListWidgetState createState() => _NoticeListWidgetState();
+}
+
+class _NoticeListWidgetState extends State<NoticeListWidget> {
+  final _scrollController = ScrollController();
+
+  final _scrollThreshold = 200.0;
+
+  int max_page = 1;
+  EnumNoticeEvent kind = EnumNoticeEvent.TitleSearch;
+  String searchWord = '';
+
+  var bloc = null;
+
+  @override
+  void initState(){
+    _scrollController.addListener(_onScroll);
+    bloc = BlocProvider.of<NoticeBloc>(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NoticeBloc, NoticeState>(
       cubit: BlocProvider.of<NoticeBloc>(context),
       builder: (BuildContext context, state){
         if(state is NoticeState){
-          if (state.noticeList.isEmpty) {
+          kind = state.kind;
+          searchWord = state.keyword;
+          max_page = state.page;
+          if (state.noticeList != null &&state.noticeList.isEmpty) {
             return Center(
               child: Text('자료 없음'),
             );
@@ -154,7 +181,7 @@ class NoticeListWidget extends StatelessWidget {
             itemBuilder: (BuildContext context, int index){
               return NoticeForm(title: state.noticeList[index].title, date: state.noticeList[index].date.toString(), text: state.noticeList[index].content,);
             },
-            itemCount: state.noticeList.length,
+            itemCount: state.noticeList!=null?state.noticeList.length:0,
           );
         }
         return Container();
@@ -233,5 +260,16 @@ class NoticeListWidget extends StatelessWidget {
 //        ),
 //      ],
 //    );
+  }
+
+  void _onScroll() {
+    final maxScroll = _scrollController.position.maxScrollExtent;
+    final currentScroll = _scrollController.position.pixels;
+    if (maxScroll - currentScroll <= _scrollThreshold && bloc != null) {
+      if(kind==EnumNoticeEvent.TitleSearch)
+        bloc.add(NoticeSearchTitleEvent(searchWord: searchWord, page: max_page+1));
+      else
+        bloc.add(NoticeSearchContentEvent(searchWord: searchWord, page: max_page+1));
+    }
   }
 }

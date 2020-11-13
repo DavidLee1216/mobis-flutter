@@ -332,7 +332,7 @@ class _GetPassFormState extends State<GetPassForm> {
           ));
     }
 
-    var phoneCodes = ['+1', '+82', '+59'];
+    var phoneCodes = ['+1', '+82', '+59', '+123'];
 
     var phoneCodeDropdownmenu = Container(
         width: 80,
@@ -572,7 +572,11 @@ class _GetPassFormState extends State<GetPassForm> {
                                 onPressed: () {
                                   if (authStep == 2) {
                                     if(mobileAuth)
-                                      validate_SMS(_phoneNumberController.text);
+                                    {
+                                      String phoneNumber = phoneCode.substring(1) + "-" + _phoneNumberController.text;
+                                      print(phoneNumber);
+                                      validate_SMS(phoneNumber);
+                                    }
                                     else
                                       validate_email(_emailController.text);
                                     setState(() {
@@ -686,7 +690,7 @@ class _GetPassFormState extends State<GetPassForm> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      mobileAuth ? mobileAuthConfirmItem : emailAuthConfirmItem,
+                      mobileAuthConfirmItem,//mobileAuth ? mobileAuthConfirmItem : emailAuthConfirmItem,
                       SizedBox(
                         height: 10,
                       ),
@@ -724,12 +728,14 @@ class _GetPassFormState extends State<GetPassForm> {
                               ),
                               onPressed: () {
                                 if (authStep == 3) {
-                                  if(mobileAuth)
+//                                  if(mobileAuth)
+//                                  {
                                     authSeq = validate_code(_authNumberController.text);
+//                                  }
                                   if(authSeq=='')
                                     return;
-                                  if(findEmail)
-                                    foundEmail = get_email(authSeq);
+//                                  if(findEmail)
+//                                    foundEmail = get_email(authSeq);
                                   setState(() {
                                     authStep++;
                                   });

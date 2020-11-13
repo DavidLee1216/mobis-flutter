@@ -14,21 +14,21 @@ class NoticeLoadEvent extends NoticeEvent{}
 
 class NoticeSearchTitleEvent extends NoticeEvent{
   final String searchWord;
-  NoticeSearchTitleEvent({@required this.searchWord});
+  final int page;
+  NoticeSearchTitleEvent({@required this.searchWord, this.page=1});
 }
 class NoticeSearchContentEvent extends NoticeEvent{
   final String searchWord;
-  NoticeSearchContentEvent({@required this.searchWord});
-}
-
-abstract class NoticeBaseState extends Equatable {
-  NoticeBaseState([List noticeList = const []]) : super(noticeList);
+  final int page;
+  NoticeSearchContentEvent({@required this.searchWord, this.page=1});
 }
 
 class NoticeState{
   EnumNoticeEvent kind;
+  String keyword;
+  int page;
   List<Notice> noticeList;
-  NoticeState({this.kind, this.noticeList});
+  NoticeState({this.kind, this.keyword, this.noticeList, this.page=1});
 
   NoticeState _setProps({EnumNoticeEvent kind, List<Notice> noticeList})=>NoticeState(kind: kind??this.kind, noticeList: noticeList??this.noticeList);
 
@@ -50,7 +50,7 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState>{
   Stream<NoticeState> mapEventToState(NoticeEvent event) async* {
     if(event is NoticeLoadEvent){
       try{
-        final stream = await noticeRepository.getTitleNoticeStream('');
+        final stream = await noticeRepository.getTitleNoticeStream(title:'');
 //        state.searchTitle(stream);
         yield NoticeState(kind:EnumNoticeEvent.TitleSearch, noticeList:stream);
       } catch(e){
@@ -59,20 +59,20 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState>{
     }
     else if(event is NoticeSearchTitleEvent){
       try{
-        final stream = await noticeRepository.getTitleNoticeStream(event.searchWord);
+        final stream = await noticeRepository.getTitleNoticeStream(title:event.searchWord, page: state.page+1);
 //        state.searchTitle(stream);
-        yield NoticeState(kind:EnumNoticeEvent.TitleSearch, noticeList:stream);
+        yield stream.isEmpty?state:NoticeState(kind:EnumNoticeEvent.TitleSearch, keyword: event.searchWord, noticeList:state.noticeList+stream, page: state.page+1);
       }catch(e){
-        yield NoticeState(kind:EnumNoticeEvent.TitleSearch, noticeList:List<Notice>());
+        yield NoticeState(kind:EnumNoticeEvent.TitleSearch, keyword: event.searchWord, noticeList:List<Notice>());
       }
     }
     else if(event is NoticeSearchContentEvent){
       try{
-        final stream = await noticeRepository.getContentNoticeStream(event.searchWord);
+        final stream = await noticeRepository.getContentNoticeStream(keyword:event.searchWord, page: state.page+1);
 //        state.searchContent(stream);
-        yield NoticeState(kind:EnumNoticeEvent.ContentSearch, noticeList:stream);
+        yield stream.isEmpty?state:NoticeState(kind:EnumNoticeEvent.ContentSearch, keyword: event.searchWord, noticeList:state.noticeList+stream, page: state.page+1);
       }catch(e){
-        yield NoticeState(kind:EnumNoticeEvent.TitleSearch, noticeList:List<Notice>());
+        yield NoticeState(kind:EnumNoticeEvent.TitleSearch, keyword: event.searchWord, noticeList:List<Notice>());
       }
     }
   }
