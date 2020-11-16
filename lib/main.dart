@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hyundai_mobis/repository/simple_search_repository.dart';
 import 'package:hyundai_mobis/ui/screen/cart_screen.dart';
 import 'package:hyundai_mobis/ui/screen/login_screen.dart';
 import 'package:hyundai_mobis/ui/screen/part_simple_search_screen.dart';
@@ -24,11 +25,13 @@ import 'package:hyundai_mobis/ui/screen/my_coupon_screen.dart';
 import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
 
 import 'bloc/cart_bloc.dart';
+import 'bloc/simple_search_bloc.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   UserRepository userRepository = UserRepository();
   NoticeRepository noticeRepository = NoticeRepository();
+  SimpleSearchRepository simpleSearchRepository = SimpleSearchRepository();
   runApp(
     BlocProvider<AuthBloc>(
       create: (context) =>
@@ -40,6 +43,7 @@ Future<void> main() async {
               noticeRepository: noticeRepository,
             ),
           ),
+          BlocProvider<SimpleSearchBloc>(create: (context)=>SimpleSearchBloc(simpleSearchRepository: simpleSearchRepository)),
           BlocProvider<CartBloc>(create: (context)=>CartBloc()),
         ],
         child: MyApp(),

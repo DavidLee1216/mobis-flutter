@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hyundai_mobis/bloc/notice_bloc.dart';
+import 'package:hyundai_mobis/model/notice_model.dart';
 import 'package:hyundai_mobis/repository/notice_repository.dart';
 
 abstract class NoticeEvent{}
@@ -11,6 +12,8 @@ abstract class NoticeEvent{}
 enum EnumNoticeEvent{Load, TitleSearch, ContentSearch}
 
 class NoticeLoadEvent extends NoticeEvent{}
+
+class NoticeSearchButtonClickedEvent extends NoticeEvent{}
 
 class NoticeSearchTitleEvent extends NoticeEvent{
   final String searchWord;
@@ -28,7 +31,7 @@ class NoticeState{
   String keyword;
   int page;
   List<Notice> noticeList;
-  NoticeState({this.kind, this.keyword, this.noticeList, this.page=1});
+  NoticeState({this.kind, this.keyword, this.noticeList, this.page=0});
 
   NoticeState _setProps({EnumNoticeEvent kind, List<Notice> noticeList})=>NoticeState(kind: kind??this.kind, noticeList: noticeList??this.noticeList);
 
@@ -44,9 +47,6 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState>{
   NoticeBloc({this.noticeRepository}):super(NoticeState());
 
   @override
-  NoticeState get initialState=>NoticeState.init();
-
-  @override
   Stream<NoticeState> mapEventToState(NoticeEvent event) async* {
     if(event is NoticeLoadEvent){
       try{
@@ -56,6 +56,9 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState>{
       } catch(e){
         yield NoticeState(kind:EnumNoticeEvent.TitleSearch, noticeList:List<Notice>());
       }
+    }
+    else if(event is NoticeSearchButtonClickedEvent){
+        yield NoticeState(page: 0);
     }
     else if(event is NoticeSearchTitleEvent){
       try{

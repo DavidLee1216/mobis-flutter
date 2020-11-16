@@ -110,7 +110,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 //      await userRepository.signOut();
 //      yield state.unauthenticated('');
 //      if (event.completeCallback != null) {
-//        event.completeCallback();
 //      }
 //    } catch (e) {
 //      yield state.unauthenticated(e.toString());

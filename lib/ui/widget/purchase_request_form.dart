@@ -64,13 +64,15 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
 
     Future<bool> orderNow() async{
       DateTime timeNow = DateTime.now();
-      String deliveryCode = optionData[0].isSelected?'P':'V';
+      String deliveryCode = optionData[0].isSelected?'D':'P';
       Product product = new Product(widget.agentCode, deliveryCode, widget.partNumber, globalUsername, count);
       Order orderObject = new Order(globalUser.username, globalUser.legalName, globalUser.mobile, globalUser.zipcode, globalUser.addressExtended, timeNow.toString(), globalUser.address, product);
       if(await order(orderObject)==true)
       {
-
+        return true;
       }
+      else
+        return false;
     }
 
     var partNumberItem = Container(

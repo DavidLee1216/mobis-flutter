@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 import 'model/order_model.dart';
+import 'model/simple_search_model.dart';
 import 'model/user_model.dart';
 import 'model/product_model.dart';
 
@@ -23,6 +24,8 @@ const API = 'http://141.164.51.190:8080';
 String globalUsername = '';
 
 User globalUser = new User();
+
+int globalRecordCountPerPage = 10;
 
 bool check_username(String username){
   http.get(API + '/username/{username}?username=$username',).then((value){
@@ -166,3 +169,31 @@ Future<bool> order(Order order) =>
         return false;
       }
     });
+
+Future<List<String>> get_models(String hkgb, String vtpy) async {
+//  final response = await http.get(API + '/models/$hkgb/$vtpy');
+  final response = await http.get(API + '/models?hkgb=$hkgb&vtpy=$vtpy');
+  if(response.statusCode==200){
+    log('model success');
+    final data = json.decode(response.body) as List;
+    return data.map((item){
+      return item['cpnm'];
+    });
+  }else{
+    log('model '+ response.statusCode.toString());
+    throw Exception('error');
+  }
+}
+
+Future<List<SimpleSearchResultModel>> simple_search_part(String hkgb, String catSeq, String vtpy, String searchWord, int firstIndex, int recordCountPerPage) async {
+  final response = await http.get(API + '//partPrcList?hkgb=$hkgb&catSeq=$catSeq&vtyp=$vtpy&inText=$searchWord&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage');
+  if(response.statusCode==200){
+    log('simple search success');
+    final data = json.decode(response.body) as List;
+    return data.map((item){
+      return SimpleSearchResultModel.fromMap(item);
+    });
+  }else{
+    log('simple search '+response.statusCode.toString());
+  }
+}

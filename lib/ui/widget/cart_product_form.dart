@@ -49,7 +49,9 @@ class _CartProductFormState extends State<CartProductForm> {
         )),
         GestureDetector(
           child: Icon(Icons.clear),
-          onTap: () {},
+          onTap: () {
+
+          },
         ),
       ]),
     );

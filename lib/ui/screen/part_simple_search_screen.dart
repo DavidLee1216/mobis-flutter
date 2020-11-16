@@ -1,5 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hyundai_mobis/bloc/simple_search_bloc.dart';
+import 'package:hyundai_mobis/common.dart';
 import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
 import 'package:hyundai_mobis/ui/widget/simple_search_result_form.dart';
 import 'package:hyundai_mobis/ui/widget/custom_radio_button.dart';
@@ -40,25 +45,39 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
   bool searchType = false;
   bool searched = false;
   List<RadioModel> manufacturerData = new List<RadioModel>();
+  int hkgb_selected_idx = 0;
   List<RadioModel> carKindData = new List<RadioModel>();
-  String modelDropdownValue = 'aaa';
+  int vtpy_selected_idx = 0;
+  List<String> carModels = new List<String>();
+  String modelDropdownValue = '';
+  String hkgb = 'H';
+  String vtpy = 'P';
 
   var partNameController = TextEditingController();
 
   var partNumberController = TextEditingController();
 
+  var bloc = null;
+
   @override
   void initState() {
     super.initState();
-    manufacturerData.add(RadioModel(false, '', '현대'));
+    manufacturerData.add(RadioModel(true, '', '현대'));
     manufacturerData.add(RadioModel(false, '', '기아'));
-    carKindData.add(RadioModel(false, '', '승용/친환경'));
+    carKindData.add(RadioModel(true, '', '승용/친환경'));
     carKindData.add(RadioModel(false, '', 'SUV/RV'));
     carKindData.add(RadioModel(false, '', '상용'));
+    bloc = BlocProvider.of<SimpleSearchBloc>(context);
+    bloc.add(InitSimpleSearchEvent());
+  }
+
+  Future<List<String>> loadModels(String hkgb, String vtpy) async {
+    return await get_models(hkgb, vtpy);
   }
 
   @override
   Widget build(BuildContext context) {
+//    await carModels = loadModels(hkgb, vtpy);
     var manufactureItem = Container(
       height: 50,
       child: Row(
@@ -84,6 +103,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   manufacturerData
                       .forEach((element) => element.isSelected = false);
                   manufacturerData[0].isSelected = true;
+                  bloc.add(HKGBSimpleSearchEvent(0));
                 });
               },
             ),
@@ -99,6 +119,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   manufacturerData
                       .forEach((element) => element.isSelected = false);
                   manufacturerData[1].isSelected = true;
+                  bloc.add(HKGBSimpleSearchEvent(1));
                 });
               },
             ),
@@ -127,6 +148,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 setState(() {
                   carKindData.forEach((element) => element.isSelected = false);
                   carKindData[0].isSelected = true;
+                  bloc.add(VTPYSimpleSearchEvent(0));
                 });
               },
             ),
@@ -141,6 +163,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 setState(() {
                   carKindData.forEach((element) => element.isSelected = false);
                   carKindData[1].isSelected = true;
+                  bloc.add(VTPYSimpleSearchEvent(1));
                 });
               },
             ),
@@ -155,6 +178,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 setState(() {
                   carKindData.forEach((element) => element.isSelected = false);
                   carKindData[2].isSelected = true;
+                  bloc.add(VTPYSimpleSearchEvent(2));
                 });
               },
             ),
@@ -181,9 +205,10 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
             onChanged: (String newValue) {
               setState(() {
                 modelDropdownValue = newValue;
+                bloc.add(ModelSimpleSearchEvent(newValue));
               });
             },
-            items: <String>['aaa', 'bbb']
+            items: carModels
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -303,7 +328,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
           onPressed: () {
             searched = true;
             setState(() {
-
+              bloc.add(SearchSimpleSearchEvent(partNameController.text));
             });
           },
         ),
@@ -331,101 +356,108 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
       child: partNumber,
     );
 
-    return ListView(
-      children: [
-        Row(
+    return BlocBuilder<SimpleSearchBloc, SimpleSearchState>(
+      cubit: BlocProvider.of<SimpleSearchBloc>(context),
+      builder: (BuildContext context, state){
+        carModels = state.carModels;
+        log(carModels.toString());
+        return ListView(
           children: [
-            ButtonTheme(
-              minWidth: MediaQuery.of(context).size.width / 2,
-              height: 40,
-              buttonColor:
-                  searchType ? Colors.white : Color.fromRGBO(0, 63, 114, 1),
-              child: RaisedButton(
-                child: !searchType
-                    ? Text(
-                        '일반검색',
-                        style: TextStyle(fontSize: 12, color: Colors.white),
-                      )
-                    : Text(
-                        '일반검색',
-                        style: TextStyle(fontSize: 12, color: Colors.black),
-                      ),
-                onPressed: () {
-                  searchType = false;
-                  searched = false;
-                  setState(() {});
-                },
+            Row(
+              children: [
+                ButtonTheme(
+                  minWidth: MediaQuery.of(context).size.width / 2,
+                  height: 40,
+                  buttonColor:
+                      searchType ? Colors.white : Color.fromRGBO(0, 63, 114, 1),
+                  child: RaisedButton(
+                    child: !searchType
+                        ? Text(
+                            '일반검색',
+                            style: TextStyle(fontSize: 12, color: Colors.white),
+                          )
+                        : Text(
+                            '일반검색',
+                            style: TextStyle(fontSize: 12, color: Colors.black),
+                          ),
+                    onPressed: () {
+                      searchType = false;
+                      searched = false;
+                      setState(() {});
+                    },
+                  ),
+                ),
+                ButtonTheme(
+                  minWidth: MediaQuery.of(context).size.width / 2,
+                  height: 40,
+                  buttonColor:
+                      searchType ? Color.fromRGBO(0, 63, 114, 1) : Colors.white,
+                  child: RaisedButton(
+                    child: searchType
+                        ? Text(
+                            '부품번호 검색',
+                            style: TextStyle(fontSize: 12, color: Colors.white),
+                          )
+                        : Text(
+                            '부품번호 검색',
+                            style: TextStyle(fontSize: 12, color: Colors.black),
+                          ),
+                    onPressed: () {
+                      searchType = true;
+                      searched = false;
+                      setState(() {});
+                    },
+                  ),
+                ),
+              ],
+            ),
+            Container(
+              padding: EdgeInsets.all(10.0),
+              child: Column(
+                children: [
+                  Text(
+                    '현대/기아 차량에 대한',
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    '- 조회되는 부품 가격은 당사 직영점 기준 판매 가격이며, 부품대리점의 판매 가격과 상이할 수 있으니 참고 바랍니다.',
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                  Text(
+                    '- 간단 검색으로 부품 식별이 어렵거나, 희망하는 차종 정보가 없을 경우 당사 고객센터(1588-7278)를 통해 정확한 정보를 확인하시기 바랍니다.',
+                    style: TextStyle(
+                      fontSize: 14,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
+                ],
               ),
             ),
-            ButtonTheme(
-              minWidth: MediaQuery.of(context).size.width / 2,
-              height: 40,
-              buttonColor:
-                  searchType ? Color.fromRGBO(0, 63, 114, 1) : Colors.white,
-              child: RaisedButton(
-                child: searchType
-                    ? Text(
-                        '부품번호 검색',
-                        style: TextStyle(fontSize: 12, color: Colors.white),
-                      )
-                    : Text(
-                        '부품번호 검색',
-                        style: TextStyle(fontSize: 12, color: Colors.black),
-                      ),
-                onPressed: () {
-                  searchType = true;
-                  searched = false;
-                  setState(() {});
-                },
-              ),
+            Divider(
+              height: 2,
+              color: Colors.black54,
             ),
+            manufactureItem,
+            Divider(
+              height: 2,
+              color: Colors.black54,
+            ),
+            !searchType?generalSearchItems:partNumberSearchItems,
+            searchButton,
+            SizedBox(height: 30),
+            searched?SimpleSearchResultsForm():Container(),
           ],
-        ),
-        Container(
-          padding: EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              Text(
-                '현대/기아 차량에 대한',
-                style: TextStyle(
-                  fontSize: 16,
-                ),
-                textAlign: TextAlign.center,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                '- 조회되는 부품 가격은 당사 직영점 기준 판매 가격이며, 부품대리점의 판매 가격과 상이할 수 있으니 참고 바랍니다.',
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-                textAlign: TextAlign.left,
-              ),
-              Text(
-                '- 간단 검색으로 부품 식별이 어렵거나, 희망하는 차종 정보가 없을 경우 당사 고객센터(1588-7278)를 통해 정확한 정보를 확인하시기 바랍니다.',
-                style: TextStyle(
-                  fontSize: 14,
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ],
-          ),
-        ),
-        Divider(
-          height: 2,
-          color: Colors.black54,
-        ),
-        manufactureItem,
-        Divider(
-          height: 2,
-          color: Colors.black54,
-        ),
-        !searchType?generalSearchItems:partNumberSearchItems,
-        searchButton,
-        SizedBox(height: 30),
-        searched?SimpleSearchResultsForm():Container(),
-      ],
+        );
+      },
     );
   }
 }

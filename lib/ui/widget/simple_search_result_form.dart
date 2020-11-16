@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hyundai_mobis/bloc/notice_bloc.dart';
+import 'package:hyundai_mobis/bloc/simple_search_bloc.dart';
 import 'package:hyundai_mobis/ui/screen/home_screen.dart';
 
 class SimpleSearchResultsForm extends StatefulWidget {
@@ -13,100 +14,115 @@ class SimpleSearchResultsForm extends StatefulWidget {
 class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Center(
-            child: Container(
-              alignment: Alignment.center,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text("'에이컨'", style: TextStyle(fontSize: 14, color: kPrimaryColor),),
-                  Text("에 대한 검색 결과(총 11건)", style: TextStyle(fontSize: 14, color: Colors.black),),
-                ],
+    return BlocBuilder<SimpleSearchBloc, SimpleSearchState>(
+      cubit: BlocProvider.of<SimpleSearchBloc>(context),
+      builder: (BuildContext context, state) {
+        return Container(
+          child: Column(
+            children: [
+              Center(
+                child: Container(
+                  alignment: Alignment.center,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text("'에이컨'",
+                        style: TextStyle(fontSize: 14, color: kPrimaryColor),),
+                      Text("에 대한 검색 결과(총 11건)",
+                        style: TextStyle(fontSize: 14, color: Colors.black),),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
-          SizedBox(height: 20),
-          SimpleSearchResultForm(
-            partNumber: '97651B2000',
-            koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
-            englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
-            price: '1,870원',
-          ),
-          SizedBox(height: 10,),
-          SimpleSearchResultForm(
-            partNumber: '97651B2000',
-            koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
-            englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
-            price: '1,870원',
-          ),
-          SizedBox(height: 10,),
-          SimpleSearchResultForm(
-            partNumber: '97651B2000',
-            koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
-            englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
-            price: '1,870원',
-          ),
-          SizedBox(height: 10,),
-          SimpleSearchResultForm(
-            partNumber: '97651B2000',
-            koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
-            englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
-            price: '1,870원',
-          ),
-          SizedBox(height: 10,),
-          SimpleSearchResultForm(
-            partNumber: '97651B2000',
-            koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
-            englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
-            price: '1,870원',
-          ),
-          SizedBox(height: 10,),
-          Container(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 20),
-              child: Row(
-                children: [
-                  Image.asset('images/reference.png'),
-                  Text('부품 번호를 선택하시면 판매점을 조회하실 수 있습니다.', style: TextStyle(color: Colors.black, fontSize:12), ),
-                ],
+              SizedBox(height: 20),
+              ListView.builder(itemBuilder: (BuildContext context, int index){
+                return SimpleSearchResultForm(partNumber:state.searchResult[index].ptno, koreanPartName: state.searchResult[index].kr_name, englishParName: state.searchResult[index].en_name, price: state.searchResult[index].price.toString()+'원',);
+              }),
+//              SimpleSearchResultForm(
+//                partNumber: '97651B2000',
+//                koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
+//                englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
+//                price: '1,870원',
+//              ),
+//              SizedBox(height: 10,),
+//              SimpleSearchResultForm(
+//                partNumber: '97651B2000',
+//                koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
+//                englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
+//                price: '1,870원',
+//              ),
+//              SizedBox(height: 10,),
+//              SimpleSearchResultForm(
+//                partNumber: '97651B2000',
+//                koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
+//                englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
+//                price: '1,870원',
+//              ),
+//              SizedBox(height: 10,),
+//              SimpleSearchResultForm(
+//                partNumber: '97651B2000',
+//                koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
+//                englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
+//                price: '1,870원',
+//              ),
+//              SizedBox(height: 10,),
+//              SimpleSearchResultForm(
+//                partNumber: '97651B2000',
+//                koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
+//                englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
+//                price: '1,870원',
+//              ),
+              SizedBox(height: 10,),
+              Container(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Row(
+                    children: [
+                      Image.asset('images/reference.png'),
+                      Text('부품 번호를 선택하시면 판매점을 조회하실 수 있습니다.',
+                        style: TextStyle(color: Colors.black, fontSize: 12),),
+                    ],
+                  ),
+                ),
               ),
-            ),
-          ),
-          SizedBox(height: 20,),
-          Container(
-            child: Center(
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      width: 20,
-                      height: 20,
-                      padding: EdgeInsets.zero,
-                      child: OutlineButton(
-                        child: Text('1', style: TextStyle(fontSize: 8, color: Colors.black), textAlign: TextAlign.left,),
-                        onPressed: (){},
-                      ),
-                    ),
-                    SizedBox(width: 5,),
-                    Container(
-                      width: 20,
-                      height: 20,
-                      padding: EdgeInsets.zero,
-                      child: OutlineButton(
-                        child: Text('2', style: TextStyle(fontSize: 8, color: Colors.black), textAlign: TextAlign.left,),
-                        onPressed: (){},
-                      ),
+              SizedBox(height: 20,),
+              Container(
+                child: Center(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          width: 20,
+                          height: 20,
+                          padding: EdgeInsets.zero,
+                          child: OutlineButton(
+                            child: Text('1', style: TextStyle(
+                                fontSize: 8, color: Colors.black),
+                              textAlign: TextAlign.left,),
+                            onPressed: () {},
+                          ),
+                        ),
+                        SizedBox(width: 5,),
+                        Container(
+                          width: 20,
+                          height: 20,
+                          padding: EdgeInsets.zero,
+                          child: OutlineButton(
+                            child: Text('2', style: TextStyle(
+                                fontSize: 8, color: Colors.black),
+                              textAlign: TextAlign.left,),
+                            onPressed: () {},
+                          ),
+                        )
+                      ],
                     )
-                  ],
-                )
-            ),
+                ),
+              ),
+              SizedBox(height: 20,),
+            ],
           ),
-          SizedBox(height: 20,),
-        ],
-      ),
+        );
+      }
     );
   }
 }

@@ -103,6 +103,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               color: Colors.white,
             )),
         onPressed: () {
+          BlocProvider.of<NoticeBloc>(context).add(NoticeSearchButtonClickedEvent());
           if (dropdownValue == '제목')
             BlocProvider.of<NoticeBloc>(context).add(NoticeSearchTitleEvent(searchWord: _keywordController.text));
           if (dropdownValue == '내용')
