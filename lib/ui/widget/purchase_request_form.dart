@@ -50,16 +50,10 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
     var secondColumnWidth = MediaQuery.of(context).size.width * 0.6;
     var screenWidth = MediaQuery.of(context).size.width;
 
-    Future<bool> addToCart() async{
+    Future<void> addToCart() async{
       String deliveryCode = optionData[0].isSelected?'P':'V';
       Product product = new Product(widget.agentCode, deliveryCode, widget.partNumber, globalUsername, count);
-      if(await add_to_cart(product)==true)
-      {
-        bloc.add(AddCartEvent(product));
-        return true;
-      }
-      else
-        return false;
+      bloc.add(AddCartEvent(product));
     }
 
     Future<bool> orderNow() async{
@@ -387,10 +381,8 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 if(optionData[0].isSelected==false && optionData[1].isSelected==false)
                   return;
                 bool kind = optionData[0].isSelected ? true:false;
-                if(await addToCart()==true)
-                {
-                  pushTo(context, CartScreen(delivery_kind: kind,));
-                }
+                await addToCart();
+                pushTo(context, CartScreen(delivery_kind: kind,));
               },
             ),
           ),

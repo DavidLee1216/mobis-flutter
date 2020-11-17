@@ -51,7 +51,6 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState>{
     if(event is NoticeLoadEvent){
       try{
         final stream = await noticeRepository.getTitleNoticeStream(title:'');
-//        state.searchTitle(stream);
         yield NoticeState(kind:EnumNoticeEvent.TitleSearch, noticeList:stream);
       } catch(e){
         yield NoticeState(kind:EnumNoticeEvent.TitleSearch, noticeList:List<Notice>());
@@ -63,7 +62,6 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState>{
     else if(event is NoticeSearchTitleEvent){
       try{
         final stream = await noticeRepository.getTitleNoticeStream(title:event.searchWord, page: state.page+1);
-//        state.searchTitle(stream);
         yield stream.isEmpty?state:NoticeState(kind:EnumNoticeEvent.TitleSearch, keyword: event.searchWord, noticeList:state.noticeList+stream, page: state.page+1);
       }catch(e){
         yield NoticeState(kind:EnumNoticeEvent.TitleSearch, keyword: event.searchWord, noticeList:List<Notice>());
@@ -72,7 +70,6 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState>{
     else if(event is NoticeSearchContentEvent){
       try{
         final stream = await noticeRepository.getContentNoticeStream(keyword:event.searchWord, page: state.page+1);
-//        state.searchContent(stream);
         yield stream.isEmpty?state:NoticeState(kind:EnumNoticeEvent.ContentSearch, keyword: event.searchWord, noticeList:state.noticeList+stream, page: state.page+1);
       }catch(e){
         yield NoticeState(kind:EnumNoticeEvent.TitleSearch, keyword: event.searchWord, noticeList:List<Notice>());

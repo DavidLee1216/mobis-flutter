@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hyundai_mobis/bloc/cart_bloc.dart';
 import 'package:hyundai_mobis/ui/widget/cart_product_form.dart';
 import 'package:hyundai_mobis/ui/screen/home_screen.dart';
 
@@ -36,6 +38,12 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
   var checkAllState = false;
   @override
   Widget build(BuildContext context) {
+    final CartBloc bloc = BlocProvider.of<CartBloc>(context);
+
+    void DelCart(){
+      bloc.add(DelAllEvent());
+    }
+
     var selectAllItem = Container(
       child: Row(
         children: [
@@ -48,6 +56,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                     setState(() {
                       checkAllState = value;
                     });
+                    bloc.add(CheckAllEvent(checkAllState));
                   },
                   tristate: false,
                   value: checkAllState,
@@ -77,7 +86,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                 ],
               ),
               onPressed: (){
-
+                DelCart();
               },
             ),
           ),
@@ -133,9 +142,10 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
               Divider(color: Colors.black54,),
               selectAllItem,
               Divider(color: Colors.black54,),
-              CartProductForm(productName:'플레이트 & 그로메트－에어컨 쿨러 라인', price: 1870, companyMark:'강원부품(주)', delivery: widget.deliver_kind, checked: checkAllState,),
-              Divider(color: Colors.black54,),
-              CartProductForm(productName:'필터 앗세이－오일', price: 101640, companyMark:'강원부품(주)', delivery: widget.deliver_kind, checked: checkAllState,),
+              CartProductsForm(),
+//              CartProductForm(productName:'플레이트 & 그로메트－에어컨 쿨러 라인', price: 1870, companyMark:'강원부품(주)', delivery: widget.deliver_kind, checked: checkAllState,),
+//              Divider(color: Colors.black54,),
+//              CartProductForm(productName:'필터 앗세이－오일', price: 101640, companyMark:'강원부품(주)', delivery: widget.deliver_kind, checked: checkAllState,),
               Divider(color: Colors.black54,),
               selectAllItem,
               Divider(color: Colors.black54,),

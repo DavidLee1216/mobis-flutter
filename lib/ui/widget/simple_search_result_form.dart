@@ -26,7 +26,7 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text("'에이컨'",
+                      Text(state.keyword,
                         style: TextStyle(fontSize: 14, color: kPrimaryColor),),
                       Text("에 대한 검색 결과(총 11건)",
                         style: TextStyle(fontSize: 14, color: Colors.black),),

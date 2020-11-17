@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hyundai_mobis/bloc/market_search_bloc.dart';
 import 'package:hyundai_mobis/bloc/notice_bloc.dart';
 import 'package:hyundai_mobis/ui/screen/home_screen.dart';
 import 'package:hyundai_mobis/ui/screen/purchase_request_screen.dart';
@@ -16,131 +17,153 @@ class MarketSearchResultsForm extends StatefulWidget {
 class _MarketSearchResultsFormState extends State<MarketSearchResultsForm> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Container(
-            width: MediaQuery.of(context).size.width * 0.9,
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.black26,
-                width: 1,
+    return BlocBuilder<MarketSearchBloc, MarketSearchState>(
+      cubit: BlocProvider.of<MarketSearchBloc>(context),
+      builder: (BuildContext context, state) {
+        return Container(
+            child: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                decoration: BoxDecoration(
+                  border: Border.all(
+                  color: Colors.black26,
+                  width: 1,
+                  ),
+                ),
+                child: Column(
+                children: [
+                  Container(
+                  padding: EdgeInsets.only(left: 10),
+                  child: Text(
+                    '플레이트 & 그로메트－에어컨 쿨러 라인(PLATE & GROMMET-A/C COOLER LIN)',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                    ),
+                    textAlign: TextAlign.left,
+                  )),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Container(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Text(
+                      "-1,870원(부가세 포함)",
+                      style: TextStyle(fontSize: 14, color: Colors.black),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ],
               ),
             ),
-            child: Column(
-              children: [
-                Container(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(
-                  '플레이트 & 그로메트－에어컨 쿨러 라인(PLATE & GROMMET-A/C COOLER LIN)',
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.black,
+            SizedBox(height: 20),
+            ListView.builder(itemBuilder: (BuildContext context, int index){
+              return Column(
+                children: [
+                  MarketSearchResultForm(
+                    companyMark:state.searchResult[index].mutual,
+                    canDelivery: state.searchResult[index].stype=='Y'? true:false,
+                    address1: state.searchResult[index].sido,
+                    address2: state.searchResult[index].sigungu,
+                    phoneNumber: state.searchResult[index].tel,
+                    canSale: true,
                   ),
-                  textAlign: TextAlign.left,
-                )),
-                SizedBox(
-                  height: 10,
-                ),
-                Container(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(
-                    "-1,870원(부가세 포함)",
-                    style: TextStyle(fontSize: 14, color: Colors.black),
-                    textAlign: TextAlign.left,
+                  SizedBox(
+                    height: 10,
                   ),
-                ),
-              ],
+                ],
+              );
+            }),
+//            MarketSearchResultForm(
+//              companyMark: '강원부품(주)',
+//              canDelivery: true,
+//              address1: '강원도 원주시 현충로 255',
+//              address2: '강원도 원주시 현충로 255',
+//              phoneNumber: '033-743-1850',
+//              canSale: true,
+//            ),
+//            SizedBox(
+//              height: 10,
+//            ),
+//            MarketSearchResultForm(
+//              companyMark: '강원부품(주)',
+//              canDelivery: false,
+//              address1: '강원도 원주시 현충로 255',
+//              address2: '강원도 원주시 현충로 255',
+//              phoneNumber: '033-743-1850',
+//              canSale: true,
+//            ),
+//            SizedBox(
+//              height: 10,
+//            ),
+//            MarketSearchResultForm(
+//              companyMark: '강원부품(주)',
+//              canDelivery: false,
+//              address1: '강원도 원주시 현충로 255',
+//              address2: '강원도 원주시 현충로 255',
+//              phoneNumber: '033-743-1850',
+//              canSale: true,
+//            ),
+//            SizedBox(
+//              height: 10,
+//            ),
+//            MarketSearchResultForm(
+//              companyMark: '강원부품(주)',
+//              canDelivery: false,
+//              address1: '강원도 원주시 현충로 255',
+//              address2: '강원도 원주시 현충로 255',
+//              phoneNumber: '033-743-1850',
+//              canSale: false,
+//            ),
+//            SizedBox(
+//              height: 10,
+//            ),
+            Container(
+              child: Center(
+                child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Container(
+                    width: 20,
+                    height: 20,
+                    padding: EdgeInsets.zero,
+                    child: OutlineButton(
+                      child: Text(
+                        '1',
+                        style: TextStyle(fontSize: 8, color: Colors.black),
+                        textAlign: TextAlign.left,
+                      ),
+                      onPressed: () {},
+                    ),
+                  ),
+                  SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                    width: 20,
+                    height: 20,
+                    padding: EdgeInsets.zero,
+                    child: OutlineButton(
+                      child: Text(
+                        '2',
+                        style: TextStyle(fontSize: 8, color: Colors.black),
+                        textAlign: TextAlign.left,
+                      ),
+                      onPressed: () {},
+                    ),
+                  )
+                ],
+              )),
             ),
-          ),
-          SizedBox(height: 20),
-          MarketSearchResultForm(
-            companyMark: '강원부품(주)',
-            canDelivery: true,
-            address1: '강원도 원주시 현충로 255',
-            address2: '강원도 원주시 현충로 255',
-            phoneNumber: '033-743-1850',
-            canSale: true,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          MarketSearchResultForm(
-            companyMark: '강원부품(주)',
-            canDelivery: false,
-            address1: '강원도 원주시 현충로 255',
-            address2: '강원도 원주시 현충로 255',
-            phoneNumber: '033-743-1850',
-            canSale: true,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          MarketSearchResultForm(
-            companyMark: '강원부품(주)',
-            canDelivery: false,
-            address1: '강원도 원주시 현충로 255',
-            address2: '강원도 원주시 현충로 255',
-            phoneNumber: '033-743-1850',
-            canSale: true,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          MarketSearchResultForm(
-            companyMark: '강원부품(주)',
-            canDelivery: false,
-            address1: '강원도 원주시 현충로 255',
-            address2: '강원도 원주시 현충로 255',
-            phoneNumber: '033-743-1850',
-            canSale: false,
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          Container(
-            child: Center(
-              child: Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: 20,
-                  height: 20,
-                  padding: EdgeInsets.zero,
-                  child: OutlineButton(
-                    child: Text(
-                      '1',
-                      style: TextStyle(fontSize: 8, color: Colors.black),
-                      textAlign: TextAlign.left,
-                    ),
-                    onPressed: () {},
-                  ),
-                ),
-                SizedBox(
-                  width: 5,
-                ),
-                Container(
-                  width: 20,
-                  height: 20,
-                  padding: EdgeInsets.zero,
-                  child: OutlineButton(
-                    child: Text(
-                      '2',
-                      style: TextStyle(fontSize: 8, color: Colors.black),
-                      textAlign: TextAlign.left,
-                    ),
-                    onPressed: () {},
-                  ),
-                )
-              ],
-            )),
-          ),
-          SizedBox(
-            height: 20,
-          ),
-        ],
-      ),
+            SizedBox(
+              height: 20,
+            ),
+          ],
+        ),
+      );
+  }
     );
   }
 }
@@ -341,7 +364,8 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                       child: Text('구매요청', style: TextStyle(fontSize: 12, color: Colors.white),),
                       color: kPrimaryColor,
                       onPressed: (){
-                        pushTo(context, PurchaseRequestScreen());
+                        pushTo(context, PurchaseRequestScreen(partNumber:'97651B2000', koreanPartName:'플레이트 & 그로메트－에어컨 쿨러 라인',
+                            englishPartName: 'PLATE & GROMMET-A/C COOLER LIN', price:1870, companyMark:'강원부품(주)'));
                       },
                     )):
                     Container(

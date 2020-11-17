@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:hyundai_mobis/ui/widget/purchase_request_form.dart';
 
 class PurchaseRequestScreen extends StatefulWidget {
+  final partNumber;
+  final koreanPartName;
+  final englishPartName;
+  final price;
+  final companyMark;
+
+  PurchaseRequestScreen({Key key, this.partNumber, this.koreanPartName, this.englishPartName, this.price, this.companyMark}):super(key: key);
+
   @override
   _PurchaseRequestScreenState createState() => _PurchaseRequestScreenState();
 }
 
 class _PurchaseRequestScreenState extends State<PurchaseRequestScreen> {
-  var partNumber = '97651B2000';
-  var koreanPartName = '플레이트 & 그로메트－에어컨 쿨러 라인';
-  var englishPartName = 'PLATE & GROMMET-A/C COOLER LIN';
-  var price = '1,870원';
-  var companyMark = '강원부품(주)';
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +27,7 @@ class _PurchaseRequestScreenState extends State<PurchaseRequestScreen> {
       body: SafeArea(
         child: ListView(
           children: [
-            PurchaseRequestForm(partNumber: '97651B2000', koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인', englishPartName: 'PLATE & GROMMET-A/C COOLER LIN', price: 1870, companyMark: '강원부품(주)',),
+            PurchaseRequestForm(partNumber: widget.partNumber, koreanPartName: widget.koreanPartName, englishPartName: widget.englishPartName, price: widget.price, companyMark: widget.companyMark,),
           ],
         ), //
       ),

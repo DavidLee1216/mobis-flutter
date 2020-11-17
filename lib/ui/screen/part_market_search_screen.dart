@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hyundai_mobis/bloc/market_search_bloc.dart';
 import 'package:hyundai_mobis/ui/screen/home_screen.dart';
 import 'package:hyundai_mobis/ui/screen/notification_screen.dart';
 import 'package:hyundai_mobis/ui/widget/market_search_result_form.dart';
@@ -44,10 +46,14 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
   bool searched = false;
   List<RadioModel> manufacturerData = new List<RadioModel>();
   List<RadioModel> marketData = new List<RadioModel>();
-  String location1DropdownValue = 'aaa';
-  String location2DropdownValue = 'aaa';
+  String hkgb = 'H';
+  String ptno = '';
+  String sido = 'aaa';
+  String sigungu = 'aaa';
 
   var partNumberController = TextEditingController();
+
+  var bloc = null;
 
   @override
   void initState() {
@@ -60,6 +66,9 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
     marketData.add(RadioModel(false, '', '대리점(온라인몰)'));
     manufacturerData[0].isSelected = true;
     marketData[0].isSelected = true;
+
+    bloc = BlocProvider.of<MarketSearchBloc>(context);
+    bloc.add(InitMarketSearchEvent());
   }
 
   @override
@@ -90,6 +99,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                   manufacturerData
                       .forEach((element) => element.isSelected = false);
                   manufacturerData[0].isSelected = true;
+                  bloc.add(HKGBMarketSearchEvent(0));
                 });
               },
             ),
@@ -105,6 +115,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                   manufacturerData
                       .forEach((element) => element.isSelected = false);
                   manufacturerData[1].isSelected = true;
+                  bloc.add(HKGBMarketSearchEvent(1));
                 });
               },
             ),
@@ -137,6 +148,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                     setState(() {
                       marketData.forEach((element) => element.isSelected = false);
                       marketData[0].isSelected = true;
+                      bloc.add(SetMarketMarketSearchEvent(0));
                     });
                   },
                 ),
@@ -149,6 +161,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                     setState(() {
                       marketData.forEach((element) => element.isSelected = false);
                       marketData[1].isSelected = true;
+                      bloc.add(SetMarketMarketSearchEvent(1));
                     });
                   },
                 ),
@@ -161,6 +174,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                     setState(() {
                       marketData.forEach((element) => element.isSelected = false);
                       marketData[2].isSelected = true;
+                      bloc.add(SetMarketMarketSearchEvent(2));
                     });
                   },
                 ),
@@ -173,6 +187,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                     setState(() {
                       marketData.forEach((element) => element.isSelected = false);
                       marketData[3].isSelected = true;
+                      bloc.add(SetMarketMarketSearchEvent(3));
                     });
                   },
                 ),
@@ -190,7 +205,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
-            value: location1DropdownValue,
+            value: sido,
 //            decoration: InputDecoration(
 //                labelText: '[선택]'
 //            ),
@@ -203,7 +218,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
             iconSize: 14,
             onChanged: (String newValue) {
               setState(() {
-                location1DropdownValue = newValue;
+                sido = newValue;
               });
             },
             items: <String>['aaa', 'bbb']
@@ -233,7 +248,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
-            value: location2DropdownValue,
+            value: sigungu,
 //            decoration: InputDecoration(
 //                labelText: '[선택]'
 //            ),
@@ -246,7 +261,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
             iconSize: 14,
             onChanged: (String newValue) {
               setState(() {
-                location2DropdownValue = newValue;
+                sigungu = newValue;
               });
             },
             items: <String>['aaa', 'bbb']
@@ -342,10 +357,13 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                 ),
               ),
               onPressed: () {
-                searched = true;
-                setState(() {
-
-                });
+                ptno = partNumberController.text;
+                if(ptno != ''){
+                  searched = true;
+                  bloc.add(SearchMarketSearchEvent(ptno, sido, sigungu));
+                  setState(() {
+                  });
+                }
               },
             ),
           ),
