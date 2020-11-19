@@ -1,15 +1,49 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:math' as math;
+import 'dart:core';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_session/flutter_session.dart';
 import 'package:http/http.dart' as http;
 
+import 'model/location_model.dart';
 import 'model/market_search_model.dart';
 import 'model/order_model.dart';
 import 'model/simple_search_model.dart';
 import 'model/user_model.dart';
 import 'model/product_model.dart';
 import 'model/cart_model.dart';
+
+dynamic session = '';
+
+const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+math.Random _rnd = math.Random();
+
+String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
+    length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+
+void get_session() async{
+  session = await FlutterSession().get('mobis_session');
+  if(session==null) {
+    DateTime time = DateTime.now();
+    String ss = getRandomString(10);
+    List<int> newCodes = new List<int>();
+    List<int> charCodes = time.toString().codeUnits;
+    charCodes.forEach((element) {
+      if(element >= 0x30 && element < 0x40)
+        element += 0x20;
+      else
+        element += 0x30;
+      newCodes.add(element);
+    });
+    String sss = String.fromCharCodes(newCodes);
+    log(sss);
+    String session_str = ss + sss;
+    await FlutterSession().set('mobis_session', session_str);
+    session = await FlutterSession().get('mobis_session');
+  }
+}
 
 enum Gender{male, female}
 
@@ -29,15 +63,69 @@ User globalUser = new User();
 
 int globalRecordCountPerPage = 10;
 
+List<Sido> globalSido = new List<Sido>();
+
+void get_sido() async{
+  await http.get(API + '/sido').then((response){
+    if(response.statusCode==200){
+      final data = json.decode(response.body) as List;
+      log(data.toString());
+      globalSido = data.map((e) => Sido.fromMap(e));
+    }
+    else{
+      log('get sido ${response.statusCode}');
+    }
+  });
+}
+
+Sido find_sido(String sido){
+  for(Sido item in globalSido){
+    if(item.sido==sido)
+      return item;
+  }
+  return null;
+}
+
+String find_first_sigungu(String sido){
+  Sido sido_obj = find_sido(sido);
+  return sido_obj.sigungus[0].sigungu;
+}
+
+void get_sigungu() async{
+  for(Sido sido in globalSido){
+    await http.get(API + '/sigungu').then((response){
+      if(response.statusCode==200){
+        final data = json.decode(response.body) as List;
+        log(data.toString());
+        sido.sigungus = data.map((e) => Sigungu.fromMap(e));
+      } else{
+        log('get sigungu ${response.statusCode}');
+      }
+    });
+
+  }
+}
+
+bool update_profile(String addressExtended, String address, String mobile, String password, String zipCode, String email){
+  http.post(API + '/profile', body: jsonEncode({'addressExtended': addressExtended, 'address': address, 'mobile': mobile, 'password': password, 'zipcode': zipCode, 'email': email })).then((response) {
+    if(response.statusCode==200){
+      log('profile success');
+    }
+    else{
+      log('profile ${response.statusCode}');
+    }
+  });
+}
+
 bool check_username(String username){
-  http.get(API + '/username/{username}?username=$username',).then((value){
-    if(value.statusCode==200)
+  http.get(API + '/username/{username}?username=$username',).then((response){
+    if(response.statusCode==200)
     {
       log('success');
       return true;
     }
     else{
-      log(value.statusCode.toString());
+      log(response.statusCode.toString());
       return false;
 
     }
@@ -45,26 +133,26 @@ bool check_username(String username){
 }
 
 bool check_email(String email){
-  http.get(API + '/email/{email}?email=$email',).then((value) {
-    if(value.statusCode==200){
+  http.get(API + '/email/{email}?email=$email',).then((response) {
+    if(response.statusCode==200){
       log('success');
       return true;
     }
     else {
-      log(value.statusCode.toString());
+      log(response.statusCode.toString());
       return false;
     }
   });
 }
 
 bool validate_SMS(String mobile){
-  http.get(API + '/validateSMS/{mobile}/mobile=$mobile').then((value) {
-    if(value.statusCode==200){
+  http.get(API + '/validateSMS/{mobile}/mobile=$mobile').then((response) {
+    if(response.statusCode==200){
       log('validate_SMS success');
       return true;
     }
     else{
-      log('validate_SMS ${value.statusCode}');
+      log('validate_SMS ${response.statusCode}');
       return false;
     }
   } );
@@ -217,7 +305,7 @@ Future<List<String>> get_models(String hkgb, String vtpy) async {
 }
 
 Future<List<SimpleSearchResultModel>> simple_search_part(String hkgb, String catSeq, String vtpy, String searchWord, int firstIndex, int recordCountPerPage) async {
-  final response = await http.get(API + '//partPrcList?hkgb=$hkgb&catSeq=$catSeq&vtyp=$vtpy&inText=$searchWord&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage');
+  final response = await http.get(API + '/partPrcList?hkgb=$hkgb&catSeq=$catSeq&vtyp=$vtpy&inText=$searchWord&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage');
   if(response.statusCode==200){
     log('simple search success');
     final data = json.decode(response.body) as List;
@@ -226,11 +314,12 @@ Future<List<SimpleSearchResultModel>> simple_search_part(String hkgb, String cat
     });
   }else{
     log('simple search '+response.statusCode.toString());
+    return null;
   }
 }
 
 Future<List<MarketSearchResultModel>> market_search_part(String hkgb, String ptno, String sido, String sigungu, String stype, int firstIndex, int recordCountPerPage) async {
-  final response = await http.get(API + '//partPrcList?hkgb=$hkgb&ptno=$ptno&sido=$sido&sigungu=$sigungu&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage');
+  final response = await http.get(API + '/partInvenList?hkgb=$hkgb&ptno=$ptno&sido=$sido&sigungu=$sigungu&stype=$stype&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage');
   if(response.statusCode==200){
     log('market search success');
     final data = json.decode(response.body) as List;
@@ -239,5 +328,36 @@ Future<List<MarketSearchResultModel>> market_search_part(String hkgb, String ptn
     });
   }else{
     log('market search '+response.statusCode.toString());
+  }
+}
+
+Future<List<SimpleSearchResultModel>> simple_search_part_ptno(String hkgb, String ptno, int firstIndex, int recordCountPerPage) async {
+  MarketSearchResultProductInfo productInfo = await get_product_info_from_ptno(ptno);
+  if(productInfo==null)
+    return null;
+  final response = await http.get(API + '/partInvenList?hkgb=$hkgb&ptno=$ptno&stype=ALL&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage');
+  if(response.statusCode==200){
+    log('simple search ptno success');
+    final data = json.decode(response.body) as List;
+    return data.map((item){
+      return new SimpleSearchResultModel(ptno: item['ptno'], kr_name: productInfo.kr_name, en_name: productInfo.en_name, price: productInfo.price, seq: productInfo.seq, hkgb: productInfo.hkgb, totalCnt: item['tot_cnt'], rnum: item['rnum']);
+    });
+  }else{
+    log('simple search ptno'+response.statusCode.toString());
+    return null;
+  }
+}
+
+Future<MarketSearchResultProductInfo> get_product_info_from_ptno(String ptno) async {
+  final response = await http.get(API + '/part?ptno=$ptno');
+  if(response.statusCode==200){
+    log('get product info success');
+    final data = json.decode(response.body);
+    log(data.toString());
+    return MarketSearchResultProductInfo.fromMap(data);
+  }
+  else{
+    log('get product info ${response.statusCode}');
+    return null;
   }
 }

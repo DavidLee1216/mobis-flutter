@@ -38,7 +38,7 @@ class User {
     return {
       'address': address,
       'addressExtended': addressExtended,
-      'dateofBirth': dateofBirth,
+      'dateOfBirth': dateofBirth,
       'email': email,
       'gtoken': gtoken,
       'ktoken': ktoken,
@@ -57,7 +57,7 @@ class User {
   factory User.fromMap(Map<String, dynamic> map) => User(
     address: map['address'],
     addressExtended: map['addressExtended'],
-    dateofBirth: map['dateofBirth'],
+    dateofBirth: map['dateOfBirth'],
     email: map['email'],
     gtoken: map['gtoken'],
     ktoken: map['ktoken'],

@@ -17,6 +17,7 @@ class MarketSearchResultsForm extends StatefulWidget {
 class _MarketSearchResultsFormState extends State<MarketSearchResultsForm> {
   @override
   Widget build(BuildContext context) {
+    var bloc  = BlocProvider.of<MarketSearchBloc>(context);
     return BlocBuilder<MarketSearchBloc, MarketSearchState>(
       cubit: BlocProvider.of<MarketSearchBloc>(context),
       builder: (BuildContext context, state) {
@@ -37,7 +38,7 @@ class _MarketSearchResultsFormState extends State<MarketSearchResultsForm> {
                   Container(
                   padding: EdgeInsets.only(left: 10),
                   child: Text(
-                    '플레이트 & 그로메트－에어컨 쿨러 라인(PLATE & GROMMET-A/C COOLER LIN)',
+                    state.kr_name+'(${state.en_name})',
                     style: TextStyle(
                       fontSize: 14,
                       color: Colors.black,
@@ -50,7 +51,7 @@ class _MarketSearchResultsFormState extends State<MarketSearchResultsForm> {
                   Container(
                     padding: EdgeInsets.only(left: 10),
                     child: Text(
-                      "-1,870원(부가세 포함)",
+                      "-${state.price}원(부가세 포함)",
                       style: TextStyle(fontSize: 14, color: Colors.black),
                       textAlign: TextAlign.left,
                     ),
@@ -64,11 +65,11 @@ class _MarketSearchResultsFormState extends State<MarketSearchResultsForm> {
                 children: [
                   MarketSearchResultForm(
                     companyMark:state.searchResult[index].mutual,
-                    canDelivery: state.searchResult[index].stype=='Y'? true:false,
+                    canDelivery: state.searchResult[index].stype=='Y'? true : false,
                     address1: state.searchResult[index].sido,
                     address2: state.searchResult[index].sigungu,
                     phoneNumber: state.searchResult[index].tel,
-                    canSale: true,
+                    canSale: state.searchResult[index].stype=='Y'? true : false,
                   ),
                   SizedBox(
                     height: 10,
@@ -122,40 +123,44 @@ class _MarketSearchResultsFormState extends State<MarketSearchResultsForm> {
 //            ),
             Container(
               child: Center(
-                child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: 20,
-                    height: 20,
-                    padding: EdgeInsets.zero,
-                    child: OutlineButton(
-                      child: Text(
-                        '1',
-                        style: TextStyle(fontSize: 8, color: Colors.black),
-                        textAlign: TextAlign.left,
-                      ),
-                      onPressed: () {},
+                child: ListView.builder(itemBuilder: (BuildContext, index){
+                  return Container(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        GestureDetector(
+                          child: Container(
+                            height: 20.0,
+                            width: 20.0,
+                            child: new Center(
+                              child: new Text(state.pageModel.pages[index].toString(),
+                                  style: new TextStyle(
+                                      color:
+                                      state.pageModel.pages[index]==state.pageModel.curr_page ? Colors.white : Colors.black54,
+                                      //fontWeight: FontWeight.bold,
+                                      fontSize: 8.0)),
+                            ),
+                            decoration: new BoxDecoration(
+                              color: state.pageModel.pages[index]==state.pageModel.curr_page
+                                  ? Colors.black54
+                                  : Colors.transparent,
+                              border: new Border.all(
+                                  width: 1.0,
+                                  color: state.pageModel.pages[index]==state.pageModel.curr_page
+                                      ? Colors.black54
+                                      : Colors.grey),
+                              borderRadius: const BorderRadius.all(const Radius.circular(1.0)),
+                            ),
+                          ),
+                          onTap: (){
+                            bloc.add(SearchMarketSearchEvent(state.ptno, state.sido, state.sigungu, state.pageModel.pages[index]));
+                          },
+                        ),
+                        SizedBox(width: 5,),
+                      ],
                     ),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    width: 20,
-                    height: 20,
-                    padding: EdgeInsets.zero,
-                    child: OutlineButton(
-                      child: Text(
-                        '2',
-                        style: TextStyle(fontSize: 8, color: Colors.black),
-                        textAlign: TextAlign.left,
-                      ),
-                      onPressed: () {},
-                    ),
-                  )
-                ],
-              )),
+                  );
+                }),),
             ),
             SizedBox(
               height: 20,

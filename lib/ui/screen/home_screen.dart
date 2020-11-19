@@ -1,12 +1,12 @@
+import 'dart:developer';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hyundai_mobis/ui/screen/login_screen.dart';
-import 'package:hyundai_mobis/ui/screen/my_page_screen.dart';
-import 'package:hyundai_mobis/ui/screen/notice_screen.dart';
-import 'package:hyundai_mobis/ui/screen/part_market_search_screen.dart';
-import 'package:hyundai_mobis/ui/screen/part_simple_search_screen.dart';
 import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
 import 'package:hyundai_mobis/utils/navigation.dart';
+
+
 
 const kPrimaryColor = Color.fromRGBO(0, 71, 135, 1);
 const kTitleStyle = TextStyle(fontSize: 18, color: Colors.white);
@@ -16,7 +16,14 @@ const kMenuTextStyle = TextStyle(fontSize: 12);
 const kMarginSpace = 40.0;
 const kImageWidth = 80.0;
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+
   @override
   Widget build(BuildContext context) {
     final double topHeight = MediaQuery.of(context).size.height / 3.0;

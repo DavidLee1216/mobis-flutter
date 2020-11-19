@@ -1,37 +1,30 @@
+
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hyundai_mobis/repository/cart_repository.dart';
 import 'package:hyundai_mobis/repository/market_search_repository.dart';
 import 'package:hyundai_mobis/repository/simple_search_repository.dart';
-import 'package:hyundai_mobis/ui/screen/cart_screen.dart';
-import 'package:hyundai_mobis/ui/screen/login_screen.dart';
-import 'package:hyundai_mobis/ui/screen/part_simple_search_screen.dart';
-import 'package:hyundai_mobis/ui/screen/register_screen.dart';
-import 'package:hyundai_mobis/ui/screen/id_login_screen.dart';
-import 'package:hyundai_mobis/ui/screen/home_screen.dart';
-import 'package:hyundai_mobis/ui/screen/notice_screen.dart';
 import 'package:hyundai_mobis/bloc/auth_bloc.dart';
 import 'package:hyundai_mobis/bloc/notice_bloc.dart';
 import 'package:hyundai_mobis/repository/user_repository.dart';
 import 'package:hyundai_mobis/repository/notice_repository.dart';
-import 'package:hyundai_mobis/ui/screen/part_market_search_screen.dart';
-import 'package:hyundai_mobis/ui/screen/pass_reset_screen.dart';
-import 'package:hyundai_mobis/ui/screen/purchase_request_screen.dart';
-import 'package:hyundai_mobis/ui/screen/delivery_screen.dart';
-import 'package:hyundai_mobis/ui/screen/visit_screen.dart';
-import 'package:hyundai_mobis/ui/screen/notification_screen.dart';
-import 'package:hyundai_mobis/ui/screen/my_page_screen.dart';
-import 'package:hyundai_mobis/ui/screen/my_info_screen.dart';
-import 'package:hyundai_mobis/ui/screen/my_coupon_screen.dart';
 import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
 
 import 'bloc/cart_bloc.dart';
 import 'bloc/market_search_bloc.dart';
 import 'bloc/simple_search_bloc.dart';
 
+import 'package:hyundai_mobis/common.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  get_session();
+  get_sido();
+
   UserRepository userRepository = UserRepository();
   NoticeRepository noticeRepository = NoticeRepository();
   SimpleSearchRepository simpleSearchRepository = SimpleSearchRepository();
@@ -72,26 +65,6 @@ class MyApp extends StatelessWidget {
         primaryColor: Colors.white,
       ),
       home: NavigationBar(index: 1,),
-      // initialRoute: '/',
-       routes: {
-      //   '/': (context) => HomeScreen(),
-      //   '/login': (context) => LoginScreen(),
-      //   '/register': (context) => RegisterScreen(),
-      //   '/getpass': (context) => GetPassScreen(),
-      //   '/home': (context) => HomeScreen(),
-      //   '/idlogin': (context) => IdLoginScreen(),
-      //   '/notice': (context) => NoticeScreen(),
-      //   '/notification': (context) => NotificationScreen(),
-      //   '/simpleSearch': (context) => PartSimpleSearchScreen(),
-      //   '/marketSearch': (context) => PartMarketSearchScreen(),
-      //   '/purchase': (context) => PurchaseRequestScreen(),
-      //   '/addToCart': (context) => CartScreen(),
-      //   '/delivery': (context) => DeliveryScreen(),
-      //   '/visit': (context) => VisitScreen(),
-      //   '/my_page': (context) => MyPageScreen(),
-      //   '/my_info': (context) => MyInfoScreen(),
-      //   '/coupon': (context) => MyCouponScreen(),
-       },
     );
   }
 }

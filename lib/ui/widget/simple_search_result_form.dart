@@ -14,6 +14,7 @@ class SimpleSearchResultsForm extends StatefulWidget {
 class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
   @override
   Widget build(BuildContext context) {
+    var bloc = BlocProvider.of<SimpleSearchBloc>(context);
     return BlocBuilder<SimpleSearchBloc, SimpleSearchState>(
       cubit: BlocProvider.of<SimpleSearchBloc>(context),
       builder: (BuildContext context, state) {
@@ -88,34 +89,72 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
               SizedBox(height: 20,),
               Container(
                 child: Center(
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Container(
-                          width: 20,
-                          height: 20,
-                          padding: EdgeInsets.zero,
-                          child: OutlineButton(
-                            child: Text('1', style: TextStyle(
-                                fontSize: 8, color: Colors.black),
-                              textAlign: TextAlign.left,),
-                            onPressed: () {},
+                  child: ListView.builder(itemBuilder: (BuildContext, index){
+                    return Container(
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: <Widget>[
+                          GestureDetector(
+                            child: Container(
+                              height: 20.0,
+                              width: 20.0,
+                              child: new Center(
+                                child: new Text(state.pageModel.pages[index].toString(),
+                                    style: new TextStyle(
+                                        color:
+                                        state.pageModel.pages[index]==state.pageModel.curr_page ? Colors.white : Colors.black54,
+                                        //fontWeight: FontWeight.bold,
+                                        fontSize: 8.0)),
+                              ),
+                              decoration: new BoxDecoration(
+                                color: state.pageModel.pages[index]==state.pageModel.curr_page
+                                    ? Colors.black54
+                                    : Colors.transparent,
+                                border: new Border.all(
+                                    width: 1.0,
+                                    color: state.pageModel.pages[index]==state.pageModel.curr_page
+                                        ? Colors.black54
+                                        : Colors.grey),
+                                borderRadius: const BorderRadius.all(const Radius.circular(1.0)),
+                              ),
+                            ),
+                            onTap: (){
+                              bloc.add(SearchSimpleSearchEvent(state.keyword, state.searchType, state.pageModel.pages[index]));
+                            },
                           ),
-                        ),
-                        SizedBox(width: 5,),
-                        Container(
-                          width: 20,
-                          height: 20,
-                          padding: EdgeInsets.zero,
-                          child: OutlineButton(
-                            child: Text('2', style: TextStyle(
-                                fontSize: 8, color: Colors.black),
-                              textAlign: TextAlign.left,),
-                            onPressed: () {},
-                          ),
-                        )
-                      ],
-                    )
+                          SizedBox(width: 5,),
+                        ],
+                      ),
+                    );
+                  }),
+//                    child: Row(
+//                      mainAxisSize: MainAxisSize.min,
+//                      children: [
+//                        Container(
+//                          width: 20,
+//                          height: 20,
+//                          padding: EdgeInsets.zero,
+//                          child: OutlineButton(
+//                            child: Text('1', style: TextStyle(
+//                                fontSize: 8, color: Colors.black),
+//                              textAlign: TextAlign.left,),
+//                            onPressed: () {},
+//                          ),
+//                        ),
+//                        SizedBox(width: 5,),
+//                        Container(
+//                          width: 20,
+//                          height: 20,
+//                          padding: EdgeInsets.zero,
+//                          child: OutlineButton(
+//                            child: Text('2', style: TextStyle(
+//                                fontSize: 8, color: Colors.black),
+//                              textAlign: TextAlign.left,),
+//                            onPressed: () {},
+//                          ),
+//                        ),
+//                      ],
+//                    )
                 ),
               ),
               SizedBox(height: 20,),

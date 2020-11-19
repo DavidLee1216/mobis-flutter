@@ -10,6 +10,8 @@ import 'package:hyundai_mobis/ui/screen/my_page_screen.dart';
 import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
 import 'package:hyundai_mobis/utils/navigation.dart';
 
+import '../../common.dart';
+
 class PartMarketSearchScreen extends StatefulWidget {
   @override
   _PartMarketSearchScreenState createState() => _PartMarketSearchScreenState();
@@ -219,9 +221,10 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
             onChanged: (String newValue) {
               setState(() {
                 sido = newValue;
+                sigungu = find_first_sigungu(sido);
               });
             },
-            items: <String>['aaa', 'bbb']
+            items: globalSido.map((e) => e.sido)
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -264,7 +267,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                 sigungu = newValue;
               });
             },
-            items: <String>['aaa', 'bbb']
+            items: find_sido(sido).sigungus.map((e) => e.sigungu)
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -360,7 +363,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                 ptno = partNumberController.text;
                 if(ptno != ''){
                   searched = true;
-                  bloc.add(SearchMarketSearchEvent(ptno, sido, sigungu));
+                  bloc.add(SearchMarketSearchEvent(ptno, sido, sigungu, 1));
                   setState(() {
                   });
                 }

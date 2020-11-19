@@ -33,3 +33,23 @@ class MarketSearchResultModel {
     rnum: map['rnum'],
   );
 }
+
+class MarketSearchResultProductInfo{
+  int seq;
+  String hkgb;
+  String ptno;
+  String kr_name;
+  String en_name;
+  int price;
+
+  MarketSearchResultProductInfo({this.seq, this.hkgb, this.ptno, this.kr_name, this.en_name, this.price});
+
+  factory MarketSearchResultProductInfo.fromMap(Map<String, dynamic> map) => MarketSearchResultProductInfo(
+    seq: map['seq'],
+    hkgb: map['hkgb'],
+    ptno: map['ptno'],
+    kr_name: map['krnm'],
+    en_name: map['ennm'],
+    price: map['price'],
+  );
+}

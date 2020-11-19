@@ -13,8 +13,13 @@ class SimpleSearchRepository{
     return await get_models(hkgb, vtpy);
   }
 
-  Future<List<SimpleSearchResultModel>> searchPart({String hkgb, String catSeq, String vtpy, String searchWord, int firstIndex, int recordCountPerPage}) async {
+  Future<List<SimpleSearchResultModel>> searchPartPtno({String hkgb, String ptno, int firstIndex, int recordCountPerPage}) async {
+    return await simple_search_part_ptno(
+        hkgb, ptno, firstIndex, recordCountPerPage);
+  }
+
+  Future<List<SimpleSearchResultModel>> searchPartGeneral({String hkgb, String catSeq, String vtpy, String searchWord, int firstIndex, int recordCountPerPage}) async {
     return await simple_search_part(
-        hkgb, '아토스 98', vtpy, searchWord, firstIndex, recordCountPerPage);
+        hkgb, catSeq, vtpy, searchWord, firstIndex, recordCountPerPage);
   }
 }

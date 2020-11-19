@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hyundai_mobis/common.dart';
 import 'package:hyundai_mobis/model/market_search_model.dart';
+import 'package:hyundai_mobis/model/page_model.dart';
 import 'package:hyundai_mobis/repository/market_search_repository.dart';
 
 const List<String> hkgb_list = ['H', 'K'];
@@ -30,8 +31,9 @@ class SearchMarketSearchEvent extends MarketSearchEvent{
   final sido;
   final sigungu;
   final ptno;
+  int page;
 
-  SearchMarketSearchEvent(this.ptno, this.sido, this.sigungu);
+  SearchMarketSearchEvent(this.ptno, this.sido, this.sigungu, this.page);
 }
 
 class MarketSearchState{
@@ -40,15 +42,19 @@ class MarketSearchState{
   String sigungu;
   String market;
   String ptno;
+  String en_name;
+  String kr_name;
+  int price;
   List<MarketSearchResultModel> searchResult;
+  PageModel pageModel;
   bool isLoading;
 
-  MarketSearchState({this.hkgb='H', this.sido='', this.sigungu='', this.market='', this.ptno, this.searchResult, this.isLoading=false});
+  MarketSearchState({this.hkgb='H', this.sido='', this.sigungu='', this.market='', this.ptno, this.searchResult, this.kr_name, this.en_name, this.price, this.isLoading=false, this.pageModel});
 
 
   factory MarketSearchState.init()=>MarketSearchState();
 
-  MarketSearchState _setProps({String hkgb,  String sido, String sigungu, String market, String ptno, List<MarketSearchResultModel> searchResult, bool isLoading})=>
+  MarketSearchState _setProps({String hkgb,  String sido, String sigungu, String market, String ptno, List<MarketSearchResultModel> searchResult, String kr_name, String en_name, int price, bool isLoading, PageModel pageModel})=>
       MarketSearchState(
           hkgb: hkgb??this.hkgb,
           sido: sido??this.sido,
@@ -56,11 +62,16 @@ class MarketSearchState{
           market: market??this.market,
           ptno:ptno??this.ptno,
           searchResult:searchResult?? this.searchResult??new List<MarketSearchResultModel>(),
-          isLoading: isLoading??this.isLoading);
+          kr_name: kr_name??this.kr_name,
+          en_name: en_name??this.en_name,
+          price: price??this.price,
+          isLoading: isLoading??this.isLoading,
+          pageModel: pageModel??this.pageModel??new PageModel()..init(),
+  );
 
   MarketSearchState submitting() => _setProps(isLoading: true);
-  MarketSearchState success({String hkgb, String sido, String sigungu, String market, String ptno, List<MarketSearchResultModel> searchResult, bool isLoading}) =>
-      _setProps(hkgb: hkgb, sido: sido, sigungu: sigungu, market: market, ptno: ptno, searchResult: searchResult, isLoading: false);
+  MarketSearchState success({String hkgb, String sido, String sigungu, String market, String ptno, List<MarketSearchResultModel> searchResult, String kr_name, String en_name, int price, bool isLoading, PageModel pageModel}) =>
+      _setProps(hkgb: hkgb, sido: sido, sigungu: sigungu, market: market, ptno: ptno, searchResult: searchResult, kr_name: kr_name, en_name: en_name, price: price, isLoading: false, pageModel: pageModel);
 }
 
 class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
@@ -76,7 +87,7 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
     if(event is SetMarketMarketSearchEvent)
       yield* _mapSetMarketEventToState(event.idx);
     if(event is SearchMarketSearchEvent)
-      yield* _mapSearchEventToState(event.ptno, event.sido, event.sigungu);
+      yield* _mapSearchEventToState(event.ptno, event.sido, event.sigungu, event.page);
   }
 
   Stream<MarketSearchState> _mapInitEventToState() async* {
@@ -108,11 +119,25 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
   }
 
 
-  Stream<MarketSearchState> _mapSearchEventToState(String ptno, String sido, String sigungu) async* {
+  Stream<MarketSearchState> _mapSearchEventToState(String ptno, String sido, String sigungu, int page) async* {
     try{
       yield state.submitting();
-      List<MarketSearchResultModel> searchResult = await marketSearchRepository.searchPart(hkgb: state.hkgb, ptno:state.ptno, sido:state.sido, sigungu:state.sigungu, stype: state.market, firstIndex:0, recordCountPerPage: globalRecordCountPerPage);
-      yield state.success(searchResult: searchResult);
+      MarketSearchResultProductInfo productInfo = await marketSearchRepository.getProductInfo(ptno: state.ptno);
+      if(productInfo==null) {
+        yield state.success();
+        return;
+      }
+      List<MarketSearchResultModel> searchResult = await marketSearchRepository.searchPart(hkgb: state.hkgb, ptno:state.ptno, sido:state.sido, sigungu:state.sigungu, stype: state.market, firstIndex:1 + (page-1)*globalRecordCountPerPage, recordCountPerPage: globalRecordCountPerPage);
+      if(searchResult==null||searchResult.length==0)
+        yield state.success();
+      else{
+        PageModel pageModel = new PageModel()..init();
+        pageModel.setPageCnt(searchResult[0].totalCnt~/globalRecordCountPerPage + 1);
+        pageModel.setCurPage(page);
+
+        yield state.success(searchResult: searchResult, kr_name: productInfo.kr_name, en_name: productInfo.en_name, price: productInfo.price, pageModel: pageModel);
+
+      }
     } catch(e){
       yield state.success();
     }

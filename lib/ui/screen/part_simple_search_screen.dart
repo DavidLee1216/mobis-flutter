@@ -328,7 +328,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
           onPressed: () {
             searched = true;
             setState(() {
-              bloc.add(SearchSimpleSearchEvent(partNameController.text));
+              bloc.add(SearchSimpleSearchEvent(partNameController.text, searchType, 1));
             });
           },
         ),
