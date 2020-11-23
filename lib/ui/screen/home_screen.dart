@@ -7,10 +7,10 @@ import 'package:hyundai_mobis/utils/navigation.dart';
 const kPrimaryColor = Color.fromRGBO(7, 75, 136, 1);
 const kTitleStyle = TextStyle(fontSize: 18, color: Colors.white);
 const kSubtitleStyle = TextStyle(fontSize: 14, color: Colors.white);
-const kButtonTextStyle = TextStyle(fontSize: 14, color: Colors.white);
+const kButtonTextStyle = TextStyle(fontSize: 15, color: Colors.white);
 const kMenuTextStyle = TextStyle(fontSize: 15);
 const kMarginSpace = 40.0;
-const kImageWidth = 40.0;
+const kImageWidth = 50.0;
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -72,7 +72,16 @@ class _HomeScreenState extends State<HomeScreen> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text('안녕하세요, xxx 고객님.'),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 10, right: 5),
+                    ),
+                    Text(
+                      '안녕하세요, xxx 고객님.',
+                      style: kMenuTextStyle,
+                    ),
+                    SizedBox(
+                      width: 72,
+                    ),
                     RaisedButton(
                       color: kPrimaryColor,
                       shape: RoundedRectangleBorder(

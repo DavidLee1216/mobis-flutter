@@ -39,6 +39,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
 
     var idField = Container(
         height: 60,
+        width: 380,
         child: TextFormField(
           decoration: InputDecoration(
             border: OutlineInputBorder(),
@@ -50,7 +51,8 @@ class _IdLoginFormState extends State<IdLoginForm> {
               borderRadius: BorderRadius.circular(2),
               borderSide: BorderSide(color: Colors.grey, width: 1),
             ),
-            contentPadding: EdgeInsets.only(left: 20),
+            contentPadding: EdgeInsets.only(left: 20, top: 20, bottom: 20),
+
             hintText: '아이디',
           ),
           keyboardType: TextInputType.text,
@@ -63,6 +65,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
 
     var passwordField = Container(
       height: 60,
+      width: 380,
       child: TextFormField(
         decoration: InputDecoration(
           filled: true,
@@ -72,7 +75,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
             borderRadius: BorderRadius.circular(2),
             borderSide: BorderSide(color: Colors.grey, width: 1),
           ),
-          contentPadding: EdgeInsets.only(left: 20),
+          contentPadding: EdgeInsets.only(left: 20, top: 20, bottom: 20),
           hintText: '비밀번호',
         ),
         obscureText: true,
@@ -112,7 +115,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
     }
 
     var loginButton = Container(
-      width: MediaQuery.of(context).size.width - 10,
+      width: 380,
       height: 60,
       child: RaisedButton(
         padding: EdgeInsets.all(10.0),
@@ -122,7 +125,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
         ),
         color: Color.fromRGBO(0, 63, 114, 1),
         child: Text(
-          '로그인하기',
+          '로그인 하기',
           style: TextStyle(fontSize: 18, color: Colors.white),
         ),
         onPressed: onLoginButtonPressed,
@@ -137,9 +140,12 @@ class _IdLoginFormState extends State<IdLoginForm> {
             onPressed: onRegisterButtonPressed,
             child: Text(
               '회원가입',
-              style: TextStyle(fontSize: 16, color: Colors.indigo),
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                fontSize: 16,
+                color: Color.fromRGBO(7, 75, 136, 1),
+              ),
             ),
-            color: Colors.white,
           ),
         ));
 
@@ -155,7 +161,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
 
     return Container(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(10.0),
         child: Form(
           key: _formKey,
           child: Column(
@@ -166,7 +172,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
               ),
               idField,
               SizedBox(
-                height: 20,
+                height: 10,
               ),
               passwordField,
               SizedBox(
