@@ -1,29 +1,23 @@
-import 'dart:developer';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:hyundai_mobis/ui/screen/login_screen.dart';
 import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
 import 'package:hyundai_mobis/utils/navigation.dart';
 
-
-
-const kPrimaryColor = Color.fromRGBO(0, 71, 135, 1);
+const kPrimaryColor = Color.fromRGBO(7, 75, 136, 1);
 const kTitleStyle = TextStyle(fontSize: 18, color: Colors.white);
 const kSubtitleStyle = TextStyle(fontSize: 14, color: Colors.white);
 const kButtonTextStyle = TextStyle(fontSize: 14, color: Colors.white);
-const kMenuTextStyle = TextStyle(fontSize: 12);
+const kMenuTextStyle = TextStyle(fontSize: 15);
 const kMarginSpace = 40.0;
-const kImageWidth = 80.0;
+const kImageWidth = 40.0;
 
 class HomeScreen extends StatefulWidget {
-
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   @override
   Widget build(BuildContext context) {
     final double topHeight = MediaQuery.of(context).size.height / 3.0;
@@ -43,25 +37,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 2),
-                    child: Image.asset('images/mark.jpg'),
-                  ),
-                  Expanded(
-                    child: Column(
-                      children: [
-                        Text('지속가능한 친환경 기술을 선도합니다.', style: kTitleStyle),
-                        SizedBox(height: 5),
-                        Text('현대모비스는 무한하고 청정한 미래자동차의', style: kSubtitleStyle),
-                        Text('전동화 부품기술을 만들어 갑니다.', style: kSubtitleStyle),
-                      ],
-                    ),
+                  Container(
+                    margin: const EdgeInsets.only(bottom: 70),
+                    child: Image.asset('images/logo2.png'),
+                    width: 270,
                   ),
                 ],
               ),
               Container(
-                margin: const EdgeInsets.only(bottom: kMarginSpace),
-                child: Image.asset('images/car.png'),
+                margin: const EdgeInsets.only(bottom: 38),
+                child: Image.asset('images/car_white.png'),
+                width: 320,
               )
             ],
           ),
@@ -79,16 +65,18 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Column(
               children: <Widget>[
+                Container(
+                  padding: const EdgeInsets.only(right: 50),
+                ),
                 SizedBox(height: 20),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text('안녕하세요, xxx 고객님.'),
                     RaisedButton(
                       color: kPrimaryColor,
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                        borderRadius: BorderRadius.circular(0),
                       ),
                       child: Text('로그인', style: kButtonTextStyle),
                       onPressed: () {
@@ -102,35 +90,61 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisCount: 2,
                     children: <Widget>[
                       Container(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(15),
                         child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                           color: Colors.white,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 38),
+                              ),
                               Image.asset(
-                                'images/notice_home.png',
+                                'images/notice_H.png',
                                 width: kImageWidth,
                               ),
-                              Text('공지사항', style: kMenuTextStyle)
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                '공지사항',
+                                style: kMenuTextStyle,
+                              ),
                             ],
                           ),
                           onPressed: () {
-                            Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___)=>NavigationBar(index: 6,)));
+                            Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                    pageBuilder: (_, __, ___) => NavigationBar(
+                                          index: 6,
+                                        )));
 //                            pushTo(context, NavigationBar(index: 6,));
                           },
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(15),
                         child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                           color: Colors.white,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 30),
+                              ),
                               Image.asset(
-                                'images/search_home.png',
+                                'images/search_store_H.png',
                                 width: kImageWidth,
+                              ),
+                              SizedBox(
+                                height: 10,
                               ),
                               Text(
                                 '부품판매점검색',
@@ -140,21 +154,35 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           onPressed: () {
-                            Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___)=>NavigationBar(index: 4,)));
+                            Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                    pageBuilder: (_, __, ___) => NavigationBar(
+                                          index: 4,
+                                        )));
 //                            pushTo(context, NavigationBar(index: 4,));
                           },
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(15),
                         child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                           color: Colors.white,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 30),
+                              ),
                               Image.asset(
-                                'images/car_home.png',
+                                'images/search_H.png',
                                 width: kImageWidth,
+                              ),
+                              SizedBox(
+                                height: 10,
                               ),
                               Text(
                                 '부품검색',
@@ -164,21 +192,35 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           onPressed: () {
-                            Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___)=>NavigationBar(index: 5,)));
+                            Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                    pageBuilder: (_, __, ___) => NavigationBar(
+                                          index: 5,
+                                        )));
 //                            pushTo(context, NavigationBar(index: 5,));
                           },
                         ),
                       ),
                       Container(
-                        padding: const EdgeInsets.all(10),
+                        padding: const EdgeInsets.all(15),
                         child: RaisedButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(8.0),
+                          ),
                           color: Colors.white,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 28),
+                              ),
                               Image.asset(
-                                'images/profile_home.png',
+                                'images/my_page_H.png',
                                 width: kImageWidth,
+                              ),
+                              SizedBox(
+                                height: 10,
                               ),
                               Text(
                                 '마이페이지',
@@ -188,7 +230,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           onPressed: () {
-                            Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___)=>NavigationBar(index: 2,)));
+                            Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                    pageBuilder: (_, __, ___) => NavigationBar(
+                                          index: 2,
+                                        )));
 //                            pushTo(context, NavigationBar(index: 2,));
                           },
                         ),

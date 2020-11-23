@@ -38,9 +38,11 @@ class _IdLoginFormState extends State<IdLoginForm> {
     final AuthBloc bloc = BlocProvider.of<AuthBloc>(context);
 
     var idField = Container(
-        height: 40,
+        height: 60,
         child: TextFormField(
           decoration: InputDecoration(
+            border: OutlineInputBorder(),
+
             filled: true,
             fillColor: Colors.white,
 //                  contentPadding: EdgeInsets.only(left: 30, ),
@@ -48,47 +50,51 @@ class _IdLoginFormState extends State<IdLoginForm> {
               borderRadius: BorderRadius.circular(2),
               borderSide: BorderSide(color: Colors.grey, width: 1),
             ),
-            contentPadding: EdgeInsets.only(left: 10),
+            contentPadding: EdgeInsets.only(left: 20),
             hintText: '아이디',
           ),
           keyboardType: TextInputType.text,
           validator: (value) => value.isEmpty ? "아이디를 입력하세요." : null,
-          style: TextStyle(fontSize: 16.0,),
+          style: TextStyle(
+            fontSize: 16.0,
+          ),
           controller: _idController,
         ));
 
     var passwordField = Container(
-        height: 40,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: TextFormField(
-            decoration: InputDecoration(
-              filled: true,
-              fillColor: Colors.white,
+      height: 60,
+      child: TextFormField(
+        decoration: InputDecoration(
+          filled: true,
+          fillColor: Colors.white,
 //                  contentPadding: EdgeInsets.only(left: 30, ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(2),
-                borderSide: BorderSide(color: Colors.grey, width: 1),
-              ),
-              contentPadding: EdgeInsets.only(left: 10),
-              hintText: '비밀번호',
-            ),
-            obscureText: true,
-            validator: (value) => value.isEmpty ? "비밀번호를 입력하세요." : null,
-            style: TextStyle(fontSize: 16.0),
-            controller: _passwordController,
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2),
+            borderSide: BorderSide(color: Colors.grey, width: 1),
           ),
-        ));
+          contentPadding: EdgeInsets.only(left: 20),
+          hintText: '비밀번호',
+        ),
+        obscureText: true,
+        validator: (value) => value.isEmpty ? "비밀번호를 입력하세요." : null,
+        style: TextStyle(fontSize: 16.0),
+        controller: _passwordController,
+      ),
+    );
 
-    Future<void > signIn(String username, String password) async {
+    Future<void> signIn(String username, String password) async {
       if (_formKey.currentState.validate()) {
         FocusScope.of(context).requestFocus(FocusNode());
-        if(await bloc.userRepository.signIn(username, password)==true){
+        if (await bloc.userRepository.signIn(username, password) == true) {
           bloc.add(AuthEventSignIn(
             id: username,
             password: password,
           ));
-          pushTo(context, NavigationBar(index: 1,));
+          pushTo(
+              context,
+              NavigationBar(
+                index: 1,
+              ));
         }
       }
     }
@@ -106,26 +112,26 @@ class _IdLoginFormState extends State<IdLoginForm> {
     }
 
     var loginButton = Container(
-      width: MediaQuery.of(context).size.width - 50,
-      height: 40,
+      width: MediaQuery.of(context).size.width - 10,
+      height: 60,
       child: RaisedButton(
         padding: EdgeInsets.all(10.0),
         elevation: 5.0,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
+          borderRadius: BorderRadius.circular(0.0),
         ),
         color: Color.fromRGBO(0, 63, 114, 1),
         child: Text(
           '로그인하기',
-          style: TextStyle(fontSize: 16, color: Colors.white),
+          style: TextStyle(fontSize: 18, color: Colors.white),
         ),
         onPressed: onLoginButtonPressed,
       ),
     );
 
     var registerButton = Container(
-         height: 40,
-         child: Padding(
+        height: 40,
+        child: Padding(
           padding: const EdgeInsets.only(top: 8.0),
           child: FlatButton(
             onPressed: onRegisterButtonPressed,
@@ -135,23 +141,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
             ),
             color: Colors.white,
           ),
-       )
-    );
-
-    var getPassButton = Container(
-        height: 40,
-        child: Padding(
-          padding: const EdgeInsets.only(top: 8.0),
-          child: FlatButton(
-            onPressed: onGetPassButtonPressed,
-            child: Text(
-              '비밀번호 찾기',
-              style: TextStyle(fontSize: 16, color: Colors.indigo),
-            ),
-            color: Colors.white,
-          ),
-        )
-    );
+        ));
 
 //    var errorMessageField = widget.errorMsg.isNotEmpty
 //        ? Padding(
@@ -190,7 +180,6 @@ class _IdLoginFormState extends State<IdLoginForm> {
                     padding: EdgeInsets.only(right: 100),
                   ),
                   registerButton,
-                  getPassButton,
                 ],
               )
 //              errorMessageField,

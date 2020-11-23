@@ -1,4 +1,3 @@
-
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
@@ -41,9 +40,14 @@ Future<void> main() async {
               noticeRepository: noticeRepository,
             ),
           ),
-          BlocProvider<SimpleSearchBloc>(create: (context)=>SimpleSearchBloc(simpleSearchRepository: simpleSearchRepository)),
-          BlocProvider<MarketSearchBloc>(create: (context)=>MarketSearchBloc(marketSearchRepository: marketSearchRepository)),
-          BlocProvider<CartBloc>(create: (context)=>CartBloc(cartRepository: cartRepository)),
+          BlocProvider<SimpleSearchBloc>(
+              create: (context) => SimpleSearchBloc(
+                  simpleSearchRepository: simpleSearchRepository)),
+          BlocProvider<MarketSearchBloc>(
+              create: (context) => MarketSearchBloc(
+                  marketSearchRepository: marketSearchRepository)),
+          BlocProvider<CartBloc>(
+              create: (context) => CartBloc(cartRepository: cartRepository)),
         ],
         child: MyApp(),
       ),
@@ -64,7 +68,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
         primaryColor: Colors.white,
       ),
-      home: NavigationBar(index: 1,),
+      home: NavigationBar(
+        index: 1,
+      ),
     );
   }
 }
