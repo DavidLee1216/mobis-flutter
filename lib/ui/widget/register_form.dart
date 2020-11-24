@@ -761,7 +761,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     child: address1Field,
                   ),
                   SizedBox(
-                    width: 15,
+                    width: 10,
                   ),
                   postSearchButton,
                 ],
