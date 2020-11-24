@@ -77,7 +77,7 @@ void getSido() async{
       final data = json.decode(utf8.decode(response.bodyBytes)) as List;
       log(data.toString());
       globalSido = data.map((e) => Sido.fromMap(e)).toList();
-      get_sigungu();
+      getSigungu();
     }
     else{
       log('get sido ${response.statusCode}');
@@ -319,7 +319,7 @@ Future<bool> order(Order order) =>
       }
     });
 
-Future<List<String>> get_modelsFromRemote(String hkgb, String vtpy) async {
+Future<List<String>> getModelsFromRemote(String hkgb, String vtpy) async {
   final response = await http.get(API + '/models?hkgb=$hkgb&vtyp=$vtpy');
   if(response.statusCode==200){
     log('model success');

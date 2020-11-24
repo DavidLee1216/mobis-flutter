@@ -211,10 +211,10 @@ class _NoticeListWidgetState extends State<NoticeListWidget> {
     if (maxScroll - currentScroll > 5 && maxScroll - currentScroll <= _scrollThreshold && bloc != null) {
       if(kind == EnumNoticeEvent.TitleSearch)
         bloc.add(
-            NoticeSearchTitleEvent(searchWord: searchWord, page: max_page + 1));
+            NoticeSearchTitleEvent(searchWord: searchWord, page: maxPage + 1));
       else
         bloc.add(NoticeSearchContentEvent(
-            searchWord: searchWord, page: max_page+1));
+            searchWord: searchWord, page: maxPage+1));
       Future.delayed(Duration(milliseconds: 200), () {});
     }
   }

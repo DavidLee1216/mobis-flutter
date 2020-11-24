@@ -66,8 +66,9 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
 //    bloc.add(InitSimpleSearchEvent());
   }
 
-  Future<List<String>> loadModels(String hkgb, String vtpy) async {
-    return await getModelsFromRetmoe(hkgb, vtpy);
+  Future<List<String>> loadModels() async {
+    return await getModelsFromRemote(hkgb, vtpy);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -208,10 +209,10 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                     modelDropdownValue = newValue;
                   });
                 },
-                items: snapshot.data.map((fc) {
+                items: snapshot.data.map((item) {
                   return DropdownMenuItem<String>(
-                    child: Text(fc.name),
-                    value: fc.name,
+                    child: Text(item),
+                    value: item,
                   );
                 }).toList()),
           );
@@ -399,7 +400,8 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 ButtonTheme(
                   minWidth: MediaQuery.of(context).size.width / 2,
                   height: 40,
-                  buttonColor: Colors.white,
+                  buttonColor:
+                    Colors.white,
                   child: RaisedButton(
                     child: !searchType
                         ? Text(
@@ -427,17 +429,23 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   minWidth: MediaQuery.of(context).size.width / 2,
                   height: 40,
                   buttonColor:
-                      searchType ? Color.fromRGBO(0, 63, 114, 1) : Colors.white,
+                      Colors.white,
                   child: RaisedButton(
                     child: searchType
                         ? Text(
-                            '부품번호 검색',
-                            style: TextStyle(fontSize: 12, color: Colors.white),
-                          )
-                        : Text(
-                            '부품번호 검색',
-                            style: TextStyle(fontSize: 12, color: Colors.black),
+                          '일반검색',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Color.fromRGBO(0, 63, 114, 1),
                           ),
+                        )
+                        : Text(
+                          '일반검색',
+                          style: TextStyle(
+                            fontSize: 15,
+                            color: Colors.black,
+                          ),
+                        ),
                     onPressed: () {
                       searchType = true;
                       searched = false;
