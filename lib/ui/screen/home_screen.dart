@@ -76,11 +76,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       padding: const EdgeInsets.only(left: 10, right: 5),
                     ),
                     Text(
-                      '안녕하세요, xxx 고객님.',
+                      '안녕하세요, XXX고객님.',
                       style: kMenuTextStyle,
                     ),
                     SizedBox(
-                      width: 72,
+                      width: 70,
                     ),
                     RaisedButton(
                       color: kPrimaryColor,

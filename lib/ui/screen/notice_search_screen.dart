@@ -59,11 +59,11 @@ class _NoticeSearchScreenState extends State<NoticeSearchScreen> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage('images/alarm_under.png'),
+              AssetImage('images/1507.png'),
               color: Colors.grey,
             ),
             activeIcon: ImageIcon(
-              AssetImage('images/alarm_under.png'),
+              AssetImage('images/1507.png'),
               color: Colors.black,
             ),
             title: Text(
@@ -72,22 +72,23 @@ class _NoticeSearchScreenState extends State<NoticeSearchScreen> {
             ),
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/home.png'), color: Colors.grey),
-            activeIcon:
-                ImageIcon(AssetImage('images/home.png'), color: Colors.black),
+            icon: ImageIcon(AssetImage('images/Home_icon.png'),
+                color: Colors.grey),
+            activeIcon: ImageIcon(AssetImage('images/Home_icon.png'),
+                color: Colors.black),
             title: Text('홈', style: TextStyle(fontSize: 12)),
           ),
           BottomNavigationBarItem(
-            icon:
-                ImageIcon(AssetImage('images/person.png'), color: Colors.grey),
-            activeIcon:
-                ImageIcon(AssetImage('images/person.png'), color: Colors.black),
+            icon: ImageIcon(AssetImage('images/Profile_icon.png'),
+                color: Colors.grey),
+            activeIcon: ImageIcon(AssetImage('images/Profile_icon.png'),
+                color: Colors.black),
             title: Text('마이페이지', style: TextStyle(fontSize: 12)),
           ),
           BottomNavigationBarItem(
-            icon:
-                ImageIcon(AssetImage('images/support.png'), color: Colors.grey),
-            activeIcon: ImageIcon(AssetImage('images/support.png'),
+            icon: ImageIcon(AssetImage('images/support_icon.png'),
+                color: Colors.grey),
+            activeIcon: ImageIcon(AssetImage('images/support_icon.png'),
                 color: Colors.black),
             title: Text('고객센터', style: TextStyle(fontSize: 12)),
           ),

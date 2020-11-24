@@ -7,7 +7,8 @@ import 'package:hyundai_mobis/ui/screen/part_market_search_screen.dart';
 import 'package:hyundai_mobis/ui/screen/part_simple_search_screen.dart';
 
 class NavigationBar extends StatefulWidget {
-  final int index; //0:notice, 1:home, 2:my_page, 3: support, 4: market_search, 5: simple_search
+  final int
+      index; //0:notice, 1:home, 2:my_page, 3: support, 4: market_search, 5: simple_search
 
   const NavigationBar({Key key, this.index}) : super(key: key);
   @override
@@ -29,30 +30,41 @@ class _NavigationBarState extends State<NavigationBar> {
   @override
   void initState() {
     super.initState();
-    _selectedIndex = (widget.index<4)?widget.index:1;
+    _selectedIndex = (widget.index < 4) ? widget.index : 1;
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: (_initState && widget.index>=4)?_screens[widget.index]:_screens[_selectedIndex],
+      body: (_initState && widget.index >= 4)
+          ? _screens[widget.index]
+          : _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         selectedFontSize: 12,
         unselectedFontSize: 12,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.notifications_none),
+            icon: ImageIcon(
+              AssetImage('images/1507.png'),
+            ),
             label: '알람',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.home_outlined),
+            icon: ImageIcon(
+              AssetImage('images/Home_icon.png'),
+            ),
             label: '홈',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.person_outline),
+            icon: ImageIcon(
+              AssetImage('images/Profile_icon.png'),
+            ),
             label: '마이페이지',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.support_agent_outlined),
+            icon: ImageIcon(
+              AssetImage('images/support_icon.png'),
+            ),
             label: '고객센터',
           ),
         ],
