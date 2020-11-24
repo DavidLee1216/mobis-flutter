@@ -3,12 +3,12 @@ import 'dart:developer';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/bloc/simple_search_bloc.dart';
-import 'package:hyundai_mobis/common.dart';
-import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
-import 'package:hyundai_mobis/ui/widget/simple_search_result_form.dart';
-import 'package:hyundai_mobis/ui/widget/custom_radio_button.dart';
-import 'package:hyundai_mobis/utils/navigation.dart';
+import 'package:mobispartsearch/bloc/simple_search_bloc.dart';
+import 'package:mobispartsearch/common.dart';
+import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
+import 'package:mobispartsearch/ui/widget/simple_search_result_form.dart';
+import 'package:mobispartsearch/ui/widget/custom_radio_button.dart';
+import 'package:mobispartsearch/utils/navigation.dart';
 
 class PartSimpleSearchScreen extends StatefulWidget {
   @override

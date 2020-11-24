@@ -1,8 +1,8 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/common.dart';
-import 'package:hyundai_mobis/model/cart_model.dart';
-import 'package:hyundai_mobis/model/product_model.dart';
-import 'package:hyundai_mobis/repository/cart_repository.dart';
+import 'package:mobispartsearch/common.dart';
+import 'package:mobispartsearch/model/cart_model.dart';
+import 'package:mobispartsearch/model/product_model.dart';
+import 'package:mobispartsearch/repository/cart_repository.dart';
 
 abstract class CartEvent{}
 

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/screen/home_screen.dart';
+import 'package:mobispartsearch/ui/screen/home_screen.dart';
 
 class MyCouponScreen extends StatefulWidget {
   @override

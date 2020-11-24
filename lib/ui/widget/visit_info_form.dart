@@ -1,8 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/widget/custom_selection_button.dart';
-import 'package:hyundai_mobis/ui/widget/box_text_field.dart';
+import 'package:mobispartsearch/ui/widget/custom_selection_button.dart';
+import 'package:mobispartsearch/ui/widget/box_text_field.dart';
 
 class VisitInfoForm extends StatefulWidget {
   final productName;

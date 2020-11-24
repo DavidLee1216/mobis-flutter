@@ -3,9 +3,9 @@ import 'dart:developer';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/bloc/notice_bloc.dart';
-import 'package:hyundai_mobis/model/notice_model.dart';
-import 'package:hyundai_mobis/repository/notice_repository.dart';
+import 'package:mobispartsearch/bloc/notice_bloc.dart';
+import 'package:mobispartsearch/model/notice_model.dart';
+import 'package:mobispartsearch/repository/notice_repository.dart';
 
 abstract class NoticeEvent{}
 

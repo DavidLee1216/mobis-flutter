@@ -1,10 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/common.dart';
-import 'package:hyundai_mobis/model/market_search_model.dart';
-import 'package:hyundai_mobis/model/page_model.dart';
-import 'package:hyundai_mobis/repository/market_search_repository.dart';
+import 'package:mobispartsearch/common.dart';
+import 'package:mobispartsearch/model/market_search_model.dart';
+import 'package:mobispartsearch/model/page_model.dart';
+import 'package:mobispartsearch/repository/market_search_repository.dart';
 
 const List<String> hkgb_list = ['H', 'K'];
 const List<String> market_list = ['All', 'DICT', 'N', 'Y'];

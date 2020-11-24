@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/widget/pass_reset_form.dart';
+import 'package:mobispartsearch/ui/widget/pass_reset_form.dart';
 
 class GetPassScreen extends StatefulWidget {
   @override

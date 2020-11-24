@@ -2,11 +2,11 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/bloc/market_search_bloc.dart';
-import 'package:hyundai_mobis/bloc/notice_bloc.dart';
-import 'package:hyundai_mobis/ui/screen/home_screen.dart';
-import 'package:hyundai_mobis/ui/screen/purchase_request_screen.dart';
-import 'package:hyundai_mobis/utils/navigation.dart';
+import 'package:mobispartsearch/bloc/market_search_bloc.dart';
+import 'package:mobispartsearch/bloc/notice_bloc.dart';
+import 'package:mobispartsearch/ui/screen/home_screen.dart';
+import 'package:mobispartsearch/ui/screen/purchase_request_screen.dart';
+import 'package:mobispartsearch/utils/navigation.dart';
 
 class MarketSearchResultsForm extends StatefulWidget {
   @override

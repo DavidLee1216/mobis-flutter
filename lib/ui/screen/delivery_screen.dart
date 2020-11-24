@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/widget/delivery_info_form.dart';
+import 'package:mobispartsearch/ui/widget/delivery_info_form.dart';
 
 class ScreenArguments {
   final String productName;

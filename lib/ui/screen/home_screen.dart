@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/screen/login_screen.dart';
-import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
-import 'package:hyundai_mobis/utils/navigation.dart';
+import 'package:mobispartsearch/ui/screen/login_screen.dart';
+import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
+import 'package:mobispartsearch/utils/navigation.dart';
 
 const kPrimaryColor = Color.fromRGBO(7, 75, 136, 1);
 const kTitleStyle = TextStyle(fontSize: 18, color: Colors.white);

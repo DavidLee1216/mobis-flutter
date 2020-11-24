@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/screen/delivery_screen.dart';
-import 'package:hyundai_mobis/ui/widget/visit_info_form.dart';
+import 'package:mobispartsearch/ui/screen/delivery_screen.dart';
+import 'package:mobispartsearch/ui/widget/visit_info_form.dart';
 
 class VisitScreen extends StatelessWidget {
 

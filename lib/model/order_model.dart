@@ -1,5 +1,5 @@
+import 'package:mobispartsearch/model/product_model.dart';
 
-import 'package:hyundai_mobis/model/product_model.dart';
 
 class Order{
   final String username;

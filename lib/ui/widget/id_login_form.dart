@@ -1,16 +1,16 @@
 import 'dart:developer';
 import 'package:http/http.dart' as http;
-import 'package:hyundai_mobis/bloc/auth_bloc.dart';
-import 'package:hyundai_mobis/ui/screen/pass_reset_screen.dart';
-import 'package:hyundai_mobis/ui/screen/register_screen.dart';
-import 'package:hyundai_mobis/ui/widget/loading_indication.dart';
+import 'package:mobispartsearch/bloc/auth_bloc.dart';
+import 'package:mobispartsearch/ui/screen/pass_reset_screen.dart';
+import 'package:mobispartsearch/ui/screen/register_screen.dart';
+import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/utils/navigation.dart';
-import 'package:hyundai_mobis/ui/screen/home_screen.dart';
+import 'package:mobispartsearch/utils/navigation.dart';
+import 'package:mobispartsearch/ui/screen/home_screen.dart';
 
 import 'navigation_bar.dart';
-import 'package:hyundai_mobis/common.dart';
+import 'package:mobispartsearch/common.dart';
 
 class IdLoginForm extends StatefulWidget {
   final String errorMsg;

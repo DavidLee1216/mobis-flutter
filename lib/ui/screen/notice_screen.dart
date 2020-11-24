@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/bloc/auth_bloc.dart';
-import 'package:hyundai_mobis/bloc/notice_bloc.dart';
-import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
-import 'package:hyundai_mobis/ui/widget/notice_form.dart';
-import 'package:hyundai_mobis/ui/widget/loading_indication.dart';
-import 'package:hyundai_mobis/ui/screen/home_screen.dart';
-import 'package:hyundai_mobis/utils/navigation.dart';
+import 'package:mobispartsearch/bloc/auth_bloc.dart';
+import 'package:mobispartsearch/bloc/notice_bloc.dart';
+import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
+import 'package:mobispartsearch/ui/widget/notice_form.dart';
+import 'package:mobispartsearch/ui/widget/loading_indication.dart';
+import 'package:mobispartsearch/ui/screen/home_screen.dart';
+import 'package:mobispartsearch/utils/navigation.dart';
 
 class NoticeScreen extends StatefulWidget {
   @override

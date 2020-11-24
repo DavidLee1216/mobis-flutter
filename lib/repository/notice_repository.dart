@@ -1,9 +1,9 @@
 import 'dart:convert';
 import 'dart:developer';
 
-import 'package:hyundai_mobis/common.dart';
+import 'package:mobispartsearch/common.dart';
 import 'package:http/http.dart' as http;
-import 'package:hyundai_mobis/model/notice_model.dart';
+import 'package:mobispartsearch/model/notice_model.dart';
 
 class NoticeRepository{
 

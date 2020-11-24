@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/screen/home_screen.dart';
-import 'package:hyundai_mobis/ui/screen/my_page_screen.dart';
-import 'package:hyundai_mobis/ui/screen/notice_screen.dart';
-import 'package:hyundai_mobis/ui/screen/notification_screen.dart';
-import 'package:hyundai_mobis/ui/screen/part_market_search_screen.dart';
-import 'package:hyundai_mobis/ui/screen/part_simple_search_screen.dart';
+import 'package:mobispartsearch/ui/screen/home_screen.dart';
+import 'package:mobispartsearch/ui/screen/my_page_screen.dart';
+import 'package:mobispartsearch/ui/screen/notice_screen.dart';
+import 'package:mobispartsearch/ui/screen/notification_screen.dart';
+import 'package:mobispartsearch/ui/screen/part_market_search_screen.dart';
+import 'package:mobispartsearch/ui/screen/part_simple_search_screen.dart';
 
 class NavigationBar extends StatefulWidget {
   final int

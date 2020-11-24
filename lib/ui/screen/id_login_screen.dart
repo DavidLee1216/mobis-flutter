@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/bloc/auth_bloc.dart';
-import 'package:hyundai_mobis/ui/widget/id_login_form.dart';
-import 'package:hyundai_mobis/ui/widget/loading_indication.dart';
+import 'package:mobispartsearch/bloc/auth_bloc.dart';
+import 'package:mobispartsearch/ui/widget/id_login_form.dart';
+import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 
 class IdLoginScreen extends StatelessWidget {
   @override

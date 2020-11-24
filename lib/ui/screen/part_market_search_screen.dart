@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/bloc/market_search_bloc.dart';
-import 'package:hyundai_mobis/ui/screen/home_screen.dart';
-import 'package:hyundai_mobis/ui/screen/notification_screen.dart';
-import 'package:hyundai_mobis/ui/widget/market_search_result_form.dart';
-import 'package:hyundai_mobis/ui/widget/custom_radio_button.dart';
+import 'package:mobispartsearch/bloc/market_search_bloc.dart';
+import 'package:mobispartsearch/ui/screen/home_screen.dart';
+import 'package:mobispartsearch/ui/screen/notification_screen.dart';
+import 'package:mobispartsearch/ui/widget/market_search_result_form.dart';
+import 'package:mobispartsearch/ui/widget/custom_radio_button.dart';
 
-import 'package:hyundai_mobis/ui/screen/my_page_screen.dart';
-import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
-import 'package:hyundai_mobis/utils/navigation.dart';
+import 'package:mobispartsearch/ui/screen/my_page_screen.dart';
+import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
+import 'package:mobispartsearch/utils/navigation.dart';
 
 import '../../common.dart';
 

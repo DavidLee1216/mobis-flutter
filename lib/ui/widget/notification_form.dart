@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/bloc/notice_bloc.dart';
+import 'package:mobispartsearch/bloc/notice_bloc.dart';
 
 enum NotificationKind{PURCHASE_REQUEST, PAYMENT_WAITING, PAYMENT_COMPLETE}
 

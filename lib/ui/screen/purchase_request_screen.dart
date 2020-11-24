@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/widget/purchase_request_form.dart';
+import 'package:mobispartsearch/ui/widget/purchase_request_form.dart';
 
 class PurchaseRequestScreen extends StatefulWidget {
   final partNumber;

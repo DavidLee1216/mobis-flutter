@@ -2,15 +2,15 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/bloc/auth_bloc.dart';
+import 'package:mobispartsearch/bloc/auth_bloc.dart';
 import 'package:http/http.dart' as http;
-import 'package:hyundai_mobis/model/user_model.dart';
-import 'package:hyundai_mobis/repository/user_repository.dart';
-import 'package:hyundai_mobis/ui/screen/id_login_screen.dart';
-import 'package:hyundai_mobis/ui/screen/login_screen.dart';
-import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
-import 'package:hyundai_mobis/utils/navigation.dart';
-import 'package:hyundai_mobis/common.dart';
+import 'package:mobispartsearch/model/user_model.dart';
+import 'package:mobispartsearch/repository/user_repository.dart';
+import 'package:mobispartsearch/ui/screen/id_login_screen.dart';
+import 'package:mobispartsearch/ui/screen/login_screen.dart';
+import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
+import 'package:mobispartsearch/utils/navigation.dart';
+import 'package:mobispartsearch/common.dart';
 
 enum Gender { male, female }
 

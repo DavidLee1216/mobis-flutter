@@ -2,12 +2,11 @@
 
 import 'dart:developer';
 
-import 'package:hyundai_mobis/model/simple_search_model.dart';
+import 'package:mobispartsearch/model/simple_search_model.dart';
 
-import 'package:hyundai_mobis/common.dart';
+import 'package:mobispartsearch/common.dart';
 
-class SimpleSearchRepository{
-
+class SimpleSearchRepository {
   Future<List<String>> getModels({String hkgb, String vtpy}) async {
     log('model');
     return await get_models(hkgb, vtpy);

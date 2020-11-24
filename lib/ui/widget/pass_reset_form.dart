@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/widget/custom_radio_button.dart';
-import 'package:hyundai_mobis/common.dart';
+import 'package:mobispartsearch/ui/widget/custom_radio_button.dart';
+import 'package:mobispartsearch/common.dart';
 
 class GetPassForm extends StatefulWidget {
   @override

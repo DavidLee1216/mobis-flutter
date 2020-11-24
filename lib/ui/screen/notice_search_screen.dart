@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/bloc/auth_bloc.dart';
-import 'package:hyundai_mobis/bloc/notice_bloc.dart';
-import 'package:hyundai_mobis/ui/widget/notice_form.dart';
-import 'package:hyundai_mobis/ui/widget/loading_indication.dart';
+import 'package:mobispartsearch/bloc/auth_bloc.dart';
+import 'package:mobispartsearch/bloc/notice_bloc.dart';
+import 'package:mobispartsearch/ui/widget/notice_form.dart';
+import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 
 class NoticeSearchScreen extends StatefulWidget {
   @override

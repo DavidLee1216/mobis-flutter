@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
-import 'package:hyundai_mobis/model/user_model.dart';
-import 'package:hyundai_mobis/common.dart';
+import 'package:mobispartsearch/model/user_model.dart';
+import 'package:mobispartsearch/common.dart';
 
 class UserRepository {
 

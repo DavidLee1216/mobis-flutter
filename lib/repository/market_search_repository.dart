@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:hyundai_mobis/model/market_search_model.dart';
+import 'package:mobispartsearch/model/market_search_model.dart';
 
-import 'package:hyundai_mobis/common.dart';
+import 'package:mobispartsearch/common.dart';
 
 class MarketSearchRepository{
 

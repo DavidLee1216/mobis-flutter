@@ -1,8 +1,7 @@
+import 'package:mobispartsearch/model/cart_model.dart';
+import 'package:mobispartsearch/model/product_model.dart';
+import 'package:mobispartsearch/common.dart';
 
-
-import 'package:hyundai_mobis/model/cart_model.dart';
-import 'package:hyundai_mobis/model/product_model.dart';
-import 'package:hyundai_mobis/common.dart';
 
 class CartRepository{
   Future<bool> addToCart(Product product) async{

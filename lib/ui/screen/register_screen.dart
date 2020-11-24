@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/widget/register_form.dart';
+import 'package:mobispartsearch/ui/widget/register_form.dart';
 
 class RegisterScreen extends StatelessWidget {
   @override

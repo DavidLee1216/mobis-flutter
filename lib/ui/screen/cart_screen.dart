@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/bloc/cart_bloc.dart';
-import 'package:hyundai_mobis/ui/widget/cart_product_form.dart';
-import 'package:hyundai_mobis/ui/screen/home_screen.dart';
+import 'package:mobispartsearch/bloc/cart_bloc.dart';
+import 'package:mobispartsearch/ui/widget/cart_product_form.dart';
+import 'package:mobispartsearch/ui/screen/home_screen.dart';
 
 class CartScreenArguments {
   final bool delivery_kind; //true: 택배, false:방문

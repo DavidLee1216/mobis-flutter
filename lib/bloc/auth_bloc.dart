@@ -1,9 +1,9 @@
 import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
-import 'package:hyundai_mobis/common.dart';
-import 'package:hyundai_mobis/model/user_model.dart';
-import 'package:hyundai_mobis/repository/user_repository.dart';
+import 'package:mobispartsearch/common.dart';
+import 'package:mobispartsearch/model/user_model.dart';
+import 'package:mobispartsearch/repository/user_repository.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
