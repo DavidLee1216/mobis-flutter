@@ -19,8 +19,8 @@ import 'package:mobispartsearch/common.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  get_session();
-  get_sido();
+  getSession();
+  getSido();
 
   UserRepository userRepository = UserRepository();
   NoticeRepository noticeRepository = NoticeRepository();

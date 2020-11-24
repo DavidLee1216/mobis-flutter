@@ -126,12 +126,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           onPressed: () {
                             Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                    pageBuilder: (_, __, ___) => NavigationBar(
-                                          index: 6,
-                                        )));
-//                            pushTo(context, NavigationBar(index: 6,));
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (_, __, ___) => NavigationBar(
+                                  index: 6,
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -202,12 +203,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           onPressed: () {
                             Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                    pageBuilder: (_, __, ___) => NavigationBar(
-                                          index: 5,
-                                        )));
-//                            pushTo(context, NavigationBar(index: 5,));
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (_, __, ___) => NavigationBar(
+                                  index: 5,
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),
@@ -240,12 +242,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           onPressed: () {
                             Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                    pageBuilder: (_, __, ___) => NavigationBar(
-                                          index: 2,
-                                        )));
-//                            pushTo(context, NavigationBar(index: 2,));
+                              context,
+                              PageRouteBuilder(
+                                pageBuilder: (_, __, ___) => NavigationBar(
+                                  index: 2,
+                                ),
+                              ),
+                            );
                           },
                         ),
                       ),

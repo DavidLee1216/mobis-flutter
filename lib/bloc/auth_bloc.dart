@@ -1,36 +1,31 @@
-import 'dart:developer';
-
 import 'package:bloc/bloc.dart';
 import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/model/user_model.dart';
 import 'package:mobispartsearch/repository/user_repository.dart';
-import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
-abstract class AuthEvent{}
+abstract class AuthEvent {}
 
-class AuthEventAppStarted extends AuthEvent {
-}
+class AuthEventAppStarted extends AuthEvent {}
 
 class AuthEventSignIn extends AuthEvent {
   final String id, password;
 
   AuthEventSignIn({@required this.id, @required this.password});
-
 }
 
 class AuthEventSignUp extends AuthEvent {
   final User user;
 
-  AuthEventSignUp({@required this.user,});
-
+  AuthEventSignUp({
+    @required this.user,
+  });
 }
 
 class AuthEventSignOut extends AuthEvent {
   final Function() completeCallback;
 
   AuthEventSignOut({this.completeCallback});
-
 }
 
 class AuthState {
@@ -51,10 +46,7 @@ class AuthState {
   bool hasError() => errorMsg.isNotEmpty;
 
   AuthState _setProps(
-      { String errorMsg,
-        String id,
-        String password,
-        bool isLoading}) =>
+          {String errorMsg, String id, String password, bool isLoading}) =>
       AuthState(
         errorMsg: errorMsg ?? '',
         id: id ?? this.id,
@@ -92,7 +84,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   Stream<AuthState> _mapAppStartedToState(AuthEventAppStarted event) async* {
-     yield (state.unauthenticated(''));
+    yield (state.unauthenticated(''));
   }
 
   Stream<AuthState> _mapSignInToState(AuthEventSignIn event) async* {

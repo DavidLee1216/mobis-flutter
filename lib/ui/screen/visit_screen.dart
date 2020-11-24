@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:mobispartsearch/ui/screen/delivery_screen.dart';
 import 'package:mobispartsearch/ui/widget/visit_info_form.dart';
 
 class VisitScreen extends StatelessWidget {
-
   static const routeName = '/visit';
 
   final productName;
   final companyMark;
   final count;
 
-  const VisitScreen({Key key, this.productName, this.companyMark, this.count}) : super(key: key);
-
+  const VisitScreen({Key key, this.productName, this.companyMark, this.count})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +21,12 @@ class VisitScreen extends StatelessWidget {
         centerTitle: true,
       ),
       body: SafeArea(
-        child: VisitInfoForm(productName: productName, companyMark: companyMark, count: count,),
+        child: VisitInfoForm(
+          productName: productName,
+          companyMark: companyMark,
+          count: count,
+        ),
       ),
-
     );
   }
 }

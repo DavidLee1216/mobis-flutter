@@ -5,10 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/simple_search_bloc.dart';
 import 'package:mobispartsearch/common.dart';
-import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
 import 'package:mobispartsearch/ui/widget/simple_search_result_form.dart';
 import 'package:mobispartsearch/ui/widget/custom_radio_button.dart';
-import 'package:mobispartsearch/utils/navigation.dart';
 
 class PartSimpleSearchScreen extends StatefulWidget {
   @override
@@ -16,7 +14,6 @@ class PartSimpleSearchScreen extends StatefulWidget {
 }
 
 class _PartSimpleSearchScreenState extends State<PartSimpleSearchScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -45,19 +42,17 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
   bool searchType = false;
   bool searched = false;
   List<RadioModel> manufacturerData = new List<RadioModel>();
-  int hkgb_selected_idx = 0;
   List<RadioModel> carKindData = new List<RadioModel>();
-  int vtpy_selected_idx = 0;
   List<String> carModels = new List<String>();
   String modelDropdownValue = '';
   String hkgb = 'H';
   String vtpy = 'P';
 
-  var partNameController = TextEditingController();
+  TextEditingController partNameController = TextEditingController();
 
-  var partNumberController = TextEditingController();
+  TextEditingController partNumberController = TextEditingController();
 
-  var bloc = null;
+  SimpleSearchBloc bloc;
 
   @override
   void initState() {
@@ -72,12 +67,11 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
   }
 
   Future<List<String>> loadModels(String hkgb, String vtpy) async {
-    return await get_models(hkgb, vtpy);
+    return await getModelsFromRetmoe(hkgb, vtpy);
   }
 
   @override
   Widget build(BuildContext context) {
-//    await carModels = loadModels(hkgb, vtpy);
     var manufactureItem = Container(
       height: 50,
       child: Row(
@@ -208,8 +202,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 bloc.add(ModelSimpleSearchEvent(newValue));
               });
             },
-            items: carModels
-                .map<DropdownMenuItem<String>>((String value) {
+            items: carModels.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Container(
@@ -328,7 +321,8 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
           onPressed: () {
             searched = true;
             setState(() {
-              bloc.add(SearchSimpleSearchEvent(partNameController.text, searchType, 1));
+              bloc.add(SearchSimpleSearchEvent(
+                  partNameController.text, searchType, 1));
             });
           },
         ),
@@ -358,7 +352,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
 
     return BlocBuilder<SimpleSearchBloc, SimpleSearchState>(
       cubit: BlocProvider.of<SimpleSearchBloc>(context),
-      builder: (BuildContext context, state){
+      builder: (BuildContext context, state) {
         carModels = state.carModels;
         log(carModels.toString());
         return ListView(
@@ -451,10 +445,10 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
               height: 2,
               color: Colors.black54,
             ),
-            !searchType?generalSearchItems:partNumberSearchItems,
+            !searchType ? generalSearchItems : partNumberSearchItems,
             searchButton,
             SizedBox(height: 30),
-            searched?SimpleSearchResultsForm():Container(),
+            searched ? SimpleSearchResultsForm() : Container(),
           ],
         );
       },

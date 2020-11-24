@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobispartsearch/bloc/auth_bloc.dart';
 import 'package:mobispartsearch/bloc/notice_bloc.dart';
 import 'package:mobispartsearch/ui/widget/notice_form.dart';
-import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 
 class NoticeSearchScreen extends StatefulWidget {
   @override
@@ -161,10 +159,11 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             )),
         onPressed: () {
           if (dropdownValue == '제목')
-            BlocProvider.of<NoticeBloc>(context).add(NoticeSearchTitleEvent());
+            BlocProvider.of<NoticeBloc>(context).add(
+                NoticeSearchTitleEvent(searchWord: _keywordController.text));
           if (dropdownValue == '내용')
-            BlocProvider.of<NoticeBloc>(context)
-                .add(NoticeSearchContentEvent());
+            BlocProvider.of<NoticeBloc>(context).add(
+                NoticeSearchContentEvent(searchWord: _keywordController.text));
         },
       ),
     );

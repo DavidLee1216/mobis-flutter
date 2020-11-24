@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobispartsearch/bloc/auth_bloc.dart';
 import 'package:mobispartsearch/ui/widget/login_form.dart';
-import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 
 class LoginScreen extends StatelessWidget {
   @override
@@ -29,14 +26,13 @@ class LoginScreen extends StatelessWidget {
 //            );
 //          }),
 //    );
-            return Scaffold(
-              resizeToAvoidBottomPadding: false,
-//              appBar: AppBar(title: Text('로그인')),
-              body: Stack(
-                children: [
-                  LoginForm(),//
-                ],
-              ),
-            );
+    return Scaffold(
+      resizeToAvoidBottomPadding: false,
+      body: Stack(
+        children: [
+          LoginForm(),
+        ],
+      ),
+    );
   }
 }

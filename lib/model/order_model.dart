@@ -1,7 +1,6 @@
 import 'package:mobispartsearch/model/product_model.dart';
 
-
-class Order{
+class Order {
   final String username;
   final String name;
   final String mobile;
@@ -11,7 +10,8 @@ class Order{
   final String address;
   final Product product;
 
-  Order(this.username, this.name, this.mobile, this.zipcode, this.addressExtended, this.pickupTime, this.address, this.product);
+  Order(this.username, this.name, this.mobile, this.zipcode,
+      this.addressExtended, this.pickupTime, this.address, this.product);
 
   Map<String, dynamic> toMap() {
     return {

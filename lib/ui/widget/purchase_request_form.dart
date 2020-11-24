@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/bloc/cart_bloc.dart';
-import 'package:hyundai_mobis/model/order_model.dart';
-import 'package:hyundai_mobis/ui/screen/cart_screen.dart';
-import 'package:hyundai_mobis/ui/widget/custom_radio_button.dart';
-import 'package:hyundai_mobis/utils/navigation.dart';
-import 'package:hyundai_mobis/common.dart';
-import 'package:hyundai_mobis/model/product_model.dart';
+import 'package:mobispartsearch/bloc/cart_bloc.dart';
+import 'package:mobispartsearch/model/order_model.dart';
+import 'package:mobispartsearch/ui/screen/cart_screen.dart';
+import 'package:mobispartsearch/ui/widget/custom_radio_button.dart';
+import 'package:mobispartsearch/utils/navigation.dart';
+import 'package:mobispartsearch/common.dart';
+import 'package:mobispartsearch/model/product_model.dart';
 
 class PurchaseRequestForm extends StatefulWidget {
   final String partNumber;
@@ -40,32 +40,38 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
     optionData.add(RadioModel(false, '', '방문 수령'));
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     final CartBloc bloc = BlocProvider.of<CartBloc>(context);
 
     var firstColumnWidth = MediaQuery.of(context).size.width * 0.3;
     var secondColumnWidth = MediaQuery.of(context).size.width * 0.6;
     var screenWidth = MediaQuery.of(context).size.width;
 
-    Future<void> addToCart() async{
-      String deliveryCode = optionData[0].isSelected?'P':'V';
-      Product product = new Product(widget.agentCode, deliveryCode, widget.partNumber, globalUsername, count);
+    Future<void> addToCart() async {
+      String deliveryCode = optionData[0].isSelected ? 'P' : 'V';
+      Product product = new Product(widget.agentCode, deliveryCode,
+          widget.partNumber, globalUsername, count);
       bloc.add(AddCartEvent(product));
     }
 
-    Future<bool> orderNow() async{
+    Future<bool> orderNow() async {
       DateTime timeNow = DateTime.now();
-      String deliveryCode = optionData[0].isSelected?'D':'P';
-      Product product = new Product(widget.agentCode, deliveryCode, widget.partNumber, globalUsername, count);
-      Order orderObject = new Order(globalUser.username, globalUser.legalName, globalUser.mobile, globalUser.zipcode, globalUser.addressExtended, timeNow.toString(), globalUser.address, product);
-      if(await order(orderObject)==true)
-      {
+      String deliveryCode = optionData[0].isSelected ? 'D' : 'P';
+      Product product = new Product(widget.agentCode, deliveryCode,
+          widget.partNumber, globalUsername, count);
+      Order orderObject = new Order(
+          globalUser.username,
+          globalUser.legalName,
+          globalUser.mobile,
+          globalUser.zipcode,
+          globalUser.addressExtended,
+          timeNow.toString(),
+          globalUser.address,
+          product);
+      if (await order(orderObject) == true) {
         return true;
-      }
-      else
+      } else
         return false;
     }
 
@@ -176,7 +182,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               width: secondColumnWidth,
               padding: EdgeInsets.only(left: 10),
               child: Text(
-                widget.price.toString()+"원",
+                widget.price.toString() + "원",
                 style: TextStyle(
                   fontSize: 12,
                 ),
@@ -218,7 +224,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
       ),
     );
 
-    var total_price = widget.price*count;
+    var totalPrice = widget.price * count;
 
     var ticketItem = Container(
       padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -238,10 +244,9 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 child: IconButton(
                   icon: Icon(Icons.remove_circle),
                   color: Colors.black26,
-                  onPressed: (){
+                  onPressed: () {
                     setState(() {
-                      if(count > 1)
-                        count--;
+                      if (count > 1) count--;
                     });
                   },
                 ),
@@ -250,14 +255,14 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
 //                  width: 12,
 //                  height: 12,
                   child: Text(
-                    count.toString(),
-                    style: TextStyle(fontSize: 12, color: Colors.black),
-                  )),
+                count.toString(),
+                style: TextStyle(fontSize: 12, color: Colors.black),
+              )),
               Container(
                 child: IconButton(
                   icon: Icon(Icons.add_circle),
                   color: Colors.black26,
-                  onPressed: (){
+                  onPressed: () {
                     setState(() {
                       count++;
                     });
@@ -265,11 +270,16 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 ),
               ),
               Expanded(
-                child: Padding(padding: EdgeInsets.only(left: 20),),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20),
+                ),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 20.0),
-                child: Text(total_price.toString()+"원", style: TextStyle(fontSize: 12),),
+                child: Text(
+                  totalPrice.toString() + "원",
+                  style: TextStyle(fontSize: 12),
+                ),
               )
             ]),
           ),
@@ -285,19 +295,36 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
             child: Row(children: [
               Container(
                 padding: EdgeInsets.only(left: 20),
-                child: Text('총 수량  ',style: TextStyle(fontSize: 14, color: Colors.black),),
+                child: Text(
+                  '총 수량  ',
+                  style: TextStyle(fontSize: 14, color: Colors.black),
+                ),
               ),
-              Text(count.toString(), style: TextStyle(fontSize: 14, color: Colors.red),),
-              Text('개',style: TextStyle(fontSize: 14, color: Colors.black),),
+              Text(
+                count.toString(),
+                style: TextStyle(fontSize: 14, color: Colors.red),
+              ),
+              Text(
+                '개',
+                style: TextStyle(fontSize: 14, color: Colors.black),
+              ),
               Expanded(
-                child: Padding(padding: EdgeInsets.only(left: 20),),
+                child: Padding(
+                  padding: EdgeInsets.only(left: 20),
+                ),
               ),
               Container(
-                padding: EdgeInsets.only(right: 20.0),
+                  padding: EdgeInsets.only(right: 20.0),
                   child: Row(
                     children: [
-                      Text('총 금액   ', style: TextStyle(fontSize: 14, color: Colors.black),),
-                      Text(total_price.toString()+" 원", style: TextStyle(fontSize: 14, color: Colors.red),),
+                      Text(
+                        '총 금액   ',
+                        style: TextStyle(fontSize: 14, color: Colors.black),
+                      ),
+                      Text(
+                        totalPrice.toString() + " 원",
+                        style: TextStyle(fontSize: 14, color: Colors.red),
+                      ),
                     ],
                   ))
             ]),
@@ -329,7 +356,9 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                     },
                   ),
                 ),
-                SizedBox(width: 50,),
+                SizedBox(
+                  width: 50,
+                ),
                 ButtonTheme(
                   minWidth: 0,
                   height: 0,
@@ -358,8 +387,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 ),
                 Text(
                   '공백 특수기호 없이 특수문자만 입력하세요',
-                  style: TextStyle(
-                      color: kPrimaryColor, fontSize: 12),
+                  style: TextStyle(color: kPrimaryColor, fontSize: 12),
                 ),
               ],
             ),
@@ -376,17 +404,27 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
           ButtonTheme(
             buttonColor: kPrimaryColor,
             child: RaisedButton(
-              child: Text('장바구니', style: TextStyle(fontSize: 12, color: Colors.white), textAlign: TextAlign.center,),
-              onPressed: () async{
-                if(optionData[0].isSelected==false && optionData[1].isSelected==false)
-                  return;
-                bool kind = optionData[0].isSelected ? true:false;
+              child: Text(
+                '장바구니',
+                style: TextStyle(fontSize: 12, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              onPressed: () async {
+                if (optionData[0].isSelected == false &&
+                    optionData[1].isSelected == false) return;
+                bool kind = optionData[0].isSelected ? true : false;
                 await addToCart();
-                pushTo(context, CartScreen(delivery_kind: kind,));
+                pushTo(
+                    context,
+                    CartScreen(
+                      deliveryKind: kind,
+                    ));
               },
             ),
           ),
-          SizedBox(width: 50,),
+          SizedBox(
+            width: 50,
+          ),
           Container(
 //            padding: EdgeInsets.symmetric(vertical: 2.0),
             child: OutlineButton(
@@ -395,14 +433,15 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 style: BorderStyle.solid, //Style of the border
                 width: 1, //width of the border
               ),
-              child: Text('바로구매', style: TextStyle(fontSize: 12, color: kPrimaryColor),),
+              child: Text(
+                '바로구매',
+                style: TextStyle(fontSize: 12, color: kPrimaryColor),
+              ),
               onPressed: () async {
-                if(await orderNow()==true)
-                {}
+                if (await orderNow() == true) {}
               },
             ),
           )
-
         ],
       ),
     );
@@ -411,7 +450,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
       child: Column(
         children: [
           Container(
-            width: screenWidth*0.7,
+            width: screenWidth * 0.7,
             padding: EdgeInsets.symmetric(vertical: 40.0),
             child: Text(
               '차량부품 특성상 임의로 부품을 교체할 경우 문제가 발생할 수 있으므로 부품 구입 전 정확한 부품번호를 확인하시기 바랍니다.',

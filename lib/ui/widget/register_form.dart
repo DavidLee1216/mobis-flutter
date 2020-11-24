@@ -1,15 +1,7 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/auth_bloc.dart';
-import 'package:http/http.dart' as http;
 import 'package:mobispartsearch/model/user_model.dart';
-import 'package:mobispartsearch/repository/user_repository.dart';
-import 'package:mobispartsearch/ui/screen/id_login_screen.dart';
-import 'package:mobispartsearch/ui/screen/login_screen.dart';
-import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
-import 'package:mobispartsearch/utils/navigation.dart';
 import 'package:mobispartsearch/common.dart';
 
 enum Gender { male, female }
@@ -65,7 +57,7 @@ class _RegisterFormState extends State<RegisterForm> {
   Widget build(BuildContext context) {
     final AuthBloc bloc = BlocProvider.of<AuthBloc>(context);
 
-    Future<void> register_user(
+    Future<void> registerUser(
         String id,
         String mobile,
         String email,
@@ -159,7 +151,7 @@ class _RegisterFormState extends State<RegisterForm> {
               color: kPrimaryColor,
             )),
         onPressed: () {
-          if (check_username(_idController.text) == false) {
+          if (checkUsername(_idController.text) == false) {
 //            _idController.clear();
           }
         },
@@ -196,7 +188,7 @@ class _RegisterFormState extends State<RegisterForm> {
               color: kPrimaryColor,
             )),
         onPressed: () {
-          if (check_email(_emailController.text) == false) {
+          if (checkEmail(_emailController.text) == false) {
 //            _emailController.clear();
           }
         },
@@ -323,7 +315,7 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
         ),
         onPressed: () {
-          validate_SMS(_phoneNumberController.text);
+          validateSMS(_phoneNumberController.text);
         },
       ),
     );
@@ -358,7 +350,7 @@ class _RegisterFormState extends State<RegisterForm> {
               color: kPrimaryColor,
             )),
         onPressed: () {
-          seq = validate_code(_authNumberVerifyController.text);
+          seq = validateCode(_authNumberVerifyController.text);
           seq = '123';
         },
       ),
@@ -463,7 +455,7 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
         ),
         onPressed: () async {
-          await register_user(
+          await registerUser(
               _idController.text,
               _phoneNumberController.text,
               _emailController.text,

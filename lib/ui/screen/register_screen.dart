@@ -16,5 +16,6 @@ class RegisterScreen extends StatelessWidget {
           RegisterForm(), //
         ],
       ),
-    );  }
+    );
+  }
 }

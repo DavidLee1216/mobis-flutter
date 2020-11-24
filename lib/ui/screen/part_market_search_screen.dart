@@ -1,14 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/market_search_bloc.dart';
-import 'package:mobispartsearch/ui/screen/home_screen.dart';
-import 'package:mobispartsearch/ui/screen/notification_screen.dart';
 import 'package:mobispartsearch/ui/widget/market_search_result_form.dart';
 import 'package:mobispartsearch/ui/widget/custom_radio_button.dart';
-
-import 'package:mobispartsearch/ui/screen/my_page_screen.dart';
-import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
-import 'package:mobispartsearch/utils/navigation.dart';
 
 import '../../common.dart';
 
@@ -18,7 +12,6 @@ class PartMarketSearchScreen extends StatefulWidget {
 }
 
 class _PartMarketSearchScreenState extends State<PartMarketSearchScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +27,6 @@ class _PartMarketSearchScreenState extends State<PartMarketSearchScreen> {
           ],
         ), //
       ),
-
     );
   }
 }
@@ -53,9 +45,9 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
   String sido = 'aaa';
   String sigungu = 'aaa';
 
-  var partNumberController = TextEditingController();
+  TextEditingController partNumberController = TextEditingController();
 
-  var bloc = null;
+  MarketSearchBloc bloc;
 
   @override
   void initState() {
@@ -130,7 +122,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
         children: [
           Center(
             child: Container(
-              width: mainWidth*0.25,
+              width: mainWidth * 0.25,
               padding: const EdgeInsets.only(left: 20.0),
               child: Text(
                 '판매점',
@@ -139,16 +131,16 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
             ),
           ),
           Container(
-            width: mainWidth*0.75,
-            child: Column(
-              children:[
+            width: mainWidth * 0.75,
+            child: Column(children: [
               ButtonTheme(
                 child: FlatButton(
                   materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
                   child: RadioItem(marketData[0]),
                   onPressed: () {
                     setState(() {
-                      marketData.forEach((element) => element.isSelected = false);
+                      marketData
+                          .forEach((element) => element.isSelected = false);
                       marketData[0].isSelected = true;
                       bloc.add(SetMarketMarketSearchEvent(0));
                     });
@@ -161,7 +153,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                   child: RadioItem(marketData[1]),
                   onPressed: () {
                     setState(() {
-                      marketData.forEach((element) => element.isSelected = false);
+                      marketData
+                          .forEach((element) => element.isSelected = false);
                       marketData[1].isSelected = true;
                       bloc.add(SetMarketMarketSearchEvent(1));
                     });
@@ -174,7 +167,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                   child: RadioItem(marketData[2]),
                   onPressed: () {
                     setState(() {
-                      marketData.forEach((element) => element.isSelected = false);
+                      marketData
+                          .forEach((element) => element.isSelected = false);
                       marketData[2].isSelected = true;
                       bloc.add(SetMarketMarketSearchEvent(2));
                     });
@@ -187,14 +181,15 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                   child: RadioItem(marketData[3]),
                   onPressed: () {
                     setState(() {
-                      marketData.forEach((element) => element.isSelected = false);
+                      marketData
+                          .forEach((element) => element.isSelected = false);
                       marketData[3].isSelected = true;
                       bloc.add(SetMarketMarketSearchEvent(3));
                     });
                   },
                 ),
-              ),]
-            ),
+              ),
+            ]),
           )
         ],
       ),
@@ -221,10 +216,11 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
             onChanged: (String newValue) {
               setState(() {
                 sido = newValue;
-                sigungu = find_first_sigungu(sido);
+                sigungu = findFirstSigungu(sido);
               });
             },
-            items: globalSido.map((e) => e.sido)
+            items: globalSido
+                .map((e) => e.sido)
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -267,7 +263,9 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                 sigungu = newValue;
               });
             },
-            items: find_sido(sido).sigungus.map((e) => e.sigungu)
+            items: findSido(sido)
+                .sigungus
+                .map((e) => e.sigungu)
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -292,7 +290,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
           child: Row(
             children: [
               Container(
-                width: mainWidth*0.25,
+                width: mainWidth * 0.25,
                 padding: EdgeInsets.only(left: 20),
                 child: Text(
                   '지역설정',
@@ -300,14 +298,15 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                 ),
               ),
               Container(
-                child: Column(
-                  children: [
-                    location1Dropdownmenu,
-                    SizedBox(height: 10,),
-                    location2Dropdownmenu,
-                  ],
-                )
-              )
+                  child: Column(
+                children: [
+                  location1Dropdownmenu,
+                  SizedBox(
+                    height: 10,
+                  ),
+                  location2Dropdownmenu,
+                ],
+              ))
             ],
           ),
         ));
@@ -346,31 +345,30 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
 
     var searchButton = Center(
         child: Container(
-          padding: EdgeInsets.only(top: 20.0),
-          child: ButtonTheme(
-            minWidth: MediaQuery.of(context).size.width / 3.0,
-            height: 40,
-            buttonColor: Color.fromRGBO(0, 63, 114, 1),
-            child: RaisedButton(
-              child: Text(
-                '검색',
-                style: TextStyle(
-                  fontSize: 12,
-                  color: Colors.white,
-                ),
-              ),
-              onPressed: () {
-                ptno = partNumberController.text;
-                if(ptno != ''){
-                  searched = true;
-                  bloc.add(SearchMarketSearchEvent(ptno, sido, sigungu, 1));
-                  setState(() {
-                  });
-                }
-              },
+      padding: EdgeInsets.only(top: 20.0),
+      child: ButtonTheme(
+        minWidth: MediaQuery.of(context).size.width / 3.0,
+        height: 40,
+        buttonColor: Color.fromRGBO(0, 63, 114, 1),
+        child: RaisedButton(
+          child: Text(
+            '검색',
+            style: TextStyle(
+              fontSize: 12,
+              color: Colors.white,
             ),
           ),
-        ));
+          onPressed: () {
+            ptno = partNumberController.text;
+            if (ptno != '') {
+              searched = true;
+              bloc.add(SearchMarketSearchEvent(ptno, sido, sigungu, 1));
+              setState(() {});
+            }
+          },
+        ),
+      ),
+    ));
 
     var partNumberSearchItems = Container(
       child: partNumber,
@@ -407,11 +405,20 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
           color: Colors.black54,
         ),
         partNumberSearchItems,
-        Divider(height: 2, color: Colors.black54,),
+        Divider(
+          height: 2,
+          color: Colors.black54,
+        ),
         locationItem,
-        Divider(height: 2, color: Colors.black54,),
+        Divider(
+          height: 2,
+          color: Colors.black54,
+        ),
         marketItem,
-        Divider(height:2, color: Colors.black54,),
+        Divider(
+          height: 2,
+          color: Colors.black54,
+        ),
         manufactureItem,
         Divider(
           height: 2,
@@ -419,7 +426,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
         ),
         searchButton,
         SizedBox(height: 30),
-        searched?MarketSearchResultsForm():Container(),
+        searched ? MarketSearchResultsForm() : Container(),
       ],
     );
   }

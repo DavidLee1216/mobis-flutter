@@ -22,7 +22,6 @@ class _GetPassScreenState extends State<GetPassScreen> {
           ],
         ), //
       ),
-
     );
   }
 }
