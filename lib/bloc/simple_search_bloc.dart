@@ -44,7 +44,6 @@ class SimpleSearchState {
   String model;
   String keyword;
   bool searchType;
-  List<String> carModels;
   List<SimpleSearchResultModel> searchResult;
   PageModel pageModel;
   bool isLoading;
@@ -54,7 +53,6 @@ class SimpleSearchState {
       this.vtpy = 'P',
       this.model = '',
       this.keyword = '',
-      this.carModels,
       this.searchResult,
       this.isLoading = false,
       this.pageModel});
@@ -66,7 +64,6 @@ class SimpleSearchState {
           String vtpy,
           String model,
           String keyword,
-          List<String> carModels,
           List<SimpleSearchResultModel> searchResult,
           bool isLoading,
           PageModel pageModel}) =>
@@ -75,7 +72,6 @@ class SimpleSearchState {
         vtpy: vtpy ?? this.vtpy,
         model: model ?? this.model,
         keyword: keyword ?? this.keyword,
-        carModels: carModels ?? this.carModels ?? new List<String>(),
         searchResult: searchResult ??
             this.searchResult ??
             new List<SimpleSearchResultModel>(),
@@ -90,7 +86,6 @@ class SimpleSearchState {
           String vtpy,
           String model,
           String keyword,
-          List<String> carModels,
           List<SimpleSearchResultModel> searchResult,
           bool isLoading,
           PageModel pageModel}) =>
@@ -98,7 +93,6 @@ class SimpleSearchState {
           hkgb: hkgb,
           vtpy: vtpy,
           model: model,
-          carModels: carModels,
           searchResult: searchResult,
           isLoading: false,
           pageModel: pageModel);
@@ -123,13 +117,10 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
   Stream<SimpleSearchState> _mapInitEventToState() async* {
     try {
       yield state.submitting();
-      List<String> carModels =
-          await simpleSearchRepository.getModels(hkgb: 'H', vtpy: 'P');
       List<SimpleSearchResultModel> searchResult =
           new List<SimpleSearchResultModel>();
       yield state.success(
-          model: carModels[0],
-          carModels: carModels,
+          model: '',
           searchResult: searchResult);
     } catch (e) {
       yield state.success();
@@ -139,9 +130,7 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
   Stream<SimpleSearchState> _mapHKGBEventToState(int idx) async* {
     try {
       yield state.submitting();
-      List<String> carModels = await simpleSearchRepository.getModels(
-          hkgb: hkgb_list[idx], vtpy: state.vtpy);
-      yield state.success(hkgb: hkgb_list[idx], carModels: carModels);
+      yield state.success(hkgb: hkgb_list[idx]);
     } catch (e) {
       yield state.success();
     }
@@ -150,9 +139,7 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
   Stream<SimpleSearchState> _mapVTPYEventToState(int idx) async* {
     try {
       yield state.submitting();
-      List<String> carModels = await simpleSearchRepository.getModels(
-          hkgb: state.hkgb, vtpy: vtpy_list[idx]);
-      yield state.success(vtpy: vtpy_list[idx], carModels: carModels);
+      yield state.success(vtpy: vtpy_list[idx]);
     } catch (e) {
       yield state.success();
     }
@@ -176,12 +163,12 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
               hkgb: state.hkgb,
               vtpy: state.vtpy,
               catSeq: state.model,
-              searchWord: state.keyword,
+              searchWord: keyword,
               firstIndex: 1 + (page - 1) * globalRecordCountPerPage,
               recordCountPerPage: globalRecordCountPerPage)
           : await simpleSearchRepository.searchPartPtno(
               hkgb: state.hkgb,
-              ptno: state.keyword,
+              ptno: keyword,
               firstIndex: 1 + (page - 1) * globalRecordCountPerPage,
               recordCountPerPage: globalRecordCountPerPage);
       if (searchResult == null || searchResult.length == 0)
@@ -194,6 +181,7 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
         yield state.success(searchResult: searchResult, pageModel: pageModel);
       }
     } catch (e) {
+      log(e.toString());
       yield state.success();
     }
   }

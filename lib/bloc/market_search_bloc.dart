@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/model/market_search_model.dart';
@@ -52,8 +54,8 @@ class MarketSearchState {
       this.market = '',
       this.ptno,
       this.searchResult,
-      this.krname,
-      this.enname,
+      this.krname = '',
+      this.enname = '',
       this.price,
       this.isLoading = false,
       this.pageModel});
@@ -169,7 +171,8 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
     try {
       yield state.submitting();
       MarketSearchResultProductInfo productInfo =
-          await marketSearchRepository.getProductInfo(ptno: state.ptno);
+          await marketSearchRepository.getProductInfo(ptno: ptno);
+      log(productInfo.krname);
       if (productInfo == null) {
         yield state.success();
         return;
@@ -177,18 +180,18 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
       List<MarketSearchResultModel> searchResult =
           await marketSearchRepository.searchPart(
               hkgb: state.hkgb,
-              ptno: state.ptno,
-              sido: state.sido,
-              sigungu: state.sigungu,
+              ptno: ptno,
+              sido: sido,
+              sigungu: sigungu,
               stype: state.market,
               firstIndex: 1 + (page - 1) * globalRecordCountPerPage,
               recordCountPerPage: globalRecordCountPerPage);
-      if (searchResult == null || searchResult.length == 0)
-        yield state.success();
-      else {
+//      if (searchResult == null || searchResult.length == 0)
+//        yield state.success();
+//      else {
         PageModel pageModel = new PageModel()..init();
-        pageModel.setPageCnt(
-            searchResult[0].totalCnt ~/ globalRecordCountPerPage + 1);
+        int pageCnt = (searchResult == null) ? 0 : searchResult[0].totalCnt ~/ globalRecordCountPerPage + 1;
+        pageModel.setPageCnt(pageCnt);
         pageModel.setCurPage(page);
 
         yield state.success(
@@ -197,8 +200,9 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
             enname: productInfo.enname,
             price: productInfo.price,
             pageModel: pageModel);
-      }
+//      }
     } catch (e) {
+      log(e.toString());
       yield state.success();
     }
   }

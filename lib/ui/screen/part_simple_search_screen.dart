@@ -43,8 +43,8 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
   bool searched = false;
   List<RadioModel> manufacturerData = new List<RadioModel>();
   List<RadioModel> carKindData = new List<RadioModel>();
-  List<String> carModels = new List<String>();
-  String modelDropdownValue = '';
+  List<String> carModels;
+  String modelDropdownValue = null;
   String hkgb = 'H';
   String vtpy = 'P';
 
@@ -63,11 +63,14 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
     carKindData.add(RadioModel(false, '', 'SUV/RV'));
     carKindData.add(RadioModel(false, '', '상용'));
     bloc = BlocProvider.of<SimpleSearchBloc>(context);
-//    bloc.add(InitSimpleSearchEvent());
+    bloc.add(InitSimpleSearchEvent());
   }
 
   Future<List<String>> loadModels() async {
-    return await getModelsFromRemote(hkgb, vtpy);
+    List<String> models = await getModelsFromRemote(hkgb, vtpy);
+    modelDropdownValue ??= models[0];
+    carModels = models;
+    return models;
   }
 
   @override
@@ -99,6 +102,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   manufacturerData[0].isSelected = true;
                   bloc.add(HKGBSimpleSearchEvent(0));
                   hkgb = hkgb_list[0];
+                  modelDropdownValue = null;
                 });
               },
             ),
@@ -116,6 +120,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   manufacturerData[1].isSelected = true;
                   bloc.add(HKGBSimpleSearchEvent(1));
                   hkgb = hkgb_list[1];
+                  modelDropdownValue = null;
                 });
               },
             ),
@@ -146,6 +151,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   carKindData[0].isSelected = true;
                   bloc.add(VTPYSimpleSearchEvent(0));
                   vtpy = vtpy_list[0];
+                  modelDropdownValue = null;
                 });
               },
             ),
@@ -162,6 +168,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   carKindData[1].isSelected = true;
                   bloc.add(VTPYSimpleSearchEvent(1));
                   vtpy = vtpy_list[1];
+                  modelDropdownValue = null;
                 });
               },
             ),
@@ -178,6 +185,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   carKindData[2].isSelected = true;
                   bloc.add(VTPYSimpleSearchEvent(2));
                   vtpy = vtpy_list[2];
+                  modelDropdownValue = null;
                 });
               },
             ),
@@ -186,78 +194,49 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
       ),
     );
 
-    var modelDropdownmenu1 = FutureBuilder(
-      future: loadModels(),
+    var modelDropdownmenu = FutureBuilder(
+        future: loadModels(),
         builder: (context, snapshot) {
           return Container(
             width: 180,
-            height: 40,
+//            height: 40,
             decoration: BoxDecoration(
               border: Border.all(),
             ),
-            child: DropdownButton<String>(
-                value: modelDropdownValue,
-                hint: Padding(
-                    padding: EdgeInsets.only(left: 10),
-                    child: Text(
-                      '[선택]',
-                    )),
-                icon: Icon(Icons.keyboard_arrow_down),
-                iconSize: 14,
-                onChanged: (newValue) {
-                  setState(() {
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton<String>(
+                  value: modelDropdownValue,
+                  hint: Padding(
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(
+                        '[선택]',
+                      )),
+                  icon: Icon(Icons.keyboard_arrow_down),
+                  iconSize: 14,
+                  onChanged: (newValue) {
                     modelDropdownValue = newValue;
-                  });
-                },
-                items: snapshot.data.map((item) {
-                  return DropdownMenuItem<String>(
-                    child: Text(item),
-                    value: item,
-                  );
-                }).toList()),
+                    setState(() {});
+                  },
+                  items: snapshot.data?.map<DropdownMenuItem<String>>((item) {
+                    return DropdownMenuItem<String>(
+                      value: item,
+                      child: Container(
+                        width: 160,
+                        child: Text(
+                          item,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                            fontSize: 14,
+                          ),
+                        ),
+                        alignment: Alignment.center,
+                      ),
+                    );
+                  })?.toList()),
+            ),
           );
         });
 
-    var modelDropdownmenu = Container(
-        width: 286,
-        height: 40,
-        decoration: BoxDecoration(
-          border: Border.all(),
-        ),
-        child: DropdownButtonHideUnderline(
-          child: DropdownButton<String>(
-            value: modelDropdownValue,
-            hint: Padding(
-                padding: EdgeInsets.only(left: 12),
-                child: Text(
-                  '[선택]',
-                )),
-            icon: Icon(Icons.keyboard_arrow_down),
-            iconSize: 14,
-            onChanged: (String newValue) {
-              setState(() {
-                modelDropdownValue = newValue;
-                bloc.add(ModelSimpleSearchEvent(newValue));
-              });
-            },
-            items: carModels.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Container(
-                  width: 60,
-                  child: Text(
-                    value,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      fontSize: 14,
-                    ),
-                  ),
-                  alignment: Alignment.center,
-                ),
-              );
-            }).toList(),
-          ),
-        ));
     var modelItem = Container(
         padding: EdgeInsets.all(10.0),
         child: Container(
@@ -274,10 +253,11 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
               SizedBox(
                 width: 50,
               ),
-              modelDropdownmenu1,
+              modelDropdownmenu,
             ],
           ),
         ));
+
     var partName = Container(
         padding: EdgeInsets.all(10.0),
         child: Container(
@@ -360,7 +340,11 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
             searched = true;
             setState(() {
               bloc.add(SearchSimpleSearchEvent(
-                  partNameController.text, searchType, 1));
+                  searchType
+                      ? partNumberController.text
+                      : partNameController.text,
+                  searchType,
+                  1));
             });
           },
         ),
@@ -384,6 +368,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
         ],
       ),
     );
+
     var partNumberSearchItems = Container(
       child: partNumber,
     );
@@ -391,8 +376,6 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
     return BlocBuilder<SimpleSearchBloc, SimpleSearchState>(
       cubit: BlocProvider.of<SimpleSearchBloc>(context),
       builder: (BuildContext context, state) {
-        carModels = state.carModels;
-//        modelDropdownValue = state.model;
         return ListView(
           children: [
             Row(
@@ -400,8 +383,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 ButtonTheme(
                   minWidth: MediaQuery.of(context).size.width / 2,
                   height: 40,
-                  buttonColor:
-                    Colors.white,
+                  buttonColor: Colors.white,
                   child: RaisedButton(
                     child: !searchType
                         ? Text(
@@ -428,24 +410,23 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 ButtonTheme(
                   minWidth: MediaQuery.of(context).size.width / 2,
                   height: 40,
-                  buttonColor:
-                      Colors.white,
+                  buttonColor: Colors.white,
                   child: RaisedButton(
                     child: searchType
                         ? Text(
-                          '일반검색',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Color.fromRGBO(0, 63, 114, 1),
-                          ),
-                        )
+                            '부품번호검색',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Color.fromRGBO(0, 63, 114, 1),
+                            ),
+                          )
                         : Text(
-                          '일반검색',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black,
+                            '부품번호검색',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
                     onPressed: () {
                       searchType = true;
                       searched = false;

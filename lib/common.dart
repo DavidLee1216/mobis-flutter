@@ -132,8 +132,10 @@ bool updateProfile(String addressExtended, String address, String mobile,
       .then((response) {
     if (response.statusCode == 200) {
       log('profile success');
+      return true;
     } else {
       log('profile ${response.statusCode}');
+      return false;
     }
   });
 }
@@ -324,9 +326,10 @@ Future<List<String>> getModelsFromRemote(String hkgb, String vtpy) async {
   if(response.statusCode==200){
     log('model success');
     final data = json.decode(utf8.decode(response.bodyBytes)) as List;
+    log(data.toString());
     return data.map((item){
-      return item['cpnm'].toString();
-    }).toList();
+              return item['cpnm'].toString();
+            }).toList();
   }else{
     log('model '+ response.statusCode.toString());
     throw Exception('error');
@@ -347,7 +350,7 @@ Future<List<SimpleSearchResultModel>> simpleSearchPart(
     final data = json.decode(utf8.decode(response.bodyBytes)) as List;
     return data.map((item) {
       return SimpleSearchResultModel.fromMap(item);
-    });
+    }).toList();
   } else {
     log('simple search ' + response.statusCode.toString());
     return null;
@@ -369,9 +372,10 @@ Future<List<MarketSearchResultModel>> marketSearchPart(
     final data = json.decode(utf8.decode(response.bodyBytes)) as List;
     return data.map((item) {
       return MarketSearchResultModel.fromMap(item);
-    });
+    }).toList();
   } else {
     log('market search ' + response.statusCode.toString());
+    return null;
   }
 }
 
@@ -396,7 +400,7 @@ Future<List<SimpleSearchResultModel>> simpleSearchPartPtno(
           totalCnt: item['tot_cnt'],
           rnum: item['rnum']);
 
-    });
+    }).toList();
   } else {
     log('simple search ptno' + response.statusCode.toString());
     return null;
@@ -409,7 +413,6 @@ Future<MarketSearchResultProductInfo> getProductInfoFromPtno(
   if (response.statusCode == 200) {
     log('get product info success');
     final data = json.decode(utf8.decode(response.bodyBytes));
-    log(data.toString());
     return MarketSearchResultProductInfo.fromMap(data);
   } else {
     log('get product info ${response.statusCode}');
