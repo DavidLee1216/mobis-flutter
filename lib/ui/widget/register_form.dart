@@ -144,11 +144,10 @@ class _RegisterFormState extends State<RegisterForm> {
     );
 
     var idDupConfirmButton = ButtonTheme(
-      minWidth: MediaQuery.of(context).size.width / 6,
-      height: 40,
+      minWidth: MediaQuery.of(context).size.width / 4,
+      height: 50,
       buttonColor: Colors.white,
       child: RaisedButton(
-        padding: EdgeInsets.only(left: 8.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0.0),
           side: BorderSide(
@@ -182,11 +181,10 @@ class _RegisterFormState extends State<RegisterForm> {
     );
 
     var emailDupConfirmButton = ButtonTheme(
-      minWidth: MediaQuery.of(context).size.width / 5,
-      height: 40,
+      minWidth: MediaQuery.of(context).size.width / 4,
+      height: 50,
       buttonColor: Colors.white,
       child: RaisedButton(
-        padding: EdgeInsets.only(left: 8.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0.0),
           side: BorderSide(
@@ -308,10 +306,10 @@ class _RegisterFormState extends State<RegisterForm> {
 
     var phoneAuthGetButton = ButtonTheme(
       minWidth: MediaQuery.of(context).size.width / 4,
-      height: 40,
+      height: 50,
       buttonColor: Colors.white,
       child: RaisedButton(
-        padding: EdgeInsets.only(left: 8.0),
+        padding: EdgeInsets.only(left: 2.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0.0),
           side: BorderSide(
@@ -345,10 +343,10 @@ class _RegisterFormState extends State<RegisterForm> {
 
     var phoneAuthConfirmButton = ButtonTheme(
       minWidth: MediaQuery.of(context).size.width / 4,
-      height: 40,
+      height: 50,
       buttonColor: Colors.white,
       child: RaisedButton(
-        padding: EdgeInsets.only(left: 8.0),
+        padding: EdgeInsets.only(left: 2.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0.0),
           side: BorderSide(
@@ -407,10 +405,10 @@ class _RegisterFormState extends State<RegisterForm> {
 
     var postSearchButton = ButtonTheme(
       minWidth: MediaQuery.of(context).size.width / 4,
-      height: 40,
+      height: 50,
       buttonColor: Colors.white,
       child: RaisedButton(
-        padding: EdgeInsets.only(left: 8.0),
+        padding: EdgeInsets.only(left: 2.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(0.0),
           side: BorderSide(
@@ -452,20 +450,17 @@ class _RegisterFormState extends State<RegisterForm> {
     );
 
     var registerButton = Container(
-      padding: EdgeInsets.symmetric(horizontal: 50),
-      height: 40,
+      padding: EdgeInsets.only(left: 9.0, right: 9.0),
+      height: 60,
       child: RaisedButton(
-        padding: EdgeInsets.symmetric(horizontal: 50),
         color: kPrimaryColor,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-          side: BorderSide(
-              color: Colors.blueGrey, width: 1.0, style: BorderStyle.solid),
-        ),
         child: Text(
           '가입하기',
           textAlign: TextAlign.center,
-          style: TextStyle(color: Colors.white),
+          style: TextStyle(
+            color: Colors.white,
+            fontSize: 18,
+          ),
         ),
         onPressed: () async {
           await register_user(
@@ -495,7 +490,7 @@ class _RegisterFormState extends State<RegisterForm> {
           Container(
             padding: EdgeInsets.only(top: 20),
             child: Padding(
-              padding: const EdgeInsets.only(left: 8.0),
+              padding: const EdgeInsets.only(left: 10.0),
               child: Text(
                 '아이디',
                 style: TextStyle(
@@ -505,10 +500,10 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Container(
-            height: 40,
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
@@ -525,7 +520,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           Container(
             child: Padding(
@@ -539,17 +534,17 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Container(
-            height: 40,
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: passField,
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           Container(
             child: Padding(
@@ -563,14 +558,17 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Container(
-            height: 40,
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: repassField,
             ),
+          ),
+          SizedBox(
+            height: 15,
           ),
           Container(
             child: Padding(
@@ -584,10 +582,10 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Container(
-            height: 40,
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
@@ -602,7 +600,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           Container(
             child: Padding(
@@ -616,17 +614,17 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Container(
-            height: 40,
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: nameField,
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           Container(
             child: Padding(
@@ -640,17 +638,17 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Container(
-            height: 40,
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: birthdayField,
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           Container(
             child: Padding(
@@ -664,7 +662,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Column(
             children: [
@@ -673,7 +671,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ],
           ),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           Container(
             child: Padding(
@@ -687,10 +685,10 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Container(
-            height: 40,
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
@@ -705,10 +703,10 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Container(
-            height: 40,
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
@@ -723,6 +721,9 @@ class _RegisterFormState extends State<RegisterForm> {
                 ],
               ),
             ),
+          ),
+          SizedBox(
+            height: 5,
           ),
           Container(
             child: Padding(
@@ -742,7 +743,7 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           Container(
             child: Padding(
@@ -756,10 +757,10 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Container(
-            height: 40,
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: Row(
@@ -768,7 +769,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     child: address1Field,
                   ),
                   SizedBox(
-                    width: 10,
+                    width: 15,
                   ),
                   postSearchButton,
                 ],
@@ -776,27 +777,27 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Container(
-            height: 40,
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: address2Field,
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Container(
-            height: 40,
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: address3Field,
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           Container(
             child: Padding(
@@ -810,17 +811,17 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Container(
-            height: 40,
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: carNumber1Field,
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 15,
           ),
           Container(
             child: Padding(
@@ -834,10 +835,10 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
-            height: 10,
+            height: 5,
           ),
           Container(
-            height: 40,
+            height: 50,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10.0),
               child: carNumber2Field,
