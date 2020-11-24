@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/common.dart';
+import 'package:mobispartsearch/common.dart';
 
 class MyInfoScreen extends StatefulWidget {
   @override
@@ -8,7 +8,6 @@ class MyInfoScreen extends StatefulWidget {
 }
 
 class _MyInfoScreenState extends State<MyInfoScreen> {
-
   final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _repasswordController = TextEditingController();
@@ -23,7 +22,6 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     var screenWidth = MediaQuery.of(context).size.width;
 
     _nameController.text = '양**';
@@ -38,20 +36,27 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
       child: Row(
         children: [
           Container(
-              width: screenWidth*0.25,
+              width: screenWidth * 0.25,
               height: 30,
               padding: EdgeInsets.only(left: 20.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('성명', style: TextStyle(fontSize: 12,),),
+                  Text(
+                    '성명',
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
                 ],
               )),
           Container(
-            width: screenWidth*0.75,
+            width: screenWidth * 0.75,
             height: 30,
-            padding: EdgeInsets.symmetric(horizontal: 20,),
+            padding: EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -77,20 +82,27 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
       child: Row(
         children: [
           Container(
-              width: screenWidth*0.25,
+              width: screenWidth * 0.25,
               height: 30,
               padding: EdgeInsets.only(left: 20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('비밀번호', style: TextStyle(fontSize: 12,),),
+                  Text(
+                    '비밀번호',
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
                 ],
               )),
           Container(
-            width: screenWidth*0.75,
+            width: screenWidth * 0.75,
             height: 30,
-            padding: EdgeInsets.symmetric(horizontal: 20,),
+            padding: EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -117,20 +129,27 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
       child: Row(
         children: [
           Container(
-              width: screenWidth*0.25,
+              width: screenWidth * 0.25,
               height: 30,
               padding: EdgeInsets.only(left: 20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('비밀번호 확인', style: TextStyle(fontSize: 12,),),
+                  Text(
+                    '비밀번호 확인',
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
                 ],
               )),
           Container(
-            width: screenWidth*0.75,
+            width: screenWidth * 0.75,
             height: 30,
-            padding: EdgeInsets.symmetric(horizontal: 20,),
+            padding: EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -157,35 +176,42 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
       child: Row(
         children: [
           Container(
-              width: screenWidth*0.25,
+              width: screenWidth * 0.25,
               height: 30,
               padding: EdgeInsets.only(left: 20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('전화번호', style: TextStyle(fontSize: 12,),),
+                  Text(
+                    '전화번호',
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
                 ],
               )),
           Container(
-              width: screenWidth*0.75,
-              height: 30,
-              padding: EdgeInsets.symmetric(horizontal: 20,),
-              child: TextField(
-                decoration: InputDecoration(
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(3),
-                    borderSide: BorderSide(color: Colors.grey, width: 1),
-                  ),
-                  contentPadding: EdgeInsets.only(left: 10),
+            width: screenWidth * 0.75,
+            height: 30,
+            padding: EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
+            child: TextField(
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(3),
+                  borderSide: BorderSide(color: Colors.grey, width: 1),
                 ),
-                keyboardType: TextInputType.emailAddress,
-                style: TextStyle(
-                  fontSize: 12,
-                ),
-                textAlign: TextAlign.left,
-                controller: _mobileController,
+                contentPadding: EdgeInsets.only(left: 10),
               ),
+              keyboardType: TextInputType.emailAddress,
+              style: TextStyle(
+                fontSize: 12,
+              ),
+              textAlign: TextAlign.left,
+              controller: _mobileController,
+            ),
           )
         ],
       ),
@@ -196,20 +222,27 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
       child: Row(
         children: [
           Container(
-              width: screenWidth*0.25,
+              width: screenWidth * 0.25,
               height: 30,
               padding: EdgeInsets.only(left: 20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('이메일', style: TextStyle(fontSize: 12,),),
+                  Text(
+                    '이메일',
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
                 ],
               )),
           Container(
-            width: screenWidth*0.75,
+            width: screenWidth * 0.75,
             height: 30,
-            padding: EdgeInsets.symmetric(horizontal: 20,),
+            padding: EdgeInsets.symmetric(
+              horizontal: 20,
+            ),
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -235,46 +268,51 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Container(
-                  width: screenWidth*0.25,
-                  height: 30,
-                  padding: EdgeInsets.only(left: 20.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text('주소', style: TextStyle(fontSize: 12),),
-                    ],
-                  )),
-              Container(
-                width: screenWidth*0.75,
+          Row(children: [
+            Container(
+                width: screenWidth * 0.25,
                 height: 30,
-                padding: EdgeInsets.symmetric(horizontal: 20,),
-                child: TextField(
-                  decoration: InputDecoration(
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(3),
-                      borderSide: BorderSide(color: Colors.grey, width: 1),
+                padding: EdgeInsets.only(left: 20.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      '주소',
+                      style: TextStyle(fontSize: 12),
                     ),
-                    contentPadding: EdgeInsets.only(left: 10),
-                  ),
-                  keyboardType: TextInputType.text,
-                  style: TextStyle(
-                    fontSize: 12,
-                  ),
-                  textAlign: TextAlign.left,
-                  controller: _address1Controller,
-                ),
+                  ],
+                )),
+            Container(
+              width: screenWidth * 0.75,
+              height: 30,
+              padding: EdgeInsets.symmetric(
+                horizontal: 20,
               ),
-            ]
+              child: TextField(
+                decoration: InputDecoration(
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(3),
+                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                  ),
+                  contentPadding: EdgeInsets.only(left: 10),
+                ),
+                keyboardType: TextInputType.text,
+                style: TextStyle(
+                  fontSize: 12,
+                ),
+                textAlign: TextAlign.left,
+                controller: _address1Controller,
+              ),
+            ),
+          ]),
+          SizedBox(
+            height: 10,
           ),
-          SizedBox(height: 10,),
           Container(
-            width: screenWidth*0.4,
+            width: screenWidth * 0.4,
             height: 30,
-            margin: EdgeInsets.only(left: screenWidth*0.25+20),
+            margin: EdgeInsets.only(left: screenWidth * 0.25 + 20),
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -300,20 +338,27 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
       child: Row(
         children: [
           Container(
-              width: screenWidth*0.25,
+              width: screenWidth * 0.25,
               height: 30,
               padding: EdgeInsets.only(left: 20.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text('우편번호', style: TextStyle(fontSize: 12,),),
+                  Text(
+                    '우편번호',
+                    style: TextStyle(
+                      fontSize: 12,
+                    ),
+                  ),
                 ],
               )),
           Container(
-            width: screenWidth*0.4,
+            width: screenWidth * 0.4,
             height: 30,
-            margin: EdgeInsets.only(left: 20,),
+            margin: EdgeInsets.only(
+              left: 20,
+            ),
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -331,7 +376,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             ),
           ),
           Container(
-            width: screenWidth*0.35-50,
+            width: screenWidth * 0.35 - 50,
             height: 30,
             margin: EdgeInsets.only(left: 10),
             child: OutlineButton(
@@ -343,18 +388,17 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               ),
               child: Text(
                 '우편번호검색',
-                style: TextStyle(fontSize: 12, color: Color.fromRGBO(0, 63, 114, 1),),
+                style: TextStyle(
+                  fontSize: 12,
+                  color: Color.fromRGBO(0, 63, 114, 1),
+                ),
                 textAlign: TextAlign.center,
               ),
-              onPressed: (){
-
-              },
+              onPressed: () {},
             ),
           ),
-
         ],
       ),
-
     );
 
     var changeButton = Container(
@@ -386,7 +430,8 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               String email = _emailController.text;
               String password = _passwordController.text;
               String zipCode = _postCodeController.text;
-              update_profile(addressExtended, address, mobile, password, zipCode, email);
+              updateProfile(
+                  addressExtended, address, mobile, password, zipCode, email);
             },
           ),
         ],
@@ -402,7 +447,9 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
       body: SafeArea(
         child: ListView(
           children: [
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             userNameItem,
             passwordItem,
             repasswordItem,
@@ -414,7 +461,6 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
           ],
         ), //
       ),
-
     );
   }
 }

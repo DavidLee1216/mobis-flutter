@@ -1,24 +1,28 @@
+import 'package:mobispartsearch/common.dart';
+import 'package:mobispartsearch/model/simple_search_model.dart';
 
-
-import 'dart:developer';
-
-import 'package:hyundai_mobis/model/simple_search_model.dart';
-
-import 'package:hyundai_mobis/common.dart';
-
-class SimpleSearchRepository{
-
+class SimpleSearchRepository {
   Future<List<String>> getModels({String hkgb, String vtpy}) async {
-    return await get_models(hkgb, vtpy);
+    return await getModelsFromRemote(hkgb, vtpy);
   }
 
-  Future<List<SimpleSearchResultModel>> searchPartPtno({String hkgb, String ptno, int firstIndex, int recordCountPerPage}) async {
-    return await simple_search_part_ptno(
+  Future<List<SimpleSearchResultModel>> searchPartPtno(
+      {String hkgb,
+      String ptno,
+      int firstIndex,
+      int recordCountPerPage}) async {
+    return await simpleSearchPartPtno(
         hkgb, ptno, firstIndex, recordCountPerPage);
   }
 
-  Future<List<SimpleSearchResultModel>> searchPartGeneral({String hkgb, String catSeq, String vtpy, String searchWord, int firstIndex, int recordCountPerPage}) async {
-    return await simple_search_part(
+  Future<List<SimpleSearchResultModel>> searchPartGeneral(
+      {String hkgb,
+      String catSeq,
+      String vtpy,
+      String searchWord,
+      int firstIndex,
+      int recordCountPerPage}) async {
+    return await simpleSearchPart(
         hkgb, catSeq, vtpy, searchWord, firstIndex, recordCountPerPage);
   }
 }

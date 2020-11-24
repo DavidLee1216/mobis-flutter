@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/bloc/auth_bloc.dart';
-import 'package:hyundai_mobis/bloc/notice_bloc.dart';
-import 'package:hyundai_mobis/ui/widget/notice_form.dart';
-import 'package:hyundai_mobis/ui/widget/loading_indication.dart';
+import 'package:mobispartsearch/bloc/notice_bloc.dart';
+import 'package:mobispartsearch/ui/widget/notice_form.dart';
 
 class NoticeSearchScreen extends StatefulWidget {
   @override
@@ -25,7 +23,6 @@ class _NoticeSearchScreenState extends State<NoticeSearchScreen> {
       else if (index == 3) Navigator.of(context).pushNamed('/support');
     });
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -60,11 +57,11 @@ class _NoticeSearchScreenState extends State<NoticeSearchScreen> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage('images/alarm.png'),
+              AssetImage('images/1507.png'),
               color: Colors.grey,
             ),
             activeIcon: ImageIcon(
-              AssetImage('images/alarm.png'),
+              AssetImage('images/1507.png'),
               color: Colors.black,
             ),
             title: Text(
@@ -73,22 +70,23 @@ class _NoticeSearchScreenState extends State<NoticeSearchScreen> {
             ),
           ),
           BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/home.png'), color: Colors.grey),
-            activeIcon:
-            ImageIcon(AssetImage('images/home.png'), color: Colors.black),
+            icon: ImageIcon(AssetImage('images/Home_icon.png'),
+                color: Colors.grey),
+            activeIcon: ImageIcon(AssetImage('images/Home_icon.png'),
+                color: Colors.black),
             title: Text('홈', style: TextStyle(fontSize: 12)),
           ),
           BottomNavigationBarItem(
-            icon:
-            ImageIcon(AssetImage('images/person.png'), color: Colors.grey),
-            activeIcon:
-            ImageIcon(AssetImage('images/person.png'), color: Colors.black),
+            icon: ImageIcon(AssetImage('images/Profile_icon.png'),
+                color: Colors.grey),
+            activeIcon: ImageIcon(AssetImage('images/Profile_icon.png'),
+                color: Colors.black),
             title: Text('마이페이지', style: TextStyle(fontSize: 12)),
           ),
           BottomNavigationBarItem(
-            icon:
-            ImageIcon(AssetImage('images/support.png'), color: Colors.grey),
-            activeIcon: ImageIcon(AssetImage('images/support.png'),
+            icon: ImageIcon(AssetImage('images/support_icon.png'),
+                color: Colors.grey),
+            activeIcon: ImageIcon(AssetImage('images/support_icon.png'),
                 color: Colors.black),
             title: Text('고객센터', style: TextStyle(fontSize: 12)),
           ),
@@ -123,20 +121,31 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             dropdownValue = newValue;
           });
         },
-        items: <String>['제목', '내용'].map<DropdownMenuItem<String>>((String value) {
+        items:
+            <String>['제목', '내용'].map<DropdownMenuItem<String>>((String value) {
           return DropdownMenuItem<String>(
             value: value,
-            child: Container(width:60, child: Text(value, textAlign: TextAlign.center, style: TextStyle(fontSize: 14,),), alignment: Alignment.center,),
+            child: Container(
+              width: 60,
+              child: Text(
+                value,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                ),
+              ),
+              alignment: Alignment.center,
+            ),
           );
         }).toList(),
-      ),);
+      ),
+    );
     var keywordBox = Container(
         height: 40,
-        child:  TextField(
+        child: TextField(
           controller: _keywordController,
           keyboardType: TextInputType.text,
-          decoration:
-          InputDecoration(hintText: '검색어를 입력해 주세요'),
+          decoration: InputDecoration(hintText: '검색어를 입력해 주세요'),
         ));
     var searchButton = ButtonTheme(
       minWidth: MediaQuery.of(context).size.width / 5,
@@ -150,10 +159,11 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
             )),
         onPressed: () {
           if (dropdownValue == '제목')
-            BlocProvider.of<NoticeBloc>(context).add(NoticeSearchTitleEvent());
+            BlocProvider.of<NoticeBloc>(context).add(
+                NoticeSearchTitleEvent(searchWord: _keywordController.text));
           if (dropdownValue == '내용')
-            BlocProvider.of<NoticeBloc>(context)
-                .add(NoticeSearchContentEvent());
+            BlocProvider.of<NoticeBloc>(context).add(
+                NoticeSearchContentEvent(searchWord: _keywordController.text));
         },
       ),
     );
@@ -195,7 +205,7 @@ class NoticeListWidget extends StatelessWidget {
           title: '시스템 개선 작업 안내',
           date: '2020.10.09',
           text:
-          '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
         ),
         Divider(
           color: Colors.black54,
@@ -204,7 +214,7 @@ class NoticeListWidget extends StatelessWidget {
           title: '[이벤트]미세먼지 이겨내요',
           date: '2020.10.09',
           text:
-          '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
         ),
         Divider(
           color: Colors.black54,
@@ -213,7 +223,7 @@ class NoticeListWidget extends StatelessWidget {
           title: '시스템 개선 작업 안내',
           date: '2020.10.09',
           text:
-          '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
         ),
         Divider(
           color: Colors.black54,
@@ -222,7 +232,7 @@ class NoticeListWidget extends StatelessWidget {
           title: '시스템 개선 작업 안내',
           date: '2020.10.09',
           text:
-          '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
         ),
         Divider(
           color: Colors.black54,
@@ -231,7 +241,7 @@ class NoticeListWidget extends StatelessWidget {
           title: '시스템 개선 작업 안내',
           date: '2020.10.09',
           text:
-          '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
         ),
         Divider(
           color: Colors.black54,
@@ -240,7 +250,7 @@ class NoticeListWidget extends StatelessWidget {
           title: '시스템 개선 작업 안내',
           date: '2020.10.09',
           text:
-          '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
         ),
         Divider(
           color: Colors.black54,
@@ -249,7 +259,7 @@ class NoticeListWidget extends StatelessWidget {
           title: '시스템 개선 작업 안내',
           date: '2020.10.09',
           text:
-          '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
         ),
         Divider(
           color: Colors.black54,
@@ -258,7 +268,7 @@ class NoticeListWidget extends StatelessWidget {
           title: '시스템 개선 작업 안내',
           date: '2020.10.09',
           text:
-          '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
+              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
         ),
       ],
     );

@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/screen/home_screen.dart';
+import 'package:mobispartsearch/ui/screen/home_screen.dart';
 
 class DeliveryInfoForm extends StatefulWidget {
   final productName;
@@ -16,7 +16,6 @@ class DeliveryInfoForm extends StatefulWidget {
 }
 
 class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
-
   var addressController = TextEditingController();
 
   var addressController2 = TextEditingController();
@@ -32,13 +31,12 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
 
   @override
   Widget build(BuildContext context) {
-
     var screenWidth = MediaQuery.of(context).size.width;
 
     var phoneCodes = ['010', '011', '012'];
 
     var phoneCodeDropdownmenu = Container(
-        width: (screenWidth-60)/3,
+        width: (screenWidth - 60) / 3,
         height: 30,
         decoration: BoxDecoration(
           border: Border.all(),
@@ -74,12 +72,12 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
 
     var phoneNumberItem = Container(
       height: 30,
-      width: (screenWidth-60)*2/3+10,
+      width: (screenWidth - 60) * 2 / 3 + 10,
       margin: EdgeInsets.only(left: 10),
       child: Row(
         children: [
           Container(
-            width: (screenWidth-60)/3,
+            width: (screenWidth - 60) / 3,
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -96,9 +94,12 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
               controller: _phoneNumber1Controller,
             ),
           ),
-          Expanded(child: SizedBox(width: 10,)),
+          Expanded(
+              child: SizedBox(
+            width: 10,
+          )),
           Container(
-            width: (screenWidth-60)/3,
+            width: (screenWidth - 60) / 3,
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -131,7 +132,9 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
             ),
           ),
-          SizedBox(height: 20,),
+          SizedBox(
+            height: 20,
+          ),
           Container(
             padding: EdgeInsets.only(left: 10),
             child: Text(
@@ -139,7 +142,9 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
               style: TextStyle(fontSize: 14),
             ),
           ),
-          SizedBox(height: 10,),
+          SizedBox(
+            height: 10,
+          ),
           Container(
             padding: EdgeInsets.only(left: 20),
             child: Text(
@@ -283,7 +288,9 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
                 keyboardType: TextInputType.text,
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             Text(
               '수령인',
               style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
@@ -308,7 +315,9 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
                 keyboardType: TextInputType.text,
               ),
             ),
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             phoneItem,
           ],
         ));
@@ -321,8 +330,12 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
           ButtonTheme(
             buttonColor: kPrimaryColor,
             child: RaisedButton(
-              child: Text('구매요청', style: TextStyle(fontSize: 12, color: Colors.white), textAlign: TextAlign.center,),
-              onPressed: (){
+              child: Text(
+                '구매요청',
+                style: TextStyle(fontSize: 12, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              onPressed: () {
 //                Navigator.of(context).pushNamed('/purchase');
               },
             ),
@@ -331,7 +344,6 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
       ),
     );
 
-
     return ListView(
       children: [
         productInfoItem,
@@ -339,7 +351,9 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
           color: Colors.black54,
         ),
         deliveryInfoItem,
-        Divider(color: Colors.black54,),
+        Divider(
+          color: Colors.black54,
+        ),
         buyItem,
       ],
     );

@@ -1,8 +1,5 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/widget/custom_selection_button.dart';
-import 'package:hyundai_mobis/ui/widget/box_text_field.dart';
+import 'package:mobispartsearch/ui/widget/custom_selection_button.dart';
 
 class VisitInfoForm extends StatefulWidget {
   final productName;
@@ -255,11 +252,11 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            padding: EdgeInsets.only(left: 20),
+              padding: EdgeInsets.only(left: 20),
               child: Text(
-            '시간대 선택',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-          )),
+                '시간대 선택',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              )),
           SizedBox(
             height: 10,
           ),
@@ -445,8 +442,12 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
           ButtonTheme(
             buttonColor: Color.fromRGBO(0, 63, 114, 1),
             child: RaisedButton(
-              child: Text('구매요청', style: TextStyle(fontSize: 12, color: Colors.white), textAlign: TextAlign.center,),
-              onPressed: (){
+              child: Text(
+                '구매요청',
+                style: TextStyle(fontSize: 12, color: Colors.white),
+                textAlign: TextAlign.center,
+              ),
+              onPressed: () {
 //                Navigator.of(context).pushNamed('/purchase');
               },
             ),

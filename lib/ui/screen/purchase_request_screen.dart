@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/widget/purchase_request_form.dart';
+import 'package:mobispartsearch/ui/widget/purchase_request_form.dart';
 
 class PurchaseRequestScreen extends StatefulWidget {
   final partNumber;
@@ -8,14 +8,20 @@ class PurchaseRequestScreen extends StatefulWidget {
   final price;
   final companyMark;
 
-  PurchaseRequestScreen({Key key, this.partNumber, this.koreanPartName, this.englishPartName, this.price, this.companyMark}):super(key: key);
+  PurchaseRequestScreen(
+      {Key key,
+      this.partNumber,
+      this.koreanPartName,
+      this.englishPartName,
+      this.price,
+      this.companyMark})
+      : super(key: key);
 
   @override
   _PurchaseRequestScreenState createState() => _PurchaseRequestScreenState();
 }
 
 class _PurchaseRequestScreenState extends State<PurchaseRequestScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,7 +33,13 @@ class _PurchaseRequestScreenState extends State<PurchaseRequestScreen> {
       body: SafeArea(
         child: ListView(
           children: [
-            PurchaseRequestForm(partNumber: widget.partNumber, koreanPartName: widget.koreanPartName, englishPartName: widget.englishPartName, price: widget.price, companyMark: widget.companyMark,),
+            PurchaseRequestForm(
+              partNumber: widget.partNumber,
+              koreanPartName: widget.koreanPartName,
+              englishPartName: widget.englishPartName,
+              price: widget.price,
+              companyMark: widget.companyMark,
+            ),
           ],
         ), //
       ),

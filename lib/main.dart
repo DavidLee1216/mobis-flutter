@@ -1,29 +1,26 @@
-
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/repository/cart_repository.dart';
-import 'package:hyundai_mobis/repository/market_search_repository.dart';
-import 'package:hyundai_mobis/repository/simple_search_repository.dart';
-import 'package:hyundai_mobis/bloc/auth_bloc.dart';
-import 'package:hyundai_mobis/bloc/notice_bloc.dart';
-import 'package:hyundai_mobis/repository/user_repository.dart';
-import 'package:hyundai_mobis/repository/notice_repository.dart';
-import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
+import 'package:mobispartsearch/repository/cart_repository.dart';
+import 'package:mobispartsearch/repository/market_search_repository.dart';
+import 'package:mobispartsearch/repository/simple_search_repository.dart';
+import 'package:mobispartsearch/bloc/auth_bloc.dart';
+import 'package:mobispartsearch/bloc/notice_bloc.dart';
+import 'package:mobispartsearch/repository/user_repository.dart';
+import 'package:mobispartsearch/repository/notice_repository.dart';
+import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
 
 import 'bloc/cart_bloc.dart';
 import 'bloc/market_search_bloc.dart';
 import 'bloc/simple_search_bloc.dart';
 
-import 'package:hyundai_mobis/common.dart';
+import 'package:mobispartsearch/common.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  get_session();
-  get_sido();
+  getSession();
+  getSido();
 
   UserRepository userRepository = UserRepository();
   NoticeRepository noticeRepository = NoticeRepository();
@@ -41,9 +38,14 @@ Future<void> main() async {
               noticeRepository: noticeRepository,
             ),
           ),
-          BlocProvider<SimpleSearchBloc>(create: (context)=>SimpleSearchBloc(simpleSearchRepository: simpleSearchRepository)),
-          BlocProvider<MarketSearchBloc>(create: (context)=>MarketSearchBloc(marketSearchRepository: marketSearchRepository)),
-          BlocProvider<CartBloc>(create: (context)=>CartBloc(cartRepository: cartRepository)),
+          BlocProvider<SimpleSearchBloc>(
+              create: (context) => SimpleSearchBloc(
+                  simpleSearchRepository: simpleSearchRepository)),
+          BlocProvider<MarketSearchBloc>(
+              create: (context) => MarketSearchBloc(
+                  marketSearchRepository: marketSearchRepository)),
+          BlocProvider<CartBloc>(
+              create: (context) => CartBloc(cartRepository: cartRepository)),
         ],
         child: MyApp(),
       ),
@@ -64,7 +66,9 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.indigo,
         primaryColor: Colors.white,
       ),
-      home: NavigationBar(index: 1,),
+      home: NavigationBar(
+        index: 1,
+      ),
     );
   }
 }

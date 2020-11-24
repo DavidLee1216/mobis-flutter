@@ -1,17 +1,12 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/bloc/auth_bloc.dart';
-import 'package:hyundai_mobis/bloc/notice_bloc.dart';
-import 'package:hyundai_mobis/ui/screen/login_screen.dart';
-import 'package:hyundai_mobis/ui/screen/my_coupon_screen.dart';
-import 'package:hyundai_mobis/ui/screen/my_info_screen.dart';
-import 'package:hyundai_mobis/ui/screen/notification_screen.dart';
-import 'package:hyundai_mobis/ui/widget/notice_form.dart';
-import 'package:hyundai_mobis/ui/widget/loading_indication.dart';
-import 'package:hyundai_mobis/ui/screen/my_page_query_screen.dart';
-import 'package:hyundai_mobis/utils/navigation.dart';
+import 'package:mobispartsearch/bloc/auth_bloc.dart';
+import 'package:mobispartsearch/ui/screen/login_screen.dart';
+import 'package:mobispartsearch/ui/screen/my_coupon_screen.dart';
+import 'package:mobispartsearch/ui/screen/my_info_screen.dart';
+import 'package:mobispartsearch/ui/screen/notification_screen.dart';
+import 'package:mobispartsearch/ui/screen/my_page_query_screen.dart';
+import 'package:mobispartsearch/utils/navigation.dart';
 
 class MyPageScreen extends StatefulWidget {
   @override
@@ -41,8 +36,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
 }
 
 class MyPageWidget extends StatelessWidget {
-  var loggedin = false;
-  ModalQueryScreen queryModal = new ModalQueryScreen();
+  final ModalQueryScreen queryModal = new ModalQueryScreen();
 
   @override
   Widget build(BuildContext context) {
@@ -250,13 +244,11 @@ class MyPageWidget extends StatelessWidget {
                       ),
                     ),
                     FlatButton(
-                        child: Text(
-                      '로그아웃',
-                      style: TextStyle(fontSize: 14, color: Colors.black54),
-                    ),
-                      onPressed: (){
-
-                      },
+                      child: Text(
+                        '로그아웃',
+                        style: TextStyle(fontSize: 14, color: Colors.black54),
+                      ),
+                      onPressed: () {},
                     ),
                   ],
                 ),

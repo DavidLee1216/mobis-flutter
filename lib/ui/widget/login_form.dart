@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/screen/id_login_screen.dart';
-import 'package:hyundai_mobis/utils/navigation.dart';
+import 'package:mobispartsearch/ui/screen/id_login_screen.dart';
+import 'package:mobispartsearch/utils/navigation.dart';
 
 class LoginForm extends StatelessWidget {
   @override

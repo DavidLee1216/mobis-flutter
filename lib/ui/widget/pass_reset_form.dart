@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:hyundai_mobis/ui/widget/custom_radio_button.dart';
-import 'package:hyundai_mobis/common.dart';
+import 'package:mobispartsearch/common.dart';
 
 class GetPassForm extends StatefulWidget {
   @override
@@ -26,8 +25,6 @@ class _GetPassFormState extends State<GetPassForm> {
 
   final _passwordController = TextEditingController();
   final _repasswordController = TextEditingController();
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -422,8 +419,7 @@ class _GetPassFormState extends State<GetPassForm> {
                 ),
                 Text(
                   '공백 특수기호 없이 특수문자만 입력하세요',
-                  style: TextStyle(
-                      color: kPrimaryColor, fontSize: 12),
+                  style: TextStyle(color: kPrimaryColor, fontSize: 12),
                 ),
               ],
             ),
@@ -571,14 +567,15 @@ class _GetPassFormState extends State<GetPassForm> {
                                 ),
                                 onPressed: () {
                                   if (authStep == 2) {
-                                    if(mobileAuth)
-                                    {
-                                      String phoneNumber = phoneCode.substring(1) + "-" + _phoneNumberController.text;
+                                    if (mobileAuth) {
+                                      String phoneNumber =
+                                          phoneCode.substring(1) +
+                                              "-" +
+                                              _phoneNumberController.text;
                                       print(phoneNumber);
-                                      validate_SMS(phoneNumber);
-                                    }
-                                    else
-                                      validate_email(_emailController.text);
+                                      validateSMS(phoneNumber);
+                                    } else
+                                      validateEmail(_emailController.text);
                                     setState(() {
                                       authStep++;
                                     });
@@ -690,7 +687,7 @@ class _GetPassFormState extends State<GetPassForm> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      mobileAuthConfirmItem,//mobileAuth ? mobileAuthConfirmItem : emailAuthConfirmItem,
+                      mobileAuthConfirmItem, //mobileAuth ? mobileAuthConfirmItem : emailAuthConfirmItem,
                       SizedBox(
                         height: 10,
                       ),
@@ -730,10 +727,10 @@ class _GetPassFormState extends State<GetPassForm> {
                                 if (authStep == 3) {
 //                                  if(mobileAuth)
 //                                  {
-                                    authSeq = validate_code(_authNumberController.text);
+                                  authSeq =
+                                      validateCode(_authNumberController.text);
 //                                  }
-                                  if(authSeq=='')
-                                    return;
+                                  if (authSeq == '') return;
 //                                  if(findEmail)
 //                                    foundEmail = get_email(authSeq);
                                   setState(() {
@@ -825,8 +822,7 @@ class _GetPassFormState extends State<GetPassForm> {
                     Expanded(
                         child: Text(
                       '8~20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.',
-                      style: TextStyle(
-                          color: kPrimaryColor, fontSize: 12),
+                      style: TextStyle(color: kPrimaryColor, fontSize: 12),
                     )),
                   ],
                 ),
@@ -843,8 +839,10 @@ class _GetPassFormState extends State<GetPassForm> {
                     style: TextStyle(fontSize: 14, color: Colors.white),
                   ),
                   onPressed: () {
-                    if(_passwordController.text!='' && _passwordController.text==_repasswordController.text){
-                      reset_password(_passwordController.text, authSeq);
+                    if (_passwordController.text != '' &&
+                        _passwordController.text ==
+                            _repasswordController.text) {
+                      resetPassword(_passwordController.text, authSeq);
                     }
                   },
                 ),
