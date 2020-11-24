@@ -51,6 +51,7 @@ class _NoticeFormState extends State<NoticeForm> {
                     fontSize: 14,
                   ),
                 ),
+                alignment: Alignment.centerLeft,
               )
             : Container(),
       ],

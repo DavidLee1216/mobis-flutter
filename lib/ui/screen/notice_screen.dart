@@ -1,8 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/notice_bloc.dart';
 import 'package:mobispartsearch/ui/widget/notice_form.dart';
 import 'package:mobispartsearch/ui/screen/home_screen.dart';
+import 'package:mobispartsearch/common.dart' as common;
 
 class NoticeScreen extends StatefulWidget {
   @override
@@ -15,7 +18,7 @@ class _NoticeScreenState extends State<NoticeScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<NoticeBloc>(context).add(NoticeLoadEvent());
+    BlocProvider.of<NoticeBloc>(context).add(NoticeLoadEvent(20));
   }
 
   @override
@@ -157,7 +160,7 @@ class NoticeListWidget extends StatefulWidget {
 class _NoticeListWidgetState extends State<NoticeListWidget> {
   final _scrollController = ScrollController();
 
-  final _scrollThreshold = 200.0;
+  final _scrollThreshold = 20.0;
 
   int maxPage = 1;
   EnumNoticeEvent kind = EnumNoticeEvent.TitleSearch;
@@ -182,108 +185,37 @@ class _NoticeListWidgetState extends State<NoticeListWidget> {
           maxPage = state.page;
           if (state.noticeList != null && state.noticeList.isEmpty) {
             return Center(
-              child: Text('자료 없음'),
+              child: Text(''),
             );
           }
           return ListView.builder(
             itemBuilder: (BuildContext context, int index) {
               return NoticeForm(
                 title: state.noticeList[index].title,
-                date: state.noticeList[index].date.toString(),
+                date: common.dateformatter.format(state.noticeList[index].date),
                 text: state.noticeList[index].content,
               );
             },
             itemCount: state.noticeList != null ? state.noticeList.length : 0,
+            controller: _scrollController,
           );
         }
         return Container();
       },
     );
-//    return ListView(
-//      children: [
-//        NoticeForm(
-//          title: '시스템 개선 작업 안내',
-//          date: '2020.10.09',
-//          text:
-//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-//        ),
-//        Divider(
-//          color: Colors.black54,
-//        ),
-//        NoticeForm(
-//          title: '[이벤트]미세먼지 이겨내요',
-//          date: '2020.10.09',
-//          text:
-//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-//        ),
-//        Divider(
-//          color: Colors.black54,
-//        ),
-//        NoticeForm(
-//          title: '시스템 개선 작업 안내',
-//          date: '2020.10.09',
-//          text:
-//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-//        ),
-//        Divider(
-//          color: Colors.black54,
-//        ),
-//        NoticeForm(
-//          title: '시스템 개선 작업 안내',
-//          date: '2020.10.09',
-//          text:
-//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-//        ),
-//        Divider(
-//          color: Colors.black54,
-//        ),
-//        NoticeForm(
-//          title: '시스템 개선 작업 안내',
-//          date: '2020.10.09',
-//          text:
-//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-//        ),
-//        Divider(
-//          color: Colors.black54,
-//        ),
-//        NoticeForm(
-//          title: '시스템 개선 작업 안내',
-//          date: '2020.10.09',
-//          text:
-//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-//        ),
-//        Divider(
-//          color: Colors.black54,
-//        ),
-//        NoticeForm(
-//          title: '시스템 개선 작업 안내',
-//          date: '2020.10.09',
-//          text:
-//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-//        ),
-//        Divider(
-//          color: Colors.black54,
-//        ),
-//        NoticeForm(
-//          title: '시스템 개선 작업 안내',
-//          date: '2020.10.09',
-//          text:
-//              '서버에 따른 시스템 정기 점검이 있습니다.\n 작업 일정 : 2020.10.31\n 작업 시간 : 오전 5시 ~ 오전 6시\n 시스템 개선 작업이 종료될 때까지 일부 서비스가 제한될 수 있으니 이점 양해 부탁드립니다.',
-//        ),
-//      ],
-//    );
   }
 
   void _onScroll() {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
-    if (maxScroll - currentScroll <= _scrollThreshold && bloc != null) {
-      if (kind == EnumNoticeEvent.TitleSearch)
+    if (maxScroll - currentScroll > 5 && maxScroll - currentScroll <= _scrollThreshold && bloc != null) {
+      if(kind == EnumNoticeEvent.TitleSearch)
         bloc.add(
-            NoticeSearchTitleEvent(searchWord: searchWord, page: maxPage + 1));
+            NoticeSearchTitleEvent(searchWord: searchWord, page: max_page + 1));
       else
         bloc.add(NoticeSearchContentEvent(
-            searchWord: searchWord, page: maxPage + 1));
+            searchWord: searchWord, page: max_page+1));
+      Future.delayed(Duration(milliseconds: 200), () {});
     }
   }
 }

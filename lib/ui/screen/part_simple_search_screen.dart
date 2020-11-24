@@ -63,12 +63,11 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
     carKindData.add(RadioModel(false, '', 'SUV/RV'));
     carKindData.add(RadioModel(false, '', '상용'));
     bloc = BlocProvider.of<SimpleSearchBloc>(context);
-    bloc.add(InitSimpleSearchEvent());
+//    bloc.add(InitSimpleSearchEvent());
   }
 
   Future<List<String>> loadModels(String hkgb, String vtpy) async {
     return await getModelsFromRetmoe(hkgb, vtpy);
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +97,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                       .forEach((element) => element.isSelected = false);
                   manufacturerData[0].isSelected = true;
                   bloc.add(HKGBSimpleSearchEvent(0));
+                  hkgb = hkgb_list[0];
                 });
               },
             ),
@@ -114,6 +114,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                       .forEach((element) => element.isSelected = false);
                   manufacturerData[1].isSelected = true;
                   bloc.add(HKGBSimpleSearchEvent(1));
+                  hkgb = hkgb_list[1];
                 });
               },
             ),
@@ -143,6 +144,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   carKindData.forEach((element) => element.isSelected = false);
                   carKindData[0].isSelected = true;
                   bloc.add(VTPYSimpleSearchEvent(0));
+                  vtpy = vtpy_list[0];
                 });
               },
             ),
@@ -158,6 +160,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   carKindData.forEach((element) => element.isSelected = false);
                   carKindData[1].isSelected = true;
                   bloc.add(VTPYSimpleSearchEvent(1));
+                  vtpy = vtpy_list[1];
                 });
               },
             ),
@@ -173,6 +176,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   carKindData.forEach((element) => element.isSelected = false);
                   carKindData[2].isSelected = true;
                   bloc.add(VTPYSimpleSearchEvent(2));
+                  vtpy = vtpy_list[2];
                 });
               },
             ),
@@ -180,6 +184,39 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
         ],
       ),
     );
+
+    var modelDropdownmenu1 = FutureBuilder(
+      future: loadModels(),
+        builder: (context, snapshot) {
+          return Container(
+            width: 180,
+            height: 40,
+            decoration: BoxDecoration(
+              border: Border.all(),
+            ),
+            child: DropdownButton<String>(
+                value: modelDropdownValue,
+                hint: Padding(
+                    padding: EdgeInsets.only(left: 10),
+                    child: Text(
+                      '[선택]',
+                    )),
+                icon: Icon(Icons.keyboard_arrow_down),
+                iconSize: 14,
+                onChanged: (newValue) {
+                  setState(() {
+                    modelDropdownValue = newValue;
+                  });
+                },
+                items: snapshot.data.map((fc) {
+                  return DropdownMenuItem<String>(
+                    child: Text(fc.name),
+                    value: fc.name,
+                  );
+                }).toList()),
+          );
+        });
+
     var modelDropdownmenu = Container(
         width: 286,
         height: 40,
@@ -236,7 +273,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
               SizedBox(
                 width: 50,
               ),
-              modelDropdownmenu,
+              modelDropdownmenu1,
             ],
           ),
         ));
@@ -354,7 +391,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
       cubit: BlocProvider.of<SimpleSearchBloc>(context),
       builder: (BuildContext context, state) {
         carModels = state.carModels;
-        log(carModels.toString());
+//        modelDropdownValue = state.model;
         return ListView(
           children: [
             Row(

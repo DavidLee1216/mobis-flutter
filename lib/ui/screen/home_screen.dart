@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:mobispartsearch/ui/screen/login_screen.dart';
 import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
+import 'package:mobispartsearch/common.dart';
 
 const kPrimaryColor = Color.fromRGBO(7, 75, 136, 1);
 const kTitleStyle = TextStyle(fontSize: 18, color: Colors.white);
@@ -164,13 +165,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                PageRouteBuilder(
-                                    pageBuilder: (_, __, ___) => NavigationBar(
-                                          index: 4,
-                                        )));
-//                            pushTo(context, NavigationBar(index: 4,));
+                            if(globalSidoLoaded)
+                              Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                      pageBuilder: (_, __, ___) => NavigationBar(
+                                            index: 4,
+                                          )));
                           },
                         ),
                       ),

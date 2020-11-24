@@ -1,12 +1,9 @@
-import 'dart:developer';
-
 import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/model/simple_search_model.dart';
 
 class SimpleSearchRepository {
   Future<List<String>> getModels({String hkgb, String vtpy}) async {
-    log('model');
-    return await getModelsFromRetmoe(hkgb, vtpy);
+    return await getModelsFromRemote(hkgb, vtpy);
   }
 
   Future<List<SimpleSearchResultModel>> searchPartPtno(

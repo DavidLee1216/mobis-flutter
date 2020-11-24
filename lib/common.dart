@@ -5,10 +5,12 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
+import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
 import 'model/location_model.dart';
 import 'model/market_search_model.dart';
+import 'model/notice_model.dart';
 import 'model/order_model.dart';
 import 'model/simple_search_model.dart';
 import 'model/user_model.dart';
@@ -16,6 +18,8 @@ import 'model/product_model.dart';
 import 'model/cart_model.dart';
 
 dynamic session = '';
+
+DateFormat dateformatter = DateFormat('yyyy.MM.dd');
 
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 math.Random _rnd = math.Random();
@@ -60,18 +64,22 @@ const API = 'http://141.164.51.190:8080';
 String globalUsername = '';
 
 User globalUser = new User();
+bool globalSidoLoaded = false;
 
 int globalRecordCountPerPage = 10;
 
 List<Sido> globalSido = new List<Sido>();
 
-void getSido() async {
-  await http.get(API + '/sido').then((response) {
-    if (response.statusCode == 200) {
-      final data = json.decode(response.body) as List;
+void getSido() async{
+  await http.get(API + '/sido').then((response){
+    if(response.statusCode==200){
+      log('sido success');
+      final data = json.decode(utf8.decode(response.bodyBytes)) as List;
       log(data.toString());
-      globalSido = data.map((e) => Sido.fromMap(e));
-    } else {
+      globalSido = data.map((e) => Sido.fromMap(e)).toList();
+      get_sigungu();
+    }
+    else{
       log('get sido ${response.statusCode}');
     }
   });
@@ -89,17 +97,23 @@ String findFirstSigungu(String sido) {
   return sidoObj.sigungus[0].sigungu;
 }
 
-void getSigungu() async {
-  for (Sido sido in globalSido) {
-    await http.get(API + '/sigungu').then((response) {
-      if (response.statusCode == 200) {
-        final data = json.decode(response.body) as List;
-        log(data.toString());
-        sido.sigungus = data.map((e) => Sigungu.fromMap(e));
-      } else {
+void getSigungu() async{
+  for(Sido sido in globalSido){
+    log(sido.seq.toString());
+    await http.get(API + '/sigungu?seq=${sido.seq}').then((response){
+      if(response.statusCode==200){
+        final data = json.decode(utf8.decode(response.bodyBytes)) as List;
+        log('get sigungu success '+data.toString());
+        sido.sigungus = data.map((e) => Sigungu.fromMap(e)).toList();
+      } else{
         log('get sigungu ${response.statusCode}');
       }
     });
+    if(sido == globalSido.last)
+    {
+      log('global sido true');
+      globalSidoLoaded = true;
+    }
   }
 }
 
@@ -170,12 +184,15 @@ bool validateSMS(String mobile) {
 
 Future<List<CartModel>> loadCart() {
   String url = API + '/carts';
-  if (globalUsername != '') url = API + '/carts?id=$globalUsername';
-  http.get(url).then((response) {
-    if (response.statusCode == 200) {
+  if(globalUsername != '')
+    url = API + '/carts?id=$globalUsername';
+  else
+    url = API + '/carts?id=$session';
+  http.get(url).then((response){
+    if(response.statusCode==200){
       log('load cart success');
-      final data = json.decode(response.body) as List;
-      return data.map((item) {
+      final data = json.decode(utf8.decode(response.bodyBytes)) as List;
+      return data.map((item){
         return CartModel.fromMap(item);
       });
     } else {
@@ -268,6 +285,7 @@ Future<bool> signin(String username, String password) =>
         }).then((response) {
       if (response.statusCode == 200) {
         log('success');
+        globalUsername = username;
         return true;
       } else {
         log(response.statusCode.toString());
@@ -301,16 +319,16 @@ Future<bool> order(Order order) =>
       }
     });
 
-Future<List<String>> getModelsFromRetmoe(String hkgb, String vtpy) async {
-  final response = await http.get(API + '/models?hkgb=$hkgb&vtpy=$vtpy');
-  if (response.statusCode == 200) {
+Future<List<String>> get_modelsFromRemote(String hkgb, String vtpy) async {
+  final response = await http.get(API + '/models?hkgb=$hkgb&vtyp=$vtpy');
+  if(response.statusCode==200){
     log('model success');
-    final data = json.decode(response.body) as List;
-    return data.map((item) {
-      return item['cpnm'];
-    });
-  } else {
-    log('model ' + response.statusCode.toString());
+    final data = json.decode(utf8.decode(response.bodyBytes)) as List;
+    return data.map((item){
+      return item['cpnm'].toString();
+    }).toList();
+  }else{
+    log('model '+ response.statusCode.toString());
     throw Exception('error');
   }
 }
@@ -326,7 +344,7 @@ Future<List<SimpleSearchResultModel>> simpleSearchPart(
       '/partPrcList?hkgb=$hkgb&catSeq=$catSeq&vtyp=$vtpy&inText=$searchWord&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage');
   if (response.statusCode == 200) {
     log('simple search success');
-    final data = json.decode(response.body) as List;
+    final data = json.decode(utf8.decode(response.bodyBytes)) as List;
     return data.map((item) {
       return SimpleSearchResultModel.fromMap(item);
     });
@@ -348,7 +366,7 @@ Future<List<MarketSearchResultModel>> marketSearchPart(
       '/partInvenList?hkgb=$hkgb&ptno=$ptno&sido=$sido&sigungu=$sigungu&stype=$stype&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage');
   if (response.statusCode == 200) {
     log('market search success');
-    final data = json.decode(response.body) as List;
+    final data = json.decode(utf8.decode(response.bodyBytes)) as List;
     return data.map((item) {
       return MarketSearchResultModel.fromMap(item);
     });
@@ -377,6 +395,7 @@ Future<List<SimpleSearchResultModel>> simpleSearchPartPtno(
           hkgb: productInfo.hkgb,
           totalCnt: item['tot_cnt'],
           rnum: item['rnum']);
+
     });
   } else {
     log('simple search ptno' + response.statusCode.toString());
@@ -389,7 +408,7 @@ Future<MarketSearchResultProductInfo> getProductInfoFromPtno(
   final response = await http.get(API + '/part?ptno=$ptno');
   if (response.statusCode == 200) {
     log('get product info success');
-    final data = json.decode(response.body);
+    final data = json.decode(utf8.decode(response.bodyBytes));
     log(data.toString());
     return MarketSearchResultProductInfo.fromMap(data);
   } else {
@@ -397,3 +416,40 @@ Future<MarketSearchResultProductInfo> getProductInfoFromPtno(
     return null;
   }
 }
+                    
+Future<List<Notice>> getTitleNoticeStream({String title, int page=1, int limit=10}) async {
+  final response = await http.get(API+'/notice?kind=title&limit=$limit&page=$page&search=$title');
+  if(response.statusCode==200){
+    final data = json.decode(utf8.decode(response.bodyBytes))['content'] as List;
+    return data.map((e) {
+      return Notice(
+        title: e['title'],
+        content: e['content'],
+        seq: e['Seq'],
+        date: DateTime.parse(e['createdDate']),
+      );
+    }).toList();
+  }
+  else{
+    throw Exception('error');
+  }
+}
+
+Future<List<Notice>> getContentNoticeStream({String keyword, int page=1, int limit=10}) async {
+  final response = await http.get(API+'/notice?kind=content&limit=$limit&page=$page&search=$keyword');
+  if(response.statusCode==200){
+    final data = json.decode(utf8.decode(response.bodyBytes))['content'] as List;
+    return data.map((e) {
+      return Notice(
+        title: e['title'],
+        content: e['content'],
+        seq: e['Seq'],
+        date: DateTime.parse(e['createdDate']),
+      );
+    }).toList();
+  }else{
+    throw Exception('error');
+  }
+}
+
+                    
