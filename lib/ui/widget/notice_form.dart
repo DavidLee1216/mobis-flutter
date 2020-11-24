@@ -1,8 +1,6 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/bloc/notice_bloc.dart';
 
 class NoticeForm extends StatefulWidget {
   final String title;
@@ -35,7 +33,8 @@ class _NoticeFormState extends State<NoticeForm> {
         ),
         isExpanded ? Container(
           padding: EdgeInsets.all(15.0),
-          child: Text(widget.text, style: TextStyle(fontSize: 14,),),
+          child: Text(widget.text, style: TextStyle(fontSize: 14,), textAlign: TextAlign.left,),
+          alignment: Alignment.centerLeft,
         ) : Container(),
       ],
     );

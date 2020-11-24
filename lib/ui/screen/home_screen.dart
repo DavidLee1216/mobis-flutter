@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:hyundai_mobis/ui/screen/login_screen.dart';
 import 'package:hyundai_mobis/ui/widget/navigation_bar.dart';
 import 'package:hyundai_mobis/utils/navigation.dart';
+import 'package:hyundai_mobis/common.dart';
 
 
 
@@ -140,7 +141,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           onPressed: () {
-                            Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___)=>NavigationBar(index: 4,)));
+                            if(globalSidoLoaded)
+                              Navigator.push(context, PageRouteBuilder(pageBuilder: (_, __, ___)=>NavigationBar(index: 4,)));
 //                            pushTo(context, NavigationBar(index: 4,));
                           },
                         ),

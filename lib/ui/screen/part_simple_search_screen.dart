@@ -360,7 +360,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
       cubit: BlocProvider.of<SimpleSearchBloc>(context),
       builder: (BuildContext context, state){
         carModels = state.carModels;
-        log(carModels.toString());
+//        modelDropdownValue = state.model;
         return ListView(
           children: [
             Row(

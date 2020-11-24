@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hyundai_mobis/bloc/market_search_bloc.dart';
@@ -50,8 +52,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
   List<RadioModel> marketData = new List<RadioModel>();
   String hkgb = 'H';
   String ptno = '';
-  String sido = 'aaa';
-  String sigungu = 'aaa';
+  String sido = '';
+  String sigungu = '';
 
   var partNumberController = TextEditingController();
 
@@ -71,6 +73,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
 
     bloc = BlocProvider.of<MarketSearchBloc>(context);
     bloc.add(InitMarketSearchEvent());
+    sido = globalSido[0].sido;
   }
 
   @override
@@ -224,8 +227,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                 sigungu = find_first_sigungu(sido);
               });
             },
-            items: globalSido.map((e) => e.sido)
-                .map<DropdownMenuItem<String>>((String value) {
+            items: globalSido?.map((e) => e.sido)
+                ?.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Container(
@@ -240,7 +243,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                   alignment: Alignment.center,
                 ),
               );
-            }).toList(),
+            })?.toList(),
           ),
         ));
     var location2Dropdownmenu = Container(
@@ -252,9 +255,6 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
             value: sigungu,
-//            decoration: InputDecoration(
-//                labelText: '[선택]'
-//            ),
             hint: Padding(
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
@@ -267,8 +267,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                 sigungu = newValue;
               });
             },
-            items: find_sido(sido).sigungus.map((e) => e.sigungu)
-                .map<DropdownMenuItem<String>>((String value) {
+            items: find_sido(sido)?.sigungus?.map((e) => e.sigungu)
+                ?.map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
                 child: Container(
@@ -283,7 +283,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                   alignment: Alignment.center,
                 ),
               );
-            }).toList(),
+            })?.toList(),
           ),
         ));
     var locationItem = Container(

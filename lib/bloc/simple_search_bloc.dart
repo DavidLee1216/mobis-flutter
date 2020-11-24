@@ -95,9 +95,11 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
     try{
       yield state.submitting();
       List<String> carModels = await simpleSearchRepository.getModels(hkgb:'H', vtpy:'P');
+      log(carModels.toString());
       List<SimpleSearchResultModel> searchResult = new List<SimpleSearchResultModel>();
       yield state.success(model: carModels[0], carModels: carModels, searchResult: searchResult);
     } catch(e){
+      log(e.toString());
       yield state.success();
     }
   }
@@ -105,7 +107,6 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
   Stream<SimpleSearchState> _mapHKGBEventToState(int idx) async* {
     try{
       yield state.submitting();
-      log('hkgb');
       List<String> carModels = await simpleSearchRepository.getModels(hkgb:hkgb_list[idx], vtpy:state.vtpy);
       yield state.success(hkgb: hkgb_list[idx], carModels: carModels);
     } catch(e){

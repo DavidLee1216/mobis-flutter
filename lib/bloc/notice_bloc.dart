@@ -1,9 +1,7 @@
 import 'dart:developer';
 
-import 'package:equatable/equatable.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hyundai_mobis/bloc/notice_bloc.dart';
 import 'package:hyundai_mobis/model/notice_model.dart';
 import 'package:hyundai_mobis/repository/notice_repository.dart';
 
@@ -11,7 +9,11 @@ abstract class NoticeEvent{}
 
 enum EnumNoticeEvent{Load, TitleSearch, ContentSearch}
 
-class NoticeLoadEvent extends NoticeEvent{}
+class NoticeLoadEvent extends NoticeEvent{
+  final int limit;
+
+  NoticeLoadEvent(this.limit);
+}
 
 class NoticeSearchButtonClickedEvent extends NoticeEvent{}
 
@@ -31,7 +33,8 @@ class NoticeState{
   String keyword;
   int page;
   List<Notice> noticeList;
-  NoticeState({this.kind, this.keyword, this.noticeList, this.page=0});
+  int initialLimit;
+  NoticeState({this.kind, this.keyword, this.noticeList, this.page=0, this.initialLimit=20});
 
   NoticeState _setProps({EnumNoticeEvent kind, List<Notice> noticeList})=>NoticeState(kind: kind??this.kind, noticeList: noticeList??this.noticeList);
 
@@ -50,18 +53,19 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState>{
   Stream<NoticeState> mapEventToState(NoticeEvent event) async* {
     if(event is NoticeLoadEvent){
       try{
-        final stream = await noticeRepository.getTitleNoticeStream(title:'');
-        yield NoticeState(kind:EnumNoticeEvent.TitleSearch, noticeList:stream);
+        final stream = await noticeRepository.getTitleNoticeStream(title:'', page: 1, limit: event.limit);
+        yield NoticeState(kind:EnumNoticeEvent.TitleSearch, noticeList:stream, keyword:'', page: 1, initialLimit: event.limit);
       } catch(e){
+        log(e.toString());
         yield NoticeState(kind:EnumNoticeEvent.TitleSearch, noticeList:List<Notice>());
       }
     }
     else if(event is NoticeSearchButtonClickedEvent){
-        yield NoticeState(page: 0);
+        yield NoticeState(page: 0, noticeList: new List<Notice>());
     }
     else if(event is NoticeSearchTitleEvent){
       try{
-        final stream = await noticeRepository.getTitleNoticeStream(title:event.searchWord, page: state.page+1);
+        final stream = await noticeRepository.getTitleNoticeStream(title:event.searchWord, page: state.page+1, limit: (state.page==0)?state.initialLimit:10);
         yield stream.isEmpty?state:NoticeState(kind:EnumNoticeEvent.TitleSearch, keyword: event.searchWord, noticeList:state.noticeList+stream, page: state.page+1);
       }catch(e){
         yield NoticeState(kind:EnumNoticeEvent.TitleSearch, keyword: event.searchWord, noticeList:List<Notice>());
@@ -69,7 +73,7 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState>{
     }
     else if(event is NoticeSearchContentEvent){
       try{
-        final stream = await noticeRepository.getContentNoticeStream(keyword:event.searchWord, page: state.page+1);
+        final stream = await noticeRepository.getContentNoticeStream(keyword:event.searchWord, page: state.page+1, limit: (state.page==0)?state.initialLimit:10);
         yield stream.isEmpty?state:NoticeState(kind:EnumNoticeEvent.ContentSearch, keyword: event.searchWord, noticeList:state.noticeList+stream, page: state.page+1);
       }catch(e){
         yield NoticeState(kind:EnumNoticeEvent.TitleSearch, keyword: event.searchWord, noticeList:List<Notice>());

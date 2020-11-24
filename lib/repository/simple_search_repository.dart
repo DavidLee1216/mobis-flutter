@@ -9,7 +9,6 @@ import 'package:hyundai_mobis/common.dart';
 class SimpleSearchRepository{
 
   Future<List<String>> getModels({String hkgb, String vtpy}) async {
-    log('model');
     return await get_models(hkgb, vtpy);
   }
 
