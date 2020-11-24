@@ -61,7 +61,6 @@ class SearchBarWidget extends StatefulWidget {
 }
 
 class _SearchBarWidgetState extends State<SearchBarWidget> {
-
   String dropdownValue = '제목';
   final _keywordController = TextEditingController();
 
@@ -69,29 +68,40 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
   Widget build(BuildContext context) {
     var dropdownmenu = DropdownButtonHideUnderline(
       child: DropdownButton<String>(
-      value: dropdownValue,
-      icon: Icon(Icons.keyboard_arrow_down),
-      iconSize: 14,
-      onChanged: (String newValue) {
-        setState(() {
-          dropdownValue = newValue;
-        });
-      },
-      items: <String>['제목', '내용'].map<DropdownMenuItem<String>>((String value) {
-        return DropdownMenuItem<String>(
-          value: value,
-          child: Container(width:60, child: Text(value, textAlign: TextAlign.center, style: TextStyle(fontSize: 14,),), alignment: Alignment.center,),
-        );
-      }).toList(),
-    ),);
+        value: dropdownValue,
+        icon: Icon(Icons.keyboard_arrow_down),
+        iconSize: 14,
+        onChanged: (String newValue) {
+          setState(() {
+            dropdownValue = newValue;
+          });
+        },
+        items:
+            <String>['제목', '내용'].map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Container(
+              width: 60,
+              child: Text(
+                value,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 14,
+                ),
+              ),
+              alignment: Alignment.center,
+            ),
+          );
+        }).toList(),
+      ),
+    );
     var keywordBox = Container(
-      height: 40,
-      child:  TextField(
-      controller: _keywordController,
-      keyboardType: TextInputType.text,
-      decoration:
-          InputDecoration(hintText: '검색어를 입력해 주세요'),
-    ));
+        height: 40,
+        child: TextField(
+          controller: _keywordController,
+          keyboardType: TextInputType.text,
+          decoration: InputDecoration(hintText: '검색어를 입력해 주세요'),
+        ));
     var searchButton = ButtonTheme(
       minWidth: MediaQuery.of(context).size.width / 5,
       height: 40,
@@ -103,12 +113,14 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
               color: Colors.white,
             )),
         onPressed: () {
-          BlocProvider.of<NoticeBloc>(context).add(NoticeSearchButtonClickedEvent());
+          BlocProvider.of<NoticeBloc>(context)
+              .add(NoticeSearchButtonClickedEvent());
           if (dropdownValue == '제목')
-            BlocProvider.of<NoticeBloc>(context).add(NoticeSearchTitleEvent(searchWord: _keywordController.text));
+            BlocProvider.of<NoticeBloc>(context).add(
+                NoticeSearchTitleEvent(searchWord: _keywordController.text));
           if (dropdownValue == '내용')
-            BlocProvider.of<NoticeBloc>(context)
-                .add(NoticeSearchContentEvent(searchWord: _keywordController.text));
+            BlocProvider.of<NoticeBloc>(context).add(
+                NoticeSearchContentEvent(searchWord: _keywordController.text));
         },
       ),
     );
@@ -142,7 +154,6 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
 }
 
 class NoticeListWidget extends StatefulWidget {
-
   @override
   _NoticeListWidgetState createState() => _NoticeListWidgetState();
 }
@@ -159,7 +170,7 @@ class _NoticeListWidgetState extends State<NoticeListWidget> {
   var bloc = null;
 
   @override
-  void initState(){
+  void initState() {
     _scrollController.addListener(_onScroll);
     bloc = BlocProvider.of<NoticeBloc>(context);
   }
@@ -168,21 +179,25 @@ class _NoticeListWidgetState extends State<NoticeListWidget> {
   Widget build(BuildContext context) {
     return BlocBuilder<NoticeBloc, NoticeState>(
       cubit: BlocProvider.of<NoticeBloc>(context),
-      builder: (BuildContext context, state){
-        if(state is NoticeState){
+      builder: (BuildContext context, state) {
+        if (state is NoticeState) {
           kind = state.kind;
           searchWord = state.keyword;
           max_page = state.page;
-          if (state.noticeList != null &&state.noticeList.isEmpty) {
+          if (state.noticeList != null && state.noticeList.isEmpty) {
             return Center(
               child: Text('자료 없음'),
             );
           }
           return ListView.builder(
-            itemBuilder: (BuildContext context, int index){
-              return NoticeForm(title: state.noticeList[index].title, date: state.noticeList[index].date.toString(), text: state.noticeList[index].content,);
+            itemBuilder: (BuildContext context, int index) {
+              return NoticeForm(
+                title: state.noticeList[index].title,
+                date: state.noticeList[index].date.toString(),
+                text: state.noticeList[index].content,
+              );
             },
-            itemCount: state.noticeList!=null?state.noticeList.length:0,
+            itemCount: state.noticeList != null ? state.noticeList.length : 0,
           );
         }
         return Container();
@@ -267,10 +282,12 @@ class _NoticeListWidgetState extends State<NoticeListWidget> {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
     if (maxScroll - currentScroll <= _scrollThreshold && bloc != null) {
-      if(kind==EnumNoticeEvent.TitleSearch)
-        bloc.add(NoticeSearchTitleEvent(searchWord: searchWord, page: max_page+1));
+      if (kind == EnumNoticeEvent.TitleSearch)
+        bloc.add(
+            NoticeSearchTitleEvent(searchWord: searchWord, page: max_page + 1));
       else
-        bloc.add(NoticeSearchContentEvent(searchWord: searchWord, page: max_page+1));
+        bloc.add(NoticeSearchContentEvent(
+            searchWord: searchWord, page: max_page + 1));
     }
   }
 }
