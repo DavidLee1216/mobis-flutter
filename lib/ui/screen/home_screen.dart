@@ -165,11 +165,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           onPressed: () {
-                            if(globalSidoLoaded)
+                            if (globalSidoLoaded)
                               Navigator.push(
                                   context,
                                   PageRouteBuilder(
-                                      pageBuilder: (_, __, ___) => NavigationBar(
+                                      pageBuilder: (_, __, ___) =>
+                                          NavigationBar(
                                             index: 4,
                                           )));
                           },
@@ -253,6 +254,36 @@ class _HomeScreenState extends State<HomeScreen> {
                           },
                         ),
                       ),
+
+                      //여기는 네비게이션용//
+                      Container(
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: SizedBox(
+                                width: 20,
+                              ),
+                            ),
+                            FlatButton(
+                                child: Text(
+                                  '로그아웃',
+                                  style: TextStyle(
+                                      fontSize: 14, color: Colors.black54),
+                                ),
+                                onPressed: () {
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (_, __, ___) =>
+                                          NavigationBar(
+                                        index: 7,
+                                      ),
+                                    ),
+                                  );
+                                }),
+                          ],
+                        ),
+                      )
                     ],
                   ),
                 ),

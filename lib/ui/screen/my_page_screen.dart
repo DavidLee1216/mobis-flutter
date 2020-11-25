@@ -44,13 +44,13 @@ class MyPageWidget extends StatelessWidget {
 
     var loginButton = Container(
       child: ButtonTheme(
-        minWidth: screenWidth * 0.25,
-        height: 40,
+        minWidth: screenWidth * 0.9,
+        height: 50,
         buttonColor: Color.fromRGBO(0, 63, 114, 1),
         child: RaisedButton(
           padding: EdgeInsets.only(left: 8.0),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5.0),
+            borderRadius: BorderRadius.circular(0.0),
             side: BorderSide(
                 color: Color.fromRGBO(0, 63, 114, 1),
                 width: 1.0,
@@ -60,6 +60,7 @@ class MyPageWidget extends StatelessWidget {
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
+                fontSize: 18,
               )),
           onPressed: () {
             pushTo(context, LoginScreen());
@@ -71,7 +72,7 @@ class MyPageWidget extends StatelessWidget {
     var greetingUnauthenticated = Text(
       '안녕하세요, 고객님.',
       style: TextStyle(
-        fontSize: 14,
+        fontSize: 16,
       ),
       textAlign: TextAlign.center,
     );
@@ -174,12 +175,16 @@ class MyPageWidget extends StatelessWidget {
                           child: ListTile(
                             title: Text(
                               '문의하기',
-                              style: TextStyle(fontSize: 14),
+                              style: TextStyle(
+                                fontSize: 16,
+                              ),
                             ),
-                            trailing: Icon(
-                              Icons.keyboard_arrow_right,
-                              color: Colors.black,
+
+                            trailing: Padding(
+                              padding: EdgeInsets.all(14),
+                              child: Image.asset('images/arrow.png'),
                             ),
+
                             onTap: () {
                               queryModal.mainModalBottomSheet(context);
                             }, //askDialog(),
@@ -218,11 +223,12 @@ class MyPageWidget extends StatelessWidget {
                           child: ListTile(
                             title: Text(
                               '알림',
-                              style: TextStyle(fontSize: 14),
+                              textAlign: TextAlign.left,
+                              style: TextStyle(fontSize: 16),
                             ),
-                            trailing: Icon(
-                              Icons.keyboard_arrow_right,
-                              color: Colors.black,
+                            trailing: Padding(
+                              padding: EdgeInsets.all(14),
+                              child: Image.asset('images/arrow.png'),
                             ),
                             onTap: () {
                               pushTo(context, NotificationScreen());

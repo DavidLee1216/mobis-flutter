@@ -187,7 +187,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
     );
 
     var modelDropdownmenu1 = FutureBuilder(
-      future: loadModels(),
+        future: loadModels(),
         builder: (context, snapshot) {
           return Container(
             width: 180,
@@ -400,8 +400,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 ButtonTheme(
                   minWidth: MediaQuery.of(context).size.width / 2,
                   height: 40,
-                  buttonColor:
-                    Colors.white,
+                  buttonColor: Colors.white,
                   child: RaisedButton(
                     child: !searchType
                         ? Text(
@@ -428,24 +427,23 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 ButtonTheme(
                   minWidth: MediaQuery.of(context).size.width / 2,
                   height: 40,
-                  buttonColor:
-                      Colors.white,
+                  buttonColor: Colors.white,
                   child: RaisedButton(
                     child: searchType
                         ? Text(
-                          '일반검색',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Color.fromRGBO(0, 63, 114, 1),
-                          ),
-                        )
+                            '일반검색',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Color.fromRGBO(0, 63, 114, 1),
+                            ),
+                          )
                         : Text(
-                          '일반검색',
-                          style: TextStyle(
-                            fontSize: 15,
-                            color: Colors.black,
+                            '일반검색',
+                            style: TextStyle(
+                              fontSize: 15,
+                              color: Colors.black,
+                            ),
                           ),
-                        ),
                     onPressed: () {
                       searchType = true;
                       searched = false;
