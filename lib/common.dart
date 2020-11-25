@@ -114,7 +114,8 @@ void getSigungu() async {
   }
 }
 
-bool updateProfile(String addressExtended, String address, String mobile,
+// ignore: missing_return
+Future<bool> updateProfile(String addressExtended, String address, String mobile,
     String password, String zipCode, String email) {
   http
       .post(API + '/profile',
@@ -137,7 +138,8 @@ bool updateProfile(String addressExtended, String address, String mobile,
   });
 }
 
-bool checkUsername(String username) {
+// ignore: missing_return
+Future<bool> checkUsername(String username) {
   http
       .get(
     API + '/username/{username}?username=$username',
@@ -153,7 +155,8 @@ bool checkUsername(String username) {
   });
 }
 
-bool checkEmail(String email) {
+// ignore: missing_return
+Future<bool> checkEmail(String email) {
   http
       .get(
     API + '/email/{email}?email=$email',
@@ -169,7 +172,8 @@ bool checkEmail(String email) {
   });
 }
 
-bool validateSMS(String mobile) {
+// ignore: missing_return
+Future<bool> validateSMS(String mobile) {
   http.get(API + '/validateSMS/{mobile}/mobile=$mobile').then((response) {
     if (response.statusCode == 200) {
       log('validate_SMS success');
@@ -181,6 +185,7 @@ bool validateSMS(String mobile) {
   });
 }
 
+// ignore: missing_return
 Future<List<CartModel>> loadCart() {
   String url = API + '/carts';
   if (globalUsername != '')
@@ -227,8 +232,9 @@ Future<bool> delFromCart(int seq) =>
       }
     });
 
-bool validateEmail(String email) {
-  http.get(API + '/validateEmail/{email}/email=$email').then((response) {
+// ignore: missing_return
+Future<bool> validateEmail(String email) async {
+  await http.get(API + '/validateEmail/{email}/email=$email').then((response) {
     if (response.statusCode == 200) {
       log('validate_email success');
       return true;
@@ -239,7 +245,8 @@ bool validateEmail(String email) {
   });
 }
 
-int validateCode(String code) {
+// ignore: missing_return
+Future<int> validateCode(String code) async {
   http.get(API + '/validateCode/{code}/code=$code').then((response) {
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
@@ -249,7 +256,8 @@ int validateCode(String code) {
   });
 }
 
-String getEmail(String code) {
+// ignore: missing_return
+Future<String> getEmail(String code) async {
   http.post(API + '/getEmail', body: jsonEncode({'seq': code}), headers: {
     'Content-type': 'application/json',
   }).then((response) {
@@ -260,7 +268,8 @@ String getEmail(String code) {
   });
 }
 
-bool resetPassword(String password, int seq) {
+// ignore: missing_return
+Future<bool> resetPassword(String password, int seq) async {
   http.post(API + '/resetPassword',
       body: jsonEncode({'password': password, 'seq': seq}),
       headers: {

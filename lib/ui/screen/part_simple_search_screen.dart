@@ -44,7 +44,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
   List<RadioModel> manufacturerData = new List<RadioModel>();
   List<RadioModel> carKindData = new List<RadioModel>();
   List<String> carModels;
-  String modelDropdownValue = null;
+  String modelDropdownValue;
   String hkgb = 'H';
   String vtpy = 'P';
 

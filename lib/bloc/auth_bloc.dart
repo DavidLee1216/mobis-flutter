@@ -70,7 +70,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc({@required this.userRepository}) : super(AuthState());
 
-  @override
   AuthState get initialState => AuthState.init();
 
   @override

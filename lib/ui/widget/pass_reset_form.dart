@@ -648,24 +648,6 @@ class _GetPassFormState extends State<GetPassForm> {
       ],
     );
 
-    var emailAuthConfirmItem = Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          '* 입력한 이메일로 이동하여 이메일 인증을 완료해주세요.',
-          style: TextStyle(
-              fontFamily: 'HDharmony', fontSize: 12, color: Colors.black),
-          textAlign: TextAlign.left,
-        ),
-        Text(
-          '* 이메일 인증 완료 후에 아래 "인증" 버튼을 눌러주세요.',
-          style: TextStyle(
-              fontFamily: 'HDharmony', fontSize: 12, color: Colors.black),
-          textAlign: TextAlign.left,
-        ),
-      ],
-    );
-
     var authConfirmItem = Container(
       padding: EdgeInsets.only(top: 10),
       child: Column(
@@ -750,16 +732,11 @@ class _GetPassFormState extends State<GetPassForm> {
                                     fontSize: 14,
                                     color: Colors.white),
                               ),
-                              onPressed: () {
+                              onPressed: () async {
                                 if (authStep == 3) {
-//                                  if(mobileAuth)
-//                                  {
                                   authSeq =
-                                      validateCode(_authNumberController.text);
-//                                  }
+                                      await validateCode(_authNumberController.text);
                                   if (authSeq == -1) return;
-//                                  if(findEmail)
-//                                    foundEmail = get_email(authSeq);
                                   setState(() {
                                     authStep++;
                                   });

@@ -1,5 +1,4 @@
 import 'package:mobispartsearch/common.dart' as common;
-import 'package:http/http.dart' as http;
 import 'package:mobispartsearch/model/notice_model.dart';
 
 class NoticeRepository{
