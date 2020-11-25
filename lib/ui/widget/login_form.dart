@@ -48,12 +48,12 @@ class LoginForm extends StatelessWidget {
               ),
               Container(
                 width: MediaQuery.of(context).size.width - 50,
-                height: 40,
+                height: 48,
                 child: RaisedButton(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),
                   ),
-                  color: Colors.green,
+                  color: Color(0xff1ec800),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
@@ -83,7 +83,7 @@ class LoginForm extends StatelessWidget {
               ),
               Container(
                 width: MediaQuery.of(context).size.width - 50,
-                height: 40,
+                height: 48,
                 child: RaisedButton(
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(5.0),
@@ -118,7 +118,7 @@ class LoginForm extends StatelessWidget {
               ),
               Container(
                 width: MediaQuery.of(context).size.width - 50,
-                height: 40,
+                height: 48,
                 child: RaisedButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
@@ -169,7 +169,7 @@ class LoginForm extends StatelessWidget {
               ),
               Container(
                 width: MediaQuery.of(context).size.width - 50,
-                height: 40,
+                height: 48,
                 child: RaisedButton(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(5.0),
