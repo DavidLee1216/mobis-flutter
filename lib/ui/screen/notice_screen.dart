@@ -85,6 +85,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                 value,
                 textAlign: TextAlign.center,
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 14,
                 ),
               ),
@@ -109,6 +110,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         child: Text('검색',
             textAlign: TextAlign.center,
             style: TextStyle(
+              fontFamily: 'HDharmony',
               color: Colors.white,
             )),
         onPressed: () {
@@ -208,13 +210,15 @@ class _NoticeListWidgetState extends State<NoticeListWidget> {
   void _onScroll() {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
-    if (maxScroll - currentScroll > 5 && maxScroll - currentScroll <= _scrollThreshold && bloc != null) {
-      if(kind == EnumNoticeEvent.TitleSearch)
+    if (maxScroll - currentScroll > 5 &&
+        maxScroll - currentScroll <= _scrollThreshold &&
+        bloc != null) {
+      if (kind == EnumNoticeEvent.TitleSearch)
         bloc.add(
             NoticeSearchTitleEvent(searchWord: searchWord, page: maxPage + 1));
       else
         bloc.add(NoticeSearchContentEvent(
-            searchWord: searchWord, page: maxPage+1));
+            searchWord: searchWord, page: maxPage + 1));
       Future.delayed(Duration(milliseconds: 200), () {});
     }
   }

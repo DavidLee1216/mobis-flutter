@@ -63,7 +63,10 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
             padding: EdgeInsets.only(left: 20),
             child: Text(
               '주문 상품(1개)',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(
@@ -73,7 +76,7 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
             padding: EdgeInsets.only(left: 10),
             child: Text(
               '${widget.productName} / ${widget.count}개',
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
             ),
           ),
           SizedBox(
@@ -84,6 +87,7 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
             child: Text(
               '${widget.companyMark} | 방문수령',
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 14,
               ),
             ),
@@ -124,6 +128,7 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
                     value,
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 14,
                     ),
                   ),
@@ -152,6 +157,7 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
               ),
               keyboardType: TextInputType.number,
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 14.0,
               ),
               textAlign: TextAlign.left,
@@ -174,6 +180,7 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
               ),
               keyboardType: TextInputType.number,
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 14.0,
               ),
               textAlign: TextAlign.left,
@@ -193,6 +200,7 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
               child: Text(
                 '휴대폰 번호',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 14,
                 ),
               )),
@@ -237,6 +245,7 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
                     value,
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 14,
                     ),
                   ),
@@ -255,7 +264,10 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
               padding: EdgeInsets.only(left: 20),
               child: Text(
                 '시간대 선택',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontFamily: 'HDharmony',
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold),
               )),
           SizedBox(
             height: 10,
@@ -395,7 +407,10 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
         children: [
           Text(
             '구매자 정보',
-            style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontFamily: 'HDharmony',
+                fontSize: 16,
+                fontWeight: FontWeight.bold),
           ),
           SizedBox(
             height: 10,
@@ -403,6 +418,7 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
           Text(
             '수령인',
             style: TextStyle(
+              fontFamily: 'HDharmony',
               fontSize: 14,
             ),
           ),
@@ -421,6 +437,7 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
               ),
               controller: buyerController,
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 14,
               ),
               keyboardType: TextInputType.text,
@@ -444,7 +461,8 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
             child: RaisedButton(
               child: Text(
                 '구매요청',
-                style: TextStyle(fontSize: 12, color: Colors.white),
+                style: TextStyle(
+                    fontFamily: 'HDharmony', fontSize: 12, color: Colors.white),
                 textAlign: TextAlign.center,
               ),
               onPressed: () {

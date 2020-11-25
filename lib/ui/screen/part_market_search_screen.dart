@@ -80,7 +80,10 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
             padding: const EdgeInsets.only(left: 20.0),
             child: Text(
               '제조사',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(
@@ -131,7 +134,10 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
               padding: const EdgeInsets.only(left: 20.0),
               child: Text(
                 '판매점',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontFamily: 'HDharmony',
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold),
               ),
             ),
           ),
@@ -224,8 +230,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                 sigungu = findFirstSigungu(sido);
               });
             },
-            items: globalSido
-                ?.map<DropdownMenuItem<String>>((item) {
+            items: globalSido?.map<DropdownMenuItem<String>>((item) {
               return DropdownMenuItem<String>(
                 value: item.sido,
                 child: Container(
@@ -234,6 +239,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                     item.sido,
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 14,
                     ),
                   ),
@@ -264,9 +270,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                 sigungu = newValue;
               });
             },
-            items: findSido(sido)
-                ?.sigungus
-                ?.map<DropdownMenuItem<String>>((item) {
+            items:
+                findSido(sido)?.sigungus?.map<DropdownMenuItem<String>>((item) {
               return DropdownMenuItem<String>(
                 value: item.sigungu,
                 child: Container(
@@ -275,6 +280,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                     item.sigungu,
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 14,
                     ),
                   ),
@@ -294,7 +300,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                 padding: EdgeInsets.only(left: 20),
                 child: Text(
                   '지역설정',
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
                 ),
               ),
               Container(
@@ -335,7 +341,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                     contentPadding: EdgeInsets.only(left: 10),
                   ),
                   keyboardType: TextInputType.text,
-                  style: TextStyle(fontSize: 14.0),
+                  style: TextStyle(fontFamily: 'HDharmony', fontSize: 14.0),
                   controller: partNumberController,
                 ),
               )
@@ -354,6 +360,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
           child: Text(
             '검색',
             style: TextStyle(
+              fontFamily: 'HDharmony',
               fontSize: 12,
               color: Colors.white,
             ),
@@ -386,6 +393,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
               Text(
                 '부품번호를 입력하시면 해당 부품을 직접 방문 혹은 온라인을 통해 구매할 수 있는 판매점을 알려드립니다.',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 14,
                 ),
                 textAlign: TextAlign.left,
@@ -393,6 +401,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
               Text(
                 '판매점이 조회되지 않는 경우 당사 고객센터(1588-7278)로 문의 바랍니다.',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 14,
                 ),
                 textAlign: TextAlign.left,

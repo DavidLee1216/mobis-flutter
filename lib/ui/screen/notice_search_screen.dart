@@ -66,7 +66,7 @@ class _NoticeSearchScreenState extends State<NoticeSearchScreen> {
             ),
             title: Text(
               '알람',
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(fontFamily: 'HDharmony', fontSize: 12),
             ),
           ),
           BottomNavigationBarItem(
@@ -74,21 +74,24 @@ class _NoticeSearchScreenState extends State<NoticeSearchScreen> {
                 color: Colors.grey),
             activeIcon: ImageIcon(AssetImage('images/Home_icon.png'),
                 color: Colors.black),
-            title: Text('홈', style: TextStyle(fontSize: 12)),
+            title: Text('홈',
+                style: TextStyle(fontFamily: 'HDharmony', fontSize: 12)),
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(AssetImage('images/Profile_icon.png'),
                 color: Colors.grey),
             activeIcon: ImageIcon(AssetImage('images/Profile_icon.png'),
                 color: Colors.black),
-            title: Text('마이페이지', style: TextStyle(fontSize: 12)),
+            title: Text('마이페이지',
+                style: TextStyle(fontFamily: 'HDharmony', fontSize: 12)),
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(AssetImage('images/support_icon.png'),
                 color: Colors.grey),
             activeIcon: ImageIcon(AssetImage('images/support_icon.png'),
                 color: Colors.black),
-            title: Text('고객센터', style: TextStyle(fontSize: 12)),
+            title: Text('고객센터',
+                style: TextStyle(fontFamily: 'HDharmony', fontSize: 12)),
           ),
         ],
         type: BottomNavigationBarType.fixed,
@@ -131,6 +134,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
                 value,
                 textAlign: TextAlign.center,
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 14,
                 ),
               ),
@@ -155,6 +159,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         child: Text('검색',
             textAlign: TextAlign.center,
             style: TextStyle(
+              fontFamily: 'HDharmony',
               color: Colors.white,
             )),
         onPressed: () {

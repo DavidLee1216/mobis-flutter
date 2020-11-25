@@ -46,6 +46,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                   Text(
                     '성명',
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 12,
                     ),
                   ),
@@ -67,6 +68,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               ),
               keyboardType: TextInputType.text,
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 12,
               ),
               textAlign: TextAlign.left,
@@ -92,6 +94,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                   Text(
                     '비밀번호',
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 12,
                     ),
                   ),
@@ -114,6 +117,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               obscureText: true,
               keyboardType: TextInputType.text,
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 12,
               ),
               textAlign: TextAlign.left,
@@ -139,6 +143,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                   Text(
                     '비밀번호 확인',
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 12,
                     ),
                   ),
@@ -161,6 +166,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               obscureText: true,
               keyboardType: TextInputType.text,
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 12,
               ),
               textAlign: TextAlign.left,
@@ -186,6 +192,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                   Text(
                     '전화번호',
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 12,
                     ),
                   ),
@@ -207,6 +214,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               ),
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 12,
               ),
               textAlign: TextAlign.left,
@@ -232,6 +240,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                   Text(
                     '이메일',
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 12,
                     ),
                   ),
@@ -253,6 +262,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               ),
               keyboardType: TextInputType.emailAddress,
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 12,
               ),
               textAlign: TextAlign.left,
@@ -279,7 +289,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                   children: [
                     Text(
                       '주소',
-                      style: TextStyle(fontSize: 12),
+                      style: TextStyle(fontFamily: 'HDharmony', fontSize: 12),
                     ),
                   ],
                 )),
@@ -299,6 +309,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                 ),
                 keyboardType: TextInputType.text,
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 12,
                 ),
                 textAlign: TextAlign.left,
@@ -323,6 +334,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               ),
               keyboardType: TextInputType.text,
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 12,
               ),
               textAlign: TextAlign.left,
@@ -348,6 +360,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                   Text(
                     '우편번호',
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 12,
                     ),
                   ),
@@ -369,6 +382,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               ),
               keyboardType: TextInputType.text,
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 12,
               ),
               textAlign: TextAlign.left,
@@ -389,6 +403,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               child: Text(
                 '우편번호검색',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 12,
                   color: Color.fromRGBO(0, 63, 114, 1),
                 ),
@@ -421,6 +436,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             child: Text('정보변경',
                 textAlign: TextAlign.center,
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   color: Colors.white,
                 )),
             onPressed: () {

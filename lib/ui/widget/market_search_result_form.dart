@@ -39,6 +39,7 @@ class _MarketSearchResultsFormState extends State<MarketSearchResultsForm> {
                           child: Text(
                             state.krname + '(${state.enname})',
                             style: TextStyle(
+                              fontFamily: 'HDharmony',
                               fontSize: 14,
                               color: Colors.black,
                             ),
@@ -51,7 +52,10 @@ class _MarketSearchResultsFormState extends State<MarketSearchResultsForm> {
                         padding: EdgeInsets.only(left: 10),
                         child: Text(
                           "-${state.price}원(부가세 포함)",
-                          style: TextStyle(fontSize: 14, color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              fontSize: 14,
+                              color: Colors.black),
                           textAlign: TextAlign.left,
                         ),
                       ),
@@ -139,6 +143,7 @@ class _MarketSearchResultsFormState extends State<MarketSearchResultsForm> {
                                   child: new Text(
                                       state.pageModel.pages[index].toString(),
                                       style: new TextStyle(
+                                          fontFamily: 'HDharmony',
                                           color: state.pageModel.pages[index] ==
                                                   state.pageModel.curPage
                                               ? Colors.white
@@ -230,7 +235,10 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                       child: Center(
                         child: Text(
                           '상호명',
-                          style: TextStyle(fontSize: 12, color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              fontSize: 12,
+                              color: Colors.black),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -250,7 +258,9 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                                 child: Text(
                                   widget.companyMark,
                                   style: TextStyle(
-                                      fontSize: 12, color: Colors.black),
+                                      fontFamily: 'HDharmony',
+                                      fontSize: 12,
+                                      color: Colors.black),
                                   textAlign: TextAlign.left,
                                 ),
                               ),
@@ -261,7 +271,9 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                                     child: Text(
                                       '택배주문가능',
                                       style: TextStyle(
-                                          fontSize: 14, color: Colors.indigo),
+                                          fontFamily: 'HDharmony',
+                                          fontSize: 14,
+                                          color: Colors.indigo),
                                     ),
                                   )
                                 : Container(),
@@ -278,7 +290,10 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                       child: Center(
                         child: Text(
                           '주소',
-                          style: TextStyle(fontSize: 12, color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              fontSize: 12,
+                              color: Colors.black),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -295,14 +310,18 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                           children: [
                             Text(
                               widget.address1,
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.black),
+                              style: TextStyle(
+                                  fontFamily: 'HDharmony',
+                                  fontSize: 12,
+                                  color: Colors.black),
                               textAlign: TextAlign.left,
                             ),
                             Text(
                               widget.address2,
-                              style:
-                                  TextStyle(fontSize: 12, color: Colors.black),
+                              style: TextStyle(
+                                  fontFamily: 'HDharmony',
+                                  fontSize: 12,
+                                  color: Colors.black),
                               textAlign: TextAlign.left,
                             ),
                           ],
@@ -318,7 +337,10 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                       child: Center(
                         child: Text(
                           '전화번호',
-                          style: TextStyle(fontSize: 12, color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              fontSize: 12,
+                              color: Colors.black),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -339,7 +361,9 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                               child: Text(
                                 widget.phoneNumber,
                                 style: TextStyle(
-                                    fontSize: 12, color: Colors.black),
+                                    fontFamily: 'HDharmony',
+                                    fontSize: 12,
+                                    color: Colors.black),
                                 textAlign: TextAlign.left,
                               ),
                             ),
@@ -358,7 +382,9 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                               child: Text(
                                 '지도보기',
                                 style: TextStyle(
-                                    fontSize: 12, color: Colors.indigo),
+                                    fontFamily: 'HDharmony',
+                                    fontSize: 12,
+                                    color: Colors.indigo),
                               ),
                               onPressed: () {},
                             ),
@@ -389,7 +415,10 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                         child: RaisedButton(
                           child: Text(
                             '구매요청',
-                            style: TextStyle(fontSize: 12, color: Colors.white),
+                            style: TextStyle(
+                                fontFamily: 'HDharmony',
+                                fontSize: 12,
+                                color: Colors.white),
                           ),
                           color: kPrimaryColor,
                           onPressed: () {
@@ -408,6 +437,7 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                         child: Text(
                           '해당 판매점은 전화로 직접 문의 부탁드립니다.',
                           style: TextStyle(
+                            fontFamily: 'HDharmony',
                             fontSize: 12,
                           ),
                         ),

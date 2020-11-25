@@ -19,12 +19,18 @@ class _NoticeFormState extends State<NoticeForm> {
           height: 50,
           child: ListTile(
             title: Text(widget.title,
-                style: TextStyle(fontSize: 14, color: Colors.black)),
+                style: TextStyle(
+                    fontFamily: 'HDharmony',
+                    fontSize: 14,
+                    color: Colors.black)),
             subtitle: Padding(
                 padding: EdgeInsets.only(left: 8),
                 child: Text(
                   widget.date,
-                  style: TextStyle(fontSize: 10, color: Colors.black54),
+                  style: TextStyle(
+                      fontFamily: 'HDharmony',
+                      fontSize: 10,
+                      color: Colors.black54),
                 )),
             trailing: isExpanded
                 ? Icon(
@@ -48,6 +54,7 @@ class _NoticeFormState extends State<NoticeForm> {
                 child: Text(
                   widget.text,
                   style: TextStyle(
+                    fontFamily: 'HDharmony',
                     fontSize: 14,
                   ),
                 ),
