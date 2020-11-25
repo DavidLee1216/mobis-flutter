@@ -163,9 +163,9 @@ class MyPageWidget extends StatelessWidget {
                                             fontFamily: 'HDharmony',
                                             fontSize: 14),
                                       ),
-                                      trailing: Icon(
-                                        Icons.keyboard_arrow_right,
-                                        color: Colors.black,
+                                      trailing: Padding(
+                                        padding: EdgeInsets.all(14),
+                                        child: Image.asset('images/arrow.png'),
                                       ),
                                       onTap: () {
                                         pushTo(context, MyInfoScreen());
@@ -221,9 +221,9 @@ class MyPageWidget extends StatelessWidget {
                                             fontFamily: 'HDharmony',
                                             fontSize: 14),
                                       ),
-                                      trailing: Icon(
-                                        Icons.keyboard_arrow_right,
-                                        color: Colors.black,
+                                      trailing: Padding(
+                                        padding: EdgeInsets.all(14),
+                                        child: Image.asset('images/arrow.png'),
                                       ),
                                       onTap: () {
                                         pushTo(context, MyCouponScreen());
