@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobispartsearch/common.dart';
+import 'package:mobispartsearch/ui/screen/id_login_screen.dart';
+import 'package:mobispartsearch/utils/navigation.dart';
 
 class GetPassForm extends StatefulWidget {
   @override
@@ -962,7 +964,7 @@ class _GetPassFormState extends State<GetPassForm> {
                 fontFamily: 'HDharmony', fontSize: 14, color: Colors.black),
           ),
           onPressed: () {
-            Navigator.of(context).pushNamed('/login');
+            pushTo(context, IdLoginScreen());
           },
         ),
       ),
