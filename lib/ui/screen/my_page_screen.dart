@@ -75,6 +75,7 @@ class MyPageWidget extends StatelessWidget {
       style: TextStyle(
         fontFamily: 'HDharmony',
         fontSize: 16,
+        fontWeight: FontWeight.bold),
       ),
       textAlign: TextAlign.center,
     );
@@ -85,6 +86,7 @@ class MyPageWidget extends StatelessWidget {
         style: TextStyle(
           fontFamily: 'HDharmony',
           fontSize: 14,
+          fontWeight: FontWeight.bold),
         ),
         textAlign: TextAlign.center,
       );
@@ -204,7 +206,7 @@ class MyPageWidget extends StatelessWidget {
                                             fontSize: 14),
                                       ),
                                       trailing: Padding(
-                                        padding: EdgeInsets.all(14),
+                                        padding: EdgeInsets.all(20),
                                         child: Image.asset('images/arrow.png'),
                                       ),
                                       onTap: () {
