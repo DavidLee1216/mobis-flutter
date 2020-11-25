@@ -1,3 +1,4 @@
+import 'package:mobispartsearch/ui/screen/pass_reset_screen.dart';
 import 'package:mobispartsearch/bloc/auth_bloc.dart';
 import 'package:mobispartsearch/ui/screen/register_screen.dart';
 import 'package:flutter/material.dart';
@@ -118,6 +119,10 @@ class _IdLoginFormState extends State<IdLoginForm> {
       pushTo(context, RegisterScreen());
     }
 
+    onForgotButtonPressed() {
+      pushTo(context, GetPassScreen());
+    }
+
     var loginButton = Container(
       width: 380,
       height: 60,
@@ -145,6 +150,24 @@ class _IdLoginFormState extends State<IdLoginForm> {
             onPressed: onRegisterButtonPressed,
             child: Text(
               '회원가입',
+              textAlign: TextAlign.right,
+              style: TextStyle(
+                fontFamily: 'HDharmony',
+                fontSize: 16,
+                color: Color.fromRGBO(7, 75, 136, 1),
+              ),
+            ),
+          ),
+        ));
+
+    var forgotButton = Container(
+        height: 40,
+        child: Padding(
+          padding: const EdgeInsets.only(top: 8.0),
+          child: FlatButton(
+            onPressed: onForgotButtonPressed,
+            child: Text(
+              '이메일 / 비밀번호 찾기',
               textAlign: TextAlign.right,
               style: TextStyle(
                 fontFamily: 'HDharmony',
@@ -194,7 +217,16 @@ class _IdLoginFormState extends State<IdLoginForm> {
                   ),
                   registerButton,
                 ],
-              )
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.only(right: 100),
+                  ),
+                  forgotButton,
+                ],
+              ),
 //              errorMessageField,
             ],
           ),
