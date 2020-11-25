@@ -59,7 +59,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(5),
+                  borderRadius: BorderRadius.circular(1),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
@@ -107,7 +107,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(3),
+                  borderRadius: BorderRadius.circular(1),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
@@ -156,7 +156,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(3),
+                  borderRadius: BorderRadius.circular(1),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
@@ -240,7 +240,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(3),
+                  borderRadius: BorderRadius.circular(1),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
@@ -273,7 +273,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      '주소',
+                      '',
                       style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
                     ),
                   ],
@@ -287,7 +287,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               child: TextField(
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(3),
+                    borderRadius: BorderRadius.circular(1),
                     borderSide: BorderSide(color: Colors.grey, width: 1),
                   ),
                   contentPadding: EdgeInsets.only(left: 10),
@@ -312,7 +312,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(3),
+                  borderRadius: BorderRadius.circular(1),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
@@ -343,7 +343,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    '우편번호',
+                    '주소',
                     style: TextStyle(
                       fontFamily: 'HDharmony',
                       fontSize: 14,
@@ -360,7 +360,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(3),
+                  borderRadius: BorderRadius.circular(1),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
@@ -383,13 +383,13 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                 color: Color.fromRGBO(0, 63, 114, 1),
               ),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(5.0),
+                borderRadius: BorderRadius.circular(1),
               ),
               child: Text(
                 '우편번호검색',
                 style: TextStyle(
                   fontFamily: 'HDharmony',
-                  fontSize: 13,
+                  fontSize: 15,
                   color: Color.fromRGBO(0, 63, 114, 1),
                 ),
                 textAlign: TextAlign.center,
@@ -446,8 +446,8 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             repasswordItem,
             phoneNumberItem,
             emailItem,
-            addressItem,
             postCodeItem,
+            addressItem,
             changeButton,
           ],
         ), //
