@@ -151,8 +151,8 @@ class _RegisterFormState extends State<RegisterForm> {
               fontFamily: 'HDharmony',
               color: kPrimaryColor,
             )),
-        onPressed: () {
-          if (checkUsername(_idController.text) == false) {
+        onPressed: () async {
+          if (await checkUsername(_idController.text) == false) {
 //            _idController.clear();
           }
         },
@@ -189,8 +189,8 @@ class _RegisterFormState extends State<RegisterForm> {
               fontFamily: 'HDharmony',
               color: kPrimaryColor,
             )),
-        onPressed: () {
-          if (checkEmail(_emailController.text) == false) {
+        onPressed: () async {
+          if (await checkEmail(_emailController.text) == false) {
 //            _emailController.clear();
           }
         },
@@ -323,8 +323,8 @@ class _RegisterFormState extends State<RegisterForm> {
             color: kPrimaryColor,
           ),
         ),
-        onPressed: () {
-          validateSMS(_phoneNumberController.text);
+        onPressed: () async {
+          await validateSMS(_phoneNumberController.text);
         },
       ),
     );
@@ -359,8 +359,8 @@ class _RegisterFormState extends State<RegisterForm> {
               fontFamily: 'HDharmony',
               color: kPrimaryColor,
             )),
-        onPressed: () {
-          seq = validateCode(_authNumberVerifyController.text);
+        onPressed: () async {
+          seq = await validateCode(_authNumberVerifyController.text);
         },
       ),
     );
