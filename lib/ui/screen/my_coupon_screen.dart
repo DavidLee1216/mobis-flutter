@@ -10,15 +10,6 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
-
-    var subjectItem = Center(
-      child: Text(
-        '발급 쿠폰 조회',
-        style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
-        textAlign: TextAlign.center,
-      ),
-    );
-
     couponItem(String couponSubject, String fromDate, String toDate,
         String target, String couponNumber) {
       return Container(
@@ -44,7 +35,7 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
                   style: TextStyle(
                       fontFamily: 'HDharmony',
                       fontSize: 14,
-                      color: Colors.blue),
+                      color: Colors.blue[900]),
                 ),
                 GestureDetector(
                   child: Icon(Icons.clear),
@@ -97,7 +88,6 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
             SizedBox(
               height: 20,
             ),
-            subjectItem,
             Column(
               children: [
                 SizedBox(
