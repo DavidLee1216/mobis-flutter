@@ -139,11 +139,8 @@ Future<bool> updateProfile(String addressExtended, String address, String mobile
 }
 
 // ignore: missing_return
-Future<bool> checkUsername(String username) {
-  http
-      .get(
-    API + '/username/$username',
-  )
+Future<bool> checkUsername(String username) =>
+  http.get(API + '/username/$username')
       .then((response) {
     if (response.statusCode == 200) {
       log('success');
@@ -153,14 +150,10 @@ Future<bool> checkUsername(String username) {
       return false;
     }
   });
-}
 
 // ignore: missing_return
-Future<bool> checkEmail(String email) {
-  http
-      .get(
-    API + '/email/$email',
-  )
+Future<bool> checkEmail(String email) =>
+  http.get(API + '/email/$email')
       .then((response) {
     if (response.statusCode == 200) {
       log('success');
@@ -170,10 +163,9 @@ Future<bool> checkEmail(String email) {
       return false;
     }
   });
-}
 
 // ignore: missing_return
-Future<bool> validateSMS(String mobile) {
+Future<bool> validateSMS(String mobile) =>
   http.get(API + '/validateSMS/$mobile').then((response) {
     if (response.statusCode == 200) {
       log('validate_SMS success');
@@ -183,7 +175,6 @@ Future<bool> validateSMS(String mobile) {
       return false;
     }
   });
-}
 
 // ignore: missing_return
 Future<List<CartModel>> loadCart() {
@@ -233,8 +224,8 @@ Future<bool> delFromCart(int seq) =>
     });
 
 // ignore: missing_return
-Future<bool> validateEmail(String email) async {
-  await http.get(API + '/validateEmail/$email').then((response) {
+Future<bool> validateEmail(String email) =>
+  http.get(API + '/validateEmail/$email').then((response) {
     if (response.statusCode == 200) {
       log('validate_email success');
       return true;
@@ -243,10 +234,8 @@ Future<bool> validateEmail(String email) async {
       return false;
     }
   });
-}
 
-// ignore: missing_return
-Future<int> validateCode(String code) async {
+Future<int> validateCode(String code) =>
   http.get(API + '/validateCode/$code').then((response) {
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
@@ -254,7 +243,6 @@ Future<int> validateCode(String code) async {
     } else
       return -1;
   });
-}
 
 // ignore: missing_return
 Future<String> getEmail(String code) async {
@@ -270,7 +258,7 @@ Future<String> getEmail(String code) async {
 
 // ignore: missing_return
 Future<bool> resetPassword(String password, int seq) async {
-  http.post(API + '/resetPassword',
+  await http.post(API + '/resetPassword',
       body: jsonEncode({'password': password, 'seq': seq}),
       headers: {
         'Content-type': 'application/json',
@@ -330,14 +318,11 @@ Future<bool> order(Order order) =>
 Future<List<String>> getModelsFromRemote(String hkgb, String vtpy) async {
   final response = await http.get(API + '/models?hkgb=$hkgb&vtyp=$vtpy');
   if (response.statusCode == 200) {
-    log('model success');
     final data = json.decode(utf8.decode(response.bodyBytes)) as List;
-    log(data.toString());
     return data.map((item) {
       return item['cpnm'].toString();
     }).toList();
   } else {
-    log('model ' + response.statusCode.toString());
     throw Exception('error');
   }
 }
