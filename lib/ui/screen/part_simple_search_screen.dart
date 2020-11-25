@@ -414,14 +414,14 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   child: RaisedButton(
                     child: searchType
                         ? Text(
-                            '부품번호검색',
+                            '일반검색',
                             style: TextStyle(
                               fontSize: 15,
                               color: Color.fromRGBO(0, 63, 114, 1),
                             ),
                           )
                         : Text(
-                            '부품번호검색',
+                            '일반검색',
                             style: TextStyle(
                               fontSize: 15,
                               color: Colors.black,

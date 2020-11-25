@@ -165,11 +165,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           onPressed: () {
-                            if(globalSidoLoaded)
+                            if (globalSidoLoaded)
                               Navigator.push(
                                   context,
                                   PageRouteBuilder(
-                                      pageBuilder: (_, __, ___) => NavigationBar(
+                                      pageBuilder: (_, __, ___) =>
+                                          NavigationBar(
                                             index: 4,
                                           )));
                           },
