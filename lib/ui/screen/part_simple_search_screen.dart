@@ -204,7 +204,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
         future: loadModels(),
         builder: (context, snapshot) {
           return Container(
-            width: 180,
+            width: 290,
 //            height: 40,
             decoration: BoxDecoration(
               border: Border.all(),
@@ -488,14 +488,18 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 ],
               ),
             ),
-            Divider(
-              height: 2,
-              color: Colors.black54,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Divider(
+                color: Colors.black54,
+              ),
             ),
             manufactureItem,
-            Divider(
-              height: 2,
-              color: Colors.black54,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Divider(
+                color: Colors.black54,
+              ),
             ),
             !searchType ? generalSearchItems : partNumberSearchItems,
             searchButton,

@@ -7,10 +7,8 @@ class MyCouponScreen extends StatefulWidget {
 }
 
 class _MyCouponScreenState extends State<MyCouponScreen> {
-
   @override
   Widget build(BuildContext context) {
-
     var screenWidth = MediaQuery.of(context).size.width;
 
     var subjectItem = Center(
@@ -33,14 +31,36 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
           ),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 10,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '$couponSubject 쿠폰 ',
+                  style: TextStyle(
+                      fontFamily: 'HDharmony',
+                      fontSize: 14,
+                      color: Colors.blue),
+                ),
+                GestureDetector(
+                  child: Icon(Icons.clear),
+                  onTap: () {},
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Text(
-              '$couponSubject 쿠폰 (유효기간: $fromDate ~ $toDate)',
-              style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
-              textAlign: TextAlign.center,
+              '(유효기간: $fromDate ~ $toDate)',
+              style: TextStyle(
+                fontFamily: 'HDharmony',
+                fontSize: 14,
+              ),
             ),
             SizedBox(
               height: 10,
@@ -48,7 +68,6 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
             Text(
               '대상제목 : $target',
               style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
-              textAlign: TextAlign.center,
             ),
             SizedBox(
               height: 10,
@@ -61,18 +80,6 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Expanded(
-                    child: SizedBox(
-                  width: 10,
-                )),
-                GestureDetector(
-                  child: Icon(Icons.clear),
-                  onTap: () {},
-                ),
-              ],
-            )
           ],
         ),
       );
@@ -81,7 +88,7 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(color: Colors.black),
-        title: Text('마이페이지'),
+        title: Text('My 쿠폰'),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -103,10 +110,18 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
                 ),
                 couponItem('미세먼지 이겨내요', ' 2020년 10월', '2020년 11월', '에어컨 필터',
                     '0000-0000-0000-0000'),
+                SizedBox(
+                  height: 20,
+                ),
+                couponItem('소모품 할인', '2020년 10월', '2020년 11월',
+                    '워셔액, 와이퍼, 에어컨 필터', '0000-0000-0000-0000'),
+                SizedBox(
+                  height: 10,
+                ),
               ],
             ),
           ],
-        ), //
+        ),
       ),
     );
   }

@@ -36,8 +36,6 @@ class _IdLoginFormState extends State<IdLoginForm> {
         width: 380,
         child: TextFormField(
           decoration: InputDecoration(
-            border: OutlineInputBorder(),
-
             filled: true,
             fillColor: Colors.white,
 //                  contentPadding: EdgeInsets.only(left: 30, ),
@@ -45,8 +43,15 @@ class _IdLoginFormState extends State<IdLoginForm> {
               borderRadius: BorderRadius.circular(2),
               borderSide: BorderSide(color: Colors.grey, width: 1),
             ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(2),
+              borderSide: BorderSide(color: Colors.grey, width: 1),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(2),
+              borderSide: BorderSide(color: Colors.grey, width: 1),
+            ),
             contentPadding: EdgeInsets.only(left: 20, top: 20, bottom: 20),
-
             hintText: '아이디',
           ),
           keyboardType: TextInputType.text,
@@ -67,6 +72,14 @@ class _IdLoginFormState extends State<IdLoginForm> {
           fillColor: Colors.white,
 //                  contentPadding: EdgeInsets.only(left: 30, ),
           enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2),
+            borderSide: BorderSide(color: Colors.grey, width: 1),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2),
+            borderSide: BorderSide(color: Colors.grey, width: 1),
+          ),
+          errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(2),
             borderSide: BorderSide(color: Colors.grey, width: 1),
           ),
@@ -153,6 +166,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
 //        : Container();
 
     return Container(
+      color: Colors.white,
       child: Padding(
         padding: const EdgeInsets.all(10.0),
         child: Form(

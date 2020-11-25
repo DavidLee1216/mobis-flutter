@@ -49,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               Container(
-                margin: const EdgeInsets.only(bottom: 38),
+                margin: const EdgeInsets.only(bottom: 10),
                 child: Image.asset('images/car_white.png'),
                 width: 320,
               )
@@ -69,34 +69,30 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Column(
               children: <Widget>[
-                Container(
-                  padding: const EdgeInsets.only(right: 50),
-                ),
                 SizedBox(height: 20),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 5),
-                    ),
-                    Text(
-                      '안녕하세요, XXX고객님.',
-                      style: kMenuTextStyle,
-                    ),
-                    SizedBox(
-                      width: 70,
-                    ),
-                    RaisedButton(
-                      color: kPrimaryColor,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        '안녕하세요, 고객님.',
+                        style: kMenuTextStyle,
                       ),
-                      child: Text('로그인', style: kButtonTextStyle),
-                      onPressed: () {
-                        pushTo(context, LoginScreen());
-                      },
-                    ),
-                  ],
+                      RaisedButton(
+                        color: kPrimaryColor,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0),
+                        ),
+                        child: Text('로그인', style: kButtonTextStyle),
+                        onPressed: () {
+                          pushTo(context, LoginScreen());
+                        },
+                      ),
+                    ],
+                  ),
                 ),
                 Expanded(
                   child: GridView.count(
