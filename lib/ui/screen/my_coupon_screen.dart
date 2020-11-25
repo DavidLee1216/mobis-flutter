@@ -48,14 +48,36 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
           ),
         ),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 10,
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  '$couponSubject 쿠폰 ',
+                  style: TextStyle(
+                      fontFamily: 'HDharmony',
+                      fontSize: 14,
+                      color: Colors.blue),
+                ),
+                GestureDetector(
+                  child: Icon(Icons.clear),
+                  onTap: () {},
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 10,
+            ),
             Text(
-              '$couponSubject 쿠폰 (유효기간: $fromDate ~ $toDate)',
-              style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
-              textAlign: TextAlign.center,
+              '(유효기간: $fromDate ~ $toDate)',
+              style: TextStyle(
+                fontFamily: 'HDharmony',
+                fontSize: 14,
+              ),
             ),
             SizedBox(
               height: 10,
@@ -63,7 +85,6 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
             Text(
               '대상제목 : $target',
               style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
-              textAlign: TextAlign.center,
             ),
             SizedBox(
               height: 10,
@@ -76,18 +97,6 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
             SizedBox(
               height: 10,
             ),
-            Row(
-              children: [
-                Expanded(
-                    child: SizedBox(
-                  width: 10,
-                )),
-                GestureDetector(
-                  child: Icon(Icons.clear),
-                  onTap: () {},
-                ),
-              ],
-            )
           ],
         ),
       );
@@ -96,7 +105,7 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(color: Colors.black),
-        title: Text('마이페이지'),
+        title: Text('My 쿠폰'),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -118,56 +127,18 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
                 ),
                 couponItem('미세먼지 이겨내요', ' 2020년 10월', '2020년 11월', '에어컨 필터',
                     '0000-0000-0000-0000'),
+                SizedBox(
+                  height: 20,
+                ),
+                couponItem('소모품 할인', '2020년 10월', '2020년 11월',
+                    '워셔액, 와이퍼, 에어컨 필터', '0000-0000-0000-0000'),
+                SizedBox(
+                  height: 10,
+                ),
               ],
             ),
           ],
-        ), //
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('images/alarm.png'),
-              color: Colors.grey,
-            ),
-            activeIcon: ImageIcon(
-              AssetImage('images/alarm.png'),
-              color: Colors.black,
-            ),
-            title: Text(
-              '알람',
-              style: TextStyle(fontFamily: 'HDharmony', fontSize: 12),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/home.png'), color: Colors.grey),
-            activeIcon:
-                ImageIcon(AssetImage('images/home.png'), color: Colors.black),
-            title: Text('홈',
-                style: TextStyle(fontFamily: 'HDharmony', fontSize: 12)),
-          ),
-          BottomNavigationBarItem(
-            icon:
-                ImageIcon(AssetImage('images/person.png'), color: Colors.grey),
-            activeIcon:
-                ImageIcon(AssetImage('images/person.png'), color: Colors.black),
-            title: Text('마이페이지',
-                style: TextStyle(fontFamily: 'HDharmony', fontSize: 12)),
-          ),
-          BottomNavigationBarItem(
-            icon:
-                ImageIcon(AssetImage('images/support.png'), color: Colors.grey),
-            activeIcon: ImageIcon(AssetImage('images/support.png'),
-                color: Colors.black),
-            title: Text('고객센터',
-                style: TextStyle(fontFamily: 'HDharmony', fontSize: 12)),
-          ),
-        ],
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        showUnselectedLabels: true,
-        onTap: _onItemTapped,
+        ),
       ),
     );
   }
