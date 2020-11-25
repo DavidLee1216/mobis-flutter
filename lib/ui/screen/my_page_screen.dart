@@ -206,7 +206,7 @@ class MyPageWidget extends StatelessWidget {
                                             fontSize: 14),
                                       ),
                                       trailing: Padding(
-                                        padding: EdgeInsets.all(20),
+                                        padding: EdgeInsets.all(14),
                                         child: Image.asset('images/arrow.png'),
                                       ),
                                       onTap: () {

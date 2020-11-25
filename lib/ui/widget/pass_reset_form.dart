@@ -30,17 +30,19 @@ class _GetPassFormState extends State<GetPassForm> {
   Widget build(BuildContext context) {
     circleNumber(int number) {
       return Container(
-        width: 20,
-        height: 20,
+        width: 25,
+        height: 25,
         decoration: new BoxDecoration(
           color: kPrimaryColor,
           shape: BoxShape.circle,
         ),
-        child: Text(
-          number.toString(),
-          style: TextStyle(
-              fontFamily: 'HDharmony', fontSize: 14, color: Colors.white),
-          textAlign: TextAlign.center,
+        child: Center(
+          child: Text(
+            number.toString(),
+            style: TextStyle(
+                fontFamily: 'HDharmony', fontSize: 14, color: Colors.white),
+            textAlign: TextAlign.center,
+          ),
         ),
       );
     }
@@ -62,7 +64,8 @@ class _GetPassFormState extends State<GetPassForm> {
                 '이메일 또는 비밀번호',
                 style: TextStyle(
                   fontFamily: 'HDharmony',
-                  fontSize: 14,
+                  color: const Color(0xFF004B87),
+                  fontSize: 15,
                 ),
               ),
             ],
@@ -93,74 +96,103 @@ class _GetPassFormState extends State<GetPassForm> {
                         Container(
                             child: Text(
                           '* 이메일 아이디를 찾으시려면 아래 버튼을 선택하세요.',
-                          style:
-                              TextStyle(fontFamily: 'HDharmony', fontSize: 12),
+                          style: TextStyle(
+                            fontFamily: 'HDharmony',
+                            fontSize: 12,
+                            color: Color(0xff7f7f7f),
+                          ),
                         )),
-                        OutlineButton(
-                          borderSide: BorderSide(
-                            color: Colors.black,
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Container(
+                          height: 40,
+                          width: MediaQuery.of(context).size.width * 0.76,
+                          child: OutlineButton(
+                            borderSide: BorderSide(
+                              color: Colors.black,
+                            ),
+                            child: Text(
+                              '이메일 찾기',
+                              style: TextStyle(
+                                  fontFamily: 'HDharmony',
+                                  fontSize: 14,
+                                  color: Color(0xff7f7f7f)),
+                            ),
+                            onPressed: () {
+                              if (authStep == 1)
+                                setState(() {
+                                  findEmail = true;
+                                  mobileAuth = true;
+                                  authStep++;
+                                });
+                            },
                           ),
-                          child: Text(
-                            '이메일 찾기',
-                            style: TextStyle(
-                                fontFamily: 'HDharmony', fontSize: 14),
-                          ),
-                          onPressed: () {
-                            if (authStep == 1)
-                              setState(() {
-                                findEmail = true;
-                                mobileAuth = true;
-                                authStep++;
-                              });
-                          },
+                        ),
+                        SizedBox(
+                          height: 10,
                         ),
                         Container(
                             child: Text(
                           '* 비밀번호를 초기화하시려면 이메일 또는 모바일로 인증하세요.',
-                          style:
-                              TextStyle(fontFamily: 'HDharmony', fontSize: 12),
+                          style: TextStyle(
+                            fontFamily: 'HDharmony',
+                            fontSize: 12,
+                            color: Color(0xff7f7f7f),
+                          ),
                         )),
+                        SizedBox(
+                          height: 7,
+                        ),
                         Row(
                           children: [
-                            OutlineButton(
-                              borderSide: BorderSide(
-                                color: Colors.black,
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.37,
+                              height: 40,
+                              child: OutlineButton(
+                                borderSide: BorderSide(
+                                  color: Colors.black,
+                                ),
+                                child: Text(
+                                  '이메일 인증',
+                                  style: TextStyle(
+                                      fontFamily: 'HDharmony', fontSize: 14),
+                                ),
+                                onPressed: () {
+                                  if (authStep == 1)
+                                    setState(() {
+                                      mobileAuth = false;
+                                      findEmail = false;
+                                      authStep++;
+                                    });
+                                },
                               ),
-                              child: Text(
-                                '이메일 인증',
-                                style: TextStyle(
-                                    fontFamily: 'HDharmony', fontSize: 14),
-                              ),
-                              onPressed: () {
-                                if (authStep == 1)
-                                  setState(() {
-                                    mobileAuth = false;
-                                    findEmail = false;
-                                    authStep++;
-                                  });
-                              },
                             ),
                             SizedBox(
-                              width: 20,
+                              width: 10,
                             ),
-                            OutlineButton(
-                              borderSide: BorderSide(
-                                color: Colors.black,
+                            Container(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width * 0.37,
+                              child: OutlineButton(
+                                borderSide: BorderSide(
+                                  color: Colors.black,
+                                ),
+                                child: Text(
+                                  '모바일 인증',
+                                  style: TextStyle(
+                                      fontFamily: 'HDharmony', fontSize: 14),
+                                ),
+                                onPressed: () {
+                                  if (authStep == 1) {
+                                    setState(() {
+                                      mobileAuth = true;
+                                      findEmail = false;
+                                      authStep = 2;
+                                    });
+                                  }
+                                },
                               ),
-                              child: Text(
-                                '모바일 인증',
-                                style: TextStyle(
-                                    fontFamily: 'HDharmony', fontSize: 14),
-                              ),
-                              onPressed: () {
-                                if (authStep == 1) {
-                                  setState(() {
-                                    mobileAuth = true;
-                                    findEmail = false;
-                                    authStep = 2;
-                                  });
-                                }
-                              },
                             ),
                           ],
                         ),
@@ -187,8 +219,8 @@ class _GetPassFormState extends State<GetPassForm> {
     );
 
     var yearDropdownmenu = Container(
-        width: 80,
-        height: 30,
+        width: 98,
+        height: 40,
         decoration: BoxDecoration(
           border: Border.all(),
         ),
@@ -232,8 +264,8 @@ class _GetPassFormState extends State<GetPassForm> {
         ));
 
     var monthDropdownmenu = Container(
-        width: 80,
-        height: 30,
+        width: 98,
+        height: 40,
         margin: EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
           border: Border.all(),
@@ -293,8 +325,8 @@ class _GetPassFormState extends State<GetPassForm> {
     dayDropdownmenu(int year, int month) {
       int days = getDaysFromYearMonth(year, month);
       return Container(
-          width: 80,
-          height: 30,
+          width: 98,
+          height: 40,
           margin: EdgeInsets.only(left: 10),
           decoration: BoxDecoration(
             border: Border.all(),
@@ -342,8 +374,8 @@ class _GetPassFormState extends State<GetPassForm> {
     var phoneCodes = ['+1', '+82', '+59', '+123'];
 
     var phoneCodeDropdownmenu = Container(
-        width: 80,
-        height: 30,
+        width: 98,
+        height: 40,
         decoration: BoxDecoration(
           border: Border.all(),
         ),
@@ -378,13 +410,13 @@ class _GetPassFormState extends State<GetPassForm> {
         ));
 
     var phoneNumberItem = Container(
-      height: 30,
-      width: 200,
+      height: 40,
+      width: 209,
       margin: EdgeInsets.only(left: 10),
       child: TextField(
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(3),
+            borderRadius: BorderRadius.circular(0),
             borderSide: BorderSide(color: Colors.black, width: 1),
           ),
           hintText: '휴대폰 번호',
@@ -404,11 +436,18 @@ class _GetPassFormState extends State<GetPassForm> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(
+            height: 10,
+          ),
           Container(
               padding: EdgeInsets.only(top: 10),
               child: Text(
                 '* 휴대폰 번호',
-                style: TextStyle(fontFamily: 'HDharmony', fontSize: 12),
+                style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 12,
+                  color: Color(0xff7f7f7f),
+                ),
               )),
           SizedBox(
             height: 10,
@@ -533,8 +572,11 @@ class _GetPassFormState extends State<GetPassForm> {
                         Container(
                             child: Text(
                           '* 생년월일',
-                          style:
-                              TextStyle(fontFamily: 'HDharmony', fontSize: 12),
+                          style: TextStyle(
+                            fontFamily: 'HDharmony',
+                            fontSize: 12,
+                            color: Color(0xff7f7f7f),
+                          ),
                         )),
                         SizedBox(
                           height: 10,
@@ -553,7 +595,8 @@ class _GetPassFormState extends State<GetPassForm> {
                         Row(
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.3,
+                              height: 40,
+                              width: MediaQuery.of(context).size.width * 0.37,
                               child: OutlineButton(
                                 borderSide: BorderSide(
                                   color: Colors.black,
@@ -573,10 +616,11 @@ class _GetPassFormState extends State<GetPassForm> {
                               ),
                             ),
                             SizedBox(
-                              width: 20,
+                              width: 10,
                             ),
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.3,
+                              height: 40,
+                              width: MediaQuery.of(context).size.width * 0.37,
                               child: RaisedButton(
                                 color: kPrimaryColor,
                                 child: Text(
@@ -623,18 +667,22 @@ class _GetPassFormState extends State<GetPassForm> {
         Container(
             child: Text(
           '* 인증번호',
-          style: TextStyle(fontFamily: 'HDharmony', fontSize: 12),
+          style: TextStyle(
+            fontFamily: 'HDharmony',
+            fontSize: 12,
+            color: Color(0xff7f7f7f),
+          ),
         )),
         SizedBox(
           height: 10,
         ),
         Container(
-          height: 30,
-          width: 200,
+          width: MediaQuery.of(context).size.width * 0.9,
+          height: 50,
           child: TextField(
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(3),
+                borderRadius: BorderRadius.circular(0),
                 borderSide: BorderSide(color: Colors.grey, width: 1),
               ),
               hintText: '6자의 숫자 인증번호',
@@ -700,7 +748,8 @@ class _GetPassFormState extends State<GetPassForm> {
                       Row(
                         children: [
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.3,
+                            height: 40,
+                            width: MediaQuery.of(context).size.width * 0.36,
                             child: OutlineButton(
                               borderSide: BorderSide(
                                 color: Colors.black,
@@ -719,10 +768,11 @@ class _GetPassFormState extends State<GetPassForm> {
                             ),
                           ),
                           SizedBox(
-                            width: 20,
+                            width: 10,
                           ),
                           Container(
-                            width: MediaQuery.of(context).size.width * 0.3,
+                            height: 40,
+                            width: MediaQuery.of(context).size.width * 0.36,
                             child: RaisedButton(
                               color: kPrimaryColor,
                               child: Text(
@@ -734,8 +784,8 @@ class _GetPassFormState extends State<GetPassForm> {
                               ),
                               onPressed: () async {
                                 if (authStep == 3) {
-                                  authSeq =
-                                      await validateCode(_authNumberController.text);
+                                  authSeq = await validateCode(
+                                      _authNumberController.text);
                                   if (authSeq == -1) return;
                                   setState(() {
                                     authStep++;
@@ -881,7 +931,11 @@ class _GetPassFormState extends State<GetPassForm> {
             Container(
                 child: Text(
               '* 이메일 주소',
-              style: TextStyle(fontFamily: 'HDharmony', fontSize: 12),
+              style: TextStyle(
+                fontFamily: 'HDharmony',
+                fontSize: 12,
+                color: Color(0xff7f7f7f),
+              ),
             )),
             SizedBox(
               height: 10,
@@ -971,6 +1025,9 @@ class _GetPassFormState extends State<GetPassForm> {
     return Container(
       child: Column(
         children: [
+          SizedBox(
+            height: 20,
+          ),
           Container(
             padding: EdgeInsets.all(10.0),
             child: Text(
@@ -985,8 +1042,12 @@ class _GetPassFormState extends State<GetPassForm> {
               style: TextStyle(
                 fontFamily: 'HDharmony',
                 fontSize: 12,
+                color: const Color(0x4FF7F7F7F),
               ),
             ),
+          ),
+          SizedBox(
+            height: 20,
           ),
           Divider(
             height: 10,
