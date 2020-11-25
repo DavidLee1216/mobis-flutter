@@ -111,163 +111,184 @@ class MyPageWidget extends StatelessWidget {
     return BlocBuilder<AuthBloc, AuthState>(
         cubit: BlocProvider.of<AuthBloc>(context),
         builder: (BuildContext context, state) {
-          return Column(
-            children: [
-              SizedBox(
-                height: 30,
-              ),
-              state.isAuthenticated()
-                  ? greetingAuthentcated('양**')
-                  : greetingUnauthenticated,
-              SizedBox(
-                height: 20,
-              ),
-              state.isAuthenticated()
-                  ? Container()
-                  : Column(children: [
-                      loginButton,
-                      SizedBox(
-                        height: 20,
-                      ),
-                    ]),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+          return Expanded(
+            child: Container(
+              color: Colors.white,
+              child: Column(
                 children: [
-                  Container(
-                    width: screenWidth * 0.9,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: Colors.white,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey,
-                            offset: Offset(1.0, 3.0),
-                            blurRadius: 8.0,
-                            spreadRadius: 1.0,
-                          )
-                        ]),
-                    child: Column(
-                      children: [
-                        if (state.isAuthenticated())
-                          Column(
-                            children: [
-                              Container(
-                                height: 50,
-                                child: ListTile(
-                                  title: Text(
-                                    'My info (차량 정보 등 고객 정보 수정)',
-                                    style: TextStyle(
-                                        fontFamily: 'HDharmony', fontSize: 14),
-                                  ),
-                                  trailing: Icon(
-                                    Icons.keyboard_arrow_right,
-                                    color: Colors.black,
-                                  ),
-                                  onTap: () {
-                                    pushTo(context, MyInfoScreen());
-                                  },
-                                ),
-                              ),
-                              Divider(
-                                color: Colors.black54,
-                              ),
-                            ],
-                          ),
-                        Container(
-                          height: 50,
-                          child: ListTile(
-                            title: Text(
-                              '문의하기',
-                              style: TextStyle(
-                                fontFamily: 'HDharmony',
-                                fontSize: 16,
-                              ),
-                            ),
-
-                            trailing: Padding(
-                              padding: EdgeInsets.all(14),
-                              child: Image.asset('images/arrow.png'),
-                            ),
-
-                            onTap: () {
-                              queryModal.mainModalBottomSheet(context);
-                            }, //askDialog(),
-                          ),
-                        ),
-                        Divider(
-                          color: Colors.black54,
-                        ),
-                        if (state.isAuthenticated())
-                          Column(
-                            children: [
-                              Container(
-                                height: 50,
-                                child: ListTile(
-                                  title: Text(
-                                    'My 쿠폰',
-                                    style: TextStyle(
-                                        fontFamily: 'HDharmony', fontSize: 14),
-                                  ),
-                                  trailing: Icon(
-                                    Icons.keyboard_arrow_right,
-                                    color: Colors.black,
-                                  ),
-                                  onTap: () {
-                                    pushTo(context, MyCouponScreen());
-                                  },
-                                ),
-                              ),
-                              Divider(
-                                color: Colors.black54,
-                              ),
-                            ],
-                          ),
-                        Container(
-                          height: 50,
-                          child: ListTile(
-                            title: Text(
-                              '알림',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontFamily: 'HDharmony', fontSize: 16),
-                            ),
-                            trailing: Padding(
-                              padding: EdgeInsets.all(14),
-                              child: Image.asset('images/arrow.png'),
-                            ),
-                            onTap: () {
-                              pushTo(context, NotificationScreen());
-                            },
-                          ),
-                        ),
-                      ],
-                    ),
+                  SizedBox(
+                    height: 50,
                   ),
+                  state.isAuthenticated()
+                      ? greetingAuthentcated('양**')
+                      : greetingUnauthenticated,
+                  SizedBox(
+                    height: 50,
+                  ),
+                  state.isAuthenticated()
+                      ? Container()
+                      : Column(children: [
+                          loginButton,
+                          SizedBox(
+                            height: 20,
+                          ),
+                        ]),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: screenWidth * 0.9,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: Colors.white,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.grey,
+                                offset: Offset(1.0, 3.0),
+                                blurRadius: 8.0,
+                                spreadRadius: 1.0,
+                              )
+                            ]),
+                        child: Column(
+                          children: [
+                            if (state.isAuthenticated())
+                              Column(
+                                children: [
+                                  Container(
+                                    height: 50,
+                                    child: ListTile(
+                                      title: Text(
+                                        'My info (차량 정보 등 고객 정보 수정)',
+                                        style: TextStyle(
+                                            fontFamily: 'HDharmony',
+                                            fontSize: 14),
+                                      ),
+                                      trailing: Icon(
+                                        Icons.keyboard_arrow_right,
+                                        color: Colors.black,
+                                      ),
+                                      onTap: () {
+                                        pushTo(context, MyInfoScreen());
+                                      },
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Divider(
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            Container(
+                              height: 50,
+                              child: ListTile(
+                                title: Text(
+                                  '문의하기',
+                                  style: TextStyle(
+                                    fontFamily: 'HDharmony',
+                                    fontSize: 16,
+                                  ),
+                                ),
+
+                                trailing: Padding(
+                                  padding: EdgeInsets.all(14),
+                                  child: Image.asset('images/arrow.png'),
+                                ),
+
+                                onTap: () {
+                                  queryModal.mainModalBottomSheet(context);
+                                }, //askDialog(),
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 10),
+                              child: Divider(
+                                color: Colors.black54,
+                              ),
+                            ),
+                            if (state.isAuthenticated())
+                              Column(
+                                children: [
+                                  Container(
+                                    height: 50,
+                                    child: ListTile(
+                                      title: Text(
+                                        'My 쿠폰',
+                                        style: TextStyle(
+                                            fontFamily: 'HDharmony',
+                                            fontSize: 14),
+                                      ),
+                                      trailing: Icon(
+                                        Icons.keyboard_arrow_right,
+                                        color: Colors.black,
+                                      ),
+                                      onTap: () {
+                                        pushTo(context, MyCouponScreen());
+                                      },
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 10),
+                                    child: Divider(
+                                      color: Colors.black54,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            Container(
+                              height: 50,
+                              margin: const EdgeInsets.only(bottom: 10),
+                              child: ListTile(
+                                title: Text(
+                                  '알림',
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(
+                                      fontFamily: 'HDharmony', fontSize: 16),
+                                ),
+                                trailing: Padding(
+                                  padding: EdgeInsets.all(14),
+                                  child: Image.asset('images/arrow.png'),
+                                ),
+                                onTap: () {
+                                  pushTo(context, NotificationScreen());
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (state.isAuthenticated())
+                    Container(
+                      width: screenWidth * 0.9,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              width: 20,
+                            ),
+                          ),
+                          FlatButton(
+                            child: Text(
+                              '로그아웃',
+                              style: TextStyle(
+                                  fontFamily: 'HDharmony',
+                                  fontSize: 14,
+                                  color: Colors.black54),
+                            ),
+                            onPressed: () {},
+                          ),
+                        ],
+                      ),
+                    )
                 ],
               ),
-              Container(
-                width: screenWidth * 0.9,
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: SizedBox(
-                        width: 20,
-                      ),
-                    ),
-                    FlatButton(
-                      child: Text(
-                        '로그아웃',
-                        style: TextStyle(
-                            fontFamily: 'HDharmony',
-                            fontSize: 14,
-                            color: Colors.black54),
-                      ),
-                      onPressed: () {},
-                    ),
-                  ],
-                ),
-              )
-            ],
+            ),
           );
         });
   }
