@@ -6,6 +6,7 @@ import 'package:mobispartsearch/ui/screen/my_coupon_screen.dart';
 import 'package:mobispartsearch/ui/screen/my_info_screen.dart';
 import 'package:mobispartsearch/ui/screen/notification_screen.dart';
 import 'package:mobispartsearch/ui/screen/my_page_query_screen.dart';
+import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
 
 class MyPageScreen extends StatefulWidget {
@@ -90,24 +91,6 @@ class MyPageWidget extends StatelessWidget {
       );
     }
 
-//    askDialog() {
-//      showDialog(context: context, builder: (_){
-//        return Container(
-//          child: Column(
-//            children: [
-//              ListTile(
-//                title: Text('앱 관련 문의하기', style: TextStyle(fontFamily: 'HDharmony', fontSize: 16,),),
-//              ),
-//              Divider(color: Colors.black26,),
-//              ListTile(
-//                title: Text('그 외 사항 문의하기', style: TextStyle(fontFamily: 'HDharmony', fontSize: 16,),),
-//              )
-//            ],
-//          ),
-//        );
-//      });
-//    }
-
     return BlocBuilder<AuthBloc, AuthState>(
         cubit: BlocProvider.of<AuthBloc>(context),
         builder: (BuildContext context, state) {
@@ -117,7 +100,7 @@ class MyPageWidget extends StatelessWidget {
                 height: 30,
               ),
               state.isAuthenticated()
-                  ? greetingAuthentcated('양**')
+                  ? greetingAuthentcated(state.id)
                   : greetingUnauthenticated,
               SizedBox(
                 height: 20,
@@ -213,7 +196,14 @@ class MyPageWidget extends StatelessWidget {
                                     color: Colors.black,
                                   ),
                                   onTap: () {
-                                    pushTo(context, MyCouponScreen());
+                                    Navigator.push(
+                                      context,
+                                      PageRouteBuilder(
+                                        pageBuilder: (_, __, ___) => NavigationBar(
+                                          index: 8,
+                                        ),
+                                      ),
+                                    );
                                   },
                                 ),
                               ),
