@@ -60,6 +60,7 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
                     value,
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 14,
                     ),
                   ),
@@ -88,6 +89,7 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
               ),
               keyboardType: TextInputType.number,
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 14.0,
               ),
               textAlign: TextAlign.left,
@@ -110,6 +112,7 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
               ),
               keyboardType: TextInputType.number,
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 14.0,
               ),
               textAlign: TextAlign.left,
@@ -129,7 +132,10 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
             padding: EdgeInsets.only(left: 20),
             child: Text(
               '주문 상품(1개)',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(
@@ -139,7 +145,7 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
             padding: EdgeInsets.only(left: 10),
             child: Text(
               '${widget.productName} / ${widget.count}개',
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
             ),
           ),
           SizedBox(
@@ -150,6 +156,7 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
             child: Text(
               '${widget.companyMark} | 택배로 받기',
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 14,
               ),
             ),
@@ -166,7 +173,10 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
               padding: EdgeInsets.only(top: 10),
               child: Text(
                 '휴대폰 번호',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontFamily: 'HDharmony',
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold),
               )),
           SizedBox(
             height: 10,
@@ -191,14 +201,20 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
           children: [
             Text(
               '배송지 정보',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
             ),
             SizedBox(
               height: 20,
             ),
             Text(
               '주소',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
             ),
             SizedBox(
               height: 10,
@@ -219,6 +235,7 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
                       ),
                       controller: addressController,
                       style: TextStyle(
+                        fontFamily: 'HDharmony',
                         fontSize: 14,
                       ),
                       keyboardType: TextInputType.text,
@@ -244,6 +261,7 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
                     child: Text('우편번호 검색',
                         textAlign: TextAlign.center,
                         style: TextStyle(
+                          fontFamily: 'HDharmony',
                           color: kPrimaryColor,
                         )),
                     onPressed: () {},
@@ -265,7 +283,7 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
                   contentPadding: EdgeInsets.only(left: 10),
                 ),
                 controller: addressController2,
-                style: TextStyle(fontSize: 14),
+                style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
                 keyboardType: TextInputType.text,
               ),
             ),
@@ -284,7 +302,7 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
                   contentPadding: EdgeInsets.only(left: 10),
                 ),
                 controller: addressController3,
-                style: TextStyle(fontSize: 14),
+                style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
                 keyboardType: TextInputType.text,
               ),
             ),
@@ -293,7 +311,10 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
             ),
             Text(
               '수령인',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
             ),
             SizedBox(
               height: 10,
@@ -310,6 +331,7 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
                 ),
                 controller: buyerController,
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 14,
                 ),
                 keyboardType: TextInputType.text,
@@ -332,7 +354,8 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
             child: RaisedButton(
               child: Text(
                 '구매요청',
-                style: TextStyle(fontSize: 12, color: Colors.white),
+                style: TextStyle(
+                    fontFamily: 'HDharmony', fontSize: 12, color: Colors.white),
                 textAlign: TextAlign.center,
               ),
               onPressed: () {

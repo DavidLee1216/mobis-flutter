@@ -59,6 +59,7 @@ class MyPageWidget extends StatelessWidget {
           child: Text('로그인',
               textAlign: TextAlign.center,
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 color: Colors.white,
                 fontSize: 18,
               )),
@@ -72,6 +73,7 @@ class MyPageWidget extends StatelessWidget {
     var greetingUnauthenticated = Text(
       '안녕하세요, 고객님.',
       style: TextStyle(
+        fontFamily: 'HDharmony',
         fontSize: 16,
       ),
       textAlign: TextAlign.center,
@@ -81,6 +83,7 @@ class MyPageWidget extends StatelessWidget {
       return Text(
         '안녕하세요, $name고객님.',
         style: TextStyle(
+          fontFamily: 'HDharmony',
           fontSize: 14,
         ),
         textAlign: TextAlign.center,
@@ -93,11 +96,11 @@ class MyPageWidget extends StatelessWidget {
 //          child: Column(
 //            children: [
 //              ListTile(
-//                title: Text('앱 관련 문의하기', style: TextStyle(fontSize: 16,),),
+//                title: Text('앱 관련 문의하기', style: TextStyle(fontFamily: 'HDharmony', fontSize: 16,),),
 //              ),
 //              Divider(color: Colors.black26,),
 //              ListTile(
-//                title: Text('그 외 사항 문의하기', style: TextStyle(fontSize: 16,),),
+//                title: Text('그 외 사항 문의하기', style: TextStyle(fontFamily: 'HDharmony', fontSize: 16,),),
 //              )
 //            ],
 //          ),
@@ -153,7 +156,8 @@ class MyPageWidget extends StatelessWidget {
                                 child: ListTile(
                                   title: Text(
                                     'My info (차량 정보 등 고객 정보 수정)',
-                                    style: TextStyle(fontSize: 14),
+                                    style: TextStyle(
+                                        fontFamily: 'HDharmony', fontSize: 14),
                                   ),
                                   trailing: Icon(
                                     Icons.keyboard_arrow_right,
@@ -175,6 +179,7 @@ class MyPageWidget extends StatelessWidget {
                             title: Text(
                               '문의하기',
                               style: TextStyle(
+                                fontFamily: 'HDharmony',
                                 fontSize: 16,
                               ),
                             ),
@@ -200,7 +205,8 @@ class MyPageWidget extends StatelessWidget {
                                 child: ListTile(
                                   title: Text(
                                     'My 쿠폰',
-                                    style: TextStyle(fontSize: 14),
+                                    style: TextStyle(
+                                        fontFamily: 'HDharmony', fontSize: 14),
                                   ),
                                   trailing: Icon(
                                     Icons.keyboard_arrow_right,
@@ -222,7 +228,8 @@ class MyPageWidget extends StatelessWidget {
                             title: Text(
                               '알림',
                               textAlign: TextAlign.left,
-                              style: TextStyle(fontSize: 16),
+                              style: TextStyle(
+                                  fontFamily: 'HDharmony', fontSize: 16),
                             ),
                             trailing: Padding(
                               padding: EdgeInsets.all(14),
@@ -250,7 +257,10 @@ class MyPageWidget extends StatelessWidget {
                     FlatButton(
                       child: Text(
                         '로그아웃',
-                        style: TextStyle(fontSize: 14, color: Colors.black54),
+                        style: TextStyle(
+                            fontFamily: 'HDharmony',
+                            fontSize: 14,
+                            color: Colors.black54),
                       ),
                       onPressed: () {},
                     ),

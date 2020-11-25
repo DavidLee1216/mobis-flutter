@@ -52,6 +52,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
           keyboardType: TextInputType.text,
           validator: (value) => value.isEmpty ? "아이디를 입력하세요." : null,
           style: TextStyle(
+            fontFamily: 'HDharmony',
             fontSize: 16.0,
           ),
           controller: _idController,
@@ -74,7 +75,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
         ),
         obscureText: true,
         validator: (value) => value.isEmpty ? "비밀번호를 입력하세요." : null,
-        style: TextStyle(fontSize: 16.0),
+        style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
         controller: _passwordController,
       ),
     );
@@ -116,7 +117,8 @@ class _IdLoginFormState extends State<IdLoginForm> {
         color: Color.fromRGBO(0, 63, 114, 1),
         child: Text(
           '로그인 하기',
-          style: TextStyle(fontSize: 18, color: Colors.white),
+          style: TextStyle(
+              fontFamily: 'HDharmony', fontSize: 18, color: Colors.white),
         ),
         onPressed: onLoginButtonPressed,
       ),
@@ -132,6 +134,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
               '회원가입',
               textAlign: TextAlign.right,
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 16,
                 color: Color.fromRGBO(7, 75, 136, 1),
               ),
@@ -144,7 +147,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
 //      padding: EdgeInsets.all(32.0),
 //      child: Text(
 //        widget.errorMsg,
-//        style: TextStyle(color: Colors.red),
+//        style: TextStyle(fontFamily: 'HDharmony', color: Colors.red),
 //      ),
 //    )
 //        : Container();

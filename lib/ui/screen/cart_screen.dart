@@ -64,7 +64,10 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                 ),
                 Text(
                   '전체 선택',
-                  style: TextStyle(fontSize: 14, color: Colors.black),
+                  style: TextStyle(
+                      fontFamily: 'HDharmony',
+                      fontSize: 14,
+                      color: Colors.black),
                 ),
               ])),
           Expanded(
@@ -88,7 +91,10 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
                   ),
                   Text(
                     '선택 상품 삭제',
-                    style: TextStyle(fontSize: 12, color: kPrimaryColor),
+                    style: TextStyle(
+                        fontFamily: 'HDharmony',
+                        fontSize: 12,
+                        color: kPrimaryColor),
                   ),
                 ],
               ),
@@ -108,7 +114,7 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
           children: [
             Text(
               '총 주문 금액',
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontFamily: 'HDharmony', fontSize: 16),
             ),
             Expanded(
               child: SizedBox(
@@ -117,7 +123,10 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
             ),
             Text(
               '$price',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
             ),
           ],
         ),
@@ -134,7 +143,8 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
             child: RaisedButton(
               child: Text(
                 '구매요청',
-                style: TextStyle(fontSize: 12, color: Colors.white),
+                style: TextStyle(
+                    fontFamily: 'HDharmony', fontSize: 12, color: Colors.white),
                 textAlign: TextAlign.center,
               ),
               onPressed: () {
@@ -159,7 +169,8 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
               padding: EdgeInsets.all(20.0),
               child: Text(
                 '부품 구매는 방문 수령/택배를 이용할 수 있으며,\n 택배 수령시 택배비가 추가로 청구될 수 있으니\n판매점에 문의바랍니다.',
-                style: TextStyle(fontSize: 14, color: Colors.black),
+                style: TextStyle(
+                    fontFamily: 'HDharmony', fontSize: 14, color: Colors.black),
                 textAlign: TextAlign.center,
               ),
             ),

@@ -27,11 +27,17 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
                       children: [
                         Text(
                           state.keyword,
-                          style: TextStyle(fontSize: 14, color: kPrimaryColor),
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              fontSize: 14,
+                              color: kPrimaryColor),
                         ),
                         Text(
                           "에 대한 검색 결과(총 11건)",
-                          style: TextStyle(fontSize: 14, color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              fontSize: 14,
+                              color: Colors.black),
                         ),
                       ],
                     ),
@@ -92,7 +98,10 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
                         Image.asset('images/reference.png'),
                         Text(
                           '부품 번호를 선택하시면 판매점을 조회하실 수 있습니다.',
-                          style: TextStyle(color: Colors.black, fontSize: 12),
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              color: Colors.black,
+                              fontSize: 12),
                         ),
                       ],
                     ),
@@ -117,6 +126,7 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
                                   child: new Text(
                                       state.pageModel.pages[index].toString(),
                                       style: new TextStyle(
+                                          fontFamily: 'HDharmony',
                                           color: state.pageModel.pages[index] ==
                                                   state.pageModel.curPage
                                               ? Colors.white
@@ -161,7 +171,7 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
 //                          height: 20,
 //                          padding: EdgeInsets.zero,
 //                          child: OutlineButton(
-//                            child: Text('1', style: TextStyle(
+//                            child: Text('1', style: TextStyle(fontFamily: 'HDharmony',
 //                                fontSize: 8, color: Colors.black),
 //                              textAlign: TextAlign.left,),
 //                            onPressed: () {},
@@ -173,7 +183,7 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
 //                          height: 20,
 //                          padding: EdgeInsets.zero,
 //                          child: OutlineButton(
-//                            child: Text('2', style: TextStyle(
+//                            child: Text('2', style: TextStyle(fontFamily: 'HDharmony',
 //                                fontSize: 8, color: Colors.black),
 //                              textAlign: TextAlign.left,),
 //                            onPressed: () {},
@@ -231,7 +241,10 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                       child: Center(
                         child: Text(
                           '부품 번호',
-                          style: TextStyle(fontSize: 12, color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              fontSize: 12,
+                              color: Colors.black),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -243,7 +256,10 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                       child: Center(
                         child: Text(
                           widget.partNumber,
-                          style: TextStyle(fontSize: 12, color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              fontSize: 12,
+                              color: Colors.black),
                           textAlign: TextAlign.left,
                         ),
                       ),
@@ -257,7 +273,10 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                       child: Center(
                         child: Text(
                           '한글 부품명',
-                          style: TextStyle(fontSize: 12, color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              fontSize: 12,
+                              color: Colors.black),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -269,7 +288,10 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                       child: Center(
                         child: Text(
                           widget.koreanPartName,
-                          style: TextStyle(fontSize: 12, color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              fontSize: 12,
+                              color: Colors.black),
                           textAlign: TextAlign.left,
                         ),
                       ),
@@ -283,7 +305,10 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                       child: Center(
                         child: Text(
                           '영어 부품명',
-                          style: TextStyle(fontSize: 12, color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              fontSize: 12,
+                              color: Colors.black),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -295,7 +320,10 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                       child: Center(
                         child: Text(
                           widget.englishParName,
-                          style: TextStyle(fontSize: 12, color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              fontSize: 12,
+                              color: Colors.black),
                           textAlign: TextAlign.left,
                         ),
                       ),
@@ -309,7 +337,10 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                       child: Center(
                         child: Text(
                           '가격(부가세포함)',
-                          style: TextStyle(fontSize: 12, color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              fontSize: 12,
+                              color: Colors.black),
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -321,7 +352,10 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                       child: Center(
                         child: Text(
                           widget.price,
-                          style: TextStyle(fontSize: 12, color: Colors.black),
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              fontSize: 12,
+                              color: Colors.black),
                           textAlign: TextAlign.left,
                         ),
                       ),
