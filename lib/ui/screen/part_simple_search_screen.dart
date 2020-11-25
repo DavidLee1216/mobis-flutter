@@ -247,7 +247,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
     var modelItem = Container(
         padding: EdgeInsets.all(10.0),
         child: Container(
-          height: 30,
+          height: 40,
           child: Row(
             children: [
               Padding(
@@ -268,7 +268,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
     var partName = Container(
         padding: EdgeInsets.all(10.0),
         child: Container(
-          height: 30,
+          height: 40,
           child: Row(
             children: [
               Padding(
@@ -300,7 +300,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
     var partNumber = Container(
         padding: EdgeInsets.all(10.0),
         child: Container(
-          height: 30,
+          height: 40,
           child: Row(
             children: [
               Padding(
@@ -364,14 +364,18 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
       child: Column(
         children: [
           cardKindItem,
-          Divider(
-            height: 2,
-            color: Colors.black54,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 9),
+            child: Divider(
+              color: Colors.black54,
+            ),
           ),
           modelItem,
-          Divider(
-            height: 2,
-            color: Colors.black54,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 9),
+            child: Divider(
+              color: Colors.black54,
+            ),
           ),
           partName,
         ],
@@ -391,7 +395,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
               children: [
                 ButtonTheme(
                   minWidth: MediaQuery.of(context).size.width / 2,
-                  height: 40,
+                  height: 50,
                   buttonColor: Colors.white,
                   child: RaisedButton(
                     child: !searchType
@@ -399,7 +403,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                             '일반검색',
                             style: TextStyle(
                               fontFamily: 'HDharmony',
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.bold,
                               fontSize: 15,
                               color: Color.fromRGBO(0, 63, 114, 1),
                             ),
@@ -421,7 +425,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 ),
                 ButtonTheme(
                   minWidth: MediaQuery.of(context).size.width / 2,
-                  height: 40,
+                  height: 50,
                   buttonColor: Colors.white,
                   child: RaisedButton(
                     child: searchType
@@ -431,7 +435,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                               fontFamily: 'HDharmony',
                               fontSize: 15,
                               color: Color.fromRGBO(0, 63, 114, 1),
-                              fontWeight: FontWeight.w700,
+                              fontWeight: FontWeight.bold,
                             ),
                           )
                         : Text(

@@ -69,7 +69,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
       child: DropdownButton<String>(
         value: dropdownValue,
         icon: Icon(Icons.keyboard_arrow_down),
-        iconSize: 14,
+        iconSize: 16,
         onChanged: (String newValue) {
           setState(() {
             dropdownValue = newValue;

@@ -21,6 +21,7 @@ class _NoticeFormState extends State<NoticeForm> {
             title: Text(widget.title,
                 style: TextStyle(
                     fontFamily: 'HDharmony',
+                    fontWeight: FontWeight.bold,
                     fontSize: 14,
                     color: Colors.black)),
             subtitle: Padding(
