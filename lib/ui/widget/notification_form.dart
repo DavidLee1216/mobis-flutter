@@ -69,6 +69,7 @@ class _NotificationFormState extends State<NotificationForm> {
             style: TextStyle(
                 fontFamily: 'HDharmony',
                 fontSize: 14,
+                color: const Color(0xFF074B88),
                 fontWeight: FontWeight.bold),
           ),
           SizedBox(
