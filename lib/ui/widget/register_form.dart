@@ -102,7 +102,7 @@ class _RegisterFormState extends State<RegisterForm> {
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.text,
-      style: TextStyle(fontSize: 16.0),
+      style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       validator: (value) => value.isEmpty ? "아이디를 입력하세요." : null,
       controller: _idController,
     );
@@ -116,7 +116,7 @@ class _RegisterFormState extends State<RegisterForm> {
         contentPadding: EdgeInsets.only(left: 10),
       ),
       obscureText: true,
-      style: TextStyle(fontSize: 16.0),
+      style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       validator: (value) => value.isEmpty ? "암호를 입력하세요." : null,
       controller: _passwordController,
     );
@@ -130,7 +130,7 @@ class _RegisterFormState extends State<RegisterForm> {
         contentPadding: EdgeInsets.only(left: 10),
       ),
       obscureText: true,
-      style: TextStyle(fontSize: 16.0),
+      style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       validator: (value) => value.isEmpty ? "암호를 다시 입력하세요." : null,
       controller: _repasswordController,
     );
@@ -148,6 +148,7 @@ class _RegisterFormState extends State<RegisterForm> {
         child: Text('중복확인',
             textAlign: TextAlign.center,
             style: TextStyle(
+              fontFamily: 'HDharmony',
               color: kPrimaryColor,
             )),
         onPressed: () {
@@ -167,7 +168,7 @@ class _RegisterFormState extends State<RegisterForm> {
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.emailAddress,
-      style: TextStyle(fontSize: 16.0),
+      style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       validator: (value) => value.isEmpty ? "이메일을 입력하세요." : null,
       controller: _emailController,
     );
@@ -185,6 +186,7 @@ class _RegisterFormState extends State<RegisterForm> {
         child: Text('중복확인',
             textAlign: TextAlign.center,
             style: TextStyle(
+              fontFamily: 'HDharmony',
               color: kPrimaryColor,
             )),
         onPressed: () {
@@ -204,7 +206,7 @@ class _RegisterFormState extends State<RegisterForm> {
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.text,
-      style: TextStyle(fontSize: 16.0),
+      style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       validator: (value) => value.isEmpty ? "이름을 입력하세요." : null,
       controller: _nameController,
     );
@@ -242,7 +244,7 @@ class _RegisterFormState extends State<RegisterForm> {
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.datetime,
-      style: TextStyle(fontSize: 16.0),
+      style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       validator: (value) => value.isEmpty ? "생일을 입력하세요." : null,
       controller: _birthdayController,
       onTap: () => _selectedDate(context),
@@ -251,7 +253,8 @@ class _RegisterFormState extends State<RegisterForm> {
     var maleRadio = ListTile(
       title: const Text(
         '남자',
-        style: TextStyle(fontSize: 16, color: Colors.black),
+        style: TextStyle(
+            fontFamily: 'HDharmony', fontSize: 16, color: Colors.black),
       ),
       leading: Radio(
         value: Gender.male,
@@ -268,7 +271,8 @@ class _RegisterFormState extends State<RegisterForm> {
     var femaleRadio = ListTile(
       title: const Text(
         '여자',
-        style: TextStyle(fontSize: 16, color: Colors.black),
+        style: TextStyle(
+            fontFamily: 'HDharmony', fontSize: 16, color: Colors.black),
       ),
       leading: Radio(
         value: Gender.female,
@@ -291,7 +295,7 @@ class _RegisterFormState extends State<RegisterForm> {
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.number,
-      style: TextStyle(fontSize: 16.0),
+      style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       validator: (value) => value.isEmpty ? "휴대폰 번호를 입력하세요." : null,
       controller: _phoneNumberController,
     );
@@ -311,6 +315,7 @@ class _RegisterFormState extends State<RegisterForm> {
           '인증번호 받기',
           textAlign: TextAlign.center,
           style: TextStyle(
+            fontFamily: 'HDharmony',
             color: kPrimaryColor,
           ),
         ),
@@ -329,7 +334,7 @@ class _RegisterFormState extends State<RegisterForm> {
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.text,
-      style: TextStyle(fontSize: 16.0),
+      style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       controller: _authNumberVerifyController,
     );
 
@@ -347,6 +352,7 @@ class _RegisterFormState extends State<RegisterForm> {
         child: Text('인증번호 확인',
             textAlign: TextAlign.center,
             style: TextStyle(
+              fontFamily: 'HDharmony',
               color: kPrimaryColor,
             )),
         onPressed: () {
@@ -365,7 +371,7 @@ class _RegisterFormState extends State<RegisterForm> {
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.text,
-      style: TextStyle(fontSize: 16.0),
+      style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       controller: _address1Controller,
     );
 
@@ -378,7 +384,7 @@ class _RegisterFormState extends State<RegisterForm> {
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.text,
-      style: TextStyle(fontSize: 16.0),
+      style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       controller: _address2Controller,
     );
 
@@ -391,7 +397,7 @@ class _RegisterFormState extends State<RegisterForm> {
           contentPadding: EdgeInsets.only(left: 10),
           hintText: '상세주소'),
       keyboardType: TextInputType.text,
-      style: TextStyle(fontSize: 16.0),
+      style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       controller: _address3Controller,
     );
 
@@ -409,6 +415,7 @@ class _RegisterFormState extends State<RegisterForm> {
         child: Text('우편번호 검색',
             textAlign: TextAlign.center,
             style: TextStyle(
+              fontFamily: 'HDharmony',
               color: kPrimaryColor,
             )),
         onPressed: () {},
@@ -424,7 +431,7 @@ class _RegisterFormState extends State<RegisterForm> {
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.text,
-      style: TextStyle(fontSize: 16.0),
+      style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       controller: _carNumber1Controller,
     );
 
@@ -437,7 +444,7 @@ class _RegisterFormState extends State<RegisterForm> {
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.text,
-      style: TextStyle(fontSize: 16.0),
+      style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       controller: _carNumber2Controller,
     );
 
@@ -450,6 +457,7 @@ class _RegisterFormState extends State<RegisterForm> {
           '가입하기',
           textAlign: TextAlign.center,
           style: TextStyle(
+            fontFamily: 'HDharmony',
             color: Colors.white,
             fontSize: 18,
           ),
@@ -486,6 +494,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: Text(
                 '아이디',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 16,
                 ),
               ),
@@ -520,6 +529,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: Text(
                 '비밀번호',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 16,
                 ),
               ),
@@ -544,6 +554,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: Text(
                 '비밀번호 확인',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 16,
                 ),
               ),
@@ -568,6 +579,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: Text(
                 '이메일',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 16,
                 ),
               ),
@@ -600,6 +612,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: Text(
                 '이름',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 16,
                 ),
               ),
@@ -624,6 +637,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: Text(
                 '생년월일',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 16,
                 ),
               ),
@@ -648,6 +662,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: Text(
                 '성별',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 16,
                 ),
               ),
@@ -671,6 +686,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: Text(
                 '휴대폰',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 16,
                 ),
               ),
@@ -728,7 +744,10 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                   Text(
                     '공백 특수기호 없이 특수문자만 입력하세요',
-                    style: TextStyle(color: kPrimaryColor, fontSize: 12),
+                    style: TextStyle(
+                        fontFamily: 'HDharmony',
+                        color: kPrimaryColor,
+                        fontSize: 12),
                   ),
                 ],
               ),
@@ -743,6 +762,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: Text(
                 '주소',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 16,
                 ),
               ),
@@ -797,6 +817,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: Text(
                 '차량번호(옵션)',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 16,
                 ),
               ),
@@ -821,6 +842,7 @@ class _RegisterFormState extends State<RegisterForm> {
               child: Text(
                 '차대번호(옵션)',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 16,
                 ),
               ),

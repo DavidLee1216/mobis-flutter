@@ -38,7 +38,8 @@ class _GetPassFormState extends State<GetPassForm> {
         ),
         child: Text(
           number.toString(),
-          style: TextStyle(fontSize: 14, color: Colors.white),
+          style: TextStyle(
+              fontFamily: 'HDharmony', fontSize: 14, color: Colors.white),
           textAlign: TextAlign.center,
         ),
       );
@@ -60,6 +61,7 @@ class _GetPassFormState extends State<GetPassForm> {
               Text(
                 '이메일 또는 비밀번호',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 14,
                 ),
               ),
@@ -91,7 +93,8 @@ class _GetPassFormState extends State<GetPassForm> {
                         Container(
                             child: Text(
                           '* 이메일 아이디를 찾으시려면 아래 버튼을 선택하세요.',
-                          style: TextStyle(fontSize: 12),
+                          style:
+                              TextStyle(fontFamily: 'HDharmony', fontSize: 12),
                         )),
                         OutlineButton(
                           borderSide: BorderSide(
@@ -99,7 +102,8 @@ class _GetPassFormState extends State<GetPassForm> {
                           ),
                           child: Text(
                             '이메일 찾기',
-                            style: TextStyle(fontSize: 14),
+                            style: TextStyle(
+                                fontFamily: 'HDharmony', fontSize: 14),
                           ),
                           onPressed: () {
                             if (authStep == 1)
@@ -113,7 +117,8 @@ class _GetPassFormState extends State<GetPassForm> {
                         Container(
                             child: Text(
                           '* 비밀번호를 초기화하시려면 이메일 또는 모바일로 인증하세요.',
-                          style: TextStyle(fontSize: 12),
+                          style:
+                              TextStyle(fontFamily: 'HDharmony', fontSize: 12),
                         )),
                         Row(
                           children: [
@@ -123,7 +128,8 @@ class _GetPassFormState extends State<GetPassForm> {
                               ),
                               child: Text(
                                 '이메일 인증',
-                                style: TextStyle(fontSize: 14),
+                                style: TextStyle(
+                                    fontFamily: 'HDharmony', fontSize: 14),
                               ),
                               onPressed: () {
                                 if (authStep == 1)
@@ -143,7 +149,8 @@ class _GetPassFormState extends State<GetPassForm> {
                               ),
                               child: Text(
                                 '모바일 인증',
-                                style: TextStyle(fontSize: 14),
+                                style: TextStyle(
+                                    fontFamily: 'HDharmony', fontSize: 14),
                               ),
                               onPressed: () {
                                 if (authStep == 1) {
@@ -213,6 +220,7 @@ class _GetPassFormState extends State<GetPassForm> {
                     value.toString(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 14,
                     ),
                   ),
@@ -258,6 +266,7 @@ class _GetPassFormState extends State<GetPassForm> {
                     value.toString(),
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 14,
                     ),
                   ),
@@ -318,6 +327,7 @@ class _GetPassFormState extends State<GetPassForm> {
                       value.toString(),
                       textAlign: TextAlign.center,
                       style: TextStyle(
+                        fontFamily: 'HDharmony',
                         fontSize: 14,
                       ),
                     ),
@@ -356,6 +366,7 @@ class _GetPassFormState extends State<GetPassForm> {
                     value,
                     textAlign: TextAlign.center,
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 14,
                     ),
                   ),
@@ -381,6 +392,7 @@ class _GetPassFormState extends State<GetPassForm> {
         ),
         keyboardType: TextInputType.text,
         style: TextStyle(
+          fontFamily: 'HDharmony',
           fontSize: 14.0,
         ),
         textAlign: TextAlign.left,
@@ -396,7 +408,7 @@ class _GetPassFormState extends State<GetPassForm> {
               padding: EdgeInsets.only(top: 10),
               child: Text(
                 '* 휴대폰 번호',
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontFamily: 'HDharmony', fontSize: 12),
               )),
           SizedBox(
             height: 10,
@@ -419,7 +431,10 @@ class _GetPassFormState extends State<GetPassForm> {
                 ),
                 Text(
                   '공백 특수기호 없이 특수문자만 입력하세요',
-                  style: TextStyle(color: kPrimaryColor, fontSize: 12),
+                  style: TextStyle(
+                      fontFamily: 'HDharmony',
+                      color: kPrimaryColor,
+                      fontSize: 12),
                 ),
               ],
             ),
@@ -436,7 +451,7 @@ class _GetPassFormState extends State<GetPassForm> {
               padding: EdgeInsets.only(top: 10),
               child: Text(
                 '* 이메일',
-                style: TextStyle(fontSize: 12),
+                style: TextStyle(fontFamily: 'HDharmony', fontSize: 12),
               )),
           SizedBox(
             height: 10,
@@ -455,6 +470,7 @@ class _GetPassFormState extends State<GetPassForm> {
               ),
               keyboardType: TextInputType.text,
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 14.0,
               ),
               textAlign: TextAlign.left,
@@ -485,6 +501,7 @@ class _GetPassFormState extends State<GetPassForm> {
               Text(
                 '인증 요청',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 14,
                 ),
               ),
@@ -516,7 +533,8 @@ class _GetPassFormState extends State<GetPassForm> {
                         Container(
                             child: Text(
                           '* 생년월일',
-                          style: TextStyle(fontSize: 12),
+                          style:
+                              TextStyle(fontFamily: 'HDharmony', fontSize: 12),
                         )),
                         SizedBox(
                           height: 10,
@@ -542,7 +560,8 @@ class _GetPassFormState extends State<GetPassForm> {
                                 ),
                                 child: Text(
                                   '이전',
-                                  style: TextStyle(fontSize: 14),
+                                  style: TextStyle(
+                                      fontFamily: 'HDharmony', fontSize: 14),
                                 ),
                                 onPressed: () {
                                   if (authStep == 2) {
@@ -563,7 +582,9 @@ class _GetPassFormState extends State<GetPassForm> {
                                 child: Text(
                                   '발송하기',
                                   style: TextStyle(
-                                      fontSize: 14, color: Colors.white),
+                                      fontFamily: 'HDharmony',
+                                      fontSize: 14,
+                                      color: Colors.white),
                                 ),
                                 onPressed: () {
                                   if (authStep == 2) {
@@ -602,7 +623,7 @@ class _GetPassFormState extends State<GetPassForm> {
         Container(
             child: Text(
           '* 인증번호',
-          style: TextStyle(fontSize: 12),
+          style: TextStyle(fontFamily: 'HDharmony', fontSize: 12),
         )),
         SizedBox(
           height: 10,
@@ -620,7 +641,7 @@ class _GetPassFormState extends State<GetPassForm> {
               contentPadding: EdgeInsets.only(left: 10),
             ),
             keyboardType: TextInputType.number,
-            style: TextStyle(fontSize: 14.0),
+            style: TextStyle(fontFamily: 'HDharmony', fontSize: 14.0),
             controller: _authNumberController,
           ),
         ),
@@ -632,12 +653,14 @@ class _GetPassFormState extends State<GetPassForm> {
       children: [
         Text(
           '* 입력한 이메일로 이동하여 이메일 인증을 완료해주세요.',
-          style: TextStyle(fontSize: 12, color: Colors.black),
+          style: TextStyle(
+              fontFamily: 'HDharmony', fontSize: 12, color: Colors.black),
           textAlign: TextAlign.left,
         ),
         Text(
           '* 이메일 인증 완료 후에 아래 "인증" 버튼을 눌러주세요.',
-          style: TextStyle(fontSize: 12, color: Colors.black),
+          style: TextStyle(
+              fontFamily: 'HDharmony', fontSize: 12, color: Colors.black),
           textAlign: TextAlign.left,
         ),
       ],
@@ -659,6 +682,7 @@ class _GetPassFormState extends State<GetPassForm> {
               Text(
                 '인증 확인',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 14,
                 ),
               ),
@@ -701,7 +725,8 @@ class _GetPassFormState extends State<GetPassForm> {
                               ),
                               child: Text(
                                 '이전',
-                                style: TextStyle(fontSize: 14),
+                                style: TextStyle(
+                                    fontFamily: 'HDharmony', fontSize: 14),
                               ),
                               onPressed: () {
                                 if (authStep == 3)
@@ -721,7 +746,9 @@ class _GetPassFormState extends State<GetPassForm> {
                               child: Text(
                                 '인증',
                                 style: TextStyle(
-                                    fontSize: 14, color: Colors.white),
+                                    fontFamily: 'HDharmony',
+                                    fontSize: 14,
+                                    color: Colors.white),
                               ),
                               onPressed: () {
                                 if (authStep == 3) {
@@ -763,7 +790,7 @@ class _GetPassFormState extends State<GetPassForm> {
             contentPadding: EdgeInsets.only(left: 10),
           ),
           obscureText: true,
-          style: TextStyle(fontSize: 16.0),
+          style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
           controller: _passwordController,
         ));
     var repassField = Container(
@@ -777,7 +804,7 @@ class _GetPassFormState extends State<GetPassForm> {
             contentPadding: EdgeInsets.only(left: 10),
           ),
           obscureText: true,
-          style: TextStyle(fontSize: 16.0),
+          style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
           controller: _repasswordController,
         ));
 
@@ -798,7 +825,8 @@ class _GetPassFormState extends State<GetPassForm> {
             children: [
               Text(
                 '* 비밀번호를 입력하고 변경 버튼을 누르세요.',
-                style: TextStyle(fontSize: 12, color: Colors.black),
+                style: TextStyle(
+                    fontFamily: 'HDharmony', fontSize: 12, color: Colors.black),
                 textAlign: TextAlign.left,
               ),
               SizedBox(
@@ -822,7 +850,10 @@ class _GetPassFormState extends State<GetPassForm> {
                     Expanded(
                         child: Text(
                       '8~20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.',
-                      style: TextStyle(color: kPrimaryColor, fontSize: 12),
+                      style: TextStyle(
+                          fontFamily: 'HDharmony',
+                          color: kPrimaryColor,
+                          fontSize: 12),
                     )),
                   ],
                 ),
@@ -836,7 +867,10 @@ class _GetPassFormState extends State<GetPassForm> {
                   color: kPrimaryColor,
                   child: Text(
                     '변경하기',
-                    style: TextStyle(fontSize: 14, color: Colors.white),
+                    style: TextStyle(
+                        fontFamily: 'HDharmony',
+                        fontSize: 14,
+                        color: Colors.white),
                   ),
                   onPressed: () {
                     if (_passwordController.text != '' &&
@@ -869,7 +903,7 @@ class _GetPassFormState extends State<GetPassForm> {
             Container(
                 child: Text(
               '* 이메일 주소',
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(fontFamily: 'HDharmony', fontSize: 12),
             )),
             SizedBox(
               height: 10,
@@ -883,7 +917,10 @@ class _GetPassFormState extends State<GetPassForm> {
                 Container(
                   child: Text(
                     foundEmail,
-                    style: TextStyle(fontSize: 14, color: Colors.black),
+                    style: TextStyle(
+                        fontFamily: 'HDharmony',
+                        fontSize: 14,
+                        color: Colors.black),
                   ),
                 )
               ],
@@ -909,6 +946,7 @@ class _GetPassFormState extends State<GetPassForm> {
               Text(
                 '정보 확인 또는 변경',
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 14,
                 ),
               ),
@@ -942,7 +980,8 @@ class _GetPassFormState extends State<GetPassForm> {
         child: FlatButton(
           child: Text(
             '로그인 페이지로',
-            style: TextStyle(fontSize: 14, color: Colors.black),
+            style: TextStyle(
+                fontFamily: 'HDharmony', fontSize: 14, color: Colors.black),
           ),
           onPressed: () {
             Navigator.of(context).pushNamed('/login');
@@ -958,7 +997,7 @@ class _GetPassFormState extends State<GetPassForm> {
             padding: EdgeInsets.all(10.0),
             child: Text(
               '이메일 확인 및 비밀번호 초기화',
-              style: TextStyle(fontSize: 16),
+              style: TextStyle(fontFamily: 'HDharmony', fontSize: 16),
             ),
           ),
           Container(
@@ -966,6 +1005,7 @@ class _GetPassFormState extends State<GetPassForm> {
             child: Text(
               '이메일 아이디 찾기 또는 비밀번호 초기화를 진행합니다.',
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 12,
               ),
             ),

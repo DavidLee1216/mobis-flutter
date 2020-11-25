@@ -83,7 +83,10 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
             padding: const EdgeInsets.only(left: 20.0),
             child: Text(
               '제조사',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           SizedBox(
@@ -136,7 +139,10 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
             padding: const EdgeInsets.only(left: 20.0),
             child: Text(
               '차량 구분',
-              style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 14,
+                  fontWeight: FontWeight.bold),
             ),
           ),
           ButtonTheme(
@@ -226,6 +232,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                           item,
                           textAlign: TextAlign.center,
                           style: TextStyle(
+                            fontFamily: 'HDharmony',
                             fontSize: 14,
                           ),
                         ),
@@ -247,7 +254,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 padding: EdgeInsets.only(left: 10),
                 child: Text(
                   '모델',
-                  style: TextStyle(fontSize: 14),
+                  style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
                 ),
               ),
               SizedBox(
@@ -282,7 +289,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                     contentPadding: EdgeInsets.only(left: 10),
                   ),
                   keyboardType: TextInputType.text,
-                  style: TextStyle(fontSize: 14.0),
+                  style: TextStyle(fontFamily: 'HDharmony', fontSize: 14.0),
                   controller: partNameController,
                 ),
               )
@@ -313,7 +320,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                     contentPadding: EdgeInsets.only(left: 10),
                   ),
                   keyboardType: TextInputType.text,
-                  style: TextStyle(fontSize: 14.0),
+                  style: TextStyle(fontFamily: 'HDharmony', fontSize: 14.0),
                   controller: partNumberController,
                 ),
               )
@@ -332,6 +339,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
           child: Text(
             '검색',
             style: TextStyle(
+              fontFamily: 'HDharmony',
               fontSize: 18,
               color: Colors.white,
             ),
@@ -389,6 +397,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                         ? Text(
                             '일반검색',
                             style: TextStyle(
+                              fontFamily: 'HDharmony',
                               fontSize: 15,
                               color: Color.fromRGBO(0, 63, 114, 1),
                             ),
@@ -396,6 +405,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                         : Text(
                             '일반검색',
                             style: TextStyle(
+                              fontFamily: 'HDharmony',
                               fontSize: 15,
                               color: Colors.black,
                             ),
@@ -416,6 +426,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                         ? Text(
                             '일반검색',
                             style: TextStyle(
+                              fontFamily: 'HDharmony',
                               fontSize: 15,
                               color: Color.fromRGBO(0, 63, 114, 1),
                             ),
@@ -423,6 +434,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                         : Text(
                             '일반검색',
                             style: TextStyle(
+                              fontFamily: 'HDharmony',
                               fontSize: 15,
                               color: Colors.black,
                             ),
@@ -443,6 +455,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   Text(
                     '현대/기아 차량에 대한 기본적인 부품정보를 제공하고 있습니다.',
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 18,
                     ),
                     textAlign: TextAlign.left,
@@ -453,6 +466,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   Text(
                     '- 조회되는 부품 가격은 당사 직영점 기준 판매 가격이며, 부품대리점의 판매 가격과 상이할 수 있으니 참고 바랍니다.',
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 14,
                     ),
                     textAlign: TextAlign.left,
@@ -460,6 +474,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   Text(
                     '- 간단 검색으로 부품 식별이 어렵거나, 희망하는 차종 정보가 없을 경우 당사 고객센터(1588-7278)를 통해 정확한 정보를 확인하시기 바랍니다.',
                     style: TextStyle(
+                      fontFamily: 'HDharmony',
                       fontSize: 14,
                     ),
                     textAlign: TextAlign.left,
