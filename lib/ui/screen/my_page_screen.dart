@@ -75,7 +75,7 @@ class MyPageWidget extends StatelessWidget {
       style: TextStyle(
         fontFamily: 'HDharmony',
         fontSize: 16,
-        fontWeight: FontWeight.bold),
+        fontWeight: FontWeight.bold,
       ),
       textAlign: TextAlign.center,
     );
@@ -86,7 +86,7 @@ class MyPageWidget extends StatelessWidget {
         style: TextStyle(
           fontFamily: 'HDharmony',
           fontSize: 14,
-          fontWeight: FontWeight.bold),
+          fontWeight: FontWeight.bold,
         ),
         textAlign: TextAlign.center,
       );
