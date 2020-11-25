@@ -31,7 +31,7 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
     var subjectItem = Center(
       child: Text(
         '발급 쿠폰 조회',
-        style: TextStyle(fontSize: 14),
+        style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
         textAlign: TextAlign.center,
       ),
     );
@@ -54,7 +54,7 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
             ),
             Text(
               '$couponSubject 쿠폰 (유효기간: $fromDate ~ $toDate)',
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
               textAlign: TextAlign.center,
             ),
             SizedBox(
@@ -62,7 +62,7 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
             ),
             Text(
               '대상제목 : $target',
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
               textAlign: TextAlign.center,
             ),
             SizedBox(
@@ -70,7 +70,7 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
             ),
             Text(
               '쿠폰 번호 : $couponNumber',
-              style: TextStyle(fontSize: 14),
+              style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
               textAlign: TextAlign.center,
             ),
             SizedBox(
@@ -136,28 +136,31 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
             ),
             title: Text(
               '알람',
-              style: TextStyle(fontSize: 12),
+              style: TextStyle(fontFamily: 'HDharmony', fontSize: 12),
             ),
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(AssetImage('images/home.png'), color: Colors.grey),
             activeIcon:
                 ImageIcon(AssetImage('images/home.png'), color: Colors.black),
-            title: Text('홈', style: TextStyle(fontSize: 12)),
+            title: Text('홈',
+                style: TextStyle(fontFamily: 'HDharmony', fontSize: 12)),
           ),
           BottomNavigationBarItem(
             icon:
                 ImageIcon(AssetImage('images/person.png'), color: Colors.grey),
             activeIcon:
                 ImageIcon(AssetImage('images/person.png'), color: Colors.black),
-            title: Text('마이페이지', style: TextStyle(fontSize: 12)),
+            title: Text('마이페이지',
+                style: TextStyle(fontFamily: 'HDharmony', fontSize: 12)),
           ),
           BottomNavigationBarItem(
             icon:
                 ImageIcon(AssetImage('images/support.png'), color: Colors.grey),
             activeIcon: ImageIcon(AssetImage('images/support.png'),
                 color: Colors.black),
-            title: Text('고객센터', style: TextStyle(fontSize: 12)),
+            title: Text('고객센터',
+                style: TextStyle(fontFamily: 'HDharmony', fontSize: 12)),
           ),
         ],
         type: BottomNavigationBarType.fixed,

@@ -15,20 +15,16 @@ class RadioItem extends StatelessWidget {
             child: new Center(
               child: new Text(_item.buttonText,
                   style: new TextStyle(
-                      color:
-                      _item.isSelected ? Colors.white : Colors.black54,
+                      fontFamily: 'HDharmony',
+                      color: _item.isSelected ? Colors.white : Colors.black54,
                       //fontWeight: FontWeight.bold,
                       fontSize: 14.0)),
             ),
             decoration: new BoxDecoration(
-              color: _item.isSelected
-                  ? Colors.black54
-                  : Colors.transparent,
+              color: _item.isSelected ? Colors.black54 : Colors.transparent,
               border: new Border.all(
                   width: 1.0,
-                  color: _item.isSelected
-                      ? Colors.black54
-                      : Colors.grey),
+                  color: _item.isSelected ? Colors.black54 : Colors.grey),
               borderRadius: const BorderRadius.all(const Radius.circular(1.0)),
             ),
           ),

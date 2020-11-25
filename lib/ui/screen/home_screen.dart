@@ -6,10 +6,13 @@ import 'package:mobispartsearch/utils/navigation.dart';
 import 'package:mobispartsearch/common.dart';
 
 const kPrimaryColor = Color.fromRGBO(7, 75, 136, 1);
-const kTitleStyle = TextStyle(fontSize: 18, color: Colors.white);
-const kSubtitleStyle = TextStyle(fontSize: 14, color: Colors.white);
-const kButtonTextStyle = TextStyle(fontSize: 15, color: Colors.white);
-const kMenuTextStyle = TextStyle(fontSize: 15);
+const kTitleStyle =
+    TextStyle(fontFamily: 'HDharmony', fontSize: 18, color: Colors.white);
+const kSubtitleStyle =
+    TextStyle(fontFamily: 'HDharmony', fontSize: 14, color: Colors.white);
+const kButtonTextStyle =
+    TextStyle(fontFamily: 'HDharmony', fontSize: 15, color: Colors.white);
+const kMenuTextStyle = TextStyle(fontFamily: 'HDharmony', fontSize: 15);
 const kMarginSpace = 40.0;
 const kImageWidth = 50.0;
 
@@ -165,11 +168,12 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           onPressed: () {
-                            if(globalSidoLoaded)
+                            if (globalSidoLoaded)
                               Navigator.push(
                                   context,
                                   PageRouteBuilder(
-                                      pageBuilder: (_, __, ___) => NavigationBar(
+                                      pageBuilder: (_, __, ___) =>
+                                          NavigationBar(
                                             index: 4,
                                           )));
                           },

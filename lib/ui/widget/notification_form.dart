@@ -29,7 +29,8 @@ class _NotificationFormState extends State<NotificationForm> {
             child: RaisedButton(
               child: Text(
                 '결제하러 가기',
-                style: TextStyle(fontSize: 12, color: Colors.white),
+                style: TextStyle(
+                    fontFamily: 'HDharmony', fontSize: 12, color: Colors.white),
                 textAlign: TextAlign.center,
               ),
               onPressed: () {
@@ -48,7 +49,10 @@ class _NotificationFormState extends State<NotificationForm> {
         children: [
           Text(
             '결제가 완료되었습니다.',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontFamily: 'HDharmony',
+                fontSize: 14,
+                fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
         ],
@@ -62,7 +66,10 @@ class _NotificationFormState extends State<NotificationForm> {
         children: [
           Text(
             '주문 상품(${widget.count}개)',
-            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            style: TextStyle(
+                fontFamily: 'HDharmony',
+                fontSize: 14,
+                fontWeight: FontWeight.bold),
           ),
           SizedBox(
             height: 10,
@@ -70,6 +77,7 @@ class _NotificationFormState extends State<NotificationForm> {
           Text(
             widget.text,
             style: TextStyle(
+              fontFamily: 'HDharmony',
               fontSize: 14,
             ),
           ),
@@ -90,12 +98,18 @@ class _NotificationFormState extends State<NotificationForm> {
           height: 50,
           child: ListTile(
             title: Text(widget.title,
-                style: TextStyle(fontSize: 14, color: Colors.black)),
+                style: TextStyle(
+                    fontFamily: 'HDharmony',
+                    fontSize: 14,
+                    color: Colors.black)),
             subtitle: Padding(
                 padding: EdgeInsets.only(left: 8),
                 child: Text(
                   widget.date,
-                  style: TextStyle(fontSize: 10, color: Colors.black54),
+                  style: TextStyle(
+                      fontFamily: 'HDharmony',
+                      fontSize: 10,
+                      color: Colors.black54),
                 )),
             trailing: isExpanded
                 ? Icon(

@@ -81,7 +81,8 @@ class _CartProductFormState extends State<CartProductForm> {
         ),
         Text(
           widget.productName,
-          style: TextStyle(fontSize: 14, color: Colors.black),
+          style: TextStyle(
+              fontFamily: 'HDharmony', fontSize: 14, color: Colors.black),
         ),
         Expanded(
             child: SizedBox(
@@ -115,7 +116,8 @@ class _CartProductFormState extends State<CartProductForm> {
 //              height: 12,
               child: Text(
             count.toString(),
-            style: TextStyle(fontSize: 12, color: Colors.black),
+            style: TextStyle(
+                fontFamily: 'HDharmony', fontSize: 12, color: Colors.black),
           )),
           Container(
             child: IconButton(
@@ -142,6 +144,7 @@ class _CartProductFormState extends State<CartProductForm> {
           Text(
             '${widget.price}원',
             style: TextStyle(
+              fontFamily: 'HDharmony',
               fontSize: 14,
             ),
           ),
@@ -164,6 +167,7 @@ class _CartProductFormState extends State<CartProductForm> {
           Text(
             '상품 금액',
             style: TextStyle(
+              fontFamily: 'HDharmony',
               fontSize: 14,
             ),
           ),
@@ -174,6 +178,7 @@ class _CartProductFormState extends State<CartProductForm> {
           Text(
             '${widget.price * count}원',
             style: TextStyle(
+              fontFamily: 'HDharmony',
               fontSize: 14,
             ),
           ),
@@ -190,7 +195,7 @@ class _CartProductFormState extends State<CartProductForm> {
           ),
           Text(
             widget.companyMark,
-            style: TextStyle(fontSize: 14),
+            style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
           ),
           widget.delivery
               ? Expanded(
@@ -201,7 +206,8 @@ class _CartProductFormState extends State<CartProductForm> {
                       child: Container(
                         child: Text(
                           '택배로 받기',
-                          style: TextStyle(fontSize: 14),
+                          style:
+                              TextStyle(fontFamily: 'HDharmony', fontSize: 14),
                         ),
                       ),
                       onTap: () {
@@ -227,7 +233,8 @@ class _CartProductFormState extends State<CartProductForm> {
                       child: Container(
                         child: Text(
                           '방문 수령',
-                          style: TextStyle(fontSize: 14),
+                          style:
+                              TextStyle(fontFamily: 'HDharmony', fontSize: 14),
                         ),
                       ),
                       onTap: () {

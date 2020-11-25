@@ -52,10 +52,13 @@ void getSession() async {
 enum Gender { male, female }
 
 const kPrimaryColor = Color.fromRGBO(0, 71, 135, 1);
-const kTitleStyle = TextStyle(fontSize: 18, color: Colors.white);
-const kSubtitleStyle = TextStyle(fontSize: 14, color: Colors.white);
-const kButtonTextStyle = TextStyle(fontSize: 14, color: Colors.white);
-const kMenuTextStyle = TextStyle(fontSize: 12);
+const kTitleStyle =
+    TextStyle(fontFamily: 'HDharmony', fontSize: 18, color: Colors.white);
+const kSubtitleStyle =
+    TextStyle(fontFamily: 'HDharmony', fontSize: 14, color: Colors.white);
+const kButtonTextStyle =
+    TextStyle(fontFamily: 'HDharmony', fontSize: 14, color: Colors.white);
+const kMenuTextStyle = TextStyle(fontFamily: 'HDharmony', fontSize: 12);
 const kMarginSpace = 40.0;
 const kImageWidth = 80.0;
 
@@ -70,16 +73,15 @@ int globalRecordCountPerPage = 10;
 
 List<Sido> globalSido = new List<Sido>();
 
-void getSido() async{
-  await http.get(API + '/sido').then((response){
-    if(response.statusCode==200){
+void getSido() async {
+  await http.get(API + '/sido').then((response) {
+    if (response.statusCode == 200) {
       log('sido success');
       final data = json.decode(utf8.decode(response.bodyBytes)) as List;
       log(data.toString());
       globalSido = data.map((e) => Sido.fromMap(e)).toList();
       getSigungu();
-    }
-    else{
+    } else {
       log('get sido ${response.statusCode}');
     }
   });
@@ -97,20 +99,19 @@ String findFirstSigungu(String sido) {
   return sidoObj.sigungus[0].sigungu;
 }
 
-void getSigungu() async{
-  for(Sido sido in globalSido){
+void getSigungu() async {
+  for (Sido sido in globalSido) {
     log(sido.seq.toString());
-    await http.get(API + '/sigungu?seq=${sido.seq}').then((response){
-      if(response.statusCode==200){
+    await http.get(API + '/sigungu?seq=${sido.seq}').then((response) {
+      if (response.statusCode == 200) {
         final data = json.decode(utf8.decode(response.bodyBytes)) as List;
-        log('get sigungu success '+data.toString());
+        log('get sigungu success ' + data.toString());
         sido.sigungus = data.map((e) => Sigungu.fromMap(e)).toList();
-      } else{
+      } else {
         log('get sigungu ${response.statusCode}');
       }
     });
-    if(sido == globalSido.last)
-    {
+    if (sido == globalSido.last) {
       log('global sido true');
       globalSidoLoaded = true;
     }
@@ -186,15 +187,15 @@ bool validateSMS(String mobile) {
 
 Future<List<CartModel>> loadCart() {
   String url = API + '/carts';
-  if(globalUsername != '')
+  if (globalUsername != '')
     url = API + '/carts?id=$globalUsername';
   else
     url = API + '/carts?id=$session';
-  http.get(url).then((response){
-    if(response.statusCode==200){
+  http.get(url).then((response) {
+    if (response.statusCode == 200) {
       log('load cart success');
       final data = json.decode(utf8.decode(response.bodyBytes)) as List;
-      return data.map((item){
+      return data.map((item) {
         return CartModel.fromMap(item);
       });
     } else {
@@ -323,15 +324,15 @@ Future<bool> order(Order order) =>
 
 Future<List<String>> getModelsFromRemote(String hkgb, String vtpy) async {
   final response = await http.get(API + '/models?hkgb=$hkgb&vtyp=$vtpy');
-  if(response.statusCode==200){
+  if (response.statusCode == 200) {
     log('model success');
     final data = json.decode(utf8.decode(response.bodyBytes)) as List;
     log(data.toString());
-    return data.map((item){
-              return item['cpnm'].toString();
-            }).toList();
-  }else{
-    log('model '+ response.statusCode.toString());
+    return data.map((item) {
+      return item['cpnm'].toString();
+    }).toList();
+  } else {
+    log('model ' + response.statusCode.toString());
     throw Exception('error');
   }
 }
@@ -399,7 +400,6 @@ Future<List<SimpleSearchResultModel>> simpleSearchPartPtno(
           hkgb: productInfo.hkgb,
           totalCnt: item['tot_cnt'],
           rnum: item['rnum']);
-
     }).toList();
   } else {
     log('simple search ptno' + response.statusCode.toString());
@@ -419,11 +419,14 @@ Future<MarketSearchResultProductInfo> getProductInfoFromPtno(
     return null;
   }
 }
-                    
-Future<List<Notice>> getTitleNoticeStream({String title, int page=1, int limit=10}) async {
-  final response = await http.get(API+'/notice?kind=title&limit=$limit&page=$page&search=$title');
-  if(response.statusCode==200){
-    final data = json.decode(utf8.decode(response.bodyBytes))['content'] as List;
+
+Future<List<Notice>> getTitleNoticeStream(
+    {String title, int page = 1, int limit = 10}) async {
+  final response = await http
+      .get(API + '/notice?kind=title&limit=$limit&page=$page&search=$title');
+  if (response.statusCode == 200) {
+    final data =
+        json.decode(utf8.decode(response.bodyBytes))['content'] as List;
     return data.map((e) {
       return Notice(
         title: e['title'],
@@ -432,16 +435,18 @@ Future<List<Notice>> getTitleNoticeStream({String title, int page=1, int limit=1
         date: DateTime.parse(e['createdDate']),
       );
     }).toList();
-  }
-  else{
+  } else {
     throw Exception('error');
   }
 }
 
-Future<List<Notice>> getContentNoticeStream({String keyword, int page=1, int limit=10}) async {
-  final response = await http.get(API+'/notice?kind=content&limit=$limit&page=$page&search=$keyword');
-  if(response.statusCode==200){
-    final data = json.decode(utf8.decode(response.bodyBytes))['content'] as List;
+Future<List<Notice>> getContentNoticeStream(
+    {String keyword, int page = 1, int limit = 10}) async {
+  final response = await http.get(
+      API + '/notice?kind=content&limit=$limit&page=$page&search=$keyword');
+  if (response.statusCode == 200) {
+    final data =
+        json.decode(utf8.decode(response.bodyBytes))['content'] as List;
     return data.map((e) {
       return Notice(
         title: e['title'],
@@ -450,9 +455,7 @@ Future<List<Notice>> getContentNoticeStream({String keyword, int page=1, int lim
         date: DateTime.parse(e['createdDate']),
       );
     }).toList();
-  }else{
+  } else {
     throw Exception('error');
   }
 }
-
-                    
