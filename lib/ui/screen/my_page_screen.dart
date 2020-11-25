@@ -145,7 +145,7 @@ class MyPageWidget extends StatelessWidget {
                                         'My info (차량 정보 등 고객 정보 수정)',
                                         style: TextStyle(
                                             fontFamily: 'HDharmony',
-                                            fontSize: 14),
+                                            fontSize: 16),
                                       ),
                                       trailing: Padding(
                                         padding: EdgeInsets.all(14),
@@ -203,10 +203,10 @@ class MyPageWidget extends StatelessWidget {
                                         'My 쿠폰',
                                         style: TextStyle(
                                             fontFamily: 'HDharmony',
-                                            fontSize: 14),
+                                            fontSize: 16),
                                       ),
                                       trailing: Padding(
-                                        padding: EdgeInsets.all(20),
+                                        padding: EdgeInsets.all(14),
                                         child: Image.asset('images/arrow.png'),
                                       ),
                                       onTap: () {

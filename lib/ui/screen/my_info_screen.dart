@@ -47,14 +47,14 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                     '성명',
                     style: TextStyle(
                       fontFamily: 'HDharmony',
-                      fontSize: 12,
+                      fontSize: 14,
                     ),
                   ),
                 ],
               )),
           Container(
             width: screenWidth * 0.75,
-            height: 30,
+            height: 50,
             padding: EdgeInsets.symmetric(
               horizontal: 20,
             ),
@@ -95,14 +95,14 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                     '비밀번호',
                     style: TextStyle(
                       fontFamily: 'HDharmony',
-                      fontSize: 12,
+                      fontSize: 14,
                     ),
                   ),
                 ],
               )),
           Container(
             width: screenWidth * 0.75,
-            height: 30,
+            height: 50,
             padding: EdgeInsets.symmetric(
               horizontal: 20,
             ),
@@ -144,14 +144,14 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                     '비밀번호 확인',
                     style: TextStyle(
                       fontFamily: 'HDharmony',
-                      fontSize: 12,
+                      fontSize: 14,
                     ),
                   ),
                 ],
               )),
           Container(
             width: screenWidth * 0.75,
-            height: 30,
+            height: 50,
             padding: EdgeInsets.symmetric(
               horizontal: 20,
             ),
@@ -193,14 +193,14 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                     '전화번호',
                     style: TextStyle(
                       fontFamily: 'HDharmony',
-                      fontSize: 12,
+                      fontSize: 14,
                     ),
                   ),
                 ],
               )),
           Container(
             width: screenWidth * 0.75,
-            height: 30,
+            height: 50,
             padding: EdgeInsets.symmetric(
               horizontal: 20,
             ),
@@ -241,14 +241,14 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                     '이메일',
                     style: TextStyle(
                       fontFamily: 'HDharmony',
-                      fontSize: 12,
+                      fontSize: 14,
                     ),
                   ),
                 ],
               )),
           Container(
             width: screenWidth * 0.75,
-            height: 30,
+            height: 50,
             padding: EdgeInsets.symmetric(
               horizontal: 20,
             ),
@@ -289,13 +289,13 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                   children: [
                     Text(
                       '주소',
-                      style: TextStyle(fontFamily: 'HDharmony', fontSize: 12),
+                      style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
                     ),
                   ],
                 )),
             Container(
               width: screenWidth * 0.75,
-              height: 30,
+              height: 50,
               padding: EdgeInsets.symmetric(
                 horizontal: 20,
               ),
@@ -321,8 +321,8 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             height: 10,
           ),
           Container(
-            width: screenWidth * 0.4,
-            height: 30,
+            width: screenWidth * 0.65,
+            height: 50,
             margin: EdgeInsets.only(left: screenWidth * 0.25 + 20),
             child: TextField(
               decoration: InputDecoration(
@@ -361,14 +361,14 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                     '우편번호',
                     style: TextStyle(
                       fontFamily: 'HDharmony',
-                      fontSize: 12,
+                      fontSize: 14,
                     ),
                   ),
                 ],
               )),
           Container(
-            width: screenWidth * 0.4,
-            height: 30,
+            width: screenWidth * 0.33,
+            height: 50,
             margin: EdgeInsets.only(
               left: 20,
             ),
@@ -390,8 +390,8 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             ),
           ),
           Container(
-            width: screenWidth * 0.35 - 50,
-            height: 30,
+            width: screenWidth * 0.3,
+            height: 50,
             margin: EdgeInsets.only(left: 10),
             child: OutlineButton(
               borderSide: BorderSide(
@@ -404,7 +404,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                 '우편번호검색',
                 style: TextStyle(
                   fontFamily: 'HDharmony',
-                  fontSize: 12,
+                  fontSize: 13,
                   color: Color.fromRGBO(0, 63, 114, 1),
                 ),
                 textAlign: TextAlign.center,
@@ -417,47 +417,39 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
     );
 
     var changeButton = Container(
-      width: screenWidth * 0.3,
-      height: 40,
-      margin: EdgeInsets.only(top: 30),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          RaisedButton(
-            padding: EdgeInsets.only(left: 8.0),
-            color: Color.fromRGBO(0, 63, 114, 1),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0),
-              side: BorderSide(
-                  color: Color.fromRGBO(0, 63, 114, 1),
-                  width: 1.0,
-                  style: BorderStyle.solid),
-            ),
-            child: Text('정보변경',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  fontFamily: 'HDharmony',
-                  color: Colors.white,
-                )),
-            onPressed: () {
-              String addressExtended = _address2Controller.text;
-              String address = _address1Controller.text;
-              String mobile = _mobileController.text;
-              String email = _emailController.text;
-              String password = _passwordController.text;
-              String zipCode = _postCodeController.text;
-              updateProfile(
-                  addressExtended, address, mobile, password, zipCode, email);
-            },
-          ),
-        ],
+      width: double.infinity,
+      height: 60,
+      padding: const EdgeInsets.symmetric(horizontal: 20),
+      margin: const EdgeInsets.only(top: 25),
+      child: RaisedButton(
+        padding: EdgeInsets.all(10.0),
+        elevation: 5.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(0.0),
+        ),
+        color: Color.fromRGBO(0, 63, 114, 1),
+        child: Text(
+          '정보변경',
+          style: TextStyle(
+              fontFamily: 'HDharmony', fontSize: 18, color: Colors.white),
+        ),
+        onPressed: () {
+          String addressExtended = _address2Controller.text;
+          String address = _address1Controller.text;
+          String mobile = _mobileController.text;
+          String email = _emailController.text;
+          String password = _passwordController.text;
+          String zipCode = _postCodeController.text;
+          updateProfile(
+              addressExtended, address, mobile, password, zipCode, email);
+        },
       ),
     );
 
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(color: Colors.black),
-        title: Text('마이페이지'),
+        title: Text('My info'),
         centerTitle: true,
       ),
       body: SafeArea(
