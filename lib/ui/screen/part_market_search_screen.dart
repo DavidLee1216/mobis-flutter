@@ -66,6 +66,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
     bloc = BlocProvider.of<MarketSearchBloc>(context);
     bloc.add(InitMarketSearchEvent());
     sido = globalSido[0].sido;
+    sigungu = findSido(sido).sigungus[0].sigungu;
   }
 
   @override
@@ -120,6 +121,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
         ],
       ),
     );
+
     var marketItem = Container(
       child: Row(
         children: [
@@ -223,14 +225,13 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
               });
             },
             items: globalSido
-                ?.map((e) => e.sido)
-                ?.map<DropdownMenuItem<String>>((String value) {
+                ?.map<DropdownMenuItem<String>>((item) {
               return DropdownMenuItem<String>(
-                value: value,
+                value: item.sido,
                 child: Container(
-                  width: 60,
+                  width: 160,
                   child: Text(
-                    value,
+                    item.sido,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,
@@ -265,14 +266,13 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
             },
             items: findSido(sido)
                 ?.sigungus
-                ?.map((e) => e.sigungu)
-                ?.map<DropdownMenuItem<String>>((String value) {
+                ?.map<DropdownMenuItem<String>>((item) {
               return DropdownMenuItem<String>(
-                value: value,
+                value: item.sigungu,
                 child: Container(
-                  width: 60,
+                  width: 160,
                   child: Text(
-                    value,
+                    item.sigungu,
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       fontSize: 14,
