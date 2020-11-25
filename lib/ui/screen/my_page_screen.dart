@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/auth_bloc.dart';
 import 'package:mobispartsearch/ui/screen/login_screen.dart';
-import 'package:mobispartsearch/ui/screen/my_coupon_screen.dart';
 import 'package:mobispartsearch/ui/screen/my_info_screen.dart';
 import 'package:mobispartsearch/ui/screen/notification_screen.dart';
 import 'package:mobispartsearch/ui/screen/my_page_query_screen.dart';
+import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
 
 class MyPageScreen extends StatefulWidget {
@@ -90,24 +90,6 @@ class MyPageWidget extends StatelessWidget {
       );
     }
 
-//    askDialog() {
-//      showDialog(context: context, builder: (_){
-//        return Container(
-//          child: Column(
-//            children: [
-//              ListTile(
-//                title: Text('앱 관련 문의하기', style: TextStyle(fontFamily: 'HDharmony', fontSize: 16,),),
-//              ),
-//              Divider(color: Colors.black26,),
-//              ListTile(
-//                title: Text('그 외 사항 문의하기', style: TextStyle(fontFamily: 'HDharmony', fontSize: 16,),),
-//              )
-//            ],
-//          ),
-//        );
-//      });
-//    }
-
     return BlocBuilder<AuthBloc, AuthState>(
         cubit: BlocProvider.of<AuthBloc>(context),
         builder: (BuildContext context, state) {
@@ -120,7 +102,7 @@ class MyPageWidget extends StatelessWidget {
                     height: 50,
                   ),
                   state.isAuthenticated()
-                      ? greetingAuthentcated('양**')
+                      ? greetingAuthentcated(state.id)
                       : greetingUnauthenticated,
                   SizedBox(
                     height: 50,
@@ -163,9 +145,9 @@ class MyPageWidget extends StatelessWidget {
                                             fontFamily: 'HDharmony',
                                             fontSize: 14),
                                       ),
-                                      trailing: Icon(
-                                        Icons.keyboard_arrow_right,
-                                        color: Colors.black,
+                                      trailing: Padding(
+                                        padding: EdgeInsets.all(14),
+                                        child: Image.asset('images/arrow.png'),
                                       ),
                                       onTap: () {
                                         pushTo(context, MyInfoScreen());
@@ -221,12 +203,20 @@ class MyPageWidget extends StatelessWidget {
                                             fontFamily: 'HDharmony',
                                             fontSize: 14),
                                       ),
-                                      trailing: Icon(
-                                        Icons.keyboard_arrow_right,
-                                        color: Colors.black,
+                                      trailing: Padding(
+                                        padding: EdgeInsets.all(14),
+                                        child: Image.asset('images/arrow.png'),
                                       ),
                                       onTap: () {
-                                        pushTo(context, MyCouponScreen());
+                                        Navigator.push(
+                                          context,
+                                          PageRouteBuilder(
+                                            pageBuilder: (_, __, ___) =>
+                                                NavigationBar(
+                                              index: 8,
+                                            ),
+                                          ),
+                                        );
                                       },
                                     ),
                                   ),

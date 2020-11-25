@@ -204,7 +204,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
         future: loadModels(),
         builder: (context, snapshot) {
           return Container(
-            width: 180,
+            width: 290,
 //            height: 40,
             decoration: BoxDecoration(
               border: Border.all(),
@@ -395,7 +395,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   child: RaisedButton(
                     child: !searchType
                         ? Text(
-                            '일반검색',
+                            '일반 검색',
                             style: TextStyle(
                               fontFamily: 'HDharmony',
                               fontSize: 15,
@@ -403,13 +403,16 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                             ),
                           )
                         : Text(
-                            '일반검색',
+                            '일반 검색',
                             style: TextStyle(
                               fontFamily: 'HDharmony',
                               fontSize: 15,
                               color: Colors.black,
                             ),
                           ),
+                    shape: !searchType
+                        ? Border(bottom: BorderSide(color: Color.fromRGBO(0, 63, 114, 1), width: 3))
+                        : Border(bottom: BorderSide(color: Colors.transparent, width: 3)),
                     onPressed: () {
                       searchType = false;
                       searched = false;
@@ -424,7 +427,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   child: RaisedButton(
                     child: searchType
                         ? Text(
-                            '일반검색',
+                            '부품번호로 검색',
                             style: TextStyle(
                               fontFamily: 'HDharmony',
                               fontSize: 15,
@@ -432,13 +435,16 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                             ),
                           )
                         : Text(
-                            '일반검색',
+                            '부품번호로 검색',
                             style: TextStyle(
                               fontFamily: 'HDharmony',
                               fontSize: 15,
                               color: Colors.black,
                             ),
                           ),
+                    shape: searchType
+                        ? Border(bottom: BorderSide(color: Color.fromRGBO(0, 63, 114, 1), width: 3))
+                        : Border(bottom: BorderSide(color: Colors.transparent, width: 3)),
                     onPressed: () {
                       searchType = true;
                       searched = false;
@@ -482,14 +488,18 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 ],
               ),
             ),
-            Divider(
-              height: 2,
-              color: Colors.black54,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Divider(
+                color: Colors.black54,
+              ),
             ),
             manufactureItem,
-            Divider(
-              height: 2,
-              color: Colors.black54,
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Divider(
+                color: Colors.black54,
+              ),
             ),
             !searchType ? generalSearchItems : partNumberSearchItems,
             searchButton,

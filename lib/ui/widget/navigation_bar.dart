@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobispartsearch/ui/screen/home_screen.dart';
+import 'package:mobispartsearch/ui/screen/my_coupon_screen.dart';
+import 'package:mobispartsearch/ui/screen/my_page_query_screen.dart';
 import 'package:mobispartsearch/ui/screen/my_page_screen.dart';
 import 'package:mobispartsearch/ui/screen/notice_screen.dart';
 import 'package:mobispartsearch/ui/screen/notification_screen.dart';
@@ -23,20 +25,27 @@ class _NavigationBarState extends State<NavigationBar> {
     NotificationScreen(),
     HomeScreen(),
     MyPageScreen(),
-    HomeScreen(),
+    MyPageScreen(),
     PartMarketSearchScreen(),
     PartSimpleSearchScreen(),
     NoticeScreen(),
     CartScreen(),
+    MyCouponScreen(),
   ];
   @override
   void initState() {
     super.initState();
-    _selectedIndex = (widget.index < 4) ? widget.index : 1;
+    _selectedIndex = (widget.index < 4) ? widget.index : (widget.index != 8) ? 1 : 2;
   }
 
   @override
   Widget build(BuildContext context) {
+    final ModalQueryScreen queryModal = new ModalQueryScreen();
+
+    showCustomerCenter(){
+        queryModal.mainModalBottomSheet(context);
+    }
+
     return Scaffold(
       body: (_initState && widget.index >= 4)
           ? _screens[widget.index]
@@ -79,6 +88,9 @@ class _NavigationBarState extends State<NavigationBar> {
           setState(() {
             _selectedIndex = index;
             _initState = false;
+            if(_selectedIndex==3){
+              showCustomerCenter();
+            }
           });
         },
       ),

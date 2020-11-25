@@ -7,25 +7,8 @@ class MyCouponScreen extends StatefulWidget {
 }
 
 class _MyCouponScreenState extends State<MyCouponScreen> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      if (index == 0)
-        Navigator.of(context).pushNamed('/notification');
-      else if (index == 1)
-        Navigator.of(context).pushNamed('/home');
-      else if (index == 2)
-        Navigator.of(context).pushNamed('/my_page');
-      else if (index == 3) Navigator.of(context).pushNamed('/support');
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
-    _selectedIndex = 2;
-
     var screenWidth = MediaQuery.of(context).size.width;
 
     var subjectItem = Center(
