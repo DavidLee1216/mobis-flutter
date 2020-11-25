@@ -12,6 +12,7 @@ boxTextField(TextEditingController controller, double fontSize, int kind) {
     ),
     keyboardType: kind == 0 ? TextInputType.text : TextInputType.number,
     style: TextStyle(
+      fontFamily: 'HDharmony',
       fontSize: fontSize,
     ),
     textAlign: TextAlign.left,

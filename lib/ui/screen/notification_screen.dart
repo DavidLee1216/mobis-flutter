@@ -23,6 +23,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 child: Text(
                   '알림을 통해서 구매 단계를 확인하세요.',
                   style: TextStyle(
+                    fontFamily: 'HDharmony',
                     fontSize: 14,
                   ),
                   textAlign: TextAlign.center,

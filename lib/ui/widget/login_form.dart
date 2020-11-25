@@ -26,22 +26,25 @@ class LoginForm extends StatelessWidget {
                 height: MediaQuery.of(context).size.height / 6,
               ),
               Text(
-                '새로운 공간경험을 선사합니다.',
-                style: TextStyle(fontSize: 20, color: Colors.white),
+                '지속가능한 친환경 기술을 선도합니다.',
+                style: TextStyle(
+                    fontFamily: 'HDharmony', fontSize: 20, color: Colors.white),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 15),
               ),
               Text(
-                '현대모비스는 세상과 교감하는 미래자동차의',
-                style: TextStyle(fontSize: 14, color: Colors.white),
+                '현대모비스는 무한하고 청정한 미래자동차의',
+                style: TextStyle(
+                    fontFamily: 'HDharmony', fontSize: 14, color: Colors.white),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 5),
               ),
               Text(
-                '커넥티비티 기술을 만들어 갑니다.',
-                style: TextStyle(fontSize: 14, color: Colors.white),
+                '전동화 부품기술을 만들어 갑니다.',
+                style: TextStyle(
+                    fontFamily: 'HDharmony', fontSize: 14, color: Colors.white),
               ),
               SizedBox(
                 height: MediaQuery.of(context).size.height / 7,
@@ -69,6 +72,7 @@ class LoginForm extends StatelessWidget {
                       Text(
                         '네이버 로그인',
                         style: TextStyle(
+                          fontFamily: 'HDharmony',
                           fontSize: 14,
                           color: Colors.white,
                         ),
@@ -106,7 +110,10 @@ class LoginForm extends StatelessWidget {
                       ),
                       Text(
                         '카카오톡 로그인',
-                        style: TextStyle(fontSize: 14, color: Colors.white),
+                        style: TextStyle(
+                            fontFamily: 'HDharmony',
+                            fontSize: 14,
+                            color: Colors.white),
                       ),
                     ],
                   ),
@@ -141,7 +148,10 @@ class LoginForm extends StatelessWidget {
                       ),
                       Text(
                         '구글 로그인',
-                        style: TextStyle(fontSize: 14, color: Colors.black),
+                        style: TextStyle(
+                            fontFamily: 'HDharmony',
+                            fontSize: 14,
+                            color: Colors.black),
                       ),
                     ],
                   ),
@@ -157,7 +167,10 @@ class LoginForm extends StatelessWidget {
                 child: FlatButton(
                   child: Text(
                     '아이디로 로그인하기',
-                    style: TextStyle(fontSize: 14, color: Colors.white),
+                    style: TextStyle(
+                        fontFamily: 'HDharmony',
+                        fontSize: 14,
+                        color: Colors.white),
                   ),
                   onPressed: () {
                     pushTo(context, IdLoginScreen());
@@ -183,7 +196,10 @@ class LoginForm extends StatelessWidget {
                     children: [
                       Text(
                         '로그인 없이 살펴보기',
-                        style: TextStyle(fontSize: 14, color: Colors.indigo),
+                        style: TextStyle(
+                            fontFamily: 'HDharmony',
+                            fontSize: 14,
+                            color: Colors.indigo),
                       ),
                     ],
                   ),

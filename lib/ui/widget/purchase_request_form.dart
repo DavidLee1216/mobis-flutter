@@ -83,7 +83,10 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
             width: firstColumnWidth,
             child: Text(
               '부품 번호',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -94,6 +97,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               child: Text(
                 widget.partNumber,
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 12,
                 ),
                 textAlign: TextAlign.left,
@@ -113,7 +117,10 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
             width: firstColumnWidth,
             child: Text(
               '한글 부품명',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -124,6 +131,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               child: Text(
                 widget.koreanPartName,
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 12,
                 ),
                 textAlign: TextAlign.left,
@@ -143,7 +151,10 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
             width: firstColumnWidth,
             child: Text(
               '영어 부품명',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -154,6 +165,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               child: Text(
                 widget.englishPartName,
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 12,
                 ),
                 textAlign: TextAlign.left,
@@ -173,7 +185,10 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
             width: firstColumnWidth,
             child: Text(
               '가격(부가세포함)',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -184,6 +199,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               child: Text(
                 widget.price.toString() + "원",
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 12,
                 ),
                 textAlign: TextAlign.left,
@@ -203,7 +219,10 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
             width: firstColumnWidth,
             child: Text(
               '판매점 상호명',
-              style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
           ),
@@ -214,6 +233,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               child: Text(
                 widget.companyMark,
                 style: TextStyle(
+                  fontFamily: 'HDharmony',
                   fontSize: 12,
                 ),
                 textAlign: TextAlign.left,
@@ -256,7 +276,8 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
 //                  height: 12,
                   child: Text(
                 count.toString(),
-                style: TextStyle(fontSize: 12, color: Colors.black),
+                style: TextStyle(
+                    fontFamily: 'HDharmony', fontSize: 12, color: Colors.black),
               )),
               Container(
                 child: IconButton(
@@ -278,7 +299,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 padding: const EdgeInsets.only(right: 20.0),
                 child: Text(
                   totalPrice.toString() + "원",
-                  style: TextStyle(fontSize: 12),
+                  style: TextStyle(fontFamily: 'HDharmony', fontSize: 12),
                 ),
               )
             ]),
@@ -297,16 +318,21 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 padding: EdgeInsets.only(left: 20),
                 child: Text(
                   '총 수량  ',
-                  style: TextStyle(fontSize: 14, color: Colors.black),
+                  style: TextStyle(
+                      fontFamily: 'HDharmony',
+                      fontSize: 14,
+                      color: Colors.black),
                 ),
               ),
               Text(
                 count.toString(),
-                style: TextStyle(fontSize: 14, color: Colors.red),
+                style: TextStyle(
+                    fontFamily: 'HDharmony', fontSize: 14, color: Colors.red),
               ),
               Text(
                 '개',
-                style: TextStyle(fontSize: 14, color: Colors.black),
+                style: TextStyle(
+                    fontFamily: 'HDharmony', fontSize: 14, color: Colors.black),
               ),
               Expanded(
                 child: Padding(
@@ -319,11 +345,17 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                     children: [
                       Text(
                         '총 금액   ',
-                        style: TextStyle(fontSize: 14, color: Colors.black),
+                        style: TextStyle(
+                            fontFamily: 'HDharmony',
+                            fontSize: 14,
+                            color: Colors.black),
                       ),
                       Text(
                         totalPrice.toString() + " 원",
-                        style: TextStyle(fontSize: 14, color: Colors.red),
+                        style: TextStyle(
+                            fontFamily: 'HDharmony',
+                            fontSize: 14,
+                            color: Colors.red),
                       ),
                     ],
                   ))
@@ -387,7 +419,10 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 ),
                 Text(
                   '공백 특수기호 없이 특수문자만 입력하세요',
-                  style: TextStyle(color: kPrimaryColor, fontSize: 12),
+                  style: TextStyle(
+                      fontFamily: 'HDharmony',
+                      color: kPrimaryColor,
+                      fontSize: 12),
                 ),
               ],
             ),
@@ -406,7 +441,8 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
             child: RaisedButton(
               child: Text(
                 '장바구니',
-                style: TextStyle(fontSize: 12, color: Colors.white),
+                style: TextStyle(
+                    fontFamily: 'HDharmony', fontSize: 12, color: Colors.white),
                 textAlign: TextAlign.center,
               ),
               onPressed: () async {
@@ -435,7 +471,10 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               ),
               child: Text(
                 '바로구매',
-                style: TextStyle(fontSize: 12, color: kPrimaryColor),
+                style: TextStyle(
+                    fontFamily: 'HDharmony',
+                    fontSize: 12,
+                    color: kPrimaryColor),
               ),
               onPressed: () async {
                 if (await orderNow() == true) {}
@@ -455,6 +494,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
             child: Text(
               '차량부품 특성상 임의로 부품을 교체할 경우 문제가 발생할 수 있으므로 부품 구입 전 정확한 부품번호를 확인하시기 바랍니다.',
               style: TextStyle(
+                fontFamily: 'HDharmony',
                 fontSize: 12,
               ),
               textAlign: TextAlign.left,
