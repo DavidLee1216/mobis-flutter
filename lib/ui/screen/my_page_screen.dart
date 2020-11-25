@@ -145,31 +145,30 @@ class MyPageWidget extends StatelessWidget {
                         ]),
                     child: Column(
                       children: [
-                        state.isAuthenticated()
-                            ? Column(
-                                children: [
-                                  Container(
-                                    height: 50,
-                                    child: ListTile(
-                                      title: Text(
-                                        'My info (차량 정보 등 고객 정보 수정)',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                      trailing: Icon(
-                                        Icons.keyboard_arrow_right,
-                                        color: Colors.black,
-                                      ),
-                                      onTap: () {
-                                        pushTo(context, MyInfoScreen());
-                                      },
-                                    ),
+                        if (state.isAuthenticated())
+                          Column(
+                            children: [
+                              Container(
+                                height: 50,
+                                child: ListTile(
+                                  title: Text(
+                                    'My info (차량 정보 등 고객 정보 수정)',
+                                    style: TextStyle(fontSize: 14),
                                   ),
-                                  Divider(
-                                    color: Colors.black54,
+                                  trailing: Icon(
+                                    Icons.keyboard_arrow_right,
+                                    color: Colors.black,
                                   ),
-                                ],
-                              )
-                            : Container(),
+                                  onTap: () {
+                                    pushTo(context, MyInfoScreen());
+                                  },
+                                ),
+                              ),
+                              Divider(
+                                color: Colors.black54,
+                              ),
+                            ],
+                          ),
                         Container(
                           height: 50,
                           child: ListTile(
@@ -193,31 +192,30 @@ class MyPageWidget extends StatelessWidget {
                         Divider(
                           color: Colors.black54,
                         ),
-                        state.isAuthenticated()
-                            ? Column(
-                                children: [
-                                  Container(
-                                    height: 50,
-                                    child: ListTile(
-                                      title: Text(
-                                        'My 쿠폰',
-                                        style: TextStyle(fontSize: 14),
-                                      ),
-                                      trailing: Icon(
-                                        Icons.keyboard_arrow_right,
-                                        color: Colors.black,
-                                      ),
-                                      onTap: () {
-                                        pushTo(context, MyCouponScreen());
-                                      },
-                                    ),
+                        if (state.isAuthenticated())
+                          Column(
+                            children: [
+                              Container(
+                                height: 50,
+                                child: ListTile(
+                                  title: Text(
+                                    'My 쿠폰',
+                                    style: TextStyle(fontSize: 14),
                                   ),
-                                  Divider(
-                                    color: Colors.black54,
+                                  trailing: Icon(
+                                    Icons.keyboard_arrow_right,
+                                    color: Colors.black,
                                   ),
-                                ],
-                              )
-                            : Container(),
+                                  onTap: () {
+                                    pushTo(context, MyCouponScreen());
+                                  },
+                                ),
+                              ),
+                              Divider(
+                                color: Colors.black54,
+                              ),
+                            ],
+                          ),
                         Container(
                           height: 50,
                           child: ListTile(
