@@ -33,7 +33,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
   String _birthday = '';
 
-  String seq = '';
+  int seq = -1;
 
   @override
   void dispose() {
@@ -70,7 +70,7 @@ class _RegisterFormState extends State<RegisterForm> {
         String addressExtended,
         String vin,
         String vlp) async {
-      if (_formKey.currentState.validate() && seq != '') {
+      if (_formKey.currentState.validate() && seq != -1) {
         User user = User(
             address: address,
             addressExtended: addressExtended,
@@ -361,7 +361,6 @@ class _RegisterFormState extends State<RegisterForm> {
             )),
         onPressed: () {
           seq = validateCode(_authNumberVerifyController.text);
-          seq = '123';
         },
       ),
     );

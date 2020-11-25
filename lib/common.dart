@@ -101,18 +101,14 @@ String findFirstSigungu(String sido) {
 
 void getSigungu() async {
   for (Sido sido in globalSido) {
-    log(sido.seq.toString());
     await http.get(API + '/sigungu?seq=${sido.seq}').then((response) {
       if (response.statusCode == 200) {
         final data = json.decode(utf8.decode(response.bodyBytes)) as List;
-        log('get sigungu success ' + data.toString());
         sido.sigungus = data.map((e) => Sigungu.fromMap(e)).toList();
       } else {
-        log('get sigungu ${response.statusCode}');
       }
     });
     if (sido == globalSido.last) {
-      log('global sido true');
       globalSidoLoaded = true;
     }
   }
@@ -243,13 +239,13 @@ bool validateEmail(String email) {
   });
 }
 
-String validateCode(String code) {
+int validateCode(String code) {
   http.get(API + '/validateCode/{code}/code=$code').then((response) {
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       return jsonData['seq'];
     } else
-      return '';
+      return -1;
   });
 }
 
@@ -264,7 +260,7 @@ String getEmail(String code) {
   });
 }
 
-bool resetPassword(String password, String seq) {
+bool resetPassword(String password, int seq) {
   http.post(API + '/resetPassword',
       body: jsonEncode({'password': password, 'seq': seq}),
       headers: {

@@ -7,24 +7,9 @@ class MyCouponScreen extends StatefulWidget {
 }
 
 class _MyCouponScreenState extends State<MyCouponScreen> {
-  int _selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-      if (index == 0)
-        Navigator.of(context).pushNamed('/notification');
-      else if (index == 1)
-        Navigator.of(context).pushNamed('/home');
-      else if (index == 2)
-        Navigator.of(context).pushNamed('/my_page');
-      else if (index == 3) Navigator.of(context).pushNamed('/support');
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
-    _selectedIndex = 2;
 
     var screenWidth = MediaQuery.of(context).size.width;
 
@@ -122,52 +107,6 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
             ),
           ],
         ), //
-      ),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: ImageIcon(
-              AssetImage('images/alarm.png'),
-              color: Colors.grey,
-            ),
-            activeIcon: ImageIcon(
-              AssetImage('images/alarm.png'),
-              color: Colors.black,
-            ),
-            title: Text(
-              '알람',
-              style: TextStyle(fontFamily: 'HDharmony', fontSize: 12),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: ImageIcon(AssetImage('images/home.png'), color: Colors.grey),
-            activeIcon:
-                ImageIcon(AssetImage('images/home.png'), color: Colors.black),
-            title: Text('홈',
-                style: TextStyle(fontFamily: 'HDharmony', fontSize: 12)),
-          ),
-          BottomNavigationBarItem(
-            icon:
-                ImageIcon(AssetImage('images/person.png'), color: Colors.grey),
-            activeIcon:
-                ImageIcon(AssetImage('images/person.png'), color: Colors.black),
-            title: Text('마이페이지',
-                style: TextStyle(fontFamily: 'HDharmony', fontSize: 12)),
-          ),
-          BottomNavigationBarItem(
-            icon:
-                ImageIcon(AssetImage('images/support.png'), color: Colors.grey),
-            activeIcon: ImageIcon(AssetImage('images/support.png'),
-                color: Colors.black),
-            title: Text('고객센터',
-                style: TextStyle(fontFamily: 'HDharmony', fontSize: 12)),
-          ),
-        ],
-        type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.black,
-        showUnselectedLabels: true,
-        onTap: _onItemTapped,
       ),
     );
   }

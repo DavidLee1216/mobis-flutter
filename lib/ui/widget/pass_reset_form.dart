@@ -14,7 +14,7 @@ class _GetPassFormState extends State<GetPassForm> {
   int authStep = 1;
   bool mobileAuth = true; //if false, then email auth
   bool findEmail = true; //if false, then password reset
-  String authSeq = '';
+  int authSeq = -1;
   String foundEmail = '';
 
   final _phoneNumberController = TextEditingController();
@@ -757,7 +757,7 @@ class _GetPassFormState extends State<GetPassForm> {
                                   authSeq =
                                       validateCode(_authNumberController.text);
 //                                  }
-                                  if (authSeq == '') return;
+                                  if (authSeq == -1) return;
 //                                  if(findEmail)
 //                                    foundEmail = get_email(authSeq);
                                   setState(() {
@@ -875,7 +875,8 @@ class _GetPassFormState extends State<GetPassForm> {
                   onPressed: () {
                     if (_passwordController.text != '' &&
                         _passwordController.text ==
-                            _repasswordController.text) {
+                            _repasswordController.text &&
+                        authSeq != -1) {
                       resetPassword(_passwordController.text, authSeq);
                     }
                   },
