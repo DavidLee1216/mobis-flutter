@@ -117,6 +117,10 @@ class _RegisterFormState extends State<RegisterForm> {
           borderRadius: BorderRadius.circular(2),
           borderSide: BorderSide(color: Colors.grey, width: 1),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2),
+          borderSide: BorderSide(color: Colors.grey, width: 1),
+        ),
         contentPadding: EdgeInsets.only(left: 10),
       ),
       obscureText: true,
@@ -128,6 +132,10 @@ class _RegisterFormState extends State<RegisterForm> {
     var repassField = TextFormField(
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2),
+          borderSide: BorderSide(color: Colors.grey, width: 1),
+        ),
+        focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(2),
           borderSide: BorderSide(color: Colors.grey, width: 1),
         ),
@@ -215,6 +223,10 @@ class _RegisterFormState extends State<RegisterForm> {
           borderRadius: BorderRadius.circular(2),
           borderSide: BorderSide(color: Colors.grey, width: 1),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2),
+          borderSide: BorderSide(color: Colors.grey, width: 1),
+        ),
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.text,
@@ -250,6 +262,10 @@ class _RegisterFormState extends State<RegisterForm> {
     var birthdayField = TextFormField(
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2),
+          borderSide: BorderSide(color: Colors.grey, width: 1),
+        ),
+        focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(2),
           borderSide: BorderSide(color: Colors.grey, width: 1),
         ),
@@ -308,6 +324,10 @@ class _RegisterFormState extends State<RegisterForm> {
           borderRadius: BorderRadius.circular(2),
           borderSide: BorderSide(color: Colors.grey, width: 1),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2),
+          borderSide: BorderSide(color: Colors.grey, width: 1),
+        ),
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.number,
@@ -347,6 +367,10 @@ class _RegisterFormState extends State<RegisterForm> {
           borderRadius: BorderRadius.circular(2),
           borderSide: BorderSide(color: Colors.grey, width: 1),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2),
+          borderSide: BorderSide(color: Colors.grey, width: 1),
+        ),
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.text,
@@ -383,6 +407,10 @@ class _RegisterFormState extends State<RegisterForm> {
           borderRadius: BorderRadius.circular(2),
           borderSide: BorderSide(color: Colors.grey, width: 1),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2),
+          borderSide: BorderSide(color: Colors.grey, width: 1),
+        ),
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.text,
@@ -396,6 +424,10 @@ class _RegisterFormState extends State<RegisterForm> {
           borderRadius: BorderRadius.circular(2),
           borderSide: BorderSide(color: Colors.grey, width: 1),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2),
+          borderSide: BorderSide(color: Colors.grey, width: 1),
+        ),
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.text,
@@ -406,6 +438,10 @@ class _RegisterFormState extends State<RegisterForm> {
     var address3Field = TextField(
       decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(2),
+            borderSide: BorderSide(color: Colors.grey, width: 1),
+          ),
+          focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(2),
             borderSide: BorderSide(color: Colors.grey, width: 1),
           ),
@@ -443,6 +479,10 @@ class _RegisterFormState extends State<RegisterForm> {
           borderRadius: BorderRadius.circular(2),
           borderSide: BorderSide(color: Colors.grey, width: 1),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2),
+          borderSide: BorderSide(color: Colors.grey, width: 1),
+        ),
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.text,
@@ -456,6 +496,10 @@ class _RegisterFormState extends State<RegisterForm> {
           borderRadius: BorderRadius.circular(2),
           borderSide: BorderSide(color: Colors.grey, width: 1),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2),
+          borderSide: BorderSide(color: Colors.grey, width: 1),
+        ),
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.text,
@@ -465,7 +509,7 @@ class _RegisterFormState extends State<RegisterForm> {
 
     var registerButton = Container(
       padding: EdgeInsets.only(left: 9.0, right: 9.0),
-      height: 60,
+      height: 50,
       child: RaisedButton(
         color: kPrimaryColor,
         child: Text(

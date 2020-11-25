@@ -50,7 +50,8 @@ class _GetPassFormState extends State<GetPassForm> {
     }
 
     var emailOrPasswordItem = Container(
-      padding: EdgeInsets.only(top: 20),
+      color: Colors.white,
+      padding: EdgeInsets.fromLTRB(10, 20, 40, 20),
       child: Column(
         children: [
           Row(
@@ -109,7 +110,7 @@ class _GetPassFormState extends State<GetPassForm> {
                         ),
                         Container(
                           height: 40,
-                          width: MediaQuery.of(context).size.width * 0.76,
+                          width: MediaQuery.of(context).size.width * 0.74,
                           child: OutlineButton(
                             borderSide: BorderSide(
                               color: Colors.black,
@@ -149,7 +150,7 @@ class _GetPassFormState extends State<GetPassForm> {
                         Row(
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.37,
+                              width: MediaQuery.of(context).size.width * 0.36,
                               height: 40,
                               child: OutlineButton(
                                 borderSide: BorderSide(
@@ -171,11 +172,11 @@ class _GetPassFormState extends State<GetPassForm> {
                               ),
                             ),
                             SizedBox(
-                              width: 10,
+                              width: 8,
                             ),
                             Container(
                               height: 40,
-                              width: MediaQuery.of(context).size.width * 0.37,
+                              width: MediaQuery.of(context).size.width * 0.36,
                               child: OutlineButton(
                                 borderSide: BorderSide(
                                   color: Colors.black,
@@ -221,7 +222,7 @@ class _GetPassFormState extends State<GetPassForm> {
     );
 
     var yearDropdownmenu = Container(
-        width: 98,
+        width: MediaQuery.of(context).size.width * 0.23,
         height: 40,
         decoration: BoxDecoration(
           border: Border.all(),
@@ -266,7 +267,7 @@ class _GetPassFormState extends State<GetPassForm> {
         ));
 
     var monthDropdownmenu = Container(
-        width: 98,
+        width: MediaQuery.of(context).size.width * 0.23,
         height: 40,
         margin: EdgeInsets.only(left: 10),
         decoration: BoxDecoration(
@@ -327,7 +328,7 @@ class _GetPassFormState extends State<GetPassForm> {
     dayDropdownmenu(int year, int month) {
       int days = getDaysFromYearMonth(year, month);
       return Container(
-          width: 98,
+          width: MediaQuery.of(context).size.width * 0.23,
           height: 40,
           margin: EdgeInsets.only(left: 10),
           decoration: BoxDecoration(
@@ -376,7 +377,7 @@ class _GetPassFormState extends State<GetPassForm> {
     var phoneCodes = ['+1', '+82', '+59', '+123'];
 
     var phoneCodeDropdownmenu = Container(
-        width: 98,
+        width: MediaQuery.of(context).size.width * 0.23,
         height: 40,
         decoration: BoxDecoration(
           border: Border.all(),
@@ -413,13 +414,17 @@ class _GetPassFormState extends State<GetPassForm> {
 
     var phoneNumberItem = Container(
       height: 40,
-      width: 209,
+      width: MediaQuery.of(context).size.width * 0.49,
       margin: EdgeInsets.only(left: 10),
       child: TextField(
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(0),
             borderSide: BorderSide(color: Colors.black, width: 1),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(0),
+            borderSide: BorderSide(color: Colors.grey, width: 1),
           ),
           hintText: '휴대폰 번호',
           contentPadding: EdgeInsets.only(left: 10),
@@ -503,7 +508,7 @@ class _GetPassFormState extends State<GetPassForm> {
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(3),
+                  borderRadius: BorderRadius.circular(0),
                   borderSide: BorderSide(color: Colors.black, width: 1),
                 ),
                 hintText: '가입하신 이메일을 입력하세요.',
@@ -598,7 +603,7 @@ class _GetPassFormState extends State<GetPassForm> {
                           children: [
                             Container(
                               height: 40,
-                              width: MediaQuery.of(context).size.width * 0.37,
+                              width: MediaQuery.of(context).size.width * 0.36,
                               child: OutlineButton(
                                 borderSide: BorderSide(
                                   color: Colors.black,
@@ -622,7 +627,7 @@ class _GetPassFormState extends State<GetPassForm> {
                             ),
                             Container(
                               height: 40,
-                              width: MediaQuery.of(context).size.width * 0.37,
+                              width: MediaQuery.of(context).size.width * 0.36,
                               child: RaisedButton(
                                 color: kPrimaryColor,
                                 child: Text(
@@ -686,6 +691,10 @@ class _GetPassFormState extends State<GetPassForm> {
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(0),
                 borderSide: BorderSide(color: Colors.grey, width: 1),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(0),
+                borderSide: BorderSide(color: Colors.black, width: 1),
               ),
               hintText: '6자의 숫자 인증번호',
               contentPadding: EdgeInsets.only(left: 10),
@@ -813,7 +822,7 @@ class _GetPassFormState extends State<GetPassForm> {
         child: TextField(
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: BorderRadius.circular(0),
               borderSide: BorderSide(color: Colors.grey, width: 1),
             ),
             contentPadding: EdgeInsets.only(left: 10),
@@ -827,7 +836,7 @@ class _GetPassFormState extends State<GetPassForm> {
         child: TextField(
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(2),
+              borderRadius: BorderRadius.circular(0),
               borderSide: BorderSide(color: Colors.grey, width: 1),
             ),
             contentPadding: EdgeInsets.only(left: 10),
@@ -1025,6 +1034,7 @@ class _GetPassFormState extends State<GetPassForm> {
     );
 
     return Container(
+      color: Colors.white,
       child: Column(
         children: [
           SizedBox(

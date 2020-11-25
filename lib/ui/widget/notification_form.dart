@@ -96,7 +96,8 @@ class _NotificationFormState extends State<NotificationForm> {
             widget.text,
             style: TextStyle(
               fontFamily: 'HDharmony',
-              fontSize: 10,
+              fontSize: 12,
+              color: Color(0xff666666),
             ),
           ),
           if (widget.kind == NotificationKind.PAYMENT_WAITING)
@@ -126,17 +127,19 @@ class _NotificationFormState extends State<NotificationForm> {
                   widget.date,
                   style: TextStyle(
                       fontFamily: 'HDharmony',
-                      fontSize: 10,
+                      fontSize: 12,
                       color: Colors.black54),
                 )),
             trailing: isExpanded
                 ? Icon(
                     Icons.keyboard_arrow_up,
                     color: Colors.black,
+                    size: 30,
                   )
                 : Icon(
                     Icons.keyboard_arrow_down,
                     color: Colors.black,
+                    size: 30,
                   ),
             contentPadding: EdgeInsets.only(left: 8, right: 8),
             onTap: () {
