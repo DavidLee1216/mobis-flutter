@@ -84,9 +84,9 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
             child: Text(
               '제조사',
               style: TextStyle(
-                  fontFamily: 'HDharmony',
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
+                fontFamily: 'HDharmony',
+                fontSize: 14,
+              ),
             ),
           ),
           SizedBox(
@@ -140,9 +140,9 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
             child: Text(
               '차량 구분',
               style: TextStyle(
-                  fontFamily: 'HDharmony',
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
+                fontFamily: 'HDharmony',
+                fontSize: 14,
+              ),
             ),
           ),
           ButtonTheme(
@@ -296,6 +296,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
             ],
           ),
         ));
+
     var partNumber = Container(
         padding: EdgeInsets.all(10.0),
         child: Container(
@@ -398,6 +399,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                             '일반검색',
                             style: TextStyle(
                               fontFamily: 'HDharmony',
+                              fontWeight: FontWeight.w700,
                               fontSize: 15,
                               color: Color.fromRGBO(0, 63, 114, 1),
                             ),
@@ -429,6 +431,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                               fontFamily: 'HDharmony',
                               fontSize: 15,
                               color: Color.fromRGBO(0, 63, 114, 1),
+                              fontWeight: FontWeight.w700,
                             ),
                           )
                         : Text(
@@ -483,8 +486,8 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
               ),
             ),
             Divider(
-              height: 2,
-              color: Colors.black54,
+              color: Colors.black,
+              thickness: 1,
             ),
             manufactureItem,
             Divider(
@@ -492,6 +495,10 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
               color: Colors.black54,
             ),
             !searchType ? generalSearchItems : partNumberSearchItems,
+            Divider(
+              color: Colors.black,
+              thickness: 1,
+            ),
             searchButton,
             SizedBox(height: 30),
             searched ? SimpleSearchResultsForm() : Container(),
