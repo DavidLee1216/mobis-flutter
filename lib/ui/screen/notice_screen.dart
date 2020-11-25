@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/notice_bloc.dart';
@@ -38,15 +37,18 @@ class _NoticeScreenState extends State<NoticeScreen> {
         ],
       ),
       body: SafeArea(
-        child: Column(
-          children: [
-            searchIconClicked ? SearchBarWidget() : Container(),
-            Divider(
-              height: 3,
-              color: Colors.black54,
-            ),
-            Expanded(child: NoticeListWidget()),
-          ],
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            children: [
+              searchIconClicked ? SearchBarWidget() : Container(),
+              Divider(
+                height: 3,
+                color: Colors.black54,
+              ),
+              Expanded(child: NoticeListWidget()),
+            ],
+          ),
         ), //
       ),
     );
@@ -99,7 +101,15 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
         child: TextField(
           controller: _keywordController,
           keyboardType: TextInputType.text,
-          decoration: InputDecoration(hintText: '검색어를 입력해 주세요'),
+          decoration: InputDecoration(
+            hintText: '검색어를 입력해 주세요',
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Color(0xffcccccc)),
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(color: Color(0xffcccccc)),
+            ),
+          ),
         ));
     var searchButton = ButtonTheme(
       minWidth: MediaQuery.of(context).size.width / 5,

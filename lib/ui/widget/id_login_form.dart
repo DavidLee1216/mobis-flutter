@@ -33,13 +33,12 @@ class _IdLoginFormState extends State<IdLoginForm> {
     final AuthBloc bloc = BlocProvider.of<AuthBloc>(context);
 
     var idField = Container(
-        height: 60,
+        height: 50,
         width: 380,
         child: TextFormField(
           decoration: InputDecoration(
             filled: true,
             fillColor: Colors.white,
-//                  contentPadding: EdgeInsets.only(left: 30, ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(2),
               borderSide: BorderSide(color: Colors.grey, width: 1),
@@ -65,13 +64,12 @@ class _IdLoginFormState extends State<IdLoginForm> {
         ));
 
     var passwordField = Container(
-      height: 60,
+      height: 50,
       width: 380,
       child: TextFormField(
         decoration: InputDecoration(
           filled: true,
           fillColor: Colors.white,
-//                  contentPadding: EdgeInsets.only(left: 30, ),
           enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(2),
             borderSide: BorderSide(color: Colors.grey, width: 1),
@@ -125,7 +123,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
 
     var loginButton = Container(
       width: 380,
-      height: 60,
+      height: 50,
       child: RaisedButton(
         padding: EdgeInsets.all(10.0),
         elevation: 5.0,

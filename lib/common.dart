@@ -105,8 +105,7 @@ void getSigungu() async {
       if (response.statusCode == 200) {
         final data = json.decode(utf8.decode(response.bodyBytes)) as List;
         sido.sigungus = data.map((e) => Sigungu.fromMap(e)).toList();
-      } else {
-      }
+      } else {}
     });
     if (sido == globalSido.last) {
       globalSidoLoaded = true;
@@ -115,14 +114,13 @@ void getSigungu() async {
 }
 
 // ignore: missing_return
-Future<bool> updateProfile(String addressExtended, String address, String mobile,
+Future<bool> updateProfile(String addressExtended, String address,
     String password, String zipCode, String email) {
   http
       .post(API + '/profile',
           body: jsonEncode({
             'addressExtended': addressExtended,
             'address': address,
-            'mobile': mobile,
             'password': password,
             'zipcode': zipCode,
             'email': email
@@ -140,41 +138,39 @@ Future<bool> updateProfile(String addressExtended, String address, String mobile
 
 // ignore: missing_return
 Future<bool> checkUsername(String username) =>
-  http.get(API + '/username/$username')
-      .then((response) {
-    if (response.statusCode == 200) {
-      log('success');
-      return true;
-    } else {
-      log(response.statusCode.toString());
-      return false;
-    }
-  });
+    http.get(API + '/username/$username').then((response) {
+      if (response.statusCode == 200) {
+        log('success');
+        return true;
+      } else {
+        log(response.statusCode.toString());
+        return false;
+      }
+    });
 
 // ignore: missing_return
 Future<bool> checkEmail(String email) =>
-  http.get(API + '/email/$email')
-      .then((response) {
-    if (response.statusCode == 200) {
-      log('success');
-      return true;
-    } else {
-      log(response.statusCode.toString());
-      return false;
-    }
-  });
+    http.get(API + '/email/$email').then((response) {
+      if (response.statusCode == 200) {
+        log('success');
+        return true;
+      } else {
+        log(response.statusCode.toString());
+        return false;
+      }
+    });
 
 // ignore: missing_return
 Future<bool> validateSMS(String mobile) =>
-  http.get(API + '/validateSMS/$mobile').then((response) {
-    if (response.statusCode == 200) {
-      log('validate_SMS success');
-      return true;
-    } else {
-      log('validate_SMS ${response.statusCode}');
-      return false;
-    }
-  });
+    http.get(API + '/validateSMS/$mobile').then((response) {
+      if (response.statusCode == 200) {
+        log('validate_SMS success');
+        return true;
+      } else {
+        log('validate_SMS ${response.statusCode}');
+        return false;
+      }
+    });
 
 // ignore: missing_return
 Future<List<CartModel>> loadCart() {
@@ -225,24 +221,24 @@ Future<bool> delFromCart(int seq) =>
 
 // ignore: missing_return
 Future<bool> validateEmail(String email) =>
-  http.get(API + '/validateEmail/$email').then((response) {
-    if (response.statusCode == 200) {
-      log('validate_email success');
-      return true;
-    } else {
-      log('validate_email ${response.statusCode}');
-      return false;
-    }
-  });
+    http.get(API + '/validateEmail/$email').then((response) {
+      if (response.statusCode == 200) {
+        log('validate_email success');
+        return true;
+      } else {
+        log('validate_email ${response.statusCode}');
+        return false;
+      }
+    });
 
 Future<int> validateCode(String code) =>
-  http.get(API + '/validateCode/$code').then((response) {
-    if (response.statusCode == 200) {
-      final jsonData = json.decode(response.body);
-      return jsonData['seq'];
-    } else
-      return -1;
-  });
+    http.get(API + '/validateCode/$code').then((response) {
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        return jsonData['seq'];
+      } else
+        return -1;
+    });
 
 // ignore: missing_return
 Future<String> getEmail(String code) async {

@@ -13,7 +13,6 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
   final _repasswordController = TextEditingController();
 
   var _emailController = TextEditingController();
-  var _mobileController = TextEditingController();
 
   var _address1Controller = TextEditingController();
   var _address2Controller = TextEditingController();
@@ -29,7 +28,6 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
     _address1Controller.text = '서울특별시 강남구 테헤란로 203';
     _address2Controller.text = 'SI타워 현대모비스(주)';
     _postCodeController.text = '06141';
-    _mobileController.text = '010-1234-5678';
 
     var userNameItem = Container(
       padding: EdgeInsets.only(top: 10.0),
@@ -199,26 +197,13 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                 ],
               )),
           Container(
-            width: screenWidth * 0.75,
-            height: 50,
-            padding: EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
-            child: TextField(
-              decoration: InputDecoration(
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(3),
-                  borderSide: BorderSide(color: Colors.grey, width: 1),
-                ),
-                contentPadding: EdgeInsets.only(left: 10),
-              ),
-              keyboardType: TextInputType.emailAddress,
+            padding: EdgeInsets.fromLTRB(30, 10, 0, 10),
+            child: Text(
+              '010-1234-5678',
               style: TextStyle(
                 fontFamily: 'HDharmony',
-                fontSize: 12,
+                fontSize: 14,
               ),
-              textAlign: TextAlign.left,
-              controller: _mobileController,
             ),
           )
         ],
@@ -436,12 +421,10 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
         onPressed: () {
           String addressExtended = _address2Controller.text;
           String address = _address1Controller.text;
-          String mobile = _mobileController.text;
           String email = _emailController.text;
           String password = _passwordController.text;
           String zipCode = _postCodeController.text;
-          updateProfile(
-              addressExtended, address, mobile, password, zipCode, email);
+          updateProfile(addressExtended, address, password, zipCode, email);
         },
       ),
     );

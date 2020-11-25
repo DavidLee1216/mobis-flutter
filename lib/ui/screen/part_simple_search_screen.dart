@@ -203,43 +203,44 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
     var modelDropdownmenu = FutureBuilder(
         future: loadModels(),
         builder: (context, snapshot) {
-          return Container(
-            width: 290,
-//            height: 40,
-            decoration: BoxDecoration(
-              border: Border.all(),
-            ),
-            child: DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                  value: modelDropdownValue,
-                  hint: Padding(
-                      padding: EdgeInsets.only(left: 10),
-                      child: Text(
-                        '[선택]',
-                      )),
-                  icon: Icon(Icons.keyboard_arrow_down),
-                  iconSize: 14,
-                  onChanged: (newValue) {
-                    modelDropdownValue = newValue;
-                    setState(() {});
-                  },
-                  items: snapshot.data?.map<DropdownMenuItem<String>>((item) {
-                    return DropdownMenuItem<String>(
-                      value: item,
-                      child: Container(
-                        width: 160,
+          return Expanded(
+            child: Container(
+              margin: const EdgeInsets.only(right: 10),
+              decoration: BoxDecoration(
+                border: Border.all(),
+              ),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                    value: modelDropdownValue,
+                    hint: Padding(
+                        padding: EdgeInsets.only(left: 10),
                         child: Text(
-                          item,
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: 'HDharmony',
-                            fontSize: 14,
+                          '[선택]',
+                        )),
+                    icon: Icon(Icons.keyboard_arrow_down),
+                    iconSize: 14,
+                    onChanged: (newValue) {
+                      modelDropdownValue = newValue;
+                      setState(() {});
+                    },
+                    items: snapshot.data?.map<DropdownMenuItem<String>>((item) {
+                      return DropdownMenuItem<String>(
+                        value: item,
+                        child: Container(
+                          width: 160,
+                          child: Text(
+                            item,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              fontSize: 14,
+                            ),
                           ),
+                          alignment: Alignment.center,
                         ),
-                        alignment: Alignment.center,
-                      ),
-                    );
-                  })?.toList()),
+                      );
+                    })?.toList()),
+              ),
             ),
           );
         });
@@ -268,6 +269,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
     var partName = Container(
         padding: EdgeInsets.all(10.0),
         child: Container(
+          padding: const EdgeInsets.only(right: 10),
           height: 40,
           child: Row(
             children: [
@@ -278,8 +280,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
               SizedBox(
                 width: 10,
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.7,
+              Expanded(
                 child: TextField(
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
@@ -334,7 +335,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
       padding: EdgeInsets.only(top: 20.0),
       child: ButtonTheme(
         minWidth: MediaQuery.of(context).size.width / 1.1,
-        height: 60,
+        height: 50,
         buttonColor: Color.fromRGBO(0, 63, 114, 1),
         child: RaisedButton(
           child: Text(
@@ -417,8 +418,12 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                             ),
                           ),
                     shape: !searchType
-                        ? Border(bottom: BorderSide(color: Color.fromRGBO(0, 63, 114, 1), width: 3))
-                        : Border(bottom: BorderSide(color: Colors.transparent, width: 3)),
+                        ? Border(
+                            bottom: BorderSide(
+                                color: Color.fromRGBO(0, 63, 114, 1), width: 3))
+                        : Border(
+                            bottom: BorderSide(
+                                color: Colors.transparent, width: 3)),
                     onPressed: () {
                       searchType = false;
                       searched = false;
@@ -450,8 +455,12 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                             ),
                           ),
                     shape: searchType
-                        ? Border(bottom: BorderSide(color: Color.fromRGBO(0, 63, 114, 1), width: 3))
-                        : Border(bottom: BorderSide(color: Colors.transparent, width: 3)),
+                        ? Border(
+                            bottom: BorderSide(
+                                color: Color.fromRGBO(0, 63, 114, 1), width: 3))
+                        : Border(
+                            bottom: BorderSide(
+                                color: Colors.transparent, width: 3)),
                     onPressed: () {
                       searchType = true;
                       searched = false;

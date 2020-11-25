@@ -6,10 +6,17 @@ class NotificationForm extends StatefulWidget {
   final String title;
   final String date;
   final int count;
+  final String orderDetail;
   final String text;
   final NotificationKind kind;
   NotificationForm(
-      {Key key, this.title, this.date, this.count, this.text, this.kind})
+      {Key key,
+      this.title,
+      this.date,
+      this.count,
+      this.orderDetail,
+      this.text,
+      this.kind})
       : super(key: key);
   @override
   _NotificationFormState createState() => _NotificationFormState();
@@ -76,10 +83,20 @@ class _NotificationFormState extends State<NotificationForm> {
             height: 10,
           ),
           Text(
-            widget.text,
+            widget.orderDetail,
             style: TextStyle(
               fontFamily: 'HDharmony',
               fontSize: 14,
+            ),
+          ),
+          SizedBox(
+            height: 10,
+          ),
+          Text(
+            widget.text,
+            style: TextStyle(
+              fontFamily: 'HDharmony',
+              fontSize: 10,
             ),
           ),
           if (widget.kind == NotificationKind.PAYMENT_WAITING)

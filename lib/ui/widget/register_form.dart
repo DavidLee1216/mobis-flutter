@@ -99,6 +99,10 @@ class _RegisterFormState extends State<RegisterForm> {
           borderRadius: BorderRadius.circular(2),
           borderSide: BorderSide(color: Colors.grey, width: 1),
         ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2),
+          borderSide: BorderSide(color: Colors.grey, width: 1),
+        ),
         contentPadding: EdgeInsets.only(left: 10),
       ),
       keyboardType: TextInputType.text,
@@ -162,6 +166,14 @@ class _RegisterFormState extends State<RegisterForm> {
     var emailField = TextFormField(
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2),
+          borderSide: BorderSide(color: Colors.grey, width: 1),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2),
+          borderSide: BorderSide(color: Colors.grey, width: 1),
+        ),
+        errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(2),
           borderSide: BorderSide(color: Colors.grey, width: 1),
         ),
@@ -540,9 +552,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 ),
               ),
             ),
-            SizedBox(
-              height: 5,
-            ),
+            SizedBox(height: 5),
             Container(
               height: 50,
               child: Padding(
@@ -550,9 +560,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 child: passField,
               ),
             ),
-            SizedBox(
-              height: 15,
-            ),
+            SizedBox(height: 15),
             Container(
               child: Padding(
                 padding: const EdgeInsets.only(left: 8.0),
@@ -564,6 +572,9 @@ class _RegisterFormState extends State<RegisterForm> {
                   ),
                 ),
               ),
+            ),
+            SizedBox(
+              height: 5,
             ),
             Container(
               height: 50,

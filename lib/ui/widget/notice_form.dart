@@ -17,11 +17,13 @@ class _NoticeFormState extends State<NoticeForm> {
       children: [
         Container(
           height: 50,
+          padding: const EdgeInsets.symmetric(horizontal: 20),
           child: ListTile(
             title: Text(widget.title,
                 style: TextStyle(
                     fontFamily: 'HDharmony',
-                    fontSize: 14,
+                    fontWeight:
+                        isExpanded ? FontWeight.bold : FontWeight.normal,
                     color: Colors.black)),
             subtitle: Padding(
                 padding: EdgeInsets.only(left: 8),
@@ -36,10 +38,12 @@ class _NoticeFormState extends State<NoticeForm> {
                 ? Icon(
                     Icons.keyboard_arrow_up,
                     color: Colors.black,
+                    size: 25,
                   )
                 : Icon(
                     Icons.keyboard_arrow_down,
                     color: Colors.black,
+                    size: 25,
                   ),
             contentPadding: EdgeInsets.only(left: 8, right: 8),
             onTap: () {
@@ -50,7 +54,7 @@ class _NoticeFormState extends State<NoticeForm> {
         ),
         isExpanded
             ? Container(
-                padding: EdgeInsets.all(15.0),
+                padding: EdgeInsets.fromLTRB(30, 15.0, 0, 0),
                 child: Text(
                   widget.text,
                   style: TextStyle(
@@ -61,6 +65,12 @@ class _NoticeFormState extends State<NoticeForm> {
                 alignment: Alignment.centerLeft,
               )
             : Container(),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 5, 20, 0),
+          child: Divider(
+            color: Colors.black54,
+          ),
+        ),
       ],
     );
   }

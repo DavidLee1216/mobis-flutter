@@ -48,8 +48,8 @@ class NotificationListWidget extends StatelessWidget {
           title: '양 * * 고객님, 구매 요청 완료 알림이 있습니다.',
           date: '2020.10.09',
           count: 1,
-          text:
-              '플레이트 & 그로메트－에어컨 쿨러 라인 / 3개\n 강원부품(주) | 택배로 받기\n 양 ** / 010-1234-5678\n 배송지 서울시 강남구 **로 125',
+          orderDetail: '플레이트 & 그로메트－에어컨 쿨러 라인 / 3개',
+          text: '강원부품(주) | 택배로 받기\n 양 ** / 010-1234-5678\n 배송지 서울시 강남구 **로 125',
           kind: NotificationKind.PURCHASE_REQUEST,
         ),
         Divider(
@@ -59,6 +59,7 @@ class NotificationListWidget extends StatelessWidget {
           title: '양 * * 고객님, 결제대기 알림이 있습니다.',
           date: '2020.10.09',
           count: 1,
+          orderDetail: '플레이트 & 그로메트－에어컨 쿨러 라인 / 3개',
           text:
               '플레이트 & 그로메트－에어컨 쿨러 라인 / 3개\n 강원부품(주) | 방문수령\n 양 ** / 010-1234-5678\n 수령예정일 10월 23일 9:30',
           kind: NotificationKind.PAYMENT_WAITING,
@@ -70,6 +71,7 @@ class NotificationListWidget extends StatelessWidget {
           title: '양 * * 고객님, 결제 완료 알림이 있습니다.',
           date: '2020.10.09',
           count: 1,
+          orderDetail: '플레이트 & 그로메트－에어컨 쿨러 라인 / 3개',
           text:
               '플레이트 & 그로메트－에어컨 쿨러 라인 / 3개\n 강원부품(주) | 방문수령\n 양 ** / 010-1234-5678\n수령예정일 10월 23일 9:30',
           kind: NotificationKind.PAYMENT_COMPLETE,
