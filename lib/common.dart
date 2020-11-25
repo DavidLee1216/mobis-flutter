@@ -142,7 +142,7 @@ Future<bool> updateProfile(String addressExtended, String address, String mobile
 Future<bool> checkUsername(String username) {
   http
       .get(
-    API + '/username/{username}?username=$username',
+    API + '/username/$username',
   )
       .then((response) {
     if (response.statusCode == 200) {
@@ -159,7 +159,7 @@ Future<bool> checkUsername(String username) {
 Future<bool> checkEmail(String email) {
   http
       .get(
-    API + '/email/{email}?email=$email',
+    API + '/email/$email',
   )
       .then((response) {
     if (response.statusCode == 200) {
@@ -174,7 +174,7 @@ Future<bool> checkEmail(String email) {
 
 // ignore: missing_return
 Future<bool> validateSMS(String mobile) {
-  http.get(API + '/validateSMS/{mobile}/mobile=$mobile').then((response) {
+  http.get(API + '/validateSMS/$mobile').then((response) {
     if (response.statusCode == 200) {
       log('validate_SMS success');
       return true;
@@ -234,7 +234,7 @@ Future<bool> delFromCart(int seq) =>
 
 // ignore: missing_return
 Future<bool> validateEmail(String email) async {
-  await http.get(API + '/validateEmail/{email}/email=$email').then((response) {
+  await http.get(API + '/validateEmail/$email').then((response) {
     if (response.statusCode == 200) {
       log('validate_email success');
       return true;
@@ -247,7 +247,7 @@ Future<bool> validateEmail(String email) async {
 
 // ignore: missing_return
 Future<int> validateCode(String code) async {
-  http.get(API + '/validateCode/{code}/code=$code').then((response) {
+  http.get(API + '/validateCode/$code').then((response) {
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       return jsonData['seq'];
