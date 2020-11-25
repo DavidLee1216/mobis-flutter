@@ -42,8 +42,10 @@ class _NavigationBarState extends State<NavigationBar> {
           ? _screens[widget.index]
           : _screens[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
+        elevation: 30.0,
         selectedFontSize: 12,
         unselectedFontSize: 12,
+        backgroundColor: Colors.white,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: ImageIcon(
