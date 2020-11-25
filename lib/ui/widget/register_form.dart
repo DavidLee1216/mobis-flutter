@@ -152,7 +152,7 @@ class _RegisterFormState extends State<RegisterForm> {
             )),
         onPressed: () {
           if (checkUsername(_idController.text) == false) {
-//            _idController.clear();
+            _idController.clear();
           }
         },
       ),
@@ -560,6 +560,26 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
           ),
           SizedBox(
+            height: 5,
+          ),
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.warning,
+                    color: kPrimaryColor,
+                  ),
+                  Text(
+                    '8-20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.',
+                    style: TextStyle(color: kPrimaryColor, fontSize: 12),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SizedBox(
             height: 15,
           ),
           Container(
@@ -727,7 +747,7 @@ class _RegisterFormState extends State<RegisterForm> {
                     color: kPrimaryColor,
                   ),
                   Text(
-                    '공백 특수기호 없이 특수문자만 입력하세요',
+                    '공백 특수기호 없이 특수문자만 입력하세요.',
                     style: TextStyle(color: kPrimaryColor, fontSize: 12),
                   ),
                 ],
