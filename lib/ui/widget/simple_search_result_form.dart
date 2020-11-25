@@ -95,7 +95,7 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
                     padding: const EdgeInsets.only(left: 20),
                     child: Row(
                       children: [
-                        Image.asset('images/reference.png'),
+                        Image.asset('assets/images/reference.png'),
                         Text(
                           '부품 번호를 선택하시면 판매점을 조회하실 수 있습니다.',
                           style: TextStyle(

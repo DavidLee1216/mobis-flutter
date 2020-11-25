@@ -43,14 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   Container(
                     margin: const EdgeInsets.only(bottom: 70),
-                    child: Image.asset('images/logo2.png'),
+                    child: Image.asset('assets/images/logo2.png'),
                     width: 270,
                   ),
                 ],
               ),
               Container(
                 margin: const EdgeInsets.only(bottom: 10),
-                child: Image.asset('images/car_white.png'),
+                child: Image.asset('assets/images/car_white.png'),
                 width: 320,
               )
             ],
@@ -112,7 +112,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding: const EdgeInsets.only(top: 38),
                               ),
                               Image.asset(
-                                'images/notice_H.png',
+                                'assets/images/notice_H.png',
                                 width: kImageWidth,
                               ),
                               SizedBox(
@@ -150,7 +150,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding: const EdgeInsets.only(top: 30),
                               ),
                               Image.asset(
-                                'images/search_store_H.png',
+                                'assets/images/search_store_H.png',
                                 width: kImageWidth,
                               ),
                               SizedBox(
@@ -189,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding: const EdgeInsets.only(top: 30),
                               ),
                               Image.asset(
-                                'images/search_H.png',
+                                'assets/images/search_H.png',
                                 width: kImageWidth,
                               ),
                               SizedBox(
@@ -228,7 +228,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 padding: const EdgeInsets.only(top: 28),
                               ),
                               Image.asset(
-                                'images/my_page_H.png',
+                                'assets/images/my_page_H.png',
                                 width: kImageWidth,
                               ),
                               SizedBox(

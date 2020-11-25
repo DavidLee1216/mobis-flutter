@@ -523,7 +523,7 @@ class _GetPassFormState extends State<GetPassForm> {
     );
 
     var checkedItem = Container(
-      child: Image.asset('images/check_icon.png'),
+      child: Image.asset('assets/images/check_icon.png'),
     );
 
     var authRequestItem = Container(

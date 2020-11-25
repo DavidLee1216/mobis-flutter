@@ -35,15 +35,19 @@ class _NavigationBarState extends State<NavigationBar> {
   @override
   void initState() {
     super.initState();
-    _selectedIndex = (widget.index < 4) ? widget.index : (widget.index != 8) ? 1 : 2;
+    _selectedIndex = (widget.index < 4)
+        ? widget.index
+        : (widget.index != 8)
+            ? 1
+            : 2;
   }
 
   @override
   Widget build(BuildContext context) {
     final ModalQueryScreen queryModal = new ModalQueryScreen();
 
-    showCustomerCenter(){
-        queryModal.mainModalBottomSheet(context);
+    showCustomerCenter() {
+      queryModal.mainModalBottomSheet(context);
     }
 
     return Scaffold(
@@ -58,25 +62,25 @@ class _NavigationBarState extends State<NavigationBar> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage('images/1507.png'),
+              AssetImage('assets/images/1507.png'),
             ),
             label: '알람',
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage('images/Home_icon.png'),
+              AssetImage('assets/images/Home_icon.png'),
             ),
             label: '홈',
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage('images/Profile_icon.png'),
+              AssetImage('assets/images/Profile_icon.png'),
             ),
             label: '마이페이지',
           ),
           BottomNavigationBarItem(
             icon: ImageIcon(
-              AssetImage('images/support_icon.png'),
+              AssetImage('assets/images/support_icon.png'),
             ),
             label: '고객센터',
           ),
@@ -88,7 +92,7 @@ class _NavigationBarState extends State<NavigationBar> {
           setState(() {
             _selectedIndex = index;
             _initState = false;
-            if(_selectedIndex==3){
+            if (_selectedIndex == 3) {
               showCustomerCenter();
             }
           });

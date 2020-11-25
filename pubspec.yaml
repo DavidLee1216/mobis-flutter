@@ -39,14 +39,14 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - images/
+    - assets/images/
 
   fonts:
     - family: HDharmony
       fonts:
-        - asset: font/HDharmony_L.ttf
+        - asset: assets/fonts/HDharmony_L.ttf
           weight: 300
-        - asset: font/HDharmony_M.ttf
+        - asset: assets/fonts/HDharmony_M.ttf
           weight: 500
-        - asset: font/HDharmony_B.ttf
+        - asset: assets/fonts/HDharmony_B.ttf
           weight: 700

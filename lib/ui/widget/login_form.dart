@@ -12,7 +12,7 @@ class LoginForm extends StatelessWidget {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height,
             child: Image.asset(
-              'images/login_background.png',
+              'assets/images/login_background.png',
               fit: BoxFit.fill,
               color: Color.fromRGBO(255, 255, 255, 1),
               colorBlendMode: BlendMode.modulate,
@@ -64,7 +64,7 @@ class LoginForm extends StatelessWidget {
                         padding: EdgeInsets.only(
                             left: MediaQuery.of(context).size.width * 0.25),
                       ),
-                      Image.asset('images/naver_icon.png',
+                      Image.asset('assets/images/naver_icon.png',
                           width: 20, height: 20),
                       SizedBox(
                         width: 10,
@@ -101,7 +101,7 @@ class LoginForm extends StatelessWidget {
                             left: MediaQuery.of(context).size.width * 0.25),
                       ),
                       Image.asset(
-                        'images/kakao_icon.png',
+                        'assets/images/kakao_icon.png',
                         width: 20,
                         height: 20,
                       ),
@@ -141,7 +141,7 @@ class LoginForm extends StatelessWidget {
                         padding: EdgeInsets.only(
                             left: MediaQuery.of(context).size.width * 0.25),
                       ),
-                      Image.asset('images/google_icon.png',
+                      Image.asset('assets/images/google_icon.png',
                           width: 20, height: 20),
                       SizedBox(
                         width: 10,

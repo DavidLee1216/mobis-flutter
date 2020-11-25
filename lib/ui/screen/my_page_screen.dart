@@ -149,7 +149,8 @@ class MyPageWidget extends StatelessWidget {
                                       ),
                                       trailing: Padding(
                                         padding: EdgeInsets.all(14),
-                                        child: Image.asset('images/arrow.png'),
+                                        child: Image.asset(
+                                            'assets/images/arrow.png'),
                                       ),
                                       onTap: () {
                                         pushTo(context, MyInfoScreen());
@@ -178,7 +179,7 @@ class MyPageWidget extends StatelessWidget {
 
                                 trailing: Padding(
                                   padding: EdgeInsets.all(14),
-                                  child: Image.asset('images/arrow.png'),
+                                  child: Image.asset('assets/images/arrow.png'),
                                 ),
 
                                 onTap: () {
@@ -207,7 +208,8 @@ class MyPageWidget extends StatelessWidget {
                                       ),
                                       trailing: Padding(
                                         padding: EdgeInsets.all(14),
-                                        child: Image.asset('images/arrow.png'),
+                                        child: Image.asset(
+                                            'assets/images/arrow.png'),
                                       ),
                                       onTap: () {
                                         Navigator.push(
@@ -243,7 +245,7 @@ class MyPageWidget extends StatelessWidget {
                                 ),
                                 trailing: Padding(
                                   padding: EdgeInsets.all(14),
-                                  child: Image.asset('images/arrow.png'),
+                                  child: Image.asset('assets/images/arrow.png'),
                                 ),
                                 onTap: () {
                                   pushTo(context, NotificationScreen());
