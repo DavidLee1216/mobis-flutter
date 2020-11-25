@@ -18,7 +18,7 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
         decoration: new BoxDecoration(
           borderRadius: BorderRadius.circular(5.0),
           border: Border.all(
-            color: Colors.black,
+            color: Colors.grey,
           ),
         ),
         child: Column(
@@ -35,7 +35,8 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
                   style: TextStyle(
                       fontFamily: 'HDharmony',
                       fontSize: 14,
-                      color: Colors.blue[900]),
+                      color: const Color(0xFF074B88),
+                      fontWeight: FontWeight.bold),
                 ),
                 GestureDetector(
                   child: Icon(Icons.clear),
@@ -57,7 +58,7 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
               height: 10,
             ),
             Text(
-              '대상제목 : $target',
+              '대상품목 : $target',
               style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
             ),
             SizedBox(
