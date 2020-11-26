@@ -27,17 +27,19 @@ class _NotificationFormState extends State<NotificationForm> {
   @override
   Widget build(BuildContext context) {
     var paymentButton = Container(
-      margin: EdgeInsets.symmetric(vertical: 10.0),
+      margin: EdgeInsets.symmetric(vertical: 20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ButtonTheme(
+            minWidth: MediaQuery.of(context).size.width / 1.25,
             buttonColor: Color.fromRGBO(0, 63, 114, 1),
+            padding: const EdgeInsets.fromLTRB(0, 15, 0, 15),
             child: RaisedButton(
               child: Text(
                 '결제하러 가기',
                 style: TextStyle(
-                    fontFamily: 'HDharmony', fontSize: 12, color: Colors.white),
+                    fontFamily: 'HDharmony', fontSize: 14, color: Colors.white),
                 textAlign: TextAlign.center,
               ),
               onPressed: () {
@@ -67,7 +69,7 @@ class _NotificationFormState extends State<NotificationForm> {
     );
 
     var contentItem = Container(
-      padding: EdgeInsets.all(15.0),
+      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -75,7 +77,7 @@ class _NotificationFormState extends State<NotificationForm> {
             '주문 상품(${widget.count}개)',
             style: TextStyle(
                 fontFamily: 'HDharmony',
-                fontSize: 14,
+                fontSize: 15,
                 color: const Color(0xFF074B88),
                 fontWeight: FontWeight.bold),
           ),
@@ -86,7 +88,7 @@ class _NotificationFormState extends State<NotificationForm> {
             widget.orderDetail,
             style: TextStyle(
               fontFamily: 'HDharmony',
-              fontSize: 14,
+              fontSize: 15,
             ),
           ),
           SizedBox(
@@ -96,7 +98,7 @@ class _NotificationFormState extends State<NotificationForm> {
             widget.text,
             style: TextStyle(
               fontFamily: 'HDharmony',
-              fontSize: 12,
+              fontSize: 13,
               color: Color(0xff666666),
             ),
           ),

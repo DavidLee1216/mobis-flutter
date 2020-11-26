@@ -915,7 +915,8 @@ class _GetPassFormState extends State<GetPassForm> {
                         _passwordController.text ==
                             _repasswordController.text &&
                         authSeq != -1) {
-                      resetPassword(encryptPassword(_passwordController.text), authSeq);
+                      resetPassword(
+                          encryptPassword(_passwordController.text), authSeq);
                     }
                   },
                 ),
