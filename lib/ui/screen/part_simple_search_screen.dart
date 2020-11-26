@@ -284,7 +284,11 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 child: TextField(
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(1),
+                      borderRadius: BorderRadius.circular(2),
+                      borderSide: BorderSide(color: Colors.grey, width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(2),
                       borderSide: BorderSide(color: Colors.grey, width: 1),
                     ),
                     contentPadding: EdgeInsets.only(left: 10),
@@ -316,13 +320,21 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 child: TextField(
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(1),
+                      borderRadius: BorderRadius.circular(2),
+                      borderSide: BorderSide(color: Colors.grey, width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(2),
                       borderSide: BorderSide(color: Colors.grey, width: 1),
                     ),
                     contentPadding: EdgeInsets.only(left: 10),
                   ),
                   keyboardType: TextInputType.text,
-                  style: TextStyle(fontFamily: 'HDharmony', fontSize: 14.0),
+                  style: TextStyle(
+                    fontFamily: 'HDharmony',
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                   controller: partNumberController,
                 ),
               )

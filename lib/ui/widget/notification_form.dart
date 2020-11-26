@@ -69,7 +69,7 @@ class _NotificationFormState extends State<NotificationForm> {
     );
 
     var contentItem = Container(
-      padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+      padding: EdgeInsets.all(10),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
