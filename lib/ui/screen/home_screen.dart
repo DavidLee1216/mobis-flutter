@@ -78,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        '안녕하세요, $globalUsername고객님.',
+                        '안녕하세요, $globalUsername 고객님.',
                         style: kMenuTextStyle,
                       ),
                       globalUsername != ''

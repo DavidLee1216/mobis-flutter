@@ -252,7 +252,15 @@ class MyPageWidget extends StatelessWidget {
                                   child: Image.asset('assets/images/arrow.png'),
                                 ),
                                 onTap: () {
-                                  pushTo(context, NotificationScreen());
+                                  Navigator.push(
+                                    context,
+                                    PageRouteBuilder(
+                                      pageBuilder: (_, __, ___) =>
+                                          NavigationBar(
+                                            index: 0,
+                                          ),
+                                    ),
+                                  );
                                 },
                               ),
                             ),
