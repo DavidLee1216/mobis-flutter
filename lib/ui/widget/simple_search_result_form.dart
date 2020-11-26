@@ -55,12 +55,12 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
 //                    price: state.searchResult[index].price.toString() + '원',
 //                  );
 //                }),
-              SimpleSearchResultForm(
-                partNumber: '97651B2000',
-                koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
-                englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
-                price: '1,870원',
-              ),
+                SimpleSearchResultForm(
+                  partNumber: '97651B2000',
+                  koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
+                  englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
+                  price: '1,870원',
+                ),
                 SizedBox(
                   height: 10,
                 ),
@@ -71,7 +71,7 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
                       children: [
                         Image.asset('assets/images/reference.png'),
                         Text(
-                          '부품 번호를 선택하시면 판매점을 조회하실 수 있습니다.',
+                          ' 부품 번호를 선택하시면 판매점을 조회하실 수 있습니다.',
                           style: TextStyle(
                               fontFamily: 'HDharmony',
                               color: Colors.black,
@@ -203,30 +203,42 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
             padding: EdgeInsets.symmetric(horizontal: 10),
             child: Table(
               columnWidths: {
-                0: FixedColumnWidth(screenWidth * 0.28),
-                1: FixedColumnWidth(screenWidth * 0.68),
+                0: FixedColumnWidth(screenWidth * 0.26),
+                1: FixedColumnWidth(screenWidth * 0.66),
               },
-              border: TableBorder.all(width: 1.0, color: Colors.black26),
+              border: TableBorder(
+                  top: BorderSide(color: Colors.black, width: 1.5),
+                  bottom: BorderSide(
+                    color: Colors.black,
+                    width: 1.5,
+                  ),
+                  horizontalInside: BorderSide(
+                      width: 1,
+                      color: Color(0xff666666),
+                      style: BorderStyle.solid)),
               children: [
                 TableRow(children: [
-                  TableCell(
-                    child: SizedBox(
-                      height: 30,
-                      child: Center(
-                        child: Text(
-                          '부품 번호',
-                          style: TextStyle(
-                              fontFamily: 'HDharmony',
-                              fontSize: 12,
-                              color: Colors.black),
-                          textAlign: TextAlign.center,
+                  Container(
+                    color: Color(0xffcccccc),
+                    child: TableCell(
+                      child: SizedBox(
+                        height: 40,
+                        child: Center(
+                          child: Text(
+                            '부품 번호',
+                            style: TextStyle(
+                                fontFamily: 'HDharmony',
+                                fontSize: 13,
+                                color: Color(0xff666666)),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ),
                   ),
                   TableCell(
                     child: SizedBox(
-                      height: 30,
+                      height: 40,
                       child: Center(
                         child: Text(
                           widget.partNumber,
@@ -241,30 +253,33 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                   )
                 ]),
                 TableRow(children: [
-                  TableCell(
-                    child: SizedBox(
-                      height: 30,
-                      child: Center(
-                        child: Text(
-                          '한글 부품명',
-                          style: TextStyle(
-                              fontFamily: 'HDharmony',
-                              fontSize: 12,
-                              color: Colors.black),
-                          textAlign: TextAlign.center,
+                  Container(
+                    color: Color(0xffcccccc),
+                    child: TableCell(
+                      child: SizedBox(
+                        height: 40,
+                        child: Center(
+                          child: Text(
+                            '한글 부품명',
+                            style: TextStyle(
+                                fontFamily: 'HDharmony',
+                                fontSize: 13,
+                                color: Color(0xff666666)),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ),
                   ),
                   TableCell(
                     child: SizedBox(
-                      height: 30,
+                      height: 40,
                       child: Center(
                         child: Text(
                           widget.koreanPartName,
                           style: TextStyle(
                               fontFamily: 'HDharmony',
-                              fontSize: 12,
+                              fontSize: 13,
                               color: Colors.black),
                           textAlign: TextAlign.left,
                         ),
@@ -273,30 +288,33 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                   )
                 ]),
                 TableRow(children: [
-                  TableCell(
-                    child: SizedBox(
-                      height: 30,
-                      child: Center(
-                        child: Text(
-                          '영어 부품명',
-                          style: TextStyle(
-                              fontFamily: 'HDharmony',
-                              fontSize: 12,
-                              color: Colors.black),
-                          textAlign: TextAlign.center,
+                  Container(
+                    color: Color(0xffcccccc),
+                    child: TableCell(
+                      child: SizedBox(
+                        height: 40,
+                        child: Center(
+                          child: Text(
+                            '영어 부품명',
+                            style: TextStyle(
+                                fontFamily: 'HDharmony',
+                                fontSize: 13,
+                                color: Color(0xff666666)),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ),
                   ),
                   TableCell(
                     child: SizedBox(
-                      height: 30,
+                      height: 40,
                       child: Center(
                         child: Text(
                           widget.englishParName,
                           style: TextStyle(
                               fontFamily: 'HDharmony',
-                              fontSize: 12,
+                              fontSize: 13,
                               color: Colors.black),
                           textAlign: TextAlign.left,
                         ),
@@ -305,30 +323,33 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                   )
                 ]),
                 TableRow(children: [
-                  TableCell(
-                    child: SizedBox(
-                      height: 30,
-                      child: Center(
-                        child: Text(
-                          '가격(부가세포함)',
-                          style: TextStyle(
-                              fontFamily: 'HDharmony',
-                              fontSize: 12,
-                              color: Colors.black),
-                          textAlign: TextAlign.center,
+                  Container(
+                    color: Color(0xffcccccc),
+                    child: TableCell(
+                      child: SizedBox(
+                        height: 40,
+                        child: Center(
+                          child: Text(
+                            '가격(부가세포함)',
+                            style: TextStyle(
+                                fontFamily: 'HDharmony',
+                                fontSize: 13,
+                                color: Color(0xff666666)),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ),
                   ),
                   TableCell(
                     child: SizedBox(
-                      height: 30,
+                      height: 40,
                       child: Center(
                         child: Text(
                           widget.price,
                           style: TextStyle(
                               fontFamily: 'HDharmony',
-                              fontSize: 12,
+                              fontSize: 13,
                               color: Colors.black),
                           textAlign: TextAlign.left,
                         ),

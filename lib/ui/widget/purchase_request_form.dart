@@ -82,12 +82,14 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
       child: Row(
         children: [
           Container(
+            color: Color(0xffccccc),
             width: firstColumnWidth,
             child: Text(
               '부품 번호',
               style: TextStyle(
                   fontFamily: 'HDharmony',
                   fontSize: 12,
+                  color: Color(0xff66666),
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -480,9 +482,19 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               ),
               onPressed: () async {
                 if (optionData[0].isSelected) {
-                  pushTo(context, DeliveryScreen(productName: "플레이트 & 그로메트 - 에이컨 쿨러 라인", companyMark: "강원부품(주)", count: count));
+                  pushTo(
+                      context,
+                      DeliveryScreen(
+                          productName: "플레이트 & 그로메트 - 에이컨 쿨러 라인",
+                          companyMark: "강원부품(주)",
+                          count: count));
                 } else if (optionData[1].isSelected) {
-                  pushTo(context, VisitScreen(productName: "플레이트 & 그로메트 - 에이컨 쿨러 라인", companyMark: "강원부품(주)", count: count));
+                  pushTo(
+                      context,
+                      VisitScreen(
+                          productName: "플레이트 & 그로메트 - 에이컨 쿨러 라인",
+                          companyMark: "강원부품(주)",
+                          count: count));
                 }
               },
             ),
