@@ -1,3 +1,4 @@
+import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/ui/screen/pass_reset_screen.dart';
 import 'package:mobispartsearch/bloc/auth_bloc.dart';
 import 'package:mobispartsearch/ui/screen/register_screen.dart';
@@ -110,7 +111,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
     }
 
     onLoginButtonPressed() {
-      signIn(_idController.text, _passwordController.text);
+      signIn(_idController.text, encryptPassword(_passwordController.text));
     }
 
     onRegisterButtonPressed() {
