@@ -392,14 +392,14 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
             child: Center(
                 child: widget.canSale
                     ? Container(
-                        width: screenWidth * 0.25,
-                        height: 25,
+                        width: screenWidth * 0.4,
+                        height: 50,
                         child: RaisedButton(
                           child: Text(
                             '구매요청',
                             style: TextStyle(
                                 fontFamily: 'HDharmony',
-                                fontSize: 12,
+                                fontSize: 15,
                                 color: Colors.white),
                           ),
                           color: kPrimaryColor,
