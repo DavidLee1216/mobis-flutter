@@ -63,126 +63,93 @@ class _MarketSearchResultsFormState extends State<MarketSearchResultsForm> {
                   ),
                 ),
                 SizedBox(height: 20),
-                ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
-                  return Column(
-                    children: [
-                      MarketSearchResultForm(
-                        companyMark: state.searchResult[index].mutual,
-                        canDelivery:
-                            state.searchResult[index].stype.toString() == 'Y',
-                        address1: state.searchResult[index].sido,
-                        address2: state.searchResult[index].sigungu,
-                        phoneNumber: state.searchResult[index].tel,
-                        canSale:
-                            state.searchResult[index].stype.toString() == 'Y',
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  );
-                }),
-//            MarketSearchResultForm(
-//              companyMark: '강원부품(주)',
-//              canDelivery: true,
-//              address1: '강원도 원주시 현충로 255',
-//              address2: '강원도 원주시 현충로 255',
-//              phoneNumber: '033-743-1850',
-//              canSale: true,
-//            ),
+//                ListView.builder(
+//                    itemBuilder: (BuildContext context, int index) {
+//                  return Column(
+//                    children: [
+//                      MarketSearchResultForm(
+//                        companyMark: state.searchResult[index].mutual,
+//                        canDelivery:
+//                            state.searchResult[index].stype.toString() == 'Y',
+//                        address1: state.searchResult[index].sido,
+//                        address2: state.searchResult[index].sigungu,
+//                        phoneNumber: state.searchResult[index].tel,
+//                        canSale:
+//                            state.searchResult[index].stype.toString() == 'Y',
+//                      ),
+//                      SizedBox(
+//                        height: 10,
+//                      ),
+//                    ],
+//                  );
+//                }),
+            MarketSearchResultForm(
+              companyMark: '강원부품(주)',
+              canDelivery: true,
+              address1: '강원도 원주시 현충로 255',
+              address2: '강원도 원주시 현충로 255',
+              phoneNumber: '033-743-1850',
+              canSale: true,
+            ),
 //            SizedBox(
 //              height: 10,
 //            ),
-//            MarketSearchResultForm(
-//              companyMark: '강원부품(주)',
-//              canDelivery: false,
-//              address1: '강원도 원주시 현충로 255',
-//              address2: '강원도 원주시 현충로 255',
-//              phoneNumber: '033-743-1850',
-//              canSale: true,
-//            ),
-//            SizedBox(
-//              height: 10,
-//            ),
-//            MarketSearchResultForm(
-//              companyMark: '강원부품(주)',
-//              canDelivery: false,
-//              address1: '강원도 원주시 현충로 255',
-//              address2: '강원도 원주시 현충로 255',
-//              phoneNumber: '033-743-1850',
-//              canSale: true,
-//            ),
-//            SizedBox(
-//              height: 10,
-//            ),
-//            MarketSearchResultForm(
-//              companyMark: '강원부품(주)',
-//              canDelivery: false,
-//              address1: '강원도 원주시 현충로 255',
-//              address2: '강원도 원주시 현충로 255',
-//              phoneNumber: '033-743-1850',
-//              canSale: false,
-//            ),
-//            SizedBox(
-//              height: 10,
-//            ),
-                Container(
-                  child: Center(
-                    child: ListView.builder(
-                        itemBuilder: (BuildContext context, index) {
-                      return Container(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            GestureDetector(
-                              child: Container(
-                                height: 20.0,
-                                width: 20.0,
-                                child: new Center(
-                                  child: new Text(
-                                      state.pageModel.pages[index].toString(),
-                                      style: new TextStyle(
-                                          fontFamily: 'HDharmony',
-                                          color: state.pageModel.pages[index] ==
-                                                  state.pageModel.curPage
-                                              ? Colors.white
-                                              : Colors.black54,
-                                          //fontWeight: FontWeight.bold,
-                                          fontSize: 8.0)),
-                                ),
-                                decoration: new BoxDecoration(
-                                  color: state.pageModel.pages[index] ==
-                                          state.pageModel.curPage
-                                      ? Colors.black54
-                                      : Colors.transparent,
-                                  border: new Border.all(
-                                      width: 1.0,
-                                      color: state.pageModel.pages[index] ==
-                                              state.pageModel.curPage
-                                          ? Colors.black54
-                                          : Colors.grey),
-                                  borderRadius: const BorderRadius.all(
-                                      const Radius.circular(1.0)),
-                                ),
-                              ),
-                              onTap: () {
-                                bloc.add(SearchMarketSearchEvent(
-                                    state.ptno,
-                                    state.sido,
-                                    state.sigungu,
-                                    state.pageModel.pages[index]));
-                              },
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
-                  ),
-                ),
+//                Container(
+//                  child: Center(
+//                    child: ListView.builder(
+//                        itemBuilder: (BuildContext context, index) {
+//                      return Container(
+//                        child: Row(
+//                          mainAxisSize: MainAxisSize.min,
+//                          children: <Widget>[
+//                            GestureDetector(
+//                              child: Container(
+//                                height: 20.0,
+//                                width: 20.0,
+//                                child: new Center(
+//                                  child: new Text(
+//                                      state.pageModel.pages[index].toString(),
+//                                      style: new TextStyle(
+//                                          fontFamily: 'HDharmony',
+//                                          color: state.pageModel.pages[index] ==
+//                                                  state.pageModel.curPage
+//                                              ? Colors.white
+//                                              : Colors.black54,
+//                                          //fontWeight: FontWeight.bold,
+//                                          fontSize: 8.0)),
+//                                ),
+//                                decoration: new BoxDecoration(
+//                                  color: state.pageModel.pages[index] ==
+//                                          state.pageModel.curPage
+//                                      ? Colors.black54
+//                                      : Colors.transparent,
+//                                  border: new Border.all(
+//                                      width: 1.0,
+//                                      color: state.pageModel.pages[index] ==
+//                                              state.pageModel.curPage
+//                                          ? Colors.black54
+//                                          : Colors.grey),
+//                                  borderRadius: const BorderRadius.all(
+//                                      const Radius.circular(1.0)),
+//                                ),
+//                              ),
+//                              onTap: () {
+//                                bloc.add(SearchMarketSearchEvent(
+//                                    state.ptno,
+//                                    state.sido,
+//                                    state.sigungu,
+//                                    state.pageModel.pages[index]));
+//                              },
+//                            ),
+//                            SizedBox(
+//                              width: 5,
+//                            ),
+//                          ],
+//                        ),
+//                      );
+//                    }),
+//                  ),
+//                ),
                 SizedBox(
                   height: 20,
                 ),

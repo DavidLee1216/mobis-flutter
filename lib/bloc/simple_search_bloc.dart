@@ -93,6 +93,7 @@ class SimpleSearchState {
           hkgb: hkgb,
           vtpy: vtpy,
           model: model,
+          keyword: keyword,
           searchResult: searchResult,
           isLoading: false,
           pageModel: pageModel);
@@ -158,27 +159,28 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
       String keyword, bool searchType, int page) async* {
     try {
       yield state.submitting();
-      List<SimpleSearchResultModel> searchResult = (searchType == false)
-          ? await simpleSearchRepository.searchPartGeneral(
-              hkgb: state.hkgb,
-              vtpy: state.vtpy,
-              catSeq: state.model,
-              searchWord: keyword,
-              firstIndex: 1 + (page - 1) * globalRecordCountPerPage,
-              recordCountPerPage: globalRecordCountPerPage)
-          : await simpleSearchRepository.searchPartPtno(
-              hkgb: state.hkgb,
-              ptno: keyword,
-              firstIndex: 1 + (page - 1) * globalRecordCountPerPage,
-              recordCountPerPage: globalRecordCountPerPage);
+      List<SimpleSearchResultModel> searchResult = null;
+//      List<SimpleSearchResultModel> searchResult = (searchType == false)
+//          ? await simpleSearchRepository.searchPartGeneral(
+//              hkgb: state.hkgb,
+//              vtpy: state.vtpy,
+//              catSeq: state.model,
+//              searchWord: keyword,
+//              firstIndex: 1 + (page - 1) * globalRecordCountPerPage,
+//              recordCountPerPage: globalRecordCountPerPage)
+//          : await simpleSearchRepository.searchPartPtno(
+//              hkgb: state.hkgb,
+//              ptno: keyword,
+//              firstIndex: 1 + (page - 1) * globalRecordCountPerPage,
+//              recordCountPerPage: globalRecordCountPerPage);
       if (searchResult == null || searchResult.length == 0)
-        yield state.success();
+        yield state.success(keyword: keyword, searchResult: null);
       else {
         PageModel pageModel = new PageModel()..init();
         pageModel.setPageCnt(
             searchResult[0].totalCnt ~/ globalRecordCountPerPage + 1);
         pageModel.setCurPage(page);
-        yield state.success(searchResult: searchResult, pageModel: pageModel);
+        yield state.success(keyword: keyword, searchResult: searchResult, pageModel: pageModel);
       }
     } catch (e) {
       log(e.toString());

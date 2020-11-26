@@ -125,7 +125,7 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
       obscureText: true,
       style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
-      validator: (value) => value.isEmpty ? "암호를 입력하세요." : null,
+      validator: (value) => value.isEmpty ? "암호를 입력하세요." : validatePassword(value) ? null : "8-20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.",
       controller: _passwordController,
     );
 
@@ -143,7 +143,7 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
       obscureText: true,
       style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
-      validator: (value) => value.isEmpty ? "암호를 다시 입력하세요." : null,
+      validator: (value) => value.isEmpty ? "암호를 다시 입력하세요." : validatePassword(value) ? null : "8-20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.",
       controller: _repasswordController,
     );
 

@@ -66,28 +66,28 @@ class CartBloc extends Bloc<CartEvent, CartState> {
 
   Stream<CartState> mapEventAddToState(AddCartEvent event) async* {
     if (await cartRepository.addToCart(event.product)) {
-      add(LoadCartEvent());
-      yield CartState(productList: state.productList);
+      List<CartModel> productList = await cartRepository.loadCart();
+      yield CartState(productList: productList);
     }
   }
 
   Stream<CartState> mapEventDelToState(DelCartEvent event) async* {
     await cartRepository.delFromCart(event.seq);
-    add(LoadCartEvent());
-    yield CartState(productList: state.productList);
+    List<CartModel> productList = await cartRepository.loadCart();
+    yield CartState(productList: productList);
   }
 
   Stream<CartState> mapEventDelAllToState(DelAllEvent event) async* {
     for (CartModel item in state.productList) {
       if (item.checked) await cartRepository.delFromCart(item.seq);
     }
-    add(LoadCartEvent());
-    yield CartState(productList: state.productList);
+    List<CartModel> productList = await cartRepository.loadCart();
+    yield CartState(productList: productList);
   }
 
   Stream<CartState> mapEventLoadToState(LoadCartEvent event) async* {
-    state.productList = await cartRepository.loadCart();
-    yield CartState(productList: state.productList);
+    List<CartModel> productList = await cartRepository.loadCart();
+    yield CartState(productList: productList);
   }
 
   Stream<CartState> mapEventCheckAllState(CheckAllEvent event) async* {

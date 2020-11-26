@@ -32,6 +32,13 @@ String encryptPassword(String password){
   return md5.convert(utf8.encode(password)).toString();
 }
 
+bool validatePassword(String password){
+  return true;
+  String  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,20}$';
+  RegExp regExp = new RegExp(pattern);
+  return regExp.hasMatch(password);
+}
+
 void getSession() async {
   session = await FlutterSession().get('mobis_session');
   if (session == null) {
@@ -329,6 +336,7 @@ Future<List<SimpleSearchResultModel>> simpleSearchPart(
     String searchWord,
     int firstIndex,
     int recordCountPerPage) async {
+  return null;
   final response = await http.get(API +
       '/partPrcList?hkgb=$hkgb&catSeq=$catSeq&vtyp=$vtpy&inText=$searchWord&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage');
   if (response.statusCode == 200) {
@@ -351,6 +359,7 @@ Future<List<MarketSearchResultModel>> marketSearchPart(
     String stype,
     int firstIndex,
     int recordCountPerPage) async {
+  return null;
   final response = await http.get(API +
       '/partInvenList?hkgb=$hkgb&ptno=$ptno&sido=$sido&sigungu=$sigungu&stype=$stype&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage');
   if (response.statusCode == 200) {

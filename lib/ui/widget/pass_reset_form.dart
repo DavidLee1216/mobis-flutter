@@ -819,7 +819,7 @@ class _GetPassFormState extends State<GetPassForm> {
 
     var passField = Container(
         height: 30,
-        child: TextField(
+        child: TextFormField(
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(0),
@@ -829,11 +829,12 @@ class _GetPassFormState extends State<GetPassForm> {
           ),
           obscureText: true,
           style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
+          validator: (value) => value.isEmpty ? "암호를 입력하세요." : validatePassword(value) ? null : "8-20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.",
           controller: _passwordController,
         ));
     var repassField = Container(
         height: 30,
-        child: TextField(
+        child: TextFormField(
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(0),
@@ -843,6 +844,7 @@ class _GetPassFormState extends State<GetPassForm> {
           ),
           obscureText: true,
           style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
+          validator: (value) => value.isEmpty ? "암호를 입력하세요." : validatePassword(value) ? null : "8-20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.",
           controller: _repasswordController,
         ));
 

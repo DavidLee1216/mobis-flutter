@@ -186,9 +186,6 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
               stype: state.market,
               firstIndex: 1 + (page - 1) * globalRecordCountPerPage,
               recordCountPerPage: globalRecordCountPerPage);
-//      if (searchResult == null || searchResult.length == 0)
-//        yield state.success();
-//      else {
         PageModel pageModel = new PageModel()..init();
         int pageCnt = (searchResult == null) ? 0 : searchResult[0].totalCnt ~/ globalRecordCountPerPage + 1;
         pageModel.setPageCnt(pageCnt);
@@ -200,7 +197,6 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
             enname: productInfo.enname,
             price: productInfo.price,
             pageModel: pageModel);
-//      }
     } catch (e) {
       log(e.toString());
       yield state.success();

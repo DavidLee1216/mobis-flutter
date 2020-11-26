@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/simple_search_bloc.dart';
@@ -33,7 +35,7 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
                               color: kPrimaryColor),
                         ),
                         Text(
-                          "에 대한 검색 결과(총 11건)",
+                          "에 대한 검색 결과(총 1건)",
                           style: TextStyle(
                               fontFamily: 'HDharmony',
                               fontSize: 14,
@@ -44,49 +46,21 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
                   ),
                 ),
                 SizedBox(height: 20),
-                ListView.builder(
-                    itemBuilder: (BuildContext context, int index) {
-                  return SimpleSearchResultForm(
-                    partNumber: state.searchResult[index].ptno,
-                    koreanPartName: state.searchResult[index].krname,
-                    englishParName: state.searchResult[index].enname,
-                    price: state.searchResult[index].price.toString() + '원',
-                  );
-                }),
-//              SimpleSearchResultForm(
-//                partNumber: '97651B2000',
-//                koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
-//                englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
-//                price: '1,870원',
-//              ),
-//              SizedBox(height: 10,),
-//              SimpleSearchResultForm(
-//                partNumber: '97651B2000',
-//                koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
-//                englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
-//                price: '1,870원',
-//              ),
-//              SizedBox(height: 10,),
-//              SimpleSearchResultForm(
-//                partNumber: '97651B2000',
-//                koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
-//                englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
-//                price: '1,870원',
-//              ),
-//              SizedBox(height: 10,),
-//              SimpleSearchResultForm(
-//                partNumber: '97651B2000',
-//                koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
-//                englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
-//                price: '1,870원',
-//              ),
-//              SizedBox(height: 10,),
-//              SimpleSearchResultForm(
-//                partNumber: '97651B2000',
-//                koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
-//                englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
-//                price: '1,870원',
-//              ),
+//                ListView.builder(
+//                    itemBuilder: (BuildContext context, int index) {
+//                  return SimpleSearchResultForm(
+//                    partNumber: state.searchResult[index].ptno,
+//                    koreanPartName: state.searchResult[index].krname,
+//                    englishParName: state.searchResult[index].enname,
+//                    price: state.searchResult[index].price.toString() + '원',
+//                  );
+//                }),
+              SimpleSearchResultForm(
+                partNumber: '97651B2000',
+                koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
+                englishParName: 'PLATE & GROMMET-A/C COOLER LIN',
+                price: '1,870원',
+              ),
                 SizedBox(
                   height: 10,
                 ),
@@ -110,89 +84,89 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
                 SizedBox(
                   height: 20,
                 ),
-                Container(
-                  child: Center(
-                    child: ListView.builder(
-                        itemBuilder: (BuildContext context, index) {
-                      return Container(
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            GestureDetector(
-                              child: Container(
-                                height: 20.0,
-                                width: 20.0,
-                                child: new Center(
-                                  child: new Text(
-                                      state.pageModel.pages[index].toString(),
-                                      style: new TextStyle(
-                                          fontFamily: 'HDharmony',
-                                          color: state.pageModel.pages[index] ==
-                                                  state.pageModel.curPage
-                                              ? Colors.white
-                                              : Colors.black54,
-                                          //fontWeight: FontWeight.bold,
-                                          fontSize: 8.0)),
-                                ),
-                                decoration: new BoxDecoration(
-                                  color: state.pageModel.pages[index] ==
-                                          state.pageModel.curPage
-                                      ? Colors.black54
-                                      : Colors.transparent,
-                                  border: new Border.all(
-                                      width: 1.0,
-                                      color: state.pageModel.pages[index] ==
-                                              state.pageModel.curPage
-                                          ? Colors.black54
-                                          : Colors.grey),
-                                  borderRadius: const BorderRadius.all(
-                                      const Radius.circular(1.0)),
-                                ),
-                              ),
-                              onTap: () {
-                                bloc.add(SearchSimpleSearchEvent(
-                                    state.keyword,
-                                    state.searchType,
-                                    state.pageModel.pages[index]));
-                              },
-                            ),
-                            SizedBox(
-                              width: 5,
-                            ),
-                          ],
-                        ),
-                      );
-                    }),
-//                    child: Row(
-//                      mainAxisSize: MainAxisSize.min,
-//                      children: [
-//                        Container(
-//                          width: 20,
-//                          height: 20,
-//                          padding: EdgeInsets.zero,
-//                          child: OutlineButton(
-//                            child: Text('1', style: TextStyle(fontFamily: 'HDharmony',
-//                                fontSize: 8, color: Colors.black),
-//                              textAlign: TextAlign.left,),
-//                            onPressed: () {},
-//                          ),
+//                Container(
+//                  child: Center(
+//                    child: ListView.builder(
+//                        itemBuilder: (BuildContext context, index) {
+//                      return Container(
+//                        child: Row(
+//                          mainAxisSize: MainAxisSize.min,
+//                          children: <Widget>[
+//                            GestureDetector(
+//                              child: Container(
+//                                height: 20.0,
+//                                width: 20.0,
+//                                child: new Center(
+//                                  child: new Text(
+//                                      state.pageModel.pages[index].toString(),
+//                                      style: new TextStyle(
+//                                          fontFamily: 'HDharmony',
+//                                          color: state.pageModel.pages[index] ==
+//                                                  state.pageModel.curPage
+//                                              ? Colors.white
+//                                              : Colors.black54,
+//                                          //fontWeight: FontWeight.bold,
+//                                          fontSize: 8.0)),
+//                                ),
+//                                decoration: new BoxDecoration(
+//                                  color: state.pageModel.pages[index] ==
+//                                          state.pageModel.curPage
+//                                      ? Colors.black54
+//                                      : Colors.transparent,
+//                                  border: new Border.all(
+//                                      width: 1.0,
+//                                      color: state.pageModel.pages[index] ==
+//                                              state.pageModel.curPage
+//                                          ? Colors.black54
+//                                          : Colors.grey),
+//                                  borderRadius: const BorderRadius.all(
+//                                      const Radius.circular(1.0)),
+//                                ),
+//                              ),
+//                              onTap: () {
+//                                bloc.add(SearchSimpleSearchEvent(
+//                                    state.keyword,
+//                                    state.searchType,
+//                                    state.pageModel.pages[index]));
+//                              },
+//                            ),
+//                            SizedBox(
+//                              width: 5,
+//                            ),
+//                          ],
 //                        ),
-//                        SizedBox(width: 5,),
-//                        Container(
-//                          width: 20,
-//                          height: 20,
-//                          padding: EdgeInsets.zero,
-//                          child: OutlineButton(
-//                            child: Text('2', style: TextStyle(fontFamily: 'HDharmony',
-//                                fontSize: 8, color: Colors.black),
-//                              textAlign: TextAlign.left,),
-//                            onPressed: () {},
-//                          ),
-//                        ),
-//                      ],
-//                    )
-                  ),
-                ),
+//                      );
+//                    }),
+////                    child: Row(
+////                      mainAxisSize: MainAxisSize.min,
+////                      children: [
+////                        Container(
+////                          width: 20,
+////                          height: 20,
+////                          padding: EdgeInsets.zero,
+////                          child: OutlineButton(
+////                            child: Text('1', style: TextStyle(fontFamily: 'HDharmony',
+////                                fontSize: 8, color: Colors.black),
+////                              textAlign: TextAlign.left,),
+////                            onPressed: () {},
+////                          ),
+////                        ),
+////                        SizedBox(width: 5,),
+////                        Container(
+////                          width: 20,
+////                          height: 20,
+////                          padding: EdgeInsets.zero,
+////                          child: OutlineButton(
+////                            child: Text('2', style: TextStyle(fontFamily: 'HDharmony',
+////                                fontSize: 8, color: Colors.black),
+////                              textAlign: TextAlign.left,),
+////                            onPressed: () {},
+////                          ),
+////                        ),
+////                      ],
+////                    )
+//                  ),
+//                ),
                 SizedBox(
                   height: 20,
                 ),

@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/cart_bloc.dart';
 import 'package:mobispartsearch/model/order_model.dart';
 import 'package:mobispartsearch/ui/screen/cart_screen.dart';
+import 'package:mobispartsearch/ui/screen/delivery_screen.dart';
+import 'package:mobispartsearch/ui/screen/visit_screen.dart';
 import 'package:mobispartsearch/ui/widget/custom_radio_button.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
 import 'package:mobispartsearch/common.dart';
@@ -449,7 +451,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 if (optionData[0].isSelected == false &&
                     optionData[1].isSelected == false) return;
                 bool kind = optionData[0].isSelected ? true : false;
-                await addToCart();
+//                await addToCart();
                 pushTo(
                     context,
                     CartScreen(
@@ -477,7 +479,11 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                     color: kPrimaryColor),
               ),
               onPressed: () async {
-                if (await orderNow() == true) {}
+                if (optionData[0].isSelected) {
+                  pushTo(context, DeliveryScreen(productName: "플레이트 & 그로메트 - 에이컨 쿨러 라인", companyMark: "강원부품(주)", count: count));
+                } else if (optionData[1].isSelected) {
+                  pushTo(context, VisitScreen(productName: "플레이트 & 그로메트 - 에이컨 쿨러 라인", companyMark: "강원부품(주)", count: count));
+                }
               },
             ),
           )
