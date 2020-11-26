@@ -10,7 +10,6 @@ import 'package:mobispartsearch/bloc/notice_bloc.dart';
 import 'package:mobispartsearch/repository/user_repository.dart';
 import 'package:mobispartsearch/repository/notice_repository.dart';
 import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
-import 'package:kopo/kopo.dart';
 import 'bloc/cart_bloc.dart';
 import 'bloc/market_search_bloc.dart';
 import 'bloc/simple_search_bloc.dart';
@@ -63,9 +62,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
-      localizationsDelegates: [
-        GlobalMaterialLocalizations.delegate
-      ],
+      localizationsDelegates: [GlobalMaterialLocalizations.delegate],
       supportedLocales: [
         const Locale('en'),
         const Locale('ko'),

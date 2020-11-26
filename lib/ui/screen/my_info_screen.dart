@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobispartsearch/common.dart';
-import 'package:kopo/kopo.dart';
 
 class MyInfoScreen extends StatefulWidget {
   @override
