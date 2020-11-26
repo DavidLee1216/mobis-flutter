@@ -26,7 +26,12 @@ class DeliveryScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(color: Colors.black),
-        title: Text('택배수령'),
+        title: Text(
+          '택배수령',
+          style: TextStyle(
+            fontFamily: 'HDharmony',
+          ),
+        ),
         centerTitle: true,
       ),
       body: SafeArea(

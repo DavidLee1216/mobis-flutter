@@ -19,7 +19,12 @@ class _PartSimpleSearchScreenState extends State<PartSimpleSearchScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(color: Colors.black),
-        title: Text('부품 간단검색'),
+        title: Text(
+          '부품 간단검색',
+          style: TextStyle(
+            fontFamily: 'HDharmony',
+          ),
+        ),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -213,10 +218,14 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 child: DropdownButton<String>(
                     value: modelDropdownValue,
                     hint: Padding(
-                        padding: EdgeInsets.only(left: 10),
-                        child: Text(
-                          '[선택]',
-                        )),
+                      padding: EdgeInsets.only(left: 10),
+                      child: Text(
+                        '[선택]',
+                        style: TextStyle(
+                          fontFamily: 'HDharmony',
+                        ),
+                      ),
+                    ),
                     icon: Icon(Icons.keyboard_arrow_down),
                     iconSize: 14,
                     onChanged: (newValue) {
@@ -275,7 +284,12 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 10),
-                child: Text('한글부품명'),
+                child: Text(
+                  '한글부품명',
+                  style: TextStyle(
+                    fontFamily: 'HDharmony',
+                  ),
+                ),
               ),
               SizedBox(
                 width: 10,
@@ -310,7 +324,12 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 10),
-                child: Text('부품번호'),
+                child: Text(
+                  '부품번호',
+                  style: TextStyle(
+                    fontFamily: 'HDharmony',
+                  ),
+                ),
               ),
               SizedBox(
                 width: 10,

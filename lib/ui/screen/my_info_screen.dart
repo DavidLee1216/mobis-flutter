@@ -432,7 +432,12 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(color: Colors.black),
-        title: Text('My info'),
+        title: Text(
+          'My info',
+          style: TextStyle(
+            fontFamily: 'HDharmony',
+          ),
+        ),
         centerTitle: true,
       ),
       body: SafeArea(

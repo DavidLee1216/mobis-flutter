@@ -19,7 +19,12 @@ class _PartMarketSearchScreenState extends State<PartMarketSearchScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(color: Colors.black),
-        title: Text('부품판매점 검색'),
+        title: Text(
+          '부품판매점 검색',
+          style: TextStyle(
+            fontFamily: 'HDharmony',
+          ),
+        ),
         centerTitle: true,
       ),
       body: SafeArea(
@@ -215,10 +220,14 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
 //                labelText: '[선택]'
 //            ),
             hint: Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text(
-                  '[선택]',
-                )),
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                '[선택]',
+                style: TextStyle(
+                  fontFamily: 'HDharmony',
+                ),
+              ),
+            ),
             icon: Icon(Icons.keyboard_arrow_down),
             iconSize: 14,
             onChanged: (String newValue) {
@@ -256,10 +265,14 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
           child: DropdownButton<String>(
             value: sigungu,
             hint: Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text(
-                  '[선택]',
-                )),
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                '[선택]',
+                style: TextStyle(
+                  fontFamily: 'HDharmony',
+                ),
+              ),
+            ),
             icon: Icon(Icons.keyboard_arrow_down),
             iconSize: 14,
             onChanged: (String newValue) {
@@ -322,7 +335,12 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
             children: [
               Padding(
                 padding: EdgeInsets.only(left: 20),
-                child: Text('부품번호'),
+                child: Text(
+                  '부품번호',
+                  style: TextStyle(
+                    fontFamily: 'HDharmony',
+                  ),
+                ),
               ),
               SizedBox(
                 width: 20,

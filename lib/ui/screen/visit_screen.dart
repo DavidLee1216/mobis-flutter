@@ -17,7 +17,12 @@ class VisitScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(color: Colors.black),
-        title: Text('방문수령'),
+        title: Text(
+          '방문수령',
+          style: TextStyle(
+            fontFamily: 'HDharmony',
+          ),
+        ),
         centerTitle: true,
       ),
       body: SafeArea(

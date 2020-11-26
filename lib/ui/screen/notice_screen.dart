@@ -24,7 +24,12 @@ class _NoticeScreenState extends State<NoticeScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(color: Colors.black),
-        title: Text('공지사항'),
+        title: Text(
+          '공지사항',
+          style: TextStyle(
+            fontFamily: 'HDharmony',
+          ),
+        ),
         centerTitle: true,
         actions: [
           IconButton(
@@ -196,7 +201,12 @@ class _NoticeListWidgetState extends State<NoticeListWidget> {
           maxPage = state.page;
           if (state.noticeList != null && state.noticeList.isEmpty) {
             return Center(
-              child: Text(''),
+              child: Text(
+                '',
+                style: TextStyle(
+                  fontFamily: 'HDharmony',
+                ),
+              ),
             );
           }
           return ListView.builder(

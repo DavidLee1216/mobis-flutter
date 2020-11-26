@@ -12,7 +12,12 @@ class _GetPassScreenState extends State<GetPassScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(color: Colors.black),
-        title: Text('아이디 및 비밀번호 찾기'),
+        title: Text(
+          '아이디 및 비밀번호 찾기',
+          style: TextStyle(
+            fontFamily: 'HDharmony',
+          ),
+        ),
         centerTitle: true,
       ),
       body: SafeArea(

@@ -234,10 +234,14 @@ class _GetPassFormState extends State<GetPassForm> {
 //                labelText: '[선택]'
 //            ),
             hint: Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text(
-                  '[선택]',
-                )),
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                '[선택]',
+                style: TextStyle(
+                  fontFamily: 'HDharmony',
+                ),
+              ),
+            ),
             icon: Icon(Icons.keyboard_arrow_down),
             iconSize: 14,
             onChanged: (int newValue) {
@@ -280,10 +284,14 @@ class _GetPassFormState extends State<GetPassForm> {
 //                labelText: '[선택]'
 //            ),
             hint: Padding(
-                padding: EdgeInsets.only(left: 10),
-                child: Text(
-                  '[선택]',
-                )),
+              padding: EdgeInsets.only(left: 10),
+              child: Text(
+                '[선택]',
+                style: TextStyle(
+                  fontFamily: 'HDharmony',
+                ),
+              ),
+            ),
             icon: Icon(Icons.keyboard_arrow_down),
             iconSize: 14,
             onChanged: (int newValue) {
@@ -341,10 +349,14 @@ class _GetPassFormState extends State<GetPassForm> {
 //                labelText: '[선택]'
 //            ),
               hint: Padding(
-                  padding: EdgeInsets.only(left: 10),
-                  child: Text(
-                    '[선택]',
-                  )),
+                padding: EdgeInsets.only(left: 10),
+                child: Text(
+                  '[선택]',
+                  style: TextStyle(
+                    fontFamily: 'HDharmony',
+                  ),
+                ),
+              ),
               icon: Icon(Icons.keyboard_arrow_down),
               iconSize: 14,
               onChanged: (int newValue) {
@@ -829,7 +841,11 @@ class _GetPassFormState extends State<GetPassForm> {
           ),
           obscureText: true,
           style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
-          validator: (value) => value.isEmpty ? "암호를 입력하세요." : validatePassword(value) ? null : "8-20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.",
+          validator: (value) => value.isEmpty
+              ? "암호를 입력하세요."
+              : validatePassword(value)
+                  ? null
+                  : "8-20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.",
           controller: _passwordController,
         ));
     var repassField = Container(
@@ -844,7 +860,11 @@ class _GetPassFormState extends State<GetPassForm> {
           ),
           obscureText: true,
           style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
-          validator: (value) => value.isEmpty ? "암호를 입력하세요." : validatePassword(value) ? null : "8-20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.",
+          validator: (value) => value.isEmpty
+              ? "암호를 입력하세요."
+              : validatePassword(value)
+                  ? null
+                  : "8-20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.",
           controller: _repasswordController,
         ));
 

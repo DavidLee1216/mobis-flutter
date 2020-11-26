@@ -12,7 +12,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
     return Scaffold(
         appBar: AppBar(
           leading: BackButton(color: Colors.black),
-          title: Text('알람'),
+          title: Text(
+            '알람',
+            style: TextStyle(
+              fontFamily: 'HDharmony',
+            ),
+          ),
           centerTitle: true,
         ),
         body: SafeArea(

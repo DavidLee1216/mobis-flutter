@@ -32,7 +32,12 @@ class IdLoginScreen extends StatelessWidget {
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         leading: BackButton(color: Colors.black),
-        title: Text('로그인'),
+        title: Text(
+          '로그인',
+          style: TextStyle(
+            fontFamily: 'HDharmony',
+          ),
+        ),
         centerTitle: true,
       ),
       body: Stack(

@@ -8,7 +8,12 @@ class RegisterScreen extends StatelessWidget {
       resizeToAvoidBottomPadding: false,
       appBar: AppBar(
         leading: BackButton(color: Colors.black),
-        title: Text('회원가입'),
+        title: Text(
+          '회원가입',
+          style: TextStyle(
+            fontFamily: 'HDharmony',
+          ),
+        ),
         centerTitle: true,
       ),
       body: Stack(

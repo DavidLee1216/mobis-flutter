@@ -80,7 +80,12 @@ class _MyCouponScreenState extends State<MyCouponScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(color: Colors.black),
-        title: Text('My 쿠폰'),
+        title: Text(
+          'My 쿠폰',
+          style: TextStyle(
+            fontFamily: 'HDharmony',
+          ),
+        ),
         centerTitle: true,
       ),
       body: SafeArea(
