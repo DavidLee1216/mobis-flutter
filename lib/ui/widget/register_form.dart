@@ -526,7 +526,7 @@ class _RegisterFormState extends State<RegisterForm> {
               _idController.text,
               _phoneNumberController.text,
               _emailController.text,
-              _passwordController.text,
+              encryptPassword(_passwordController.text),
               _nameController.text,
               _birthday,
               sexCode,

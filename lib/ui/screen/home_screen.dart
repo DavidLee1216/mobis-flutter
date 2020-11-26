@@ -78,19 +78,21 @@ class _HomeScreenState extends State<HomeScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        '안녕하세요, 고객님.',
+                        '안녕하세요, $globalUsername고객님.',
                         style: kMenuTextStyle,
                       ),
-                      RaisedButton(
-                        color: kPrimaryColor,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(0),
-                        ),
-                        child: Text('로그인', style: kButtonTextStyle),
-                        onPressed: () {
-                          pushTo(context, LoginScreen());
-                        },
-                      ),
+                      globalUsername != ''
+                          ? Container()
+                          : RaisedButton(
+                            color: kPrimaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0),
+                            ),
+                            child: Text('로그인', style: kButtonTextStyle),
+                            onPressed: () {
+                              pushTo(context, LoginScreen());
+                            },
+                          ),
                     ],
                   ),
                 ),

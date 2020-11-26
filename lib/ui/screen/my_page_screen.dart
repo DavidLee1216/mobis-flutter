@@ -20,7 +20,6 @@ class _MyPageScreenState extends State<MyPageScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: BackButton(color: Colors.black),
         title: Text('마이페이지'),
         centerTitle: true,
       ),

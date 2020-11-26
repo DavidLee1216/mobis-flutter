@@ -5,6 +5,7 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
+import 'package:crypto/crypto.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
@@ -27,6 +28,10 @@ math.Random _rnd = math.Random();
 String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
     length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
+String encryptPassword(String password){
+  return md5.convert(utf8.encode(password)).toString();
+}
+
 void getSession() async {
   session = await FlutterSession().get('mobis_session');
   if (session == null) {
@@ -42,7 +47,6 @@ void getSession() async {
       newCodes.add(element);
     });
     String sss = String.fromCharCodes(newCodes);
-    log(sss);
     String sessionStr = ss + sss;
     await FlutterSession().set('mobis_session', sessionStr);
     session = await FlutterSession().get('mobis_session');
@@ -76,13 +80,10 @@ List<Sido> globalSido = new List<Sido>();
 void getSido() async {
   await http.get(API + '/sido').then((response) {
     if (response.statusCode == 200) {
-      log('sido success');
       final data = json.decode(utf8.decode(response.bodyBytes)) as List;
-      log(data.toString());
       globalSido = data.map((e) => Sido.fromMap(e)).toList();
       getSigungu();
     } else {
-      log('get sido ${response.statusCode}');
     }
   });
 }
@@ -276,11 +277,9 @@ Future<bool> signin(String username, String password) =>
           'Content-type': 'application/json',
         }).then((response) {
       if (response.statusCode == 200) {
-        log('success');
         globalUsername = username;
         return true;
       } else {
-        log(response.statusCode.toString());
         return false;
       }
     });
