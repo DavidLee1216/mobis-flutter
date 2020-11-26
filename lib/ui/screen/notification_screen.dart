@@ -19,12 +19,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
           child: Column(
             children: [
               Container(
-                padding: EdgeInsets.symmetric(vertical: 20.0),
+                padding: EdgeInsets.symmetric(vertical: 30.0),
                 child: Text(
                   '알림을 통해서 구매 단계를 확인하세요.',
                   style: TextStyle(
                     fontFamily: 'HDharmony',
-                    fontSize: 14,
+                    fontSize: 15,
                   ),
                   textAlign: TextAlign.center,
                 ),
@@ -43,6 +43,7 @@ class NotificationListWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
       children: [
         NotificationForm(
           title: '양 * * 고객님, 구매 요청 완료 알림이 있습니다.',

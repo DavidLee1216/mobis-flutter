@@ -77,21 +77,20 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
       child: Row(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 20.0),
+            padding: const EdgeInsets.only(left: 30.0),
             child: Text(
               '제조사',
               style: TextStyle(
-                  fontFamily: 'HDharmony',
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold),
+                fontFamily: 'HDharmony',
+                fontSize: 14,
+              ),
             ),
           ),
           SizedBox(
             width: 16,
           ),
           ButtonTheme(
-            minWidth: 0,
-            height: 0,
+            padding: const EdgeInsets.only(left: 20),
             child: FlatButton(
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               child: RadioItem(manufacturerData[0]),
@@ -106,8 +105,6 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
             ),
           ),
           ButtonTheme(
-            minWidth: 0,
-            height: 0,
             child: FlatButton(
               materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
               child: RadioItem(manufacturerData[1]),
@@ -131,13 +128,13 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
           Center(
             child: Container(
               width: mainWidth * 0.25,
-              padding: const EdgeInsets.only(left: 20.0),
+              padding: const EdgeInsets.only(left: 30.0),
               child: Text(
                 '판매점',
                 style: TextStyle(
-                    fontFamily: 'HDharmony',
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold),
+                  fontFamily: 'HDharmony',
+                  fontSize: 14,
+                ),
               ),
             ),
           ),
@@ -206,8 +203,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
       ),
     );
     var location1Dropdownmenu = Container(
-        width: 180,
-        height: 30,
+        width: MediaQuery.of(context).size.width * 0.7,
+        height: 40,
         decoration: BoxDecoration(
           border: Border.all(),
         ),
@@ -250,8 +247,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
           ),
         ));
     var location2Dropdownmenu = Container(
-        width: 180,
-        height: 30,
+        width: MediaQuery.of(context).size.width * 0.7,
+        height: 40,
         decoration: BoxDecoration(
           border: Border.all(),
         ),
@@ -296,7 +293,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
           child: Row(
             children: [
               Container(
-                width: mainWidth * 0.25,
+                width: mainWidth * 0.23,
                 padding: EdgeInsets.only(left: 20),
                 child: Text(
                   '지역설정',
@@ -320,7 +317,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
     var partNumber = Container(
         padding: EdgeInsets.all(10.0),
         child: Container(
-          height: 30,
+          height: 40,
           child: Row(
             children: [
               Padding(
@@ -328,20 +325,28 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                 child: Text('부품번호'),
               ),
               SizedBox(
-                width: 10,
+                width: 20,
               ),
               Container(
-                width: MediaQuery.of(context).size.width * 0.6,
+                width: MediaQuery.of(context).size.width * 0.7,
                 child: TextField(
                   decoration: InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(1),
+                      borderRadius: BorderRadius.circular(2),
+                      borderSide: BorderSide(color: Colors.grey, width: 1),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(2),
                       borderSide: BorderSide(color: Colors.grey, width: 1),
                     ),
                     contentPadding: EdgeInsets.only(left: 10),
                   ),
                   keyboardType: TextInputType.text,
-                  style: TextStyle(fontFamily: 'HDharmony', fontSize: 14.0),
+                  style: TextStyle(
+                    fontFamily: 'HDharmony',
+                    fontSize: 14.0,
+                    fontWeight: FontWeight.bold,
+                  ),
                   controller: partNumberController,
                 ),
               )
@@ -353,15 +358,15 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
         child: Container(
       padding: EdgeInsets.only(top: 20.0),
       child: ButtonTheme(
-        minWidth: MediaQuery.of(context).size.width / 3.0,
-        height: 40,
+        minWidth: MediaQuery.of(context).size.width / 1.1,
+        height: 50,
         buttonColor: Color.fromRGBO(0, 63, 114, 1),
         child: RaisedButton(
           child: Text(
             '검색',
             style: TextStyle(
               fontFamily: 'HDharmony',
-              fontSize: 12,
+              fontSize: 15,
               color: Colors.white,
             ),
           ),
@@ -384,7 +389,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
     return ListView(
       children: [
         Container(
-          padding: EdgeInsets.all(10.0),
+          color: Colors.white,
+          padding: EdgeInsets.all(20.0),
           child: Column(
             children: [
               SizedBox(
@@ -398,11 +404,15 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                 ),
                 textAlign: TextAlign.left,
               ),
+              SizedBox(
+                height: 10,
+              ),
               Text(
-                '판매점이 조회되지 않는 경우 당사 고객센터(1588-7278)로 문의 바랍니다.',
+                '- 판매점이 조회되지 않는 경우 당사 고객센터(1588-7278)로 문의 바랍니다.',
                 style: TextStyle(
                   fontFamily: 'HDharmony',
-                  fontSize: 14,
+                  fontSize: 13,
+                  color: Color(0xff666666),
                 ),
                 textAlign: TextAlign.left,
               ),
@@ -411,22 +421,28 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
         ),
         Divider(
           height: 2,
-          color: Colors.black54,
+          color: Colors.black,
         ),
         partNumberSearchItems,
-        Divider(
-          height: 2,
-          color: Colors.black54,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Divider(
+            color: Colors.black54,
+          ),
         ),
         locationItem,
-        Divider(
-          height: 2,
-          color: Colors.black54,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Divider(
+            color: Colors.black54,
+          ),
         ),
         marketItem,
-        Divider(
-          height: 2,
-          color: Colors.black54,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20),
+          child: Divider(
+            color: Colors.black54,
+          ),
         ),
         manufactureItem,
         Divider(
