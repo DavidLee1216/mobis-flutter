@@ -33,10 +33,37 @@ String encryptPassword(String password){
 }
 
 bool validatePassword(String password){
-  return true;
   String  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,20}$';
   RegExp regExp = new RegExp(pattern);
-  return regExp.hasMatch(password);
+  bool res = false;
+  bool res1 = regExp.hasMatch(password);
+  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,20}$';
+  regExp = new RegExp(pattern);
+  bool res2 = regExp.hasMatch(password);
+  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[!@#\$&*~]).{8,20}$';
+  regExp = new RegExp(pattern);
+  bool res3 = regExp.hasMatch(password);
+  pattern = r'^(?=.*?[A-Z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,20}$';
+  regExp = new RegExp(pattern);
+  bool res4 = regExp.hasMatch(password);
+  pattern = r'^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,20}$';
+  regExp = new RegExp(pattern);
+  bool res5 = regExp.hasMatch(password);
+  if(res1||res2||res3||res4||res5)
+    res = true;
+  return res;
+}
+
+bool validateEmailString(String email){
+  String pattern = r'^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$';
+  RegExp regExp = new RegExp(pattern);
+  return regExp.hasMatch(email);
+}
+
+bool validateMobileString(String mobile){
+  String pattern = r'^([0-9]{3})-([0-9]{3,4})-([0-9]{4})$';
+  RegExp regExp = new RegExp(pattern);
+  return regExp.hasMatch(mobile);
 }
 
 void getSession() async {

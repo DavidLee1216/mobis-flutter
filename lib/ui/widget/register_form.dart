@@ -125,7 +125,11 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
       obscureText: true,
       style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
-      validator: (value) => value.isEmpty ? "암호를 입력하세요." : validatePassword(value) ? null : "8-20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.",
+      validator: (value) => value.isEmpty
+          ? "암호를 입력하세요."
+          : validatePassword(value)
+              ? null
+              : "8-20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.",
       controller: _passwordController,
     );
 
@@ -143,7 +147,11 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
       obscureText: true,
       style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
-      validator: (value) => value.isEmpty ? "암호를 다시 입력하세요." : validatePassword(value) ? null : "8-20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.",
+      validator: (value) => value.isEmpty
+          ? "암호를 다시 입력하세요."
+          : validatePassword(value)
+              ? null
+              : "8-20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.",
       controller: _repasswordController,
     );
 
@@ -189,7 +197,11 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
       keyboardType: TextInputType.emailAddress,
       style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
-      validator: (value) => value.isEmpty ? "이메일을 입력하세요." : null,
+      validator: (value) => value.isEmpty
+          ? "이메일을 입력하세요."
+          : validateEmailString(value)
+              ? null
+              : "이메일을 확인해주세요.",
       controller: _emailController,
     );
 
@@ -238,6 +250,7 @@ class _RegisterFormState extends State<RegisterForm> {
     Future<void> _selectedDate(BuildContext context) async {
       final DateTime picked = await showDatePicker(
         context: context,
+        locale : const Locale("ko","KR"),
         initialDate: DateTime.now(),
         firstDate: DateTime(1900),
         lastDate: DateTime(2050),
@@ -332,7 +345,11 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
       keyboardType: TextInputType.number,
       style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
-      validator: (value) => value.isEmpty ? "휴대폰 번호를 입력하세요." : null,
+      validator: (value) => value.isEmpty
+          ? "휴대폰 번호를 입력하세요."
+          : validateMobileString(value)
+              ? null
+              : "휴대폰 번호를 확인해주세요.",
       controller: _phoneNumberController,
     );
 

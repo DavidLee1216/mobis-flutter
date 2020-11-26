@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:mobispartsearch/repository/cart_repository.dart';
 import 'package:mobispartsearch/repository/market_search_repository.dart';
 import 'package:mobispartsearch/repository/simple_search_repository.dart';
@@ -62,6 +63,13 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
+      localizationsDelegates: [
+        GlobalMaterialLocalizations.delegate
+      ],
+      supportedLocales: [
+        const Locale('en'),
+        const Locale('ko'),
+      ],
       theme: ThemeData(
         primarySwatch: Colors.indigo,
         primaryColor: Colors.white,
