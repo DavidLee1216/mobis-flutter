@@ -154,7 +154,7 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
           Container(
             padding: EdgeInsets.only(left: 20),
             child: Text(
-              '${widget.companyMark} | 택배로 받기',
+              '${widget.companyMark} | ',
               style: TextStyle(
                 fontFamily: 'HDharmony',
                 fontSize: 14,

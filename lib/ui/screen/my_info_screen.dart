@@ -38,8 +38,8 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               height: 30,
               padding: EdgeInsets.only(left: 20.0),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     '성명',
@@ -59,7 +59,11 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(1),
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
@@ -107,7 +111,11 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(1),
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
@@ -156,7 +164,11 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(1),
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
@@ -240,7 +252,11 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(1),
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
@@ -287,7 +303,11 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               child: TextField(
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(1),
+                    borderRadius: BorderRadius.circular(2),
+                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(2),
                     borderSide: BorderSide(color: Colors.grey, width: 1),
                   ),
                   contentPadding: EdgeInsets.only(left: 10),
@@ -312,7 +332,11 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(1),
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
@@ -360,7 +384,11 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(1),
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),

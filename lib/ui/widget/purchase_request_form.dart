@@ -82,12 +82,14 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
       child: Row(
         children: [
           Container(
+            color: Color(0xffccccc),
             width: firstColumnWidth,
             child: Text(
               '부품 번호',
               style: TextStyle(
                   fontFamily: 'HDharmony',
-                  fontSize: 12,
+                  fontSize: 13,
+                  color: Color(0xff666666),
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -121,7 +123,8 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               '한글 부품명',
               style: TextStyle(
                   fontFamily: 'HDharmony',
-                  fontSize: 12,
+                  fontSize: 13,
+                  color: Color(0xff666666),
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -155,7 +158,8 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               '영어 부품명',
               style: TextStyle(
                   fontFamily: 'HDharmony',
-                  fontSize: 12,
+                  fontSize: 13,
+                  color: Color(0xff666666),
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -189,7 +193,8 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               '가격(부가세포함)',
               style: TextStyle(
                   fontFamily: 'HDharmony',
-                  fontSize: 12,
+                  fontSize: 13,
+                  color: Color(0xff666666),
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -201,10 +206,11 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               child: Text(
                 widget.price.toString() + "원",
                 style: TextStyle(
-                  fontFamily: 'HDharmony',
-                  fontSize: 12,
-                ),
-                textAlign: TextAlign.left,
+                    fontFamily: 'HDharmony',
+                    fontSize: 13,
+                    color: Color(0xff666666),
+                    fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
               ),
             ),
           ),
@@ -223,7 +229,8 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               '판매점 상호명',
               style: TextStyle(
                   fontFamily: 'HDharmony',
-                  fontSize: 12,
+                  fontSize: 13,
+                  color: Color(0xff666666),
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
@@ -308,6 +315,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
           ),
           Container(
             width: screenWidth * 0.96,
+            height: 40,
             padding: EdgeInsets.symmetric(vertical: 10.0),
             decoration: BoxDecoration(
               border: Border.all(
@@ -415,9 +423,11 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                Padding(padding: const EdgeInsets.fromLTRB(0, 20, 0, 20)),
                 Icon(
                   Icons.warning,
                   color: kPrimaryColor,
+                  size: 15,
                 ),
                 Text(
                   '공백 특수기호 없이 특수문자만 입력하세요',
@@ -439,12 +449,13 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           ButtonTheme(
+            padding: const EdgeInsets.fromLTRB(55, 15, 55, 15),
             buttonColor: kPrimaryColor,
             child: RaisedButton(
               child: Text(
                 '장바구니',
                 style: TextStyle(
-                    fontFamily: 'HDharmony', fontSize: 12, color: Colors.white),
+                    fontFamily: 'HDharmony', fontSize: 15, color: Colors.white),
                 textAlign: TextAlign.center,
               ),
               onPressed: () async {
@@ -461,11 +472,12 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
             ),
           ),
           SizedBox(
-            width: 50,
+            width: 10,
           ),
           Container(
 //            padding: EdgeInsets.symmetric(vertical: 2.0),
             child: OutlineButton(
+              padding: const EdgeInsets.fromLTRB(55, 15, 55, 15),
               borderSide: BorderSide(
                 color: kPrimaryColor, //Color of the border
                 style: BorderStyle.solid, //Style of the border
@@ -475,14 +487,24 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 '바로구매',
                 style: TextStyle(
                     fontFamily: 'HDharmony',
-                    fontSize: 12,
+                    fontSize: 15,
                     color: kPrimaryColor),
               ),
               onPressed: () async {
                 if (optionData[0].isSelected) {
-                  pushTo(context, DeliveryScreen(productName: "플레이트 & 그로메트 - 에이컨 쿨러 라인", companyMark: "강원부품(주)", count: count));
+                  pushTo(
+                      context,
+                      DeliveryScreen(
+                          productName: "플레이트 & 그로메트 - 에이컨 쿨러 라인",
+                          companyMark: "강원부품(주)",
+                          count: count));
                 } else if (optionData[1].isSelected) {
-                  pushTo(context, VisitScreen(productName: "플레이트 & 그로메트 - 에이컨 쿨러 라인", companyMark: "강원부품(주)", count: count));
+                  pushTo(
+                      context,
+                      VisitScreen(
+                          productName: "플레이트 & 그로메트 - 에이컨 쿨러 라인",
+                          companyMark: "강원부품(주)",
+                          count: count));
                 }
               },
             ),
@@ -495,19 +517,23 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
       child: Column(
         children: [
           Container(
-            width: screenWidth * 0.7,
-            padding: EdgeInsets.symmetric(vertical: 40.0),
+            padding: EdgeInsets.fromLTRB(20.0, 30.0, 10.0, 20.0),
             child: Text(
               '차량부품 특성상 임의로 부품을 교체할 경우 문제가 발생할 수 있으므로 부품 구입 전 정확한 부품번호를 확인하시기 바랍니다.',
               style: TextStyle(
                 fontFamily: 'HDharmony',
-                fontSize: 12,
+                fontSize: 18,
+                color: Color(0xff666666),
               ),
               textAlign: TextAlign.left,
             ),
           ),
+          Divider(
+            color: Colors.black54,
+            thickness: 1,
+          ),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 20.0),
+            padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
             child: Column(
               children: [
                 partNumberItem,
@@ -517,6 +543,10 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 companyMarkItem,
                 ticketItem,
                 optionItem,
+                Divider(
+                  color: Colors.black54,
+                  thickness: 1,
+                ),
                 buyItem,
               ],
             ),

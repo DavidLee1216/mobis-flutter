@@ -51,7 +51,7 @@ class _GetPassFormState extends State<GetPassForm> {
 
     var emailOrPasswordItem = Container(
       color: Colors.white,
-      padding: EdgeInsets.fromLTRB(10, 20, 40, 20),
+      padding: EdgeInsets.fromLTRB(0, 20, 40, 20),
       child: Column(
         children: [
           Row(
@@ -110,7 +110,7 @@ class _GetPassFormState extends State<GetPassForm> {
                         ),
                         Container(
                           height: 40,
-                          width: MediaQuery.of(context).size.width * 0.74,
+                          width: MediaQuery.of(context).size.width * 0.72,
                           child: OutlineButton(
                             borderSide: BorderSide(
                               color: Colors.black,
@@ -145,12 +145,12 @@ class _GetPassFormState extends State<GetPassForm> {
                           ),
                         )),
                         SizedBox(
-                          height: 7,
+                          height: 10,
                         ),
                         Row(
                           children: [
                             Container(
-                              width: MediaQuery.of(context).size.width * 0.36,
+                              width: MediaQuery.of(context).size.width * 0.35,
                               height: 40,
                               child: OutlineButton(
                                 borderSide: BorderSide(
@@ -172,11 +172,11 @@ class _GetPassFormState extends State<GetPassForm> {
                               ),
                             ),
                             SizedBox(
-                              width: 8,
+                              width: 10,
                             ),
                             Container(
                               height: 40,
-                              width: MediaQuery.of(context).size.width * 0.36,
+                              width: MediaQuery.of(context).size.width * 0.35,
                               child: OutlineButton(
                                 borderSide: BorderSide(
                                   color: Colors.black,

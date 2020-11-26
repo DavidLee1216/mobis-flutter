@@ -83,14 +83,14 @@ class _MarketSearchResultsFormState extends State<MarketSearchResultsForm> {
 //                    ],
 //                  );
 //                }),
-            MarketSearchResultForm(
-              companyMark: '강원부품(주)',
-              canDelivery: true,
-              address1: '강원도 원주시 현충로 255',
-              address2: '강원도 원주시 현충로 255',
-              phoneNumber: '033-743-1850',
-              canSale: true,
-            ),
+                MarketSearchResultForm(
+                  companyMark: '강원부품(주)',
+                  canDelivery: true,
+                  address1: '강원도 원주시 현충로 255',
+                  address2: '강원도 원주시 현충로 255',
+                  phoneNumber: '033-743-1850',
+                  canSale: true,
+                ),
 //            SizedBox(
 //              height: 10,
 //            ),
@@ -187,33 +187,47 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
     return Column(
       children: [
         Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
             child: Table(
               columnWidths: {
-                0: FixedColumnWidth(screenWidth * 0.28),
-                1: FixedColumnWidth(screenWidth * 0.68),
+                0: FixedColumnWidth(screenWidth * 0.26),
+                1: FixedColumnWidth(screenWidth * 0.66),
               },
-              border: TableBorder.all(width: 1.0, color: Colors.black26),
+              border: TableBorder(
+                top: BorderSide(color: Colors.black, width: 1.5),
+                bottom: BorderSide(
+                  color: Colors.black,
+                  width: 1.5,
+                ),
+                horizontalInside: BorderSide(
+                    width: 1,
+                    color: Color(0xff666666),
+                    style: BorderStyle.solid),
+                verticalInside: BorderSide(color: Color(0xff666666), width: 1),
+              ),
               children: [
                 TableRow(children: [
-                  TableCell(
-                    child: SizedBox(
-                      height: 30,
-                      child: Center(
-                        child: Text(
-                          '상호명',
-                          style: TextStyle(
-                              fontFamily: 'HDharmony',
-                              fontSize: 12,
-                              color: Colors.black),
-                          textAlign: TextAlign.center,
+                  Container(
+                    color: Color(0xffcccccc),
+                    child: TableCell(
+                      child: SizedBox(
+                        height: 40,
+                        child: Center(
+                          child: Text(
+                            '상호명',
+                            style: TextStyle(
+                                fontFamily: 'HDharmony',
+                                fontSize: 13,
+                                color: Color(0xff666666)),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ),
                   ),
                   TableCell(
                     child: SizedBox(
-                      height: 30,
+                      height: 40,
                       width: screenWidth * 0.68,
                       child: Container(
                         padding: EdgeInsets.symmetric(horizontal: 10.0),
@@ -234,15 +248,9 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                             ),
                             widget.canDelivery
                                 ? Container(
-                                    padding: EdgeInsets.only(left: 50),
-                                    child: Text(
-                                      '택배주문가능',
-                                      style: TextStyle(
-                                          fontFamily: 'HDharmony',
-                                          fontSize: 14,
-                                          color: Colors.indigo),
-                                    ),
-                                  )
+                                    padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                                    child: Image.asset(
+                                        'assets/images/shipped3.png'))
                                 : Container(),
                           ],
                         ),
@@ -251,17 +259,20 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                   )
                 ]),
                 TableRow(children: [
-                  TableCell(
-                    child: SizedBox(
-                      height: 60,
-                      child: Center(
-                        child: Text(
-                          '주소',
-                          style: TextStyle(
-                              fontFamily: 'HDharmony',
-                              fontSize: 12,
-                              color: Colors.black),
-                          textAlign: TextAlign.center,
+                  Container(
+                    color: Color(0xffcccccc),
+                    child: TableCell(
+                      child: SizedBox(
+                        height: 60,
+                        child: Center(
+                          child: Text(
+                            '주소',
+                            style: TextStyle(
+                                fontFamily: 'HDharmony',
+                                fontSize: 13,
+                                color: Color(0xff666666)),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ),
@@ -298,17 +309,21 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                   )
                 ]),
                 TableRow(children: [
-                  TableCell(
-                    child: SizedBox(
-                      height: 30,
-                      child: Center(
-                        child: Text(
-                          '전화번호',
-                          style: TextStyle(
+                  Container(
+                    color: Color(0xffcccccc),
+                    child: TableCell(
+                      child: SizedBox(
+                        height: 40,
+                        child: Center(
+                          child: Text(
+                            '전화번호',
+                            style: TextStyle(
                               fontFamily: 'HDharmony',
-                              fontSize: 12,
-                              color: Colors.black),
-                          textAlign: TextAlign.center,
+                              fontSize: 13,
+                              color: Color(0xff666666),
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
                         ),
                       ),
                     ),
@@ -316,13 +331,13 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                   TableCell(
                     child: Container(
                       width: screenWidth * 0.68,
-                      height: 30,
+                      height: 40,
                       padding: EdgeInsets.symmetric(horizontal: 10.0),
                       child: Row(
                         children: [
                           Expanded(
                             child: Container(
-                              height: 30,
+                              height: 40,
                               padding: EdgeInsets.only(left: 10),
                               alignment: Alignment.centerLeft,
                               child: Text(
@@ -339,7 +354,7 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                             width: 50,
                           ),
                           Container(
-                            padding: EdgeInsets.symmetric(vertical: 2.0),
+                            padding: EdgeInsets.fromLTRB(0, 5, 5, 5),
                             child: OutlineButton(
                               borderSide: BorderSide(
                                 color: kPrimaryColor, //Color of the border
@@ -377,14 +392,14 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
             child: Center(
                 child: widget.canSale
                     ? Container(
-                        width: screenWidth * 0.25,
-                        height: 25,
+                        width: screenWidth * 0.4,
+                        height: 50,
                         child: RaisedButton(
                           child: Text(
                             '구매요청',
                             style: TextStyle(
                                 fontFamily: 'HDharmony',
-                                fontSize: 12,
+                                fontSize: 15,
                                 color: Colors.white),
                           ),
                           color: kPrimaryColor,
