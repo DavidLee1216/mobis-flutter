@@ -7,7 +7,7 @@ import 'package:mobispartsearch/ui/screen/delivery_screen.dart';
 import 'package:mobispartsearch/ui/screen/visit_screen.dart';
 import 'package:mobispartsearch/ui/widget/custom_radio_button.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
-import 'package:mobispartsearch/common.dart';
+import 'package:mobispartsearch/common.dart' as common;
 import 'package:mobispartsearch/model/product_model.dart';
 
 class PurchaseRequestForm extends StatefulWidget {
@@ -35,6 +35,12 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
   int count = 1;
   List<RadioModel> optionData = new List<RadioModel>();
 
+  void messageBox(String string){
+    showDialog(context: context, builder: (context){
+      return AlertDialog(content: Text(string),);
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -50,28 +56,30 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
     var secondColumnWidth = MediaQuery.of(context).size.width * 0.6;
     var screenWidth = MediaQuery.of(context).size.width;
 
-    Future<void> addToCart() async {
-      String deliveryCode = optionData[0].isSelected ? 'P' : 'V';
-      Product product = new Product(widget.agentCode, deliveryCode,
-          widget.partNumber, globalUsername, count);
-      bloc.add(AddCartEvent(product));
+    Future<bool> addToCart() async {
+        String deliveryCode = optionData[0].isSelected ? 'P' : 'V';
+        Product product = new Product(widget.agentCode, deliveryCode,
+            widget.partNumber, common.globalUsername, count);
+        if(await common.addToCart(product)) {
+          bloc.add(AddCartEvent(product));
+      }
     }
 
     Future<bool> orderNow() async {
       DateTime timeNow = DateTime.now();
       String deliveryCode = optionData[0].isSelected ? 'D' : 'P';
       Product product = new Product(widget.agentCode, deliveryCode,
-          widget.partNumber, globalUsername, count);
+          widget.partNumber, common.globalUsername, count);
       Order orderObject = new Order(
-          globalUser.username,
-          globalUser.legalName,
-          globalUser.mobile,
-          globalUser.zipcode,
-          globalUser.addressExtended,
+          common.globalUser.username,
+          common.globalUser.legalName,
+          common.globalUser.mobile,
+          common.globalUser.zipcode,
+          common.globalUser.addressExtended,
           timeNow.toString(),
-          globalUser.address,
+          common.globalUser.address,
           product);
-      if (await order(orderObject) == true) {
+      if (await common.order(orderObject) == true) {
         return true;
       } else
         return false;
@@ -283,10 +291,10 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               Container(
 //                  width: 12,
 //                  height: 12,
-                  child: Text(
-                count.toString(),
-                style: TextStyle(
-                    fontFamily: 'HDharmony', fontSize: 12, color: Colors.black),
+                child: Text(
+                  count.toString(),
+                  style: TextStyle(
+                      fontFamily: 'HDharmony', fontSize: 12, color: Colors.black),
               )),
               Container(
                 child: IconButton(
@@ -426,14 +434,14 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 Padding(padding: const EdgeInsets.fromLTRB(0, 20, 0, 20)),
                 Icon(
                   Icons.warning,
-                  color: kPrimaryColor,
+                  color: common.kPrimaryColor,
                   size: 15,
                 ),
                 Text(
                   '공백 특수기호 없이 특수문자만 입력하세요',
                   style: TextStyle(
                       fontFamily: 'HDharmony',
-                      color: kPrimaryColor,
+                      color: common.kPrimaryColor,
                       fontSize: 12),
                 ),
               ],
@@ -450,7 +458,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
         children: [
           ButtonTheme(
             padding: const EdgeInsets.fromLTRB(55, 15, 55, 15),
-            buttonColor: kPrimaryColor,
+            buttonColor: common.kPrimaryColor,
             child: RaisedButton(
               child: Text(
                 '장바구니',
@@ -462,12 +470,15 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 if (optionData[0].isSelected == false &&
                     optionData[1].isSelected == false) return;
                 bool kind = optionData[0].isSelected ? true : false;
-//                await addToCart();
-                pushTo(
-                    context,
-                    CartScreen(
-                      deliveryKind: kind,
-                    ));
+                if(await addToCart()){
+                  pushTo(
+                      context,
+                      CartScreen(
+                        deliveryKind: kind,
+                      ));
+                } else {
+                  messageBox('장바구니에 담기 실패');
+                }
               },
             ),
           ),
@@ -479,7 +490,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
             child: OutlineButton(
               padding: const EdgeInsets.fromLTRB(55, 15, 55, 15),
               borderSide: BorderSide(
-                color: kPrimaryColor, //Color of the border
+                color: common.kPrimaryColor, //Color of the border
                 style: BorderStyle.solid, //Style of the border
                 width: 1, //width of the border
               ),
@@ -488,22 +499,22 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 style: TextStyle(
                     fontFamily: 'HDharmony',
                     fontSize: 15,
-                    color: kPrimaryColor),
+                    color: common.kPrimaryColor),
               ),
               onPressed: () async {
                 if (optionData[0].isSelected) {
                   pushTo(
                       context,
                       DeliveryScreen(
-                          productName: "플레이트 & 그로메트 - 에이컨 쿨러 라인",
-                          companyMark: "강원부품(주)",
+                          productName: widget.koreanPartName,
+                          companyMark: widget.companyMark,
                           count: count));
                 } else if (optionData[1].isSelected) {
                   pushTo(
                       context,
                       VisitScreen(
-                          productName: "플레이트 & 그로메트 - 에이컨 쿨러 라인",
-                          companyMark: "강원부품(주)",
+                          productName: widget.koreanPartName,
+                          companyMark: widget.companyMark,
                           count: count));
                 }
               },

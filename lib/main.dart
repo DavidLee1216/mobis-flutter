@@ -20,6 +20,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   getSession();
+  getGloablModels();
   getSido();
 
   UserRepository userRepository = UserRepository();

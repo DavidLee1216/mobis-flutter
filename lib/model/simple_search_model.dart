@@ -24,8 +24,8 @@ class SimpleSearchResultModel {
         krname: map['kr_nm'],
         enname: map['en_nm'],
         price: map['price'],
-        seq: map['seq'],
-        totalCnt: map['tot_cnt'],
+        seq: map['part_Price_seq'],
+        totalCnt: map['tot_CNT'],
         hkgb: map['hkgb'],
         rnum: map['rnum'],
       );

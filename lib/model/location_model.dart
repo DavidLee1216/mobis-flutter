@@ -3,7 +3,7 @@ class Sido{
   int seq;
   String sido;
   List<Sigungu> sigungus;
-  Sido({this.seq, this.sido});
+  Sido({this.seq, this.sido, this.sigungus});
 
   factory Sido.fromMap(Map<String, dynamic> map) => Sido(
     seq: map['seq'],

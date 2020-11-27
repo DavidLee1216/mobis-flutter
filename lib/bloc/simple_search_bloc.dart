@@ -6,8 +6,6 @@ import 'package:mobispartsearch/model/simple_search_model.dart';
 import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/repository/simple_search_repository.dart';
 
-const List<String> hkgb_list = ['H', 'K'];
-const List<String> vtpy_list = ['P', 'R', 'C'];
 
 abstract class SimpleSearchEvent {}
 
@@ -26,7 +24,7 @@ class VTPYSimpleSearchEvent extends SimpleSearchEvent {
 }
 
 class ModelSimpleSearchEvent extends SimpleSearchEvent {
-  final String model;
+  final int model;
 
   ModelSimpleSearchEvent(this.model);
 }
@@ -41,20 +39,23 @@ class SearchSimpleSearchEvent extends SimpleSearchEvent {
 class SimpleSearchState {
   String hkgb;
   String vtpy;
-  String model;
+  int model = 0;
   String keyword;
   bool searchType;
   List<SimpleSearchResultModel> searchResult;
+  int searchResultCnt;
   PageModel pageModel;
   bool isLoading;
 
   SimpleSearchState(
       {this.hkgb = 'H',
       this.vtpy = 'P',
-      this.model = '',
+      this.model = 0,
       this.keyword = '',
+      this.searchType = false,
       this.searchResult,
       this.isLoading = false,
+      this.searchResultCnt = 0,
       this.pageModel});
 
   factory SimpleSearchState.init() => SimpleSearchState();
@@ -62,40 +63,47 @@ class SimpleSearchState {
   SimpleSearchState _setProps(
           {String hkgb,
           String vtpy,
-          String model,
+          int model,
           String keyword,
+          bool searchType,
           List<SimpleSearchResultModel> searchResult,
           bool isLoading,
+          int searchResultCnt,
           PageModel pageModel}) =>
       SimpleSearchState(
         hkgb: hkgb ?? this.hkgb,
         vtpy: vtpy ?? this.vtpy,
         model: model ?? this.model,
         keyword: keyword ?? this.keyword,
+        searchType: searchType ?? this.searchType,
         searchResult: searchResult ??
             this.searchResult ??
             new List<SimpleSearchResultModel>(),
         isLoading: isLoading ?? this.isLoading,
-        pageModel: pageModel ?? this.pageModel ?? new PageModel()
-          ..init(),
+        searchResultCnt: searchResultCnt ?? 0,
+        pageModel: pageModel ?? this.pageModel
       );
 
   SimpleSearchState submitting() => _setProps(isLoading: true);
   SimpleSearchState success(
           {String hkgb,
           String vtpy,
-          String model,
+          int model,
           String keyword,
+          bool searchType,
           List<SimpleSearchResultModel> searchResult,
           bool isLoading,
+          int searchResultCnt,
           PageModel pageModel}) =>
       _setProps(
           hkgb: hkgb,
           vtpy: vtpy,
           model: model,
           keyword: keyword,
+          searchType: searchType,
           searchResult: searchResult,
           isLoading: false,
+          searchResultCnt: searchResultCnt,
           pageModel: pageModel);
 }
 
@@ -121,10 +129,12 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
       List<SimpleSearchResultModel> searchResult =
           new List<SimpleSearchResultModel>();
       yield state.success(
-          model: '',
-          searchResult: searchResult);
+          hkgb: 'H',
+          vtpy: 'P',
+          model: 0,
+          searchResult: searchResult, searchResultCnt: 0);
     } catch (e) {
-      yield state.success();
+      yield state.success(model: 0, searchResult: null, searchResultCnt: 0);
     }
   }
 
@@ -133,7 +143,7 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
       yield state.submitting();
       yield state.success(hkgb: hkgb_list[idx]);
     } catch (e) {
-      yield state.success();
+      yield state.success(model: 0, searchResult: null, searchResultCnt: 0);
     }
   }
 
@@ -142,16 +152,16 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
       yield state.submitting();
       yield state.success(vtpy: vtpy_list[idx]);
     } catch (e) {
-      yield state.success();
+      yield state.success(model: 0, searchResult: null, searchResultCnt: 0);
     }
   }
 
-  Stream<SimpleSearchState> _mapModelSelectEventToState(String model) async* {
+  Stream<SimpleSearchState> _mapModelSelectEventToState(int model) async* {
     try {
       yield state.submitting();
       yield state.success(model: model);
     } catch (e) {
-      yield state.success();
+      yield state.success(model: 0, searchResult: null, searchResultCnt: 0);
     }
   }
 
@@ -159,32 +169,34 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
       String keyword, bool searchType, int page) async* {
     try {
       yield state.submitting();
-      List<SimpleSearchResultModel> searchResult = null;
-//      List<SimpleSearchResultModel> searchResult = (searchType == false)
-//          ? await simpleSearchRepository.searchPartGeneral(
-//              hkgb: state.hkgb,
-//              vtpy: state.vtpy,
-//              catSeq: state.model,
-//              searchWord: keyword,
-//              firstIndex: 1 + (page - 1) * globalRecordCountPerPage,
-//              recordCountPerPage: globalRecordCountPerPage)
-//          : await simpleSearchRepository.searchPartPtno(
-//              hkgb: state.hkgb,
-//              ptno: keyword,
-//              firstIndex: 1 + (page - 1) * globalRecordCountPerPage,
-//              recordCountPerPage: globalRecordCountPerPage);
+      List<SimpleSearchResultModel> searchResult = (searchType == false)
+          ? await simpleSearchRepository.searchPartGeneral(
+              hkgb: state.hkgb,
+              vtpy: state.vtpy,
+              catSeq: state.model,
+              searchWord: keyword,
+              firstIndex: 0 + (page - 1) * globalRecordCountPerPage,
+              recordCountPerPage: globalRecordCountPerPage)
+          : await simpleSearchRepository.searchPartPtno(
+              hkgb: state.hkgb,
+              ptno: keyword,
+              firstIndex: 0 + (page - 1) * globalRecordCountPerPage,
+              recordCountPerPage: globalRecordCountPerPage);
       if (searchResult == null || searchResult.length == 0)
-        yield state.success(keyword: keyword, searchResult: null);
+      {
+        yield state.success(keyword: keyword, searchResult: null, searchResultCnt: 0);
+      }
       else {
         PageModel pageModel = new PageModel()..init();
+        yield state.success(pageModel: pageModel);
         pageModel.setPageCnt(
             searchResult[0].totalCnt ~/ globalRecordCountPerPage + 1);
         pageModel.setCurPage(page);
-        yield state.success(keyword: keyword, searchResult: searchResult, pageModel: pageModel);
+        yield state.success(keyword: keyword, searchResult: searchResult, searchResultCnt: searchResult[0].totalCnt, pageModel: pageModel);
       }
     } catch (e) {
       log(e.toString());
-      yield state.success();
+      yield state.success(model: 0, searchResult: null, searchResultCnt: 0);
     }
   }
 }

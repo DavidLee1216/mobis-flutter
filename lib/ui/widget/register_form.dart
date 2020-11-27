@@ -53,6 +53,12 @@ class _RegisterFormState extends State<RegisterForm> {
     super.dispose();
   }
 
+  void messageBox(String string){
+    showDialog(context: context, builder: (context){
+      return AlertDialog(content: Text(string),);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final AuthBloc bloc = BlocProvider.of<AuthBloc>(context);
@@ -89,6 +95,8 @@ class _RegisterFormState extends State<RegisterForm> {
             zipcode: zipcode);
         if (await bloc.userRepository.signUp(user) == true)
           Navigator.of(context).pop();
+        else
+          messageBox('가입실패!');
       }
     }
 
@@ -173,7 +181,7 @@ class _RegisterFormState extends State<RegisterForm> {
             )),
         onPressed: () async {
           if (await checkUsername(_idController.text) == false) {
-//            _idController.clear();
+            messageBox('아이디가 이미 등록되여 있습니다.');
           }
         },
       ),
@@ -223,7 +231,7 @@ class _RegisterFormState extends State<RegisterForm> {
             )),
         onPressed: () async {
           if (await checkEmail(_emailController.text) == false) {
-//            _emailController.clear();
+            messageBox('이메일이 이미 등록되여 있습니다.');
           }
         },
       ),
@@ -414,6 +422,9 @@ class _RegisterFormState extends State<RegisterForm> {
             )),
         onPressed: () async {
           seq = await validateCode(_authNumberVerifyController.text);
+          if(seq == -1){
+            messageBox('인증번호가 일치하지 않습니다.');
+          }
         },
       ),
     );
@@ -539,19 +550,22 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
         ),
         onPressed: () async {
-          await registerUser(
-              _idController.text,
-              _phoneNumberController.text,
-              _emailController.text,
-              encryptPassword(_passwordController.text),
-              _nameController.text,
-              _birthday,
-              sexCode,
-              _address1Controller.text,
-              _address2Controller.text,
-              _address3Controller.text,
-              _carNumber1Controller.text,
-              _carNumber2Controller.text);
+          if(_passwordController.text==_repasswordController.text)
+            await registerUser(
+                _idController.text,
+                _phoneNumberController.text,
+                _emailController.text,
+                encryptPassword(_passwordController.text),
+                _nameController.text,
+                _birthday,
+                sexCode,
+                _address1Controller.text,
+                _address2Controller.text,
+                _address3Controller.text,
+                _carNumber1Controller.text,
+                _carNumber2Controller.text);
+          else
+            messageBox('비밀번호가 일치하지 않습니다.');
         },
       ),
     );

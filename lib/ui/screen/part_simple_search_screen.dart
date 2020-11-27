@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/simple_search_bloc.dart';
 import 'package:mobispartsearch/common.dart';
+import 'package:mobispartsearch/model/carModel_model.dart';
+import 'package:mobispartsearch/model/cart_model.dart';
 import 'package:mobispartsearch/ui/widget/simple_search_result_form.dart';
 import 'package:mobispartsearch/ui/widget/custom_radio_button.dart';
 
@@ -48,10 +50,13 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
   bool searched = false;
   List<RadioModel> manufacturerData = new List<RadioModel>();
   List<RadioModel> carKindData = new List<RadioModel>();
-  List<String> carModels;
+  List<ModelSeq> carModels;
+  int catSeq = 0;
   String modelDropdownValue;
   String hkgb = 'H';
   String vtpy = 'P';
+  int hkgb_id = 0;
+  int vtpy_id = 0;
 
   TextEditingController partNameController = TextEditingController();
 
@@ -71,11 +76,17 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
     bloc.add(InitSimpleSearchEvent());
   }
 
-  Future<List<String>> loadModels() async {
-    List<String> models = await getModelsFromRemote(hkgb, vtpy);
-    modelDropdownValue ??= models[0];
-    carModels = models;
-    return models;
+  void getCatSeq(String value){
+    carModels = globalModels[hkgb_id][vtpy_id];
+    for(int i = 0; i < carModels.length; i++){
+      if(carModels[i].modelname == value){
+        catSeq = carModels[i].seq;
+        bloc.add(ModelSimpleSearchEvent(catSeq));
+        return;
+      }
+    }
+    catSeq = 0;
+    bloc.add(ModelSimpleSearchEvent(catSeq));
   }
 
   @override
@@ -110,6 +121,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   manufacturerData[0].isSelected = true;
                   bloc.add(HKGBSimpleSearchEvent(0));
                   hkgb = hkgb_list[0];
+                  hkgb_id = 0;
                   modelDropdownValue = null;
                 });
               },
@@ -128,6 +140,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   manufacturerData[1].isSelected = true;
                   bloc.add(HKGBSimpleSearchEvent(1));
                   hkgb = hkgb_list[1];
+                  hkgb_id = 1;
                   modelDropdownValue = null;
                 });
               },
@@ -162,6 +175,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   carKindData[0].isSelected = true;
                   bloc.add(VTPYSimpleSearchEvent(0));
                   vtpy = vtpy_list[0];
+                  vtpy_id = 0;
                   modelDropdownValue = null;
                 });
               },
@@ -179,6 +193,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   carKindData[1].isSelected = true;
                   bloc.add(VTPYSimpleSearchEvent(1));
                   vtpy = vtpy_list[1];
+                  vtpy_id = 1;
                   modelDropdownValue = null;
                 });
               },
@@ -196,6 +211,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                   carKindData[2].isSelected = true;
                   bloc.add(VTPYSimpleSearchEvent(2));
                   vtpy = vtpy_list[2];
+                  vtpy_id = 2;
                   modelDropdownValue = null;
                 });
               },
@@ -205,10 +221,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
       ),
     );
 
-    var modelDropdownmenu = FutureBuilder(
-        future: loadModels(),
-        builder: (context, snapshot) {
-          return Expanded(
+    var modelDropdownmenu = Expanded(
             child: Container(
               margin: const EdgeInsets.only(right: 10),
               decoration: BoxDecoration(
@@ -230,15 +243,16 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                     iconSize: 14,
                     onChanged: (newValue) {
                       modelDropdownValue = newValue;
+                      getCatSeq(modelDropdownValue);
                       setState(() {});
                     },
-                    items: snapshot.data?.map<DropdownMenuItem<String>>((item) {
+                    items: globalModels[hkgb_id][vtpy_id].map<DropdownMenuItem<String>>((item) {
                       return DropdownMenuItem<String>(
-                        value: item,
+                        value: item.modelname,
                         child: Container(
                           width: 160,
                           child: Text(
-                            item,
+                            item.modelname,
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontFamily: 'HDharmony',
@@ -252,7 +266,6 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
               ),
             ),
           );
-        });
 
     var modelItem = Container(
         padding: EdgeInsets.all(10.0),
@@ -422,6 +435,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
       cubit: BlocProvider.of<SimpleSearchBloc>(context),
       builder: (BuildContext context, state) {
         return ListView(
+          shrinkWrap: true,
           children: [
             Row(
               children: [

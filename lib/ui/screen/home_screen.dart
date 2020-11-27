@@ -84,15 +84,15 @@ class _HomeScreenState extends State<HomeScreen> {
                       globalUsername != ''
                           ? Container()
                           : RaisedButton(
-                            color: kPrimaryColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(0),
+                              color: kPrimaryColor,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0),
+                              ),
+                              child: Text('로그인', style: kButtonTextStyle),
+                              onPressed: () {
+                                pushTo(context, LoginScreen());
+                              },
                             ),
-                            child: Text('로그인', style: kButtonTextStyle),
-                            onPressed: () {
-                              pushTo(context, LoginScreen());
-                            },
-                          ),
                     ],
                   ),
                 ),
@@ -205,14 +205,15 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              PageRouteBuilder(
-                                pageBuilder: (_, __, ___) => NavigationBar(
-                                  index: 5,
+                            if (globalModelsLoaded)
+                              Navigator.push(
+                                context,
+                                PageRouteBuilder(
+                                  pageBuilder: (_, __, ___) => NavigationBar(
+                                    index: 5,
+                                  ),
                                 ),
-                              ),
-                            );
+                              );
                           },
                         ),
                       ),
