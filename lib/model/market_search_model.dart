@@ -9,7 +9,7 @@ class MarketSearchResultModel {
   String sido;
   String tel;
   String hkgb;
-  int stype;
+  String stype;
   String adrdtl;
   int rnum;
 
@@ -35,7 +35,7 @@ class MarketSearchResultModel {
         adr: map['adr'],
         sigungu: map['sigungu'],
         url: map['url'],
-        totalCnt: map['tot_cnt'],
+        totalCnt: map['tot_CNT'],
         zipcd: map['zipcd'],
         sido: map['sido'],
         tel: map['tel'],

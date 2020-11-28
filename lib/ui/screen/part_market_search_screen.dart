@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/market_search_bloc.dart';
+import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 import 'package:mobispartsearch/ui/widget/market_search_result_form.dart';
 import 'package:mobispartsearch/ui/widget/custom_radio_button.dart';
 
@@ -49,8 +50,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
   List<RadioModel> marketData = new List<RadioModel>();
   String hkgb = 'H';
   String ptno = '';
-  String sido = '';
-  String sigungu = '';
+  String sido;
+  String sigungu;
 
   TextEditingController partNumberController = TextEditingController();
 
@@ -70,8 +71,12 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
 
     bloc = BlocProvider.of<MarketSearchBloc>(context);
     bloc.add(InitMarketSearchEvent());
-    sido = globalSido[0].sido;
-    sigungu = findSido(sido).sigungus[0].sigungu;
+  }
+
+  void messageBox(String string){
+    showDialog(context: context, builder: (context){
+      return AlertDialog(content: Text(string),);
+    });
   }
 
   @override
@@ -216,9 +221,6 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
             value: sido,
-//            decoration: InputDecoration(
-//                labelText: '[선택]'
-//            ),
             hint: Padding(
               padding: EdgeInsets.only(left: 10),
               child: Text(
@@ -394,6 +396,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
               searched = true;
               bloc.add(SearchMarketSearchEvent(ptno, sido, sigungu, 1));
               setState(() {});
+            } else {
+              messageBox('부품번호를 입력하세요.');
             }
           },
         ),
@@ -404,73 +408,86 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
       child: partNumber,
     );
 
-    return ListView(
-      children: [
-        Container(
-          color: Colors.white,
-          padding: EdgeInsets.all(20.0),
-          child: Column(
+    return BlocBuilder<MarketSearchBloc, MarketSearchState>(
+    cubit: BlocProvider.of<MarketSearchBloc>(context),
+    builder: (BuildContext context, state) {
+        return Stack(
             children: [
-              SizedBox(
-                height: 10,
+              ListView(
+                shrinkWrap: true,
+                children: [
+                  Container(
+                    color: Colors.white,
+                    padding: EdgeInsets.all(20.0),
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          '부품번호를 입력하시면 해당 부품을 직접 방문 혹은 온라인을 통해 구매할 수 있는 판매점을 알려드립니다.',
+                          style: TextStyle(
+                            fontFamily: 'HDharmony',
+                            fontSize: 14,
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          '- 판매점이 조회되지 않는 경우 당사 고객센터(1588-7278)로 문의 바랍니다.',
+                          style: TextStyle(
+                            fontFamily: 'HDharmony',
+                            fontSize: 13,
+                            color: Color(0xff666666),
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Divider(
+                    height: 2,
+                    color: Colors.black,
+                  ),
+                  partNumberSearchItems,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Divider(
+                      color: Colors.black54,
+                    ),
+                  ),
+                  locationItem,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Divider(
+                      color: Colors.black54,
+                    ),
+                  ),
+                  marketItem,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: Divider(
+                      color: Colors.black54,
+                    ),
+                  ),
+                  manufactureItem,
+                  Divider(
+                    height: 2,
+                    color: Colors.black54,
+                  ),
+                  searchButton,
+                  SizedBox(height: 30),
+                  searched ? MarketSearchResultsForm() : Container(),
+                ],
               ),
-              Text(
-                '부품번호를 입력하시면 해당 부품을 직접 방문 혹은 온라인을 통해 구매할 수 있는 판매점을 알려드립니다.',
-                style: TextStyle(
-                  fontFamily: 'HDharmony',
-                  fontSize: 14,
-                ),
-                textAlign: TextAlign.left,
+              Positioned(
+                child: LoadingIndicator(isLoading: state.isLoading),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                '- 판매점이 조회되지 않는 경우 당사 고객센터(1588-7278)로 문의 바랍니다.',
-                style: TextStyle(
-                  fontFamily: 'HDharmony',
-                  fontSize: 13,
-                  color: Color(0xff666666),
-                ),
-                textAlign: TextAlign.left,
-              ),
-            ],
-          ),
-        ),
-        Divider(
-          height: 2,
-          color: Colors.black,
-        ),
-        partNumberSearchItems,
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Divider(
-            color: Colors.black54,
-          ),
-        ),
-        locationItem,
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Divider(
-            color: Colors.black54,
-          ),
-        ),
-        marketItem,
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: Divider(
-            color: Colors.black54,
-          ),
-        ),
-        manufactureItem,
-        Divider(
-          height: 2,
-          color: Colors.black54,
-        ),
-        searchButton,
-        SizedBox(height: 30),
-        searched ? MarketSearchResultsForm() : Container(),
-      ],
+            ]
+        );
+      }
     );
   }
 }

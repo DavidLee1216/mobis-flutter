@@ -63,93 +63,11 @@ class _MarketSearchResultsFormState extends State<MarketSearchResultsForm> {
                   ),
                 ),
                 SizedBox(height: 20),
-//                ListView.builder(
-//                    itemBuilder: (BuildContext context, int index) {
-//                  return Column(
-//                    children: [
-//                      MarketSearchResultForm(
-//                        companyMark: state.searchResult[index].mutual,
-//                        canDelivery:
-//                            state.searchResult[index].stype.toString() == 'Y',
-//                        address1: state.searchResult[index].sido,
-//                        address2: state.searchResult[index].sigungu,
-//                        phoneNumber: state.searchResult[index].tel,
-//                        canSale:
-//                            state.searchResult[index].stype.toString() == 'Y',
-//                      ),
-//                      SizedBox(
-//                        height: 10,
-//                      ),
-//                    ],
-//                  );
-//                }),
-                MarketSearchResultForm(
-                  companyMark: '강원부품(주)',
-                  canDelivery: true,
-                  address1: '강원도 원주시 현충로 255',
-                  address2: '강원도 원주시 현충로 255',
-                  phoneNumber: '033-743-1850',
-                  canSale: true,
+                MarketSearchResultListWidget(),
+                SizedBox(
+                  height: 10,
                 ),
-//            SizedBox(
-//              height: 10,
-//            ),
-//                Container(
-//                  child: Center(
-//                    child: ListView.builder(
-//                        itemBuilder: (BuildContext context, index) {
-//                      return Container(
-//                        child: Row(
-//                          mainAxisSize: MainAxisSize.min,
-//                          children: <Widget>[
-//                            GestureDetector(
-//                              child: Container(
-//                                height: 20.0,
-//                                width: 20.0,
-//                                child: new Center(
-//                                  child: new Text(
-//                                      state.pageModel.pages[index].toString(),
-//                                      style: new TextStyle(
-//                                          fontFamily: 'HDharmony',
-//                                          color: state.pageModel.pages[index] ==
-//                                                  state.pageModel.curPage
-//                                              ? Colors.white
-//                                              : Colors.black54,
-//                                          //fontWeight: FontWeight.bold,
-//                                          fontSize: 8.0)),
-//                                ),
-//                                decoration: new BoxDecoration(
-//                                  color: state.pageModel.pages[index] ==
-//                                          state.pageModel.curPage
-//                                      ? Colors.black54
-//                                      : Colors.transparent,
-//                                  border: new Border.all(
-//                                      width: 1.0,
-//                                      color: state.pageModel.pages[index] ==
-//                                              state.pageModel.curPage
-//                                          ? Colors.black54
-//                                          : Colors.grey),
-//                                  borderRadius: const BorderRadius.all(
-//                                      const Radius.circular(1.0)),
-//                                ),
-//                              ),
-//                              onTap: () {
-//                                bloc.add(SearchMarketSearchEvent(
-//                                    state.ptno,
-//                                    state.sido,
-//                                    state.sigungu,
-//                                    state.pageModel.pages[index]));
-//                              },
-//                            ),
-//                            SizedBox(
-//                              width: 5,
-//                            ),
-//                          ],
-//                        ),
-//                      );
-//                    }),
-//                  ),
-//                ),
+                MarketSearchPageListWidget(),
                 SizedBox(
                   height: 20,
                 ),
@@ -160,7 +78,134 @@ class _MarketSearchResultsFormState extends State<MarketSearchResultsForm> {
   }
 }
 
+class MarketSearchResultListWidget extends StatefulWidget {
+  @override
+  _MarketSearchResultListWidgetState createState() =>
+      _MarketSearchResultListWidgetState();
+}
+
+class _MarketSearchResultListWidgetState
+    extends State<MarketSearchResultListWidget> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<MarketSearchBloc, MarketSearchState>(
+        cubit: BlocProvider.of<MarketSearchBloc>(context),
+        builder: (BuildContext context, state) {
+          if (state.searchResult == null || state.searchResult.length == 0) {
+            return Container();
+          }
+          return ListView.builder(
+              itemCount: state.searchResult.length,
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              itemBuilder: (BuildContext context, int index) {
+                return Column(
+                  children: [
+                    MarketSearchResultForm(
+                      companyMark: state.searchResult[index].mutual,
+                      canDelivery: state.searchResult[index].stype == 'Y',
+                      address1: state.searchResult[index].sido,
+                      address2: state.searchResult[index].sigungu,
+                      phoneNumber: state.searchResult[index].tel,
+                      canSale: state.searchResult[index].stype == 'Y',
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                  ],
+                );
+              });
+        });
+  }
+}
+
+class MarketSearchPageListWidget extends StatefulWidget {
+  @override
+  _MarketSearchPageListWidgetState createState() =>
+      _MarketSearchPageListWidgetState();
+}
+
+class _MarketSearchPageListWidgetState
+    extends State<MarketSearchPageListWidget> {
+  @override
+  Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<MarketSearchBloc>(context);
+    return BlocBuilder<MarketSearchBloc, MarketSearchState>(
+        cubit: BlocProvider.of<MarketSearchBloc>(context),
+        builder: (BuildContext context, state) {
+          if (state.pageModel == null || state.pageModel.pageCnt == null) {
+            return Container();
+          }
+          return Container(
+            height: 40,
+            child: ListView.builder(
+                itemCount: state.pageModel.pages.length,
+                scrollDirection: Axis.horizontal,
+                shrinkWrap: true,
+                itemBuilder: (BuildContext context, index) {
+                  return state.pageModel.pageCnt == 1
+                      ? Container()
+                      : Container(
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: <Widget>[
+                              GestureDetector(
+                                child: Container(
+                                  height: 30.0,
+                                  width: 30.0,
+                                  child: new Center(
+                                    child: new Text(
+                                        state.pageModel.pages[index].toString(),
+                                        style: new TextStyle(
+                                            fontFamily: 'HDharmony',
+                                            color:
+                                                state.pageModel.pages[index] ==
+                                                        state.pageModel.curPage
+                                                    ? Colors.white
+                                                    : Colors.black54,
+                                            //fontWeight: FontWeight.bold,
+                                            fontSize: 12.0)),
+                                  ),
+                                  decoration: new BoxDecoration(
+                                    color: state.pageModel.pages[index] ==
+                                            state.pageModel.curPage
+                                        ? Colors.black54
+                                        : Colors.transparent,
+                                    border: new Border.all(
+                                        width: 1.0,
+                                        color: state.pageModel.pages[index] ==
+                                                state.pageModel.curPage
+                                            ? Colors.black54
+                                            : Colors.grey),
+                                    borderRadius: const BorderRadius.all(
+                                        const Radius.circular(1.0)),
+                                  ),
+                                ),
+                                onTap: () {
+                                  bloc.add(SearchMarketSearchEvent(
+                                      state.sido,
+                                      state.sigungu,
+                                      state.ptno,
+                                      state.pageModel.pages[index]));
+                                },
+                              ),
+                              SizedBox(
+                                width: 15,
+                              ),
+                            ],
+                          ),
+                        );
+                }),
+          );
+        });
+  }
+}
+
 class MarketSearchResultForm extends StatefulWidget {
+  final String krname;
+  final String enname;
+  final String price;
+  final String ptno;
   final String companyMark;
   final bool canDelivery;
   final String address1;
@@ -169,6 +214,10 @@ class MarketSearchResultForm extends StatefulWidget {
   final bool canSale;
   MarketSearchResultForm({
     Key key,
+    this.krname,
+    this.enname,
+    this.price,
+    this.ptno,
     this.companyMark,
     this.canDelivery,
     this.address1,
@@ -207,9 +256,9 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
               ),
               children: [
                 TableRow(children: [
-                  Container(
-                    color: Color(0xffcccccc),
-                    child: TableCell(
+                  TableCell(
+                    child: Container(
+                      color: Color(0xffcccccc),
                       child: SizedBox(
                         height: 40,
                         child: Center(
@@ -259,9 +308,9 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                   )
                 ]),
                 TableRow(children: [
-                  Container(
-                    color: Color(0xffcccccc),
-                    child: TableCell(
+                  TableCell(
+                    child: Container(
+                      color: Color(0xffcccccc),
                       child: SizedBox(
                         height: 60,
                         child: Center(
@@ -309,9 +358,9 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                   )
                 ]),
                 TableRow(children: [
-                  Container(
-                    color: Color(0xffcccccc),
-                    child: TableCell(
+                  TableCell(
+                    child: Container(
+                      color: Color(0xffcccccc),
                       child: SizedBox(
                         height: 40,
                         child: Center(
@@ -407,12 +456,11 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                             pushTo(
                                 context,
                                 PurchaseRequestScreen(
-                                    partNumber: '97651B2000',
-                                    koreanPartName: '플레이트 & 그로메트－에어컨 쿨러 라인',
-                                    englishPartName:
-                                        'PLATE & GROMMET-A/C COOLER LIN',
-                                    price: 1870,
-                                    companyMark: '강원부품(주)'));
+                                    partNumber: widget.ptno,
+                                    koreanPartName: widget.krname,
+                                    englishPartName: widget.enname,
+                                    price: widget.price,
+                                    companyMark: widget.companyMark));
                           },
                         ))
                     : Container(

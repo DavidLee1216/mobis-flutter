@@ -1,3 +1,4 @@
+
 import 'package:bloc/bloc.dart';
 import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/model/user_model.dart';
@@ -32,12 +33,14 @@ class AuthState {
   String errorMsg;
   String id;
   String password;
+  bool signUpSucc;
   bool isLoading;
 
   AuthState({
     this.errorMsg = '',
     this.id = '',
     this.password = '',
+    this.signUpSucc = false,
     this.isLoading = false,
   });
 
@@ -46,18 +49,23 @@ class AuthState {
   bool hasError() => errorMsg.isNotEmpty;
 
   AuthState _setProps(
-          {String errorMsg, String id, String password, bool isLoading}) =>
+          {String errorMsg,
+          String id,
+          String password,
+          bool signUpSucc,
+          bool isLoading}) =>
       AuthState(
         errorMsg: errorMsg ?? '',
         id: id ?? this.id,
         password: password ?? this.password,
+        signUpSucc: signUpSucc ?? false,
         isLoading: isLoading ?? this.isLoading,
       );
 
   factory AuthState.init() => AuthState();
 
-  AuthState success({@required String id}) =>
-      _setProps(id: id, isLoading: false);
+  AuthState success({String id, bool signUpSucc}) =>
+      _setProps(id: id, signUpSucc: signUpSucc, isLoading: false);
 
   AuthState unauthenticated(String errorMsg) =>
       AuthState.init()..errorMsg = errorMsg;
@@ -80,6 +88,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (event is AuthEventSignIn) {
       yield* _mapSignInToState(event);
     }
+    if (event is AuthEventSignUp) {
+      yield* _mapSignUpToState(event);
+    }
   }
 
   Stream<AuthState> _mapAppStartedToState(AuthEventAppStarted event) async* {
@@ -89,8 +100,23 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> _mapSignInToState(AuthEventSignIn event) async* {
     try {
       yield state.submitting();
-      yield state.success(id: event.id);
-      globalUsername = event.id;
+      if (await userRepository.signIn(event.id, event.password) == true) {
+        globalUsername = event.id;
+        yield state.success(id: event.id);
+      } else
+        yield state.unauthenticated('로그인 실패!');
+    } catch (e) {
+      yield state.unauthenticated(e.toString());
+    }
+  }
+
+  Stream<AuthState> _mapSignUpToState(AuthEventSignUp event) async* {
+    try {
+      yield state.submitting();
+      if (await userRepository.signUp(event.user) == true)
+        yield state.success(signUpSucc: true);
+      else
+        yield state.unauthenticated('가입 실패!');
     } catch (e) {
       yield state.unauthenticated(e.toString());
     }

@@ -7,6 +7,10 @@ import 'package:mobispartsearch/common.dart';
 enum Gender { male, female }
 
 class RegisterForm extends StatefulWidget {
+//  final String errorMsg;
+
+//  const RegisterForm({Key key, this.errorMsg}) : super(key: key);
+
   @override
   _RegisterFormState createState() => _RegisterFormState();
 }
@@ -53,8 +57,8 @@ class _RegisterFormState extends State<RegisterForm> {
     super.dispose();
   }
 
-  void messageBox(String string){
-    showDialog(context: context, builder: (context){
+  messageBox(String string){
+     showDialog(context: context, builder: (context){
       return AlertDialog(content: Text(string),);
     });
   }
@@ -62,7 +66,6 @@ class _RegisterFormState extends State<RegisterForm> {
   @override
   Widget build(BuildContext context) {
     final AuthBloc bloc = BlocProvider.of<AuthBloc>(context);
-
     Future<void> registerUser(
         String id,
         String mobile,
@@ -76,7 +79,7 @@ class _RegisterFormState extends State<RegisterForm> {
         String addressExtended,
         String vin,
         String vlp) async {
-      if (_formKey.currentState.validate() && seq != -1) {
+      if (_formKey.currentState.validate() && seq != -1) {//
         User user = User(
             address: address,
             addressExtended: addressExtended,
@@ -93,10 +96,10 @@ class _RegisterFormState extends State<RegisterForm> {
             vin: vin,
             vlp: vlp,
             zipcode: zipcode);
-        if (await bloc.userRepository.signUp(user) == true)
-          Navigator.of(context).pop();
-        else
-          messageBox('가입실패!');
+        bloc.add(AuthEventSignUp(user: user));
+      }
+      else if(seq == -1){
+        messageBox('인증번호를 확인하세요.');
       }
     }
 

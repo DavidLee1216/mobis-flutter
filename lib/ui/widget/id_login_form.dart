@@ -96,17 +96,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
     Future<void> signIn(String username, String password) async {
       if (_formKey.currentState.validate()) {
         FocusScope.of(context).requestFocus(FocusNode());
-        if (await bloc.userRepository.signIn(username, password) == true) {
-          bloc.add(AuthEventSignIn(
-            id: username,
-            password: password,
-          ));
-          pushTo(
-              context,
-              NavigationBar(
-                index: 1,
-              ));
-        }
+        bloc.add(AuthEventSignIn(id: username, password: password));
       }
     }
 

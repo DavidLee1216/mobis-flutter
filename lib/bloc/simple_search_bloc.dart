@@ -80,7 +80,7 @@ class SimpleSearchState {
             this.searchResult ??
             new List<SimpleSearchResultModel>(),
         isLoading: isLoading ?? this.isLoading,
-        searchResultCnt: searchResultCnt ?? 0,
+        searchResultCnt: searchResultCnt ?? this.searchResultCnt ?? 0,
         pageModel: pageModel ?? this.pageModel
       );
 
@@ -159,7 +159,7 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
   Stream<SimpleSearchState> _mapModelSelectEventToState(int model) async* {
     try {
       yield state.submitting();
-      yield state.success(model: model);
+      yield state.success(model: model, pageModel: null);
     } catch (e) {
       yield state.success(model: 0, searchResult: null, searchResultCnt: 0);
     }
@@ -184,11 +184,10 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
               recordCountPerPage: globalRecordCountPerPage);
       if (searchResult == null || searchResult.length == 0)
       {
-        yield state.success(keyword: keyword, searchResult: null, searchResultCnt: 0);
+        yield state.success(keyword: keyword, searchResult: null, searchResultCnt: 0, pageModel: null);
       }
       else {
         PageModel pageModel = new PageModel()..init();
-        yield state.success(pageModel: pageModel);
         pageModel.setPageCnt(
             searchResult[0].totalCnt ~/ globalRecordCountPerPage + 1);
         pageModel.setCurPage(page);

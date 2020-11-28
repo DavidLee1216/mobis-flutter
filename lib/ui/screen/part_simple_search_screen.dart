@@ -7,6 +7,7 @@ import 'package:mobispartsearch/bloc/simple_search_bloc.dart';
 import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/model/carModel_model.dart';
 import 'package:mobispartsearch/model/cart_model.dart';
+import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 import 'package:mobispartsearch/ui/widget/simple_search_result_form.dart';
 import 'package:mobispartsearch/ui/widget/custom_radio_button.dart';
 
@@ -434,141 +435,148 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
     return BlocBuilder<SimpleSearchBloc, SimpleSearchState>(
       cubit: BlocProvider.of<SimpleSearchBloc>(context),
       builder: (BuildContext context, state) {
-        return ListView(
-          shrinkWrap: true,
+        return Stack(
           children: [
-            Row(
+              ListView(
+              shrinkWrap: true,
               children: [
-                ButtonTheme(
-                  minWidth: MediaQuery.of(context).size.width / 2,
-                  height: 50,
-                  buttonColor: Colors.white,
-                  child: RaisedButton(
-                    child: !searchType
-                        ? Text(
-                            '일반 검색',
-                            style: TextStyle(
-                              fontFamily: 'HDharmony',
-                              fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                              color: Color.fromRGBO(0, 63, 114, 1),
-                            ),
-                          )
-                        : Text(
-                            '일반 검색',
-                            style: TextStyle(
-                              fontFamily: 'HDharmony',
-                              fontSize: 15,
-                              color: Colors.black,
-                            ),
-                          ),
-                    shape: !searchType
-                        ? Border(
-                            bottom: BorderSide(
-                                color: Color.fromRGBO(0, 63, 114, 1), width: 3))
-                        : Border(
-                            bottom: BorderSide(
-                                color: Colors.transparent, width: 3)),
-                    onPressed: () {
-                      searchType = false;
-                      searched = false;
-                      setState(() {});
-                    },
+                Row(
+                  children: [
+                    ButtonTheme(
+                      minWidth: MediaQuery.of(context).size.width / 2,
+                      height: 50,
+                      buttonColor: Colors.white,
+                      child: RaisedButton(
+                        child: !searchType
+                            ? Text(
+                                '일반 검색',
+                                style: TextStyle(
+                                  fontFamily: 'HDharmony',
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                  color: Color.fromRGBO(0, 63, 114, 1),
+                                ),
+                              )
+                            : Text(
+                                '일반 검색',
+                                style: TextStyle(
+                                  fontFamily: 'HDharmony',
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                ),
+                              ),
+                        shape: !searchType
+                            ? Border(
+                                bottom: BorderSide(
+                                    color: Color.fromRGBO(0, 63, 114, 1), width: 3))
+                            : Border(
+                                bottom: BorderSide(
+                                    color: Colors.transparent, width: 3)),
+                        onPressed: () {
+                          searchType = false;
+                          searched = false;
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                    ButtonTheme(
+                      minWidth: MediaQuery.of(context).size.width / 2,
+                      height: 50,
+                      buttonColor: Colors.white,
+                      child: RaisedButton(
+                        child: searchType
+                            ? Text(
+                                '부품번호로 검색',
+                                style: TextStyle(
+                                  fontFamily: 'HDharmony',
+                                  fontSize: 15,
+                                  color: Color.fromRGBO(0, 63, 114, 1),
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              )
+                            : Text(
+                                '부품번호로 검색',
+                                style: TextStyle(
+                                  fontFamily: 'HDharmony',
+                                  fontSize: 15,
+                                  color: Colors.black,
+                                ),
+                              ),
+                        shape: searchType
+                            ? Border(
+                                bottom: BorderSide(
+                                    color: Color.fromRGBO(0, 63, 114, 1), width: 3))
+                            : Border(
+                                bottom: BorderSide(
+                                    color: Colors.transparent, width: 3)),
+                        onPressed: () {
+                          searchType = true;
+                          searched = false;
+                          setState(() {});
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                Container(
+                  padding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 20.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        '현대/기아 차량에 대한 기본적인 부품정보를 제공하고 있습니다.',
+                        style: TextStyle(
+                          fontFamily: 'HDharmony',
+                          fontSize: 18,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      Text(
+                        '- 조회되는 부품 가격은 당사 직영점 기준 판매 가격이며, 부품대리점의 판매 가격과 상이할 수 있으니 참고 바랍니다.',
+                        style: TextStyle(
+                          fontFamily: 'HDharmony',
+                          fontSize: 14,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                      Text(
+                        '- 간단 검색으로 부품 식별이 어렵거나, 희망하는 차종 정보가 없을 경우 당사 고객센터(1588-7278)를 통해 정확한 정보를 확인하시기 바랍니다.',
+                        style: TextStyle(
+                          fontFamily: 'HDharmony',
+                          fontSize: 14,
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ],
                   ),
                 ),
-                ButtonTheme(
-                  minWidth: MediaQuery.of(context).size.width / 2,
-                  height: 50,
-                  buttonColor: Colors.white,
-                  child: RaisedButton(
-                    child: searchType
-                        ? Text(
-                            '부품번호로 검색',
-                            style: TextStyle(
-                              fontFamily: 'HDharmony',
-                              fontSize: 15,
-                              color: Color.fromRGBO(0, 63, 114, 1),
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )
-                        : Text(
-                            '부품번호로 검색',
-                            style: TextStyle(
-                              fontFamily: 'HDharmony',
-                              fontSize: 15,
-                              color: Colors.black,
-                            ),
-                          ),
-                    shape: searchType
-                        ? Border(
-                            bottom: BorderSide(
-                                color: Color.fromRGBO(0, 63, 114, 1), width: 3))
-                        : Border(
-                            bottom: BorderSide(
-                                color: Colors.transparent, width: 3)),
-                    onPressed: () {
-                      searchType = true;
-                      searched = false;
-                      setState(() {});
-                    },
+                Divider(
+                  color: Colors.black,
+                  thickness: 1,
+                ),
+                manufactureItem,
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Divider(
+                    color: Colors.black54,
                   ),
                 ),
+                !searchType ? generalSearchItems : partNumberSearchItems,
+                Divider(
+                  color: Colors.black,
+                  thickness: 1,
+                ),
+                searchButton,
+                SizedBox(height: 30),
+                searched ? SimpleSearchResultsForm() : Container(),
               ],
             ),
-            Container(
-              padding: EdgeInsets.fromLTRB(20.0, 10.0, 10.0, 20.0),
-              child: Column(
-                children: [
-                  Text(
-                    '현대/기아 차량에 대한 기본적인 부품정보를 제공하고 있습니다.',
-                    style: TextStyle(
-                      fontFamily: 'HDharmony',
-                      fontSize: 18,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  Text(
-                    '- 조회되는 부품 가격은 당사 직영점 기준 판매 가격이며, 부품대리점의 판매 가격과 상이할 수 있으니 참고 바랍니다.',
-                    style: TextStyle(
-                      fontFamily: 'HDharmony',
-                      fontSize: 14,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                  Text(
-                    '- 간단 검색으로 부품 식별이 어렵거나, 희망하는 차종 정보가 없을 경우 당사 고객센터(1588-7278)를 통해 정확한 정보를 확인하시기 바랍니다.',
-                    style: TextStyle(
-                      fontFamily: 'HDharmony',
-                      fontSize: 14,
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                ],
-              ),
+            Positioned(
+              child: LoadingIndicator(isLoading: state.isLoading),
             ),
-            Divider(
-              color: Colors.black,
-              thickness: 1,
-            ),
-            manufactureItem,
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: Divider(
-                color: Colors.black54,
-              ),
-            ),
-            !searchType ? generalSearchItems : partNumberSearchItems,
-            Divider(
-              color: Colors.black,
-              thickness: 1,
-            ),
-            searchButton,
-            SizedBox(height: 30),
-            searched ? SimpleSearchResultsForm() : Container(),
-          ],
+          ]
         );
       },
     );

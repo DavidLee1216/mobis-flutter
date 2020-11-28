@@ -7,7 +7,7 @@ import 'package:mobispartsearch/model/page_model.dart';
 import 'package:mobispartsearch/repository/market_search_repository.dart';
 
 const List<String> hkgb_list = ['H', 'K'];
-const List<String> market_list = ['All', 'DICT', 'N', 'Y'];
+const List<String> market_list = ['ALL', 'DICT', 'N', 'Y'];
 
 abstract class MarketSearchEvent {}
 
@@ -51,12 +51,12 @@ class MarketSearchState {
       {this.hkgb = 'H',
       this.sido = '',
       this.sigungu = '',
-      this.market = '',
+      this.market = 'ALL',
       this.ptno,
       this.searchResult,
       this.krname = '',
       this.enname = '',
-      this.price,
+      this.price = 0,
       this.isLoading = false,
       this.pageModel});
 
@@ -80,15 +80,12 @@ class MarketSearchState {
         sigungu: sigungu ?? this.sigungu,
         market: market ?? this.market,
         ptno: ptno ?? this.ptno,
-        searchResult: searchResult ??
-            this.searchResult ??
-            new List<MarketSearchResultModel>(),
-        krname: krname ?? this.krname,
-        enname: enname ?? this.enname,
-        price: price ?? this.price,
+        searchResult: searchResult,
+        krname: krname ?? this.krname ?? '',
+        enname: enname ?? this.enname ?? '',
+        price: price ?? this.price ?? 0,
         isLoading: isLoading ?? this.isLoading,
-        pageModel: pageModel ?? this.pageModel ?? new PageModel()
-          ..init(),
+        pageModel: pageModel
       );
 
   MarketSearchState submitting() => _setProps(isLoading: true);
@@ -172,9 +169,8 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
       yield state.submitting();
       MarketSearchResultProductInfo productInfo =
           await marketSearchRepository.getProductInfo(ptno: ptno);
-      log(productInfo.krname);
       if (productInfo == null) {
-        yield state.success();
+        yield state.success(ptno: ptno);
         return;
       }
       List<MarketSearchResultModel> searchResult =
@@ -184,10 +180,17 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
               sido: sido,
               sigungu: sigungu,
               stype: state.market,
-              firstIndex: 1 + (page - 1) * globalRecordCountPerPage,
+              firstIndex: 0 + (page - 1) * globalRecordCountPerPage,
               recordCountPerPage: globalRecordCountPerPage);
+      if (searchResult == null || searchResult.length == 0)
+      {
+        yield state.success(ptno: ptno, searchResult: null, pageModel: null);
+      }
+      else{
         PageModel pageModel = new PageModel()..init();
-        int pageCnt = (searchResult == null) ? 0 : searchResult[0].totalCnt ~/ globalRecordCountPerPage + 1;
+        int pageCnt = (searchResult == null)
+            ? 0
+            : searchResult[0].totalCnt ~/ globalRecordCountPerPage + 1;
         pageModel.setPageCnt(pageCnt);
         pageModel.setCurPage(page);
 
@@ -196,7 +199,10 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
             krname: productInfo.krname,
             enname: productInfo.enname,
             price: productInfo.price,
+            ptno: ptno,
             pageModel: pageModel);
+      }
+
     } catch (e) {
       log(e.toString());
       yield state.success();

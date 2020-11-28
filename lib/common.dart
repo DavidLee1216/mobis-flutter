@@ -33,12 +33,13 @@ math.Random _rnd = math.Random();
 String getRandomString(int length) => String.fromCharCodes(Iterable.generate(
     length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
 
-String encryptPassword(String password){
+String encryptPassword(String password) {
   return md5.convert(utf8.encode(password)).toString();
 }
 
-bool validatePassword(String password){
-  String  pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,20}$';
+bool validatePassword(String password) {
+  String pattern =
+      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,20}$';
   RegExp regExp = new RegExp(pattern);
   bool res = false;
   bool res1 = regExp.hasMatch(password);
@@ -54,18 +55,17 @@ bool validatePassword(String password){
   pattern = r'^(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,20}$';
   regExp = new RegExp(pattern);
   bool res5 = regExp.hasMatch(password);
-  if(res1||res2||res3||res4||res5)
-    res = true;
+  if (res1 || res2 || res3 || res4 || res5) res = true;
   return res;
 }
 
-bool validateEmailString(String email){
+bool validateEmailString(String email) {
   String pattern = r'^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$';
   RegExp regExp = new RegExp(pattern);
   return regExp.hasMatch(email);
 }
 
-bool validateMobileString(String mobile){
+bool validateMobileString(String mobile) {
   String pattern = r'^([0-9]{3})-([0-9]{3,4})-([0-9]{4})$';
   RegExp regExp = new RegExp(pattern);
   return regExp.hasMatch(mobile);
@@ -105,8 +105,7 @@ const kMenuTextStyle = TextStyle(fontFamily: 'HDharmony', fontSize: 12);
 const kMarginSpace = 40.0;
 const kImageWidth = 80.0;
 
-
-void showToast(String message){
+void showToast(String message) {
   Fluttertoast.showToast(
       msg: message,
       toastLength: Toast.LENGTH_LONG,
@@ -114,8 +113,7 @@ void showToast(String message){
       timeInSecForIosWeb: 1,
       backgroundColor: kPrimaryColor,
       textColor: Colors.white,
-      fontSize: 16.0
-  );
+      fontSize: 16.0);
 }
 
 const API = 'http://141.164.51.190:8080';
@@ -136,14 +134,14 @@ Future<List<ModelSeq>> getModels({String hkgb, String vtpy}) async {
 }
 
 void getGloablModels() async {
-  for(int i = 0; i < 2; i++){
-    for(int j = 0; j < 3; j++){
-      List<ModelSeq> models = await getModelsFromRemote(hkgb_list[i], vtpy_list[j]);
+  for (int i = 0; i < 2; i++) {
+    for (int j = 0; j < 3; j++) {
+      List<ModelSeq> models =
+          await getModelsFromRemote(hkgb_list[i], vtpy_list[j]);
       models.insert(0, ModelSeq(seq: 0, modelname: '전체'));
       globalModels[i][j] = models;
     }
-    if(i == 1)
-      globalModelsLoaded = true;
+    if (i == 1) globalModelsLoaded = true;
   }
 }
 
@@ -153,8 +151,7 @@ void getSido() async {
       final data = json.decode(utf8.decode(response.bodyBytes)) as List;
       globalSido = data.map((e) => Sido.fromMap(e)).toList();
       getSigungu();
-    } else {
-    }
+    } else {}
   });
 }
 
@@ -181,8 +178,9 @@ void getSigungu() async {
         sido.sigungus.insert(0, Sigungu(seq: 0, sigungu: '전체'));
       } else {}
     });
-    if (i == len-1) {
-      globalSido.insert(0, Sido(seq: 0, sido: '전체', sigungus: new List<Sigungu>()));
+    if (i == len - 1) {
+      globalSido.insert(
+          0, Sido(seq: 0, sido: '전체', sigungus: new List<Sigungu>()));
       globalSido[0].sigungus.add(Sigungu(seq: 0, sigungu: '전체'));
       globalSidoLoaded = true;
     }
@@ -408,17 +406,14 @@ Future<List<SimpleSearchResultModel>> simpleSearchPartByName(
     String searchWord,
     int firstIndex,
     int recordCountPerPage) async {
-  String url = API + '/partPrcList?hkgb=$hkgb&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage';
-  if(vtpy != '')
-    url = url + '&vtyp=$vtpy';
-  if(catSeq != 0)
-    url = url + '&catSeq=$catSeq';
-  if(searchWord != '')
-    url = url + '&inText=$searchWord';
+  String url = API +
+      '/partPrcList?hkgb=$hkgb&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage';
+  if (vtpy != '') url = url + '&vtyp=$vtpy';
+  if (catSeq != 0) url = url + '&catSeq=$catSeq';
+  if (searchWord != '') url = url + '&inText=$searchWord';
   final response = await http.get(url);
   if (response.statusCode == 200) {
     final data = json.decode(utf8.decode(response.bodyBytes)) as List;
-    log(data.toString());
     return data.map((item) {
       return SimpleSearchResultModel.fromMap(item);
     }).toList();
@@ -428,17 +423,13 @@ Future<List<SimpleSearchResultModel>> simpleSearchPartByName(
 }
 
 Future<List<SimpleSearchResultModel>> simpleSearchPartByPtno(
-    String hkgb,
-    String ptno,
-    int firstIndex,
-    int recordCountPerPage) async {
-  String url = API + '/partPrcList?hkgb=$hkgb&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage';
-  if(ptno != '')
-    url = url + '&ptno=$ptno';
+    String hkgb, String ptno, int firstIndex, int recordCountPerPage) async {
+  String url = API +
+      '/partPrcList?hkgb=$hkgb&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage';
+  if (ptno != '') url = url + '&ptno=$ptno';
   final response = await http.get(url);
   if (response.statusCode == 200) {
     final data = json.decode(utf8.decode(response.bodyBytes)) as List;
-    log(data.toString());
     return data.map((item) {
       return SimpleSearchResultModel.fromMap(item);
     }).toList();
@@ -455,24 +446,26 @@ Future<List<MarketSearchResultModel>> marketSearchPart(
     String stype,
     int firstIndex,
     int recordCountPerPage) async {
-  String url = API + '/partInvList?hkgb=$hkgb&stype=$stype&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage';
-  if(ptno != '')
-    url = url + '&ptno=$ptno';
-  if(sido != '')
+  String url = API +
+      '/partInvList?hkgb=$hkgb&stype=$stype&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage';
+  if (ptno != '') url = url + '&ptno=$ptno';
+  if (sido != '' && sido != null && sido != '전체') {
     url = url + '&sido=$sido';
-  if(sido != '' && sigungu != '')
-    url = url + '&sigungu=$sigungu';
-  log(url);
+    if (sigungu != null && sigungu != '전체') url = url + '&sigungu=$sigungu';
+  }
   final response = await http.get(url);
   if (response.statusCode == 200) {
-    log('market search success');
-    final data = json.decode(utf8.decode(response.bodyBytes)) as List;
-    log(data.toString());
-    return data.map((item) {
-      return MarketSearchResultModel.fromMap(item);
-    }).toList();
+    if (response.body.isNotEmpty) {
+      final data = json.decode(utf8.decode(response.bodyBytes)) as List;
+      if(data.length == 0)
+        return null;
+      return data.map((item) {
+        return MarketSearchResultModel.fromMap(item);
+      }).toList();
+    } else {
+      return null;
+    }
   } else {
-    log('market search ' + response.statusCode.toString());
     return null;
   }
 }
@@ -481,17 +474,13 @@ Future<MarketSearchResultProductInfo> getProductInfoFromPtno(
     String ptno) async {
   final response = await http.get(API + '/part?ptno=$ptno');
   if (response.statusCode == 200) {
-    log(API + '/part?ptno=$ptno');
-    log('get product info success');
-    if(response.body != ''){
+    if (response.body != '') {
       final data = json.decode(utf8.decode(response.bodyBytes));
-      log(data.toString());
       return MarketSearchResultProductInfo.fromMap(data);
     } else {
       return null;
     }
   } else {
-    log('get product info ${response.statusCode}');
     return null;
   }
 }
@@ -536,14 +525,13 @@ Future<List<Notice>> getContentNoticeStream(
   }
 }
 
-Future<bool> getToken() =>
-    http.post(
-    API + '/token', body: jsonEncode({'refreshToken': refreshToken}), headers: {
-    'Content-type': 'application/json'}).then((response){
-      if (response.statusCode == 200){
+Future<bool> getToken() => http.post(API + '/token',
+        body: jsonEncode({'refreshToken': refreshToken}),
+        headers: {'Content-type': 'application/json'}).then((response) {
+      if (response.statusCode == 200) {
         accessToken = json.decode(response.body)['accessToken'];
         return true;
       } else {
         return false;
       }
-  });
+    });
