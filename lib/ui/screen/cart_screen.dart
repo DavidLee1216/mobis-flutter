@@ -3,33 +3,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/cart_bloc.dart';
 import 'package:mobispartsearch/ui/widget/cart_product_form.dart';
 import 'package:mobispartsearch/ui/screen/home_screen.dart';
-
-class CartScreenArguments {
-  final bool deliveryKind; //true: 택배, false:방문
-
-  CartScreenArguments(this.deliveryKind);
-}
+import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 
 class CartScreen extends StatelessWidget {
-  static const routeName = '/addToCart';
-  final deliveryKind;
-
-  const CartScreen({Key key, this.deliveryKind}) : super(key: key);
+  const CartScreen({Key key,}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-//    final CartScreenArguments args = ModalRoute.of(context).settings.arguments;
-//    return AddToCartScreen(deliverKind: args.deliveryKind,);
     return AddToCartScreen(
-      deliverKind: deliveryKind,
     );
   }
 }
 
 class AddToCartScreen extends StatefulWidget {
-  final bool deliverKind;
 
-  const AddToCartScreen({Key key, this.deliverKind}) : super(key: key);
+  const AddToCartScreen({Key key,}) : super(key: key);
 
   @override
   _AddToCartScreenState createState() => _AddToCartScreenState();
@@ -37,6 +25,14 @@ class AddToCartScreen extends StatefulWidget {
 
 class _AddToCartScreenState extends State<AddToCartScreen> {
   var checkAllState = false;
+  CartBloc bloc;
+
+  @override
+  void initState() {
+    bloc = BlocProvider.of<CartBloc>(context);
+    bloc.add(LoadCartEvent());
+  }
+
   @override
   Widget build(BuildContext context) {
     final CartBloc bloc = BlocProvider.of<CartBloc>(context);
@@ -167,61 +163,54 @@ class _AddToCartScreenState extends State<AddToCartScreen> {
         ),
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: ListView(
-          children: [
-            Container(
-              padding: EdgeInsets.all(20.0),
-              child: Text(
-                '부품 구매는 방문 수령/택배를 이용할 수 있으며,\n 택배 수령시 택배비가 추가로 청구될 수 있으니\n판매점에 문의바랍니다.',
-                style: TextStyle(
-                    fontFamily: 'HDharmony', fontSize: 14, color: Colors.black),
-                textAlign: TextAlign.center,
+      body: BlocBuilder<CartBloc, CartState>(
+          cubit: BlocProvider.of<CartBloc>(context),
+          builder: (BuildContext context, state) {
+            return Stack(children: [
+              ListView(
+                shrinkWrap: true,
+                children: [
+                  Container(
+                    padding: EdgeInsets.all(20.0),
+                    child: Text(
+                      '부품 구매는 방문 수령/택배를 이용할 수 있으며,\n 택배 수령시 택배비가 추가로 청구될 수 있으니\n판매점에 문의바랍니다.',
+                      style: TextStyle(
+                          fontFamily: 'HDharmony',
+                          fontSize: 14,
+                          color: Colors.black),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                  Divider(
+                    color: Colors.black54,
+                  ),
+                  selectAllItem,
+                  Divider(
+                    color: Colors.black54,
+                  ),
+                  CartProductsForm(),
+                  Divider(
+                    color: Colors.black54,
+                  ),
+                  selectAllItem,
+                  Divider(
+                    color: Colors.black54,
+                  ),
+                  totalPrice(state.totalPrice),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  buyItem,
+                  SizedBox(
+                    height: 30,
+                  ),
+                ],
               ),
-            ),
-            Divider(
-              color: Colors.black54,
-            ),
-            selectAllItem,
-            Divider(
-              color: Colors.black54,
-            ),
-//            CartProductsForm(),
-            CartProductForm(
-              productName: '플레이트 & 그로메트－에어컨 쿨러 라인',
-              price: 1870,
-              companyMark: '강원부품(주)',
-              delivery: widget.deliverKind,
-              checked: checkAllState,
-            ),
-            Divider(
-              color: Colors.black54,
-            ),
-            CartProductForm(
-              productName: '필터 앗세이－오일',
-              price: 101640,
-              companyMark: '강원부품(주)',
-              delivery: widget.deliverKind,
-              checked: checkAllState,
-            ),
-            Divider(
-              color: Colors.black54,
-            ),
-            selectAllItem,
-            Divider(
-              color: Colors.black54,
-            ),
-            totalPrice(5610),
-            SizedBox(
-              height: 30,
-            ),
-            buyItem,
-            SizedBox(
-              height: 30,
-            ),
-          ],
-        ), //
-      ),
+              Positioned(
+                child: LoadingIndicator(isLoading: state.isLoading),
+              ),
+            ]);
+          }),
     );
   }
 }

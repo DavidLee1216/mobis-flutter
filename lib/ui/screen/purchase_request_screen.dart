@@ -1,21 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:mobispartsearch/model/market_search_model.dart';
 import 'package:mobispartsearch/ui/widget/purchase_request_form.dart';
 
 class PurchaseRequestScreen extends StatefulWidget {
-  final partNumber;
-  final koreanPartName;
-  final englishPartName;
-  final price;
-  final companyMark;
+  final String partNumber;
+  final String koreanPartName;
+  final String englishPartName;
+  final int price;
+  final MarketSearchResultModel result;
+  final bool canSale;
 
-  PurchaseRequestScreen(
-      {Key key,
-      this.partNumber,
-      this.koreanPartName,
-      this.englishPartName,
-      this.price,
-      this.companyMark})
-      : super(key: key);
+  PurchaseRequestScreen({
+    Key key,
+    this.partNumber,
+    this.koreanPartName,
+    this.englishPartName,
+    this.price,
+    this.result,
+    this.canSale,
+  }) : super(key: key);
 
   @override
   _PurchaseRequestScreenState createState() => _PurchaseRequestScreenState();
@@ -43,7 +46,7 @@ class _PurchaseRequestScreenState extends State<PurchaseRequestScreen> {
               koreanPartName: widget.koreanPartName,
               englishPartName: widget.englishPartName,
               price: widget.price,
-              companyMark: widget.companyMark,
+              result: widget.result,
             ),
           ],
         ), //

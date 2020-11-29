@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:mobispartsearch/ui/screen/home_screen.dart';
+import 'package:mobispartsearch/common.dart';
+import 'package:mobispartsearch/model/cart_model.dart';
 
 class DeliveryInfoForm extends StatefulWidget {
-  final productName;
-  final companyMark;
+  final CartModel item;
   final count;
 
   const DeliveryInfoForm(
-      {Key key, this.productName, this.companyMark, this.count})
+      {Key key, this.item, this.count})
       : super(key: key);
 
   @override
@@ -16,14 +16,14 @@ class DeliveryInfoForm extends StatefulWidget {
 }
 
 class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
-  var addressController = TextEditingController();
+  var addressController = TextEditingController(text: globalUsername != '' ? globalUser.zipcode : '');
 
-  var addressController2 = TextEditingController();
+  var addressController2 = TextEditingController(text: globalUsername != '' ? globalUser.address : '');
 
-  var addressController3 = TextEditingController();
+  var addressController3 = TextEditingController(text: globalUsername != '' ? globalUser.addressExtended : '');
 
-  var buyerController = TextEditingController();
-
+  var buyerController = TextEditingController(text: globalUsername);
+  
   var _phoneNumber1Controller = TextEditingController();
   var _phoneNumber2Controller = TextEditingController();
 
@@ -144,7 +144,7 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
           Container(
             padding: EdgeInsets.only(left: 10),
             child: Text(
-              '${widget.productName} / ${widget.count}개',
+              '${widget.item.krname} / ${widget.count}개',
               style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
             ),
           ),
@@ -154,7 +154,7 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
           Container(
             padding: EdgeInsets.only(left: 20),
             child: Text(
-              '${widget.companyMark} | ',
+              '${widget.item.mutual} | ',
               style: TextStyle(
                 fontFamily: 'HDharmony',
                 fontSize: 14,

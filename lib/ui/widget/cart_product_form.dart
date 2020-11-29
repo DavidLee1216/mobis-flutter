@@ -1,10 +1,16 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/cart_bloc.dart';
+import 'package:mobispartsearch/model/cart_model.dart';
+import 'package:mobispartsearch/model/market_search_model.dart';
+import 'package:mobispartsearch/model/product_model.dart';
 import 'package:mobispartsearch/ui/screen/delivery_screen.dart';
 import 'package:mobispartsearch/ui/screen/visit_screen.dart';
 import 'package:mobispartsearch/ui/screen/home_screen.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
+import 'package:mobispartsearch/common.dart' as common;
 
 class CartProductsForm extends StatefulWidget {
   @override
@@ -17,16 +23,18 @@ class _CartProductsFormState extends State<CartProductsForm> {
     return BlocBuilder<CartBloc, CartState>(
         cubit: BlocProvider.of<CartBloc>(context),
         builder: (BuildContext context, state) {
+          if (state.productList == null || state.productList.length == 0) {
+            return Container();
+          }
           return ListView.builder(
+              shrinkWrap: true,
+              physics: ClampingScrollPhysics(),
+              itemCount: state.productList.length,
               itemBuilder: (BuildContext context, int index) {
             return Column(children: [
               CartProductForm(
-                productName: state.productList[index].krname,
-                companyMark: state.productList[index].mutual,
-                price: state.productList[index].price,
-                delivery: state.productList[index].deliveryCode,
-                checked: state.productList[index].checked,
-                seq: state.productList[index].seq,
+                cartItem: state.productList[index],
+                checkedAll: state.checkAllState,
               ),
               Divider(
                 color: Colors.black54,
@@ -38,33 +46,23 @@ class _CartProductsFormState extends State<CartProductsForm> {
 }
 
 class CartProductForm extends StatefulWidget {
-  final price;
-  final productName;
-  final companyMark;
-  final delivery;
-  final checked;
-  final seq;
+  final CartModel cartItem;
+  final checkedAll;
 
   const CartProductForm(
       {Key key,
-      this.price,
-      this.productName,
-      this.companyMark,
-      this.delivery,
-      this.checked,
-      this.seq})
+      this.cartItem,
+      this.checkedAll,
+      })
       : super(key: key);
   @override
   _CartProductFormState createState() => _CartProductFormState();
 }
 
 class _CartProductFormState extends State<CartProductForm> {
-  bool checkState = false;
-  var count = 1;
   @override
   Widget build(BuildContext context) {
     final CartBloc bloc = BlocProvider.of<CartBloc>(context);
-    checkState = widget.checked ? true : checkState;
 
     var productNameItem = Container(
       padding: EdgeInsets.symmetric(horizontal: 20),
@@ -72,15 +70,15 @@ class _CartProductFormState extends State<CartProductForm> {
         Checkbox(
           onChanged: (bool value) {
             setState(() {
-              checkState = value;
             });
+            bloc.add(CheckEvent(widget.cartItem.seq, value));
           },
           tristate: false,
-          value: checkState,
+          value: widget.checkedAll ? widget.checkedAll : widget.cartItem.checked,
           activeColor: kPrimaryColor,
         ),
         Text(
-          widget.productName,
+          widget.cartItem.krname,
           style: TextStyle(
               fontFamily: 'HDharmony', fontSize: 14, color: Colors.black),
         ),
@@ -91,7 +89,7 @@ class _CartProductFormState extends State<CartProductForm> {
         GestureDetector(
           child: Icon(Icons.clear),
           onTap: () {
-            bloc.add(DelCartEvent(widget.seq));
+            bloc.add(DelCartEvent(widget.cartItem.seq));
           },
         ),
       ]),
@@ -106,16 +104,15 @@ class _CartProductFormState extends State<CartProductForm> {
               color: Colors.black26,
               onPressed: () {
                 setState(() {
-                  if (count > 1) count--;
+                  if (widget.cartItem.count > 1)
+                    bloc.add(ChangeCountEvent(widget.cartItem.seq, widget.cartItem.count-1));
                 });
               },
             ),
           ),
           Container(
-//              width: 12,
-//              height: 12,
               child: Text(
-            count.toString(),
+            widget.cartItem.count.toString(),
             style: TextStyle(
                 fontFamily: 'HDharmony', fontSize: 12, color: Colors.black),
           )),
@@ -125,7 +122,7 @@ class _CartProductFormState extends State<CartProductForm> {
               color: Colors.black26,
               onPressed: () {
                 setState(() {
-                  count++;
+                  bloc.add(ChangeCountEvent(widget.cartItem.seq, widget.cartItem.count+1));
                 });
               },
             ),
@@ -142,7 +139,7 @@ class _CartProductFormState extends State<CartProductForm> {
             width: 10,
           ),
           Text(
-            '${widget.price}원',
+            '${widget.cartItem.price}원',
             style: TextStyle(
               fontFamily: 'HDharmony',
               fontSize: 14,
@@ -176,7 +173,7 @@ class _CartProductFormState extends State<CartProductForm> {
             width: 1,
           )),
           Text(
-            '${widget.price * count}원',
+            '${widget.cartItem.price * widget.cartItem.count}원',
             style: TextStyle(
               fontFamily: 'HDharmony',
               fontSize: 14,
@@ -194,10 +191,10 @@ class _CartProductFormState extends State<CartProductForm> {
             width: 10,
           ),
           Text(
-            widget.companyMark,
+            widget.cartItem.mutual,
             style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
           ),
-          widget.delivery
+          widget.cartItem.deliveryCode=='P'
               ? Expanded(
                   child: Row(
                   children: [
@@ -211,13 +208,12 @@ class _CartProductFormState extends State<CartProductForm> {
                         ),
                       ),
                       onTap: () {
-                        if (checkState) {
+                        if (widget.cartItem.checked) {
                           pushTo(
                               context,
                               DeliveryScreen(
-                                productName: widget.productName,
-                                companyMark: widget.companyMark,
-                                count: count,
+                                item: widget.cartItem,
+                                count: widget.cartItem.count,
                               ));
 //                            Navigator.pushNamed(context, DeliveryScreen.routeName, arguments: ScreenArguments(widget.productName, widget.companyMark, count));
                         }
@@ -238,13 +234,12 @@ class _CartProductFormState extends State<CartProductForm> {
                         ),
                       ),
                       onTap: () {
-                        if (checkState) {
+                        if (widget.cartItem.checked) {
                           pushTo(
                               context,
                               VisitScreen(
-                                productName: widget.productName,
-                                companyMark: widget.companyMark,
-                                count: count,
+                                item: widget.cartItem,
+                                count: widget.cartItem.count,
                               ));
 //                              Navigator.pushNamed(context, VisitScreen.routeName, arguments: ScreenArguments(widget.productName, widget.companyMark, count));
                         }

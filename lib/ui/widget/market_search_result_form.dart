@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/market_search_bloc.dart';
+import 'package:mobispartsearch/model/market_search_model.dart';
 import 'package:mobispartsearch/ui/screen/home_screen.dart';
 import 'package:mobispartsearch/ui/screen/purchase_request_screen.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
@@ -102,12 +103,12 @@ class _MarketSearchResultListWidgetState
                 return Column(
                   children: [
                     MarketSearchResultForm(
-                      companyMark: state.searchResult[index].mutual,
-                      canDelivery: state.searchResult[index].stype == 'Y',
-                      address1: state.searchResult[index].sido,
-                      address2: state.searchResult[index].sigungu,
-                      phoneNumber: state.searchResult[index].tel,
-                      canSale: state.searchResult[index].stype == 'Y',
+                      ptno: state.searchResult[index].ptno,
+                      krname: state.krname,
+                      enname: state.enname,
+                      price: state.price,
+                      result: state.searchResult[index],
+                      canSale: true, //state.searchResult[index].stype == 'Y',
                     ),
                     SizedBox(
                       height: 10,
@@ -204,25 +205,17 @@ class _MarketSearchPageListWidgetState
 class MarketSearchResultForm extends StatefulWidget {
   final String krname;
   final String enname;
-  final String price;
+  final int price;
+  MarketSearchResultModel result;
   final String ptno;
-  final String companyMark;
-  final bool canDelivery;
-  final String address1;
-  final String address2;
-  final String phoneNumber;
   final bool canSale;
   MarketSearchResultForm({
     Key key,
     this.krname,
     this.enname,
     this.price,
+    this.result,
     this.ptno,
-    this.companyMark,
-    this.canDelivery,
-    this.address1,
-    this.address2,
-    this.phoneNumber,
     this.canSale = true,
   }) : super(key: key);
   @override
@@ -286,7 +279,7 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                               child: Container(
                                 padding: EdgeInsets.only(left: 10),
                                 child: Text(
-                                  widget.companyMark,
+                                  widget.result.mutual ?? 'null',
                                   style: TextStyle(
                                       fontFamily: 'HDharmony',
                                       fontSize: 12,
@@ -295,7 +288,7 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                                 ),
                               ),
                             ),
-                            widget.canDelivery
+                            widget.result.stype == 'Y' //delivery
                                 ? Container(
                                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
                                     child: Image.asset(
@@ -336,7 +329,7 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text(
-                              widget.address1,
+                              widget.result.adr ?? '',
                               style: TextStyle(
                                   fontFamily: 'HDharmony',
                                   fontSize: 12,
@@ -344,7 +337,7 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                               textAlign: TextAlign.left,
                             ),
                             Text(
-                              widget.address2,
+                              widget.result.adrdtl ?? '',
                               style: TextStyle(
                                   fontFamily: 'HDharmony',
                                   fontSize: 12,
@@ -390,7 +383,7 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                               padding: EdgeInsets.only(left: 10),
                               alignment: Alignment.centerLeft,
                               child: Text(
-                                widget.phoneNumber,
+                                widget.result.tel ?? '',
                                 style: TextStyle(
                                     fontFamily: 'HDharmony',
                                     fontSize: 12,
@@ -456,11 +449,12 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
                             pushTo(
                                 context,
                                 PurchaseRequestScreen(
-                                    partNumber: widget.ptno,
-                                    koreanPartName: widget.krname,
-                                    englishPartName: widget.enname,
-                                    price: widget.price,
-                                    companyMark: widget.companyMark));
+                                  partNumber: widget.ptno,
+                                  koreanPartName: widget.krname,
+                                  englishPartName: widget.enname,
+                                  price: widget.price,
+                                  result: widget.result,
+                                ));
                           },
                         ))
                     : Container(

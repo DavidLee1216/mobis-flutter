@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:mobispartsearch/common.dart';
+import 'package:mobispartsearch/model/cart_model.dart';
+import 'package:mobispartsearch/model/market_search_model.dart';
 import 'package:mobispartsearch/ui/widget/custom_selection_button.dart';
 
 class VisitInfoForm extends StatefulWidget {
-  final productName;
-  final companyMark;
+  final CartModel item;
   final count;
 
-  const VisitInfoForm({Key key, this.productName, this.companyMark, this.count})
+  const VisitInfoForm({Key key, this.item, this.count})
       : super(key: key);
   @override
   _VisitInfoFormState createState() => _VisitInfoFormState();
@@ -19,7 +21,7 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
   var _phoneNumber1Controller = TextEditingController();
   var _phoneNumber2Controller = TextEditingController();
 
-  var buyerController = TextEditingController();
+  var buyerController = TextEditingController(text: globalUsername);
 
   List<SelectionButtonModel> selectionDateData =
       new List<SelectionButtonModel>();
@@ -75,7 +77,7 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
           Container(
             padding: EdgeInsets.only(left: 10),
             child: Text(
-              '${widget.productName} / ${widget.count}개',
+              '${widget.item.krname} / ${widget.count}개',
               style: TextStyle(fontFamily: 'HDharmony', fontSize: 14),
             ),
           ),
@@ -85,7 +87,7 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
           Container(
             padding: EdgeInsets.only(left: 20),
             child: Text(
-              '${widget.companyMark} | 방문수령',
+              '${widget.item.mutual} | 방문수령',
               style: TextStyle(
                 fontFamily: 'HDharmony',
                 fontSize: 14,

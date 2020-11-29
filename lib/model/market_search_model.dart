@@ -11,6 +11,8 @@ class MarketSearchResultModel {
   String hkgb;
   String stype;
   String adrdtl;
+  String agentCode;
+  String sapCode;
   int rnum;
 
   MarketSearchResultModel(
@@ -26,6 +28,8 @@ class MarketSearchResultModel {
       this.hkgb,
       this.stype,
       this.adrdtl,
+      this.agentCode,
+      this.sapCode,
       this.rnum});
 
   factory MarketSearchResultModel.fromMap(Map<String, dynamic> map) =>
@@ -41,7 +45,9 @@ class MarketSearchResultModel {
         tel: map['tel'],
         hkgb: map['hkgb'],
         stype: map['stype'],
-        adrdtl: map['adrdtl'],
+        adrdtl: map['adr_dtl'],
+        agentCode: map['agent_cd'],
+        sapCode: map['sap_code'],
         rnum: map['rnum'],
       );
 }

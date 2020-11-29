@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/cart_bloc.dart';
-import 'package:mobispartsearch/model/order_model.dart';
+import 'package:mobispartsearch/model/cart_model.dart';
+import 'package:mobispartsearch/model/market_search_model.dart';
 import 'package:mobispartsearch/ui/screen/cart_screen.dart';
 import 'package:mobispartsearch/ui/screen/delivery_screen.dart';
 import 'package:mobispartsearch/ui/screen/visit_screen.dart';
@@ -10,23 +13,23 @@ import 'package:mobispartsearch/utils/navigation.dart';
 import 'package:mobispartsearch/common.dart' as common;
 import 'package:mobispartsearch/model/product_model.dart';
 
+import 'loading_indication.dart';
+
 class PurchaseRequestForm extends StatefulWidget {
   final String partNumber;
   final String koreanPartName;
   final String englishPartName;
   final int price;
-  final String companyMark;
-  final String agentCode;
+  final MarketSearchResultModel result;
 
-  const PurchaseRequestForm(
-      {Key key,
-      this.partNumber,
-      this.koreanPartName,
-      this.englishPartName,
-      this.price,
-      this.companyMark,
-      this.agentCode})
-      : super(key: key);
+  const PurchaseRequestForm({
+    Key key,
+    this.partNumber,
+    this.koreanPartName,
+    this.englishPartName,
+    this.price,
+    this.result,
+  }) : super(key: key);
   @override
   _PurchaseRequestFormState createState() => _PurchaseRequestFormState();
 }
@@ -34,56 +37,58 @@ class PurchaseRequestForm extends StatefulWidget {
 class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
   int count = 1;
   List<RadioModel> optionData = new List<RadioModel>();
-
-  void messageBox(String string){
-    showDialog(context: context, builder: (context){
-      return AlertDialog(content: Text(string),);
-    });
-  }
+  CartBloc bloc;
 
   @override
   void initState() {
     super.initState();
     optionData.add(RadioModel(false, '', '택배로 받기'));
     optionData.add(RadioModel(false, '', '방문 수령'));
+    bloc = BlocProvider.of<CartBloc>(context);
+    bloc.add(InitCartEvent());
   }
 
   @override
   Widget build(BuildContext context) {
-    final CartBloc bloc = BlocProvider.of<CartBloc>(context);
+    bloc = BlocProvider.of<CartBloc>(context);
 
     var firstColumnWidth = MediaQuery.of(context).size.width * 0.3;
     var secondColumnWidth = MediaQuery.of(context).size.width * 0.6;
     var screenWidth = MediaQuery.of(context).size.width;
 
-    Future<bool> addToCart() async {
-        String deliveryCode = optionData[0].isSelected ? 'P' : 'V';
-        Product product = new Product(widget.agentCode, deliveryCode,
-            widget.partNumber, common.globalUsername, count);
-        if(await common.addToCart(product)) {
-          bloc.add(AddCartEvent(product));
-      }
+    void addToCart() {
+      String deliveryCode = widget.result.stype == 'Y' ? 'P' : 'V';
+      Product product = new Product(
+          agentCode: widget.result.agentCode,
+          sapCode: widget.result.sapCode != '' ? widget.result.sapCode : null,
+          deliveryCode: deliveryCode,
+          partNumber: widget.partNumber,
+          username: common.globalUsername !='' ? common.globalUsername : null,
+          session: common.session,
+          count: count);
+      bloc.add(AddCartEvent(product));
     }
 
-    Future<bool> orderNow() async {
-      DateTime timeNow = DateTime.now();
-      String deliveryCode = optionData[0].isSelected ? 'D' : 'P';
-      Product product = new Product(widget.agentCode, deliveryCode,
-          widget.partNumber, common.globalUsername, count);
-      Order orderObject = new Order(
-          common.globalUser.username,
-          common.globalUser.legalName,
-          common.globalUser.mobile,
-          common.globalUser.zipcode,
-          common.globalUser.addressExtended,
-          timeNow.toString(),
-          common.globalUser.address,
-          product);
-      if (await common.order(orderObject) == true) {
-        return true;
-      } else
-        return false;
-    }
+//    Future<bool> orderNow() async {
+//      DateTime timeNow = DateTime.now();
+//      String deliveryCode = optionData[0].isSelected ? 'D' : 'P';
+//      Product product = new Product(agentCode:widget.agentCode, deliveryCode:deliveryCode,
+//          partNumber:widget.partNumber, username:common.globalUsername, session: common.session, count: count);
+//      Order orderObject = new Order(
+//          common.globalUser.username,
+//          common.session,
+//          common.globalUser.legalName,
+//          common.globalUser.mobile,
+//          common.globalUser.zipcode,
+//          common.globalUser.addressExtended,
+//          timeNow.toString(),
+//          common.globalUser.address,
+//          product);
+//      if (await common.order(orderObject) == true) {
+//        return true;
+//      } else
+//        return false;
+//    }
 
     var partNumberItem = Container(
 //      padding: EdgeInsets.all(10.0),
@@ -107,7 +112,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               width: secondColumnWidth,
               padding: EdgeInsets.only(left: 10),
               child: Text(
-                widget.partNumber,
+                widget.partNumber ?? '',
                 style: TextStyle(
                   fontFamily: 'HDharmony',
                   fontSize: 12,
@@ -248,7 +253,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               width: secondColumnWidth,
               padding: EdgeInsets.only(left: 10),
               child: Text(
-                widget.companyMark,
+                widget.result.mutual ?? '',
                 style: TextStyle(
                   fontFamily: 'HDharmony',
                   fontSize: 12,
@@ -291,10 +296,10 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               Container(
 //                  width: 12,
 //                  height: 12,
-                child: Text(
-                  count.toString(),
-                  style: TextStyle(
-                      fontFamily: 'HDharmony', fontSize: 12, color: Colors.black),
+                  child: Text(
+                count.toString(),
+                style: TextStyle(
+                    fontFamily: 'HDharmony', fontSize: 12, color: Colors.black),
               )),
               Container(
                 child: IconButton(
@@ -467,18 +472,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 textAlign: TextAlign.center,
               ),
               onPressed: () async {
-                if (optionData[0].isSelected == false &&
-                    optionData[1].isSelected == false) return;
-                bool kind = optionData[0].isSelected ? true : false;
-                if(await addToCart()){
-                  pushTo(
-                      context,
-                      CartScreen(
-                        deliveryKind: kind,
-                      ));
-                } else {
-                  messageBox('장바구니에 담기 실패');
-                }
+                addToCart();
               },
             ),
           ),
@@ -502,19 +496,28 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                     color: common.kPrimaryColor),
               ),
               onPressed: () async {
+                CartModel cartItem = new CartModel(
+                    mutual: widget.result.mutual,
+                    deliveryCode: widget.result.stype == 'Y' ? 'P' : 'V',
+                    price: widget.price,
+                    krname: widget.koreanPartName,
+                    enname: widget.englishPartName,
+                    partNumber: widget.result.ptno,
+                    count: count,
+                    agentCode: widget.result.agentCode,
+                    sapCode: widget.result.sapCode
+                );
                 if (optionData[0].isSelected) {
                   pushTo(
                       context,
                       DeliveryScreen(
-                          productName: widget.koreanPartName,
-                          companyMark: widget.companyMark,
+                          item: cartItem,
                           count: count));
                 } else if (optionData[1].isSelected) {
                   pushTo(
                       context,
                       VisitScreen(
-                          productName: widget.koreanPartName,
-                          companyMark: widget.companyMark,
+                          item: cartItem,
                           count: count));
                 }
               },
@@ -523,47 +526,67 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
         ],
       ),
     );
-
-    return Container(
-      child: Column(
-        children: [
-          Container(
-            padding: EdgeInsets.fromLTRB(20.0, 30.0, 10.0, 20.0),
-            child: Text(
-              '차량부품 특성상 임의로 부품을 교체할 경우 문제가 발생할 수 있으므로 부품 구입 전 정확한 부품번호를 확인하시기 바랍니다.',
-              style: TextStyle(
-                fontFamily: 'HDharmony',
-                fontSize: 18,
-                color: Color(0xff666666),
-              ),
-              textAlign: TextAlign.left,
-            ),
-          ),
-          Divider(
-            color: Colors.black54,
-            thickness: 1,
-          ),
-          Container(
-            padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
-            child: Column(
-              children: [
-                partNumberItem,
-                koreanPartNameItem,
-                englishPartNameItem,
-                priceItem,
-                companyMarkItem,
-                ticketItem,
-                optionItem,
-                Divider(
-                  color: Colors.black54,
-                  thickness: 1,
-                ),
-                buyItem,
-              ],
-            ),
-          )
-        ],
-      ),
-    );
+    return BlocListener<CartBloc, CartState>(
+        cubit: BlocProvider.of<CartBloc>(context),
+        listener: (BuildContext context, state) {
+          if (state.isAdded) {
+            pushTo(
+                context,
+                CartScreen(
+                ));
+          } else if (state.errorMsg != '') {
+            common.messageBox(state.errorMsg, context);
+          }
+        },
+        child: BlocBuilder<CartBloc, CartState>(
+            cubit: BlocProvider.of<CartBloc>(context),
+            builder: (BuildContext context, state) {
+              return Stack(
+                children: [
+                  Container(
+                    child: Column(children: [
+                      Container(
+                        padding: EdgeInsets.fromLTRB(20.0, 30.0, 10.0, 20.0),
+                        child: Text(
+                          '차량부품 특성상 임의로 부품을 교체할 경우 문제가 발생할 수 있으므로 부품 구입 전 정확한 부품번호를 확인하시기 바랍니다.',
+                          style: TextStyle(
+                            fontFamily: 'HDharmony',
+                            fontSize: 18,
+                            color: Color(0xff666666),
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                      Divider(
+                        color: Colors.black54,
+                        thickness: 1,
+                      ),
+                      Container(
+                        padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
+                        child: Column(
+                          children: [
+                            partNumberItem,
+                            koreanPartNameItem,
+                            englishPartNameItem,
+                            priceItem,
+                            companyMarkItem,
+                            ticketItem,
+                            optionItem,
+                            Divider(
+                              color: Colors.black54,
+                              thickness: 1,
+                            ),
+                            buyItem,
+                          ],
+                        ),
+                      )
+                    ]),
+                  ),
+                  Positioned(
+                    child: LoadingIndicator(isLoading: state.isLoading),
+                  ),
+                ],
+              );
+            }));
   }
 }

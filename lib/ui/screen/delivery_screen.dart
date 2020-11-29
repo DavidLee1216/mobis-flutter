@@ -1,23 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:mobispartsearch/model/cart_model.dart';
+import 'package:mobispartsearch/model/market_search_model.dart';
 import 'package:mobispartsearch/ui/widget/delivery_info_form.dart';
-
-class ScreenArguments {
-  final String productName;
-  final String companyMark;
-  final int count;
-
-  ScreenArguments(this.productName, this.companyMark, this.count);
-}
 
 class DeliveryScreen extends StatelessWidget {
   static const routeName = '/delivery';
 
-  final String productName;
-  final String companyMark;
+  final CartModel item;
   final int count;
 
   const DeliveryScreen(
-      {Key key, this.productName, this.companyMark, this.count})
+      {Key key, this.item, this.count})
       : super(key: key);
 
   @override
@@ -36,8 +29,7 @@ class DeliveryScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: DeliveryInfoForm(
-          productName: productName,
-          companyMark: companyMark,
+          item: item,
           count: count,
         ),
       ),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -35,18 +37,23 @@ Future<void> main() async {
       child: MultiBlocProvider(
         providers: [
           BlocProvider<NoticeBloc>(
+            lazy: false,
             create: (context) => NoticeBloc(
               noticeRepository: noticeRepository,
             ),
           ),
+          BlocProvider<CartBloc>(
+              lazy: false,
+              create: (context) => CartBloc(
+                  cartRepository: cartRepository)),
           BlocProvider<SimpleSearchBloc>(
+              lazy: false,
               create: (context) => SimpleSearchBloc(
                   simpleSearchRepository: simpleSearchRepository)),
           BlocProvider<MarketSearchBloc>(
+              lazy: false,
               create: (context) => MarketSearchBloc(
                   marketSearchRepository: marketSearchRepository)),
-          BlocProvider<CartBloc>(
-              create: (context) => CartBloc(cartRepository: cartRepository)),
         ],
         child: MyApp(),
       ),

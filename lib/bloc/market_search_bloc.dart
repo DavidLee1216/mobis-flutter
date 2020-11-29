@@ -204,7 +204,6 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
       }
 
     } catch (e) {
-      log(e.toString());
       yield state.success();
     }
   }

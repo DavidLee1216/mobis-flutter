@@ -82,7 +82,7 @@ void getSession() async {
       if (element >= 0x30 && element < 0x40)
         element += 0x20;
       else
-        element += 0x30;
+        element += 0x45;
       newCodes.add(element);
     });
     String sss = String.fromCharCodes(newCodes);
@@ -105,15 +105,14 @@ const kMenuTextStyle = TextStyle(fontFamily: 'HDharmony', fontSize: 12);
 const kMarginSpace = 40.0;
 const kImageWidth = 80.0;
 
-void showToast(String message) {
-  Fluttertoast.showToast(
-      msg: message,
-      toastLength: Toast.LENGTH_LONG,
-      gravity: ToastGravity.CENTER,
-      timeInSecForIosWeb: 1,
-      backgroundColor: kPrimaryColor,
-      textColor: Colors.white,
-      fontSize: 16.0);
+void messageBox(String string, BuildContext context) {
+  showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: Text(string),
+        );
+      });
 }
 
 const API = 'http://141.164.51.190:8080';
@@ -247,24 +246,25 @@ Future<bool> validateSMS(String mobile) =>
     });
 
 // ignore: missing_return
-Future<List<CartModel>> loadCart() {
+Future<List<CartModel>> loadCart() async {
   String url = API + '/carts';
   if (globalUsername != '')
     url = API + '/carts?id=$globalUsername';
   else
     url = API + '/carts?id=$session';
-  http.get(url).then((response) {
-    if (response.statusCode == 200) {
-      log('load cart success');
+  final response = await http.get(url);
+  if (response.statusCode == 200) {
+    try {
       final data = json.decode(utf8.decode(response.bodyBytes)) as List;
       return data.map((item) {
         return CartModel.fromMap(item);
-      });
-    } else {
-      log('load cart ' + response.statusCode.toString());
-      return new List<CartModel>();
+      }).toList();
+    } catch (e) {
+      return null;
     }
-  });
+  } else {
+    return null;
+  }
 }
 
 Future<bool> addToCart(Product product) =>
@@ -272,10 +272,8 @@ Future<bool> addToCart(Product product) =>
       'Content-type': 'application/json',
     }).then((response) {
       if (response.statusCode == 200) {
-        log('add_cart success');
         return true;
       } else {
-        log('add_cart ${response.statusCode}');
         return false;
       }
     });
@@ -285,10 +283,8 @@ Future<bool> delFromCart(int seq) =>
       'Content-type': 'application/json',
     }).then((response) {
       if (response.statusCode == 200) {
-        log('del cart success');
         return true;
       } else {
-        log('del cart ${response.statusCode}');
         return false;
       }
     });
@@ -297,10 +293,8 @@ Future<bool> delFromCart(int seq) =>
 Future<bool> validateEmail(String email) =>
     http.get(API + '/validateEmail/$email').then((response) {
       if (response.statusCode == 200) {
-        log('validate_email success');
         return true;
       } else {
-        log('validate_email ${response.statusCode}');
         return false;
       }
     });
@@ -457,8 +451,8 @@ Future<List<MarketSearchResultModel>> marketSearchPart(
   if (response.statusCode == 200) {
     if (response.body.isNotEmpty) {
       final data = json.decode(utf8.decode(response.bodyBytes)) as List;
-      if(data.length == 0)
-        return null;
+      log(data.toString());
+      if (data.length == 0) return null;
       return data.map((item) {
         return MarketSearchResultModel.fromMap(item);
       }).toList();
