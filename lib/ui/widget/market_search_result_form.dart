@@ -15,9 +15,13 @@ class MarketSearchResultsForm extends StatefulWidget {
 }
 
 class _MarketSearchResultsFormState extends State<MarketSearchResultsForm> {
+
+
+
   @override
   Widget build(BuildContext context) {
     var bloc = BlocProvider.of<MarketSearchBloc>(context);
+
     return BlocBuilder<MarketSearchBloc, MarketSearchState>(
         cubit: BlocProvider.of<MarketSearchBloc>(context),
         builder: (BuildContext context, state) {
@@ -68,10 +72,6 @@ class _MarketSearchResultsFormState extends State<MarketSearchResultsForm> {
                 SizedBox(
                   height: 10,
                 ),
-                MarketSearchPageListWidget(),
-                SizedBox(
-                  height: 20,
-                ),
               ],
             ),
           );
@@ -116,88 +116,6 @@ class _MarketSearchResultListWidgetState
                   ],
                 );
               });
-        });
-  }
-}
-
-class MarketSearchPageListWidget extends StatefulWidget {
-  @override
-  _MarketSearchPageListWidgetState createState() =>
-      _MarketSearchPageListWidgetState();
-}
-
-class _MarketSearchPageListWidgetState
-    extends State<MarketSearchPageListWidget> {
-  @override
-  Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<MarketSearchBloc>(context);
-    return BlocBuilder<MarketSearchBloc, MarketSearchState>(
-        cubit: BlocProvider.of<MarketSearchBloc>(context),
-        builder: (BuildContext context, state) {
-          if (state.pageModel == null || state.pageModel.pageCnt == null) {
-            return Container();
-          }
-          return Container(
-            height: 40,
-            child: ListView.builder(
-                itemCount: state.pageModel.pages.length,
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, index) {
-                  return state.pageModel.pageCnt == 1
-                      ? Container()
-                      : Container(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              GestureDetector(
-                                child: Container(
-                                  height: 30.0,
-                                  width: 30.0,
-                                  child: new Center(
-                                    child: new Text(
-                                        state.pageModel.pages[index].toString(),
-                                        style: new TextStyle(
-                                            fontFamily: 'HDharmony',
-                                            color:
-                                                state.pageModel.pages[index] ==
-                                                        state.pageModel.curPage
-                                                    ? Colors.white
-                                                    : Colors.black54,
-                                            //fontWeight: FontWeight.bold,
-                                            fontSize: 12.0)),
-                                  ),
-                                  decoration: new BoxDecoration(
-                                    color: state.pageModel.pages[index] ==
-                                            state.pageModel.curPage
-                                        ? Colors.black54
-                                        : Colors.transparent,
-                                    border: new Border.all(
-                                        width: 1.0,
-                                        color: state.pageModel.pages[index] ==
-                                                state.pageModel.curPage
-                                            ? Colors.black54
-                                            : Colors.grey),
-                                    borderRadius: const BorderRadius.all(
-                                        const Radius.circular(1.0)),
-                                  ),
-                                ),
-                                onTap: () {
-                                  bloc.add(SearchMarketSearchEvent(
-                                      state.sido,
-                                      state.sigungu,
-                                      state.ptno,
-                                      state.pageModel.pages[index]));
-                                },
-                              ),
-                              SizedBox(
-                                width: 15,
-                              ),
-                            ],
-                          ),
-                        );
-                }),
-          );
         });
   }
 }

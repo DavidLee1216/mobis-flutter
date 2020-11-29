@@ -72,10 +72,6 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
               SizedBox(
                 height: 20,
               ),
-              SimpleSearchPageListWidget(),
-              SizedBox(
-                height: 20,
-              ),
             ],
           );
         });
@@ -111,88 +107,6 @@ class _SimpleSearchResultListWidgetState
                   price: state.searchResult[index].price.toString() + '원',
                 );
               });
-        });
-  }
-}
-
-class SimpleSearchPageListWidget extends StatefulWidget {
-  @override
-  _SimpleSearchPageListWidgetState createState() =>
-      _SimpleSearchPageListWidgetState();
-}
-
-class _SimpleSearchPageListWidgetState
-    extends State<SimpleSearchPageListWidget> {
-  @override
-  Widget build(BuildContext context) {
-    final bloc = BlocProvider.of<SimpleSearchBloc>(context);
-    return BlocBuilder<SimpleSearchBloc, SimpleSearchState>(
-        cubit: BlocProvider.of<SimpleSearchBloc>(context),
-        builder: (BuildContext context, state) {
-          if (state.pageModel == null || state.pageModel.pageCnt == null) {
-            return Container();
-          }
-          return Container(
-            height: 40,
-            child: ListView.builder(
-                itemCount: state.pageModel.pages.length,
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                itemBuilder: (BuildContext context, index) {
-                  return state.pageModel.pageCnt == 1
-                      ? Container()
-                      : Container(
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              GestureDetector(
-                                child: Container(
-                                  height: 30.0,
-                                  width: 30.0,
-                                  child: new Center(
-                                    child: new Text(
-                                        state.pageModel.pages[index]
-                                            .toString(),
-                                        style: new TextStyle(
-                                            fontFamily: 'HDharmony',
-                                            color: state.pageModel
-                                                        .pages[index] ==
-                                                    state.pageModel.curPage
-                                                ? Colors.white
-                                                : Colors.black54,
-                                            //fontWeight: FontWeight.bold,
-                                            fontSize: 12.0)),
-                                  ),
-                                  decoration: new BoxDecoration(
-                                    color: state.pageModel.pages[index] ==
-                                            state.pageModel.curPage
-                                        ? Colors.black54
-                                        : Colors.transparent,
-                                    border: new Border.all(
-                                        width: 1.0,
-                                        color: state.pageModel.pages[index] ==
-                                                state.pageModel.curPage
-                                            ? Colors.black54
-                                            : Colors.grey),
-                                    borderRadius: const BorderRadius.all(
-                                        const Radius.circular(1.0)),
-                                  ),
-                                ),
-                                onTap: () {
-                                  bloc.add(SearchSimpleSearchEvent(
-                                      state.keyword,
-                                      state.searchType,
-                                      state.pageModel.pages[index]));
-                                },
-                              ),
-                              SizedBox(
-                                width: 15,
-                              ),
-                            ],
-                          ),
-                        );
-                }),
-          );
         });
   }
 }

@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/simple_search_bloc.dart';
 import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/model/carModel_model.dart';
-import 'package:mobispartsearch/model/cart_model.dart';
 import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 import 'package:mobispartsearch/ui/widget/simple_search_result_form.dart';
 import 'package:mobispartsearch/ui/widget/custom_radio_button.dart';
@@ -399,12 +398,36 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                       ? partNumberController.text
                       : partNameController.text,
                   searchType,
-                  1));
+                  ));
             });
           },
         ),
       ),
     ));
+
+    var searchMoreButton = Center(
+        child: Container(
+          width: MediaQuery.of(context).size.width/3,
+          padding: EdgeInsets.only(top: 20.0),
+          child: ButtonTheme(
+            minWidth: MediaQuery.of(context).size.width / 1.1,
+            height: 50,
+            buttonColor: Colors.white,
+            child: RaisedButton(
+              child: Text(
+                '더 보기',
+                style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 15,
+                  color: Color.fromRGBO(0, 63, 114, 1),
+                ),
+              ),
+              onPressed: () {
+                bloc.add(SearchSimpleSearchMoreEvent());
+              },
+            ),
+          ),
+        ));
 
     var generalSearchItems = Container(
       child: Column(
@@ -571,6 +594,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 searchButton,
                 SizedBox(height: 30),
                 searched ? SimpleSearchResultsForm() : Container(),
+                (searched && state.nomore==false) ? searchMoreButton : Container(),
               ],
             ),
             Positioned(

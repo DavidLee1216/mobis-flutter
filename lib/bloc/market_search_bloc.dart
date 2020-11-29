@@ -29,9 +29,10 @@ class SearchMarketSearchEvent extends MarketSearchEvent {
   final sido;
   final sigungu;
   final ptno;
-  int page;
+  SearchMarketSearchEvent(this.ptno, this.sido, this.sigungu);
+}
 
-  SearchMarketSearchEvent(this.ptno, this.sido, this.sigungu, this.page);
+class SearchMarketSearchMoreEvent extends MarketSearchEvent {
 }
 
 class MarketSearchState {
@@ -44,7 +45,8 @@ class MarketSearchState {
   String krname;
   int price;
   List<MarketSearchResultModel> searchResult;
-  PageModel pageModel;
+  int page;
+  bool nomore;
   bool isLoading;
 
   MarketSearchState(
@@ -58,7 +60,8 @@ class MarketSearchState {
       this.enname = '',
       this.price = 0,
       this.isLoading = false,
-      this.pageModel});
+      this.nomore = false,
+      this.page = 0});
 
   factory MarketSearchState.init() => MarketSearchState();
 
@@ -73,19 +76,21 @@ class MarketSearchState {
           String enname,
           int price,
           bool isLoading,
-          PageModel pageModel}) =>
+          bool nomore,
+          int page}) =>
       MarketSearchState(
         hkgb: hkgb ?? this.hkgb,
         sido: sido ?? this.sido,
         sigungu: sigungu ?? this.sigungu,
         market: market ?? this.market,
         ptno: ptno ?? this.ptno,
-        searchResult: searchResult,
+        searchResult: searchResult ?? this.searchResult,
         krname: krname ?? this.krname ?? '',
         enname: enname ?? this.enname ?? '',
         price: price ?? this.price ?? 0,
         isLoading: isLoading ?? this.isLoading,
-        pageModel: pageModel
+        nomore: nomore ?? false,
+        page: page ?? this.page,
       );
 
   MarketSearchState submitting() => _setProps(isLoading: true);
@@ -100,7 +105,8 @@ class MarketSearchState {
           String enname,
           int price,
           bool isLoading,
-          PageModel pageModel}) =>
+          bool nomore,
+          int page}) =>
       _setProps(
           hkgb: hkgb,
           sido: sido,
@@ -112,7 +118,8 @@ class MarketSearchState {
           enname: enname,
           price: price,
           isLoading: false,
-          pageModel: pageModel);
+          nomore: nomore,
+          page: page);
 }
 
 class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
@@ -127,7 +134,9 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
       yield* _mapSetMarketEventToState(event.idx);
     if (event is SearchMarketSearchEvent)
       yield* _mapSearchEventToState(
-          event.ptno, event.sido, event.sigungu, event.page);
+          event.ptno, event.sido, event.sigungu);
+    if (event is SearchMarketSearchMoreEvent)
+      yield* _mapSearchMoreEventToState();
   }
 
   Stream<MarketSearchState> _mapInitEventToState() async* {
@@ -135,7 +144,7 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
       yield state.submitting();
       List<MarketSearchResultModel> searchResult =
           new List<MarketSearchResultModel>();
-      yield state.success(searchResult: searchResult);
+      yield state.success(searchResult: searchResult, page: 1);
     } catch (e) {
       yield state.success();
     }
@@ -164,11 +173,11 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
   }
 
   Stream<MarketSearchState> _mapSearchEventToState(
-      String ptno, String sido, String sigungu, int page) async* {
+      String ptno, String sido, String sigungu) async* {
     try {
       yield state.submitting();
       MarketSearchResultProductInfo productInfo =
-          await marketSearchRepository.getProductInfo(ptno: ptno);
+      await marketSearchRepository.getProductInfo(ptno: ptno);
       if (productInfo == null) {
         yield state.success(ptno: ptno);
         return;
@@ -180,31 +189,59 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
               sido: sido,
               sigungu: sigungu,
               stype: state.market,
-              firstIndex: 0 + (page - 1) * globalRecordCountPerPage,
+              firstIndex: 0,
               recordCountPerPage: globalRecordCountPerPage);
       if (searchResult == null || searchResult.length == 0)
       {
-        yield state.success(ptno: ptno, searchResult: null, pageModel: null);
+        yield state.success(ptno: ptno, searchResult: state.searchResult, nomore: true);
       }
       else{
-        PageModel pageModel = new PageModel()..init();
-        int pageCnt = (searchResult == null)
-            ? 0
-            : searchResult[0].totalCnt ~/ globalRecordCountPerPage + 1;
-        pageModel.setPageCnt(pageCnt);
-        pageModel.setCurPage(page);
-
         yield state.success(
             searchResult: searchResult,
             krname: productInfo.krname,
             enname: productInfo.enname,
             price: productInfo.price,
+            sido: sido,
+            sigungu: sigungu,
             ptno: ptno,
-            pageModel: pageModel);
+            nomore: false,
+            page: 1,
+            );
       }
 
     } catch (e) {
       yield state.success();
     }
   }
+
+  Stream<MarketSearchState> _mapSearchMoreEventToState() async* {
+    try {
+      yield state.submitting();
+      List<MarketSearchResultModel> searchResult =
+        await marketSearchRepository.searchPart(
+            hkgb: state.hkgb,
+            ptno: state.ptno,
+            sido: state.sido,
+            sigungu: state.sigungu,
+            stype: state.market,
+            firstIndex: state.page * globalRecordCountPerPage,
+            recordCountPerPage: globalRecordCountPerPage);
+      if (searchResult == null || searchResult.length == 0)
+      {
+        yield state.success(searchResult: state.searchResult, nomore: true);
+      }
+      else{
+        state.searchResult.addAll(searchResult);
+        yield state.success(
+          searchResult: state.searchResult,
+          nomore: false,
+          page: state.page + 1,
+        );
+      }
+
+    } catch (e) {
+      yield state.success();
+    }
+  }
+
 }

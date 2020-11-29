@@ -394,7 +394,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
             ptno = partNumberController.text;
             if (ptno != '') {
               searched = true;
-              bloc.add(SearchMarketSearchEvent(ptno, sido, sigungu, 1));
+              bloc.add(SearchMarketSearchEvent(ptno, sido, sigungu));
               setState(() {});
             } else {
               messageBox('부품번호를 입력하세요.');
@@ -403,6 +403,31 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
         ),
       ),
     ));
+
+
+    var searchMoreButton = Center(
+        child: Container(
+          width: MediaQuery.of(context).size.width/3,
+          padding: EdgeInsets.only(top: 20.0),
+          child: ButtonTheme(
+            minWidth: MediaQuery.of(context).size.width / 1.1,
+            height: 50,
+            buttonColor: Colors.white,
+            child: RaisedButton(
+              child: Text(
+                '더 보기',
+                style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  fontSize: 15,
+                  color: Color.fromRGBO(0, 63, 114, 1),
+                ),
+              ),
+              onPressed: () {
+                  bloc.add(SearchMarketSearchMoreEvent());
+              },
+            ),
+          ),
+        ));
 
     var partNumberSearchItems = Container(
       child: partNumber,
@@ -480,6 +505,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                   searchButton,
                   SizedBox(height: 30),
                   searched ? MarketSearchResultsForm() : Container(),
+                  (searched && state.nomore==false) ? searchMoreButton : Container(),
                 ],
               ),
               Positioned(

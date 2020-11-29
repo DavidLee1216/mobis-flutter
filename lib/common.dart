@@ -451,7 +451,6 @@ Future<List<MarketSearchResultModel>> marketSearchPart(
   if (response.statusCode == 200) {
     if (response.body.isNotEmpty) {
       final data = json.decode(utf8.decode(response.bodyBytes)) as List;
-      log(data.toString());
       if (data.length == 0) return null;
       return data.map((item) {
         return MarketSearchResultModel.fromMap(item);
