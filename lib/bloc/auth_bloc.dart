@@ -1,4 +1,3 @@
-
 import 'package:bloc/bloc.dart';
 import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/model/user_model.dart';
@@ -91,6 +90,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (event is AuthEventSignUp) {
       yield* _mapSignUpToState(event);
     }
+    if (event is AuthEventSignOut) {
+      yield* _mapSignedOutToState(event);
+    }
   }
 
   Stream<AuthState> _mapAppStartedToState(AuthEventAppStarted event) async* {
@@ -121,15 +123,15 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield state.unauthenticated(e.toString());
     }
   }
-//
-//  Stream<AuthState> _mapSignedOutToState(AuthEventSignOut event) async* {
-//    try {
-//      await userRepository.signOut();
-//      yield state.unauthenticated('');
-//      if (event.completeCallback != null) {
-//      }
-//    } catch (e) {
-//      yield state.unauthenticated(e.toString());
-//    }
-//  }
+
+  Stream<AuthState> _mapSignedOutToState(AuthEventSignOut event) async* {
+    try {
+      await userRepository.signOut();
+      globalUsername = '';
+      yield state.success();
+      // if (event.completeCallback != null) {}
+    } catch (e) {
+      yield state.unauthenticated(e.toString());
+    }
+  }
 }

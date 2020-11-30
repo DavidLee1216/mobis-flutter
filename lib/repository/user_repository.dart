@@ -8,4 +8,6 @@ class UserRepository {
   Future<bool> signIn(String id, String password) => signin(id, password);
 
   Future<bool> signUp(User user) => signup(user);
+
+  Future<void> signOut() => signout();
 }

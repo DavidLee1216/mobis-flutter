@@ -44,6 +44,8 @@ class MyPageWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final AuthBloc bloc = BlocProvider.of<AuthBloc>(context);
+
     var screenWidth = MediaQuery.of(context).size.width;
 
     var loginButton = Container(
@@ -257,8 +259,8 @@ class MyPageWidget extends StatelessWidget {
                                     PageRouteBuilder(
                                       pageBuilder: (_, __, ___) =>
                                           NavigationBar(
-                                            index: 0,
-                                          ),
+                                        index: 0,
+                                      ),
                                     ),
                                   );
                                 },
@@ -287,7 +289,7 @@ class MyPageWidget extends StatelessWidget {
                                   fontSize: 14,
                                   color: Colors.black54),
                             ),
-                            onPressed: () {},
+                            onPressed: () => bloc.add(AuthEventSignOut()),
                           ),
                         ],
                       ),

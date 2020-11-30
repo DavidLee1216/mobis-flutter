@@ -44,8 +44,7 @@ Future<void> main() async {
           ),
           BlocProvider<CartBloc>(
               lazy: false,
-              create: (context) => CartBloc(
-                  cartRepository: cartRepository)),
+              create: (context) => CartBloc(cartRepository: cartRepository)),
           BlocProvider<SimpleSearchBloc>(
               lazy: false,
               create: (context) => SimpleSearchBloc(
@@ -70,6 +69,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       localizationsDelegates: [GlobalMaterialLocalizations.delegate],
       supportedLocales: [
         const Locale('en'),
