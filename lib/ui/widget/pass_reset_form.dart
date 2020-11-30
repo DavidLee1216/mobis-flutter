@@ -12,7 +12,7 @@ class _GetPassFormState extends State<GetPassForm> {
   int birthYear = 1980;
   int birthMonth = 1;
   int birthDay = 1;
-  String phoneCode = '+1';
+  String phoneCode = '+82';
   int authStep = 1;
   bool mobileAuth = true; //if false, then email auth
   bool findEmail = true; //if false, then password reset
@@ -386,7 +386,7 @@ class _GetPassFormState extends State<GetPassForm> {
           ));
     }
 
-    var phoneCodes = ['+1', '+82', '+59', '+123'];
+    var phoneCodes = ['+82'];
 
     var phoneCodeDropdownmenu = Container(
         width: MediaQuery.of(context).size.width * 0.23,
@@ -441,7 +441,7 @@ class _GetPassFormState extends State<GetPassForm> {
           hintText: '휴대폰 번호',
           contentPadding: EdgeInsets.only(left: 10),
         ),
-        keyboardType: TextInputType.text,
+        keyboardType: TextInputType.number,
         style: TextStyle(
           fontFamily: 'HDharmony',
           fontSize: 14.0,
