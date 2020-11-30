@@ -368,6 +368,8 @@ Future<bool> signup(User user) =>
       }
     });
 
+Future<void> signout() async {}
+
 Future<bool> order(Order order) =>
     http.post(API + '/order', body: jsonEncode(order.toMap()), headers: {
       'Content-type': 'application/json',
