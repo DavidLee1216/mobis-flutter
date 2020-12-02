@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'dart:math' as math;
 import 'dart:core';
 
@@ -19,6 +20,16 @@ import 'model/simple_search_model.dart';
 import 'model/user_model.dart';
 import 'model/product_model.dart';
 import 'model/cart_model.dart';
+
+// FIXME: Testing code
+class TestHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
 
 dynamic session = '';
 String accessToken = '';
