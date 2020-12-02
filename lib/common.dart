@@ -126,7 +126,7 @@ void messageBox(String string, BuildContext context) {
       });
 }
 
-const API = 'http://141.164.51.190:8080';
+const API = 'https://101.1.50.16:443';
 
 String globalUsername = '';
 
