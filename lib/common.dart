@@ -6,7 +6,6 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
 import 'package:crypto/crypto.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 
@@ -19,6 +18,7 @@ import 'model/simple_search_model.dart';
 import 'model/user_model.dart';
 import 'model/product_model.dart';
 import 'model/cart_model.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 dynamic session = '';
 String accessToken = '';
@@ -113,6 +113,45 @@ void messageBox(String string, BuildContext context) {
           content: Text(string),
         );
       });
+}
+
+void showToastMessage({String text, int position = 0}) {
+  if(position==0)
+    Fluttertoast.showToast(
+        msg: text,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.TOP, // also possible "TOP" and "CENTER"
+        backgroundColor: Colors.black54,
+        textColor: Colors.white,
+        fontSize: 16.0,
+    );
+  else if(position==1)
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER, // also possible "TOP" and "CENTER"
+      backgroundColor: Colors.black54,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  else if(position==2)
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM, // also possible "TOP" and "CENTER"
+      backgroundColor: Colors.black54,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
+  else
+    Fluttertoast.showToast(
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.BOTTOM, // also possible "TOP" and "CENTER"
+      backgroundColor: Colors.black54,
+      textColor: Colors.white,
+      fontSize: 16.0,
+    );
 }
 
 const API = 'http://141.164.51.190:8080';
@@ -213,10 +252,8 @@ Future<bool> updateProfile(String addressExtended, String address,
 Future<bool> checkUsername(String username) =>
     http.get(API + '/username/$username').then((response) {
       if (response.statusCode == 200) {
-        log('success');
         return true;
       } else {
-        log(response.statusCode.toString());
         return false;
       }
     });
@@ -225,10 +262,8 @@ Future<bool> checkUsername(String username) =>
 Future<bool> checkEmail(String email) =>
     http.get(API + '/email/$email').then((response) {
       if (response.statusCode == 200) {
-        log('success');
         return true;
       } else {
-        log(response.statusCode.toString());
         return false;
       }
     });
@@ -237,10 +272,8 @@ Future<bool> checkEmail(String email) =>
 Future<bool> validateSMS(String mobile) =>
     http.get(API + '/validateSMS/$mobile').then((response) {
       if (response.statusCode == 200) {
-        log('validate_SMS success');
         return true;
       } else {
-        log('validate_SMS ${response.statusCode}');
         return false;
       }
     });
@@ -328,10 +361,10 @@ Future<bool> resetPassword(String password, int seq) async {
         'Content-type': 'application/json',
       }).then((response) {
     if (response.statusCode == 200) {
-      log('success');
+      showToastMessage(text: '비밀번호 변경 성공', position: 1);
       return true;
     } else {
-      log(response.statusCode.toString());
+      showToastMessage(text: '비밀번호 변경 실패', position: 1);
       return false;
     }
   });
@@ -350,6 +383,7 @@ Future<bool> signin(String username, String password) =>
         refreshToken = jsonData['refreshToken'];
         return true;
       } else {
+        showToastMessage(text: '로그인 실패', position: 1);
         return false;
       }
     });
@@ -358,12 +392,10 @@ Future<bool> signup(User user) =>
     http.post(API + '/signup', body: jsonEncode(user.toMap()), headers: {
       'Content-type': 'application/json',
     }).then((response) {
-      log(jsonEncode(user.toMap()));
       if (response.statusCode == 200) {
-        log('success');
         return true;
       } else {
-        log(response.statusCode.toString());
+        showToastMessage(text: '가입 실패', position: 1);
         return false;
       }
     });
@@ -414,6 +446,7 @@ Future<List<SimpleSearchResultModel>> simpleSearchPartByName(
       return SimpleSearchResultModel.fromMap(item);
     }).toList();
   } else {
+    showToastMessage(text: '검색 실패', position: 1);
     return null;
   }
 }
@@ -430,6 +463,7 @@ Future<List<SimpleSearchResultModel>> simpleSearchPartByPtno(
       return SimpleSearchResultModel.fromMap(item);
     }).toList();
   } else {
+    showToastMessage(text: '검색 실패', position: 1);
     return null;
   }
 }
@@ -461,6 +495,7 @@ Future<List<MarketSearchResultModel>> marketSearchPart(
       return null;
     }
   } else {
+    showToastMessage(text: '서버 접속 오류', position: 1);
     return null;
   }
 }
@@ -476,6 +511,7 @@ Future<MarketSearchResultProductInfo> getProductInfoFromPtno(
       return null;
     }
   } else {
+    showToastMessage(text: '서버 접속 오류', position: 1);
     return null;
   }
 }
@@ -496,6 +532,7 @@ Future<List<Notice>> getTitleNoticeStream(
       );
     }).toList();
   } else {
+    showToastMessage(text: '서버 접속 오류', position: 1);
     throw Exception('error');
   }
 }
@@ -516,6 +553,7 @@ Future<List<Notice>> getContentNoticeStream(
       );
     }).toList();
   } else {
+    showToastMessage(text: '서버 접속 오류', position: 1);
     throw Exception('error');
   }
 }
@@ -527,6 +565,7 @@ Future<bool> getToken() => http.post(API + '/token',
         accessToken = json.decode(response.body)['accessToken'];
         return true;
       } else {
+        showToastMessage(text: '서버 접속 오류', position: 1);
         return false;
       }
     });

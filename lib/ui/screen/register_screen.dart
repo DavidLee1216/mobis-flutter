@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/auth_bloc.dart';
+import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 import 'package:mobispartsearch/ui/widget/register_form.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
@@ -25,7 +26,7 @@ class RegisterScreen extends StatelessWidget {
           pushTo(context, IdLoginScreen());
         }
         if(state.errorMsg != '')
-          messageBox(state.errorMsg);
+          showToastMessage(text:state.errorMsg, position: 1);
       },
       child: BlocBuilder<AuthBloc, AuthState>(
         cubit: BlocProvider.of<AuthBloc>(context),

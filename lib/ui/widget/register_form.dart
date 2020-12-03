@@ -99,7 +99,7 @@ class _RegisterFormState extends State<RegisterForm> {
         bloc.add(AuthEventSignUp(user: user));
       }
       else if(seq == -1){
-        messageBox('인증번호를 확인하세요.');
+        showToastMessage(text:'인증번호를 확인하세요.', position: 1);
       }
     }
 
@@ -184,7 +184,7 @@ class _RegisterFormState extends State<RegisterForm> {
             )),
         onPressed: () async {
           if (await checkUsername(_idController.text) == false) {
-            messageBox('아이디가 이미 등록되여 있습니다.');
+            showToastMessage(text:'아이디가 이미 등록되여 있습니다.', position: 1);
           }
         },
       ),
@@ -234,7 +234,7 @@ class _RegisterFormState extends State<RegisterForm> {
             )),
         onPressed: () async {
           if (await checkEmail(_emailController.text) == false) {
-            messageBox('이메일이 이미 등록되여 있습니다.');
+            showToastMessage(text:'이메일이 이미 등록되여 있습니다.', position: 1);
           }
         },
       ),
@@ -426,7 +426,7 @@ class _RegisterFormState extends State<RegisterForm> {
         onPressed: () async {
           seq = await validateCode(_authNumberVerifyController.text);
           if(seq == -1){
-            messageBox('인증번호가 일치하지 않습니다.');
+            showToastMessage(text:'인증번호가 일치하지 않습니다.', position: 1);
           }
         },
       ),
@@ -500,7 +500,9 @@ class _RegisterFormState extends State<RegisterForm> {
               fontFamily: 'HDharmony',
               color: kPrimaryColor,
             )),
-        onPressed: () {},
+        onPressed: () {
+          showToastMessage(text: '아직 기능이 구현되지 않았습니다.', position: 1);
+        },
       ),
     );
 
@@ -568,7 +570,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 _carNumber1Controller.text,
                 _carNumber2Controller.text);
           else
-            messageBox('비밀번호가 일치하지 않습니다.');
+            showToastMessage(text:'비밀번호가 일치하지 않습니다.', position: 1);
         },
       ),
     );

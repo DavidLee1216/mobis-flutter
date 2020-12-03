@@ -116,7 +116,7 @@ class _GetPassFormState extends State<GetPassForm> {
                               color: Colors.black,
                             ),
                             child: Text(
-                              '이메일 찾기',
+                              '아이디 찾기',
                               style: TextStyle(
                                   fontFamily: 'HDharmony',
                                   fontSize: 14,
@@ -129,6 +129,8 @@ class _GetPassFormState extends State<GetPassForm> {
                                   mobileAuth = true;
                                   authStep++;
                                 });
+                              else
+                                showToastMessage(text: '선택단계가 아닙니다.', position: 1);
                             },
                           ),
                         ),
@@ -159,7 +161,9 @@ class _GetPassFormState extends State<GetPassForm> {
                                 child: Text(
                                   '이메일 인증',
                                   style: TextStyle(
-                                      fontFamily: 'HDharmony', fontSize: 14),
+                                      fontFamily: 'HDharmony',
+                                      fontSize: 14,
+                                      color: Color(0xff7f7f7f)),
                                 ),
                                 onPressed: () {
                                   if (authStep == 1)
@@ -168,6 +172,8 @@ class _GetPassFormState extends State<GetPassForm> {
                                       findEmail = false;
                                       authStep++;
                                     });
+                                  else
+                                    showToastMessage(text: '선택단계가 아닙니다.', position: 1);
                                 },
                               ),
                             ),
@@ -184,7 +190,9 @@ class _GetPassFormState extends State<GetPassForm> {
                                 child: Text(
                                   '모바일 인증',
                                   style: TextStyle(
-                                      fontFamily: 'HDharmony', fontSize: 14),
+                                      fontFamily: 'HDharmony',
+                                      fontSize: 14,
+                                      color: Color(0xff7f7f7f)),
                                 ),
                                 onPressed: () {
                                   if (authStep == 1) {
@@ -193,6 +201,8 @@ class _GetPassFormState extends State<GetPassForm> {
                                       findEmail = false;
                                       authStep = 2;
                                     });
+                                  } else {
+                                    showToastMessage(text: '선택단계가 아닙니다.', position: 1);
                                   }
                                 },
                               ),
@@ -335,6 +345,7 @@ class _GetPassFormState extends State<GetPassForm> {
 
     dayDropdownmenu(int year, int month) {
       int days = getDaysFromYearMonth(year, month);
+      if (birthDay > getDaysFromYearMonth(year, month)) birthDay = 1;
       return Container(
           width: MediaQuery.of(context).size.width * 0.23,
           height: 40,
@@ -515,7 +526,7 @@ class _GetPassFormState extends State<GetPassForm> {
             height: 10,
           ),
           Container(
-            height: 30,
+            height: 40,
             width: 200,
             child: TextField(
               decoration: InputDecoration(
@@ -630,6 +641,8 @@ class _GetPassFormState extends State<GetPassForm> {
                                     setState(() {
                                       authStep--;
                                     });
+                                  } else {
+                                    showToastMessage(text:'인증요청 단계가 아닙니다.', position: 1);
                                   }
                                 },
                               ),
@@ -656,13 +669,14 @@ class _GetPassFormState extends State<GetPassForm> {
                                           phoneCode.substring(1) +
                                               "-" +
                                               _phoneNumberController.text;
-                                      print(phoneNumber);
                                       validateSMS(phoneNumber);
                                     } else
                                       validateEmail(_emailController.text);
                                     setState(() {
                                       authStep++;
                                     });
+                                  } else {
+                                    showToastMessage(text:'인증요청 단계가 아닙니다.', position: 1);
                                   }
                                 },
                               ),
@@ -696,7 +710,7 @@ class _GetPassFormState extends State<GetPassForm> {
           height: 10,
         ),
         Container(
-          width: MediaQuery.of(context).size.width * 0.9,
+//          width: MediaQuery.of(context).size.width * 0.7,
           height: 50,
           child: TextField(
             decoration: InputDecoration(
@@ -787,34 +801,43 @@ class _GetPassFormState extends State<GetPassForm> {
                                   setState(() {
                                     authStep--;
                                   });
+                                else
+                                  showToastMessage(text: '인증확인 단계가 아닙니다.', position: 1);
                               },
                             ),
                           ),
                           SizedBox(
                             width: 10,
                           ),
-                          Container(
-                            height: 40,
-                            width: MediaQuery.of(context).size.width * 0.36,
-                            child: RaisedButton(
-                              color: kPrimaryColor,
-                              child: Text(
-                                '인증',
-                                style: TextStyle(
-                                    fontFamily: 'HDharmony',
-                                    fontSize: 14,
-                                    color: Colors.white),
+                          Expanded(
+                            child: Container(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width * 0.36,
+                              child: RaisedButton(
+                                color: kPrimaryColor,
+                                child: Text(
+                                  '인증',
+                                  style: TextStyle(
+                                      fontFamily: 'HDharmony',
+                                      fontSize: 14,
+                                      color: Colors.white),
+                                ),
+                                onPressed: () async {
+                                  if (authStep == 3) {
+                                    authSeq = await validateCode(
+                                        _authNumberController.text);
+                                    if (authSeq == -1) {
+                                      showToastMessage(text:'인증번호가 일치하지 않습니다.', position: 1);
+                                      return;
+                                    }
+                                    setState(() {
+                                      authStep++;
+                                    });
+                                  } else {
+                                    showToastMessage(text: '인증확인 단계가 아닙니다.', position: 1);
+                                  }
+                                },
                               ),
-                              onPressed: () async {
-                                if (authStep == 3) {
-                                  authSeq = await validateCode(
-                                      _authNumberController.text);
-                                  if (authSeq == -1) return;
-                                  setState(() {
-                                    authStep++;
-                                  });
-                                }
-                              },
                             ),
                           ),
                         ],
@@ -830,7 +853,7 @@ class _GetPassFormState extends State<GetPassForm> {
     );
 
     var passField = Container(
-        height: 30,
+        height: 40,
         child: TextFormField(
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
@@ -849,7 +872,7 @@ class _GetPassFormState extends State<GetPassForm> {
           controller: _passwordController,
         ));
     var repassField = Container(
-        height: 30,
+        height: 40,
         child: TextFormField(
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
@@ -886,7 +909,9 @@ class _GetPassFormState extends State<GetPassForm> {
               Text(
                 '* 비밀번호를 입력하고 변경 버튼을 누르세요.',
                 style: TextStyle(
-                    fontFamily: 'HDharmony', fontSize: 12, color: Colors.black),
+                    fontFamily: 'HDharmony',
+                    fontSize: 12,
+                    color: Color(0xff7f7f7f)),
                 textAlign: TextAlign.left,
               ),
               SizedBox(
@@ -940,6 +965,10 @@ class _GetPassFormState extends State<GetPassForm> {
                       resetPassword(
                           encryptPassword(_passwordController.text), authSeq);
                     }
+                    else if(_passwordController.text == '' || _repasswordController.text == '')
+                      showToastMessage(text:'비밀번호를 입력하세요.', position: 1);
+                    else
+                      showToastMessage(text:'비밀번호가 일치하지 않습니다. 다시 입력하세요.', position: 1);
                   },
                 ),
               ),
@@ -1033,26 +1062,17 @@ class _GetPassFormState extends State<GetPassForm> {
       ),
     );
 
-    var gotoLoginButton = Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.black,
-            width: 1,
-          ),
+    var gotoLoginButton = Center(
+      child: FlatButton(
+        shape: Border(bottom: BorderSide(color: Color(0xff7f7f7f), width: 1)),
+        child: Text(
+          '로그인 페이지로 이동',
+          style: TextStyle(
+              fontFamily: 'HDharmony', fontSize: 14, color: Color(0xff7f7f7f)),
         ),
-      ),
-      child: Center(
-        child: FlatButton(
-          child: Text(
-            '로그인 페이지로',
-            style: TextStyle(
-                fontFamily: 'HDharmony', fontSize: 14, color: Colors.black),
-          ),
-          onPressed: () {
-            pushTo(context, IdLoginScreen());
-          },
-        ),
+        onPressed: () {
+          pushTo(context, IdLoginScreen());
+        },
       ),
     );
 
@@ -1102,6 +1122,9 @@ class _GetPassFormState extends State<GetPassForm> {
             height: 10,
           ),
           gotoLoginButton,
+          SizedBox(
+            height: 10,
+          )
         ],
       ),
     );

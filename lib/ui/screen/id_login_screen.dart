@@ -7,6 +7,8 @@ import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
 
+import '../../common.dart';
+
 class IdLoginScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -18,12 +20,12 @@ class IdLoginScreen extends StatelessWidget {
     return BlocListener<AuthBloc, AuthState>(
       cubit: BlocProvider.of<AuthBloc>(context),
       listener: (BuildContext context, state) {
-        if (state.id != '') {
+        if (state.isAuthenticated()) {
           pushTo(context, NavigationBar(index: 1));
           return;
         }
         if(state.errorMsg != '')
-          messageBox(state.errorMsg);
+          showToastMessage(text:state.errorMsg);
       },
       child: BlocBuilder<AuthBloc, AuthState>(
           cubit: BlocProvider.of<AuthBloc>(context),

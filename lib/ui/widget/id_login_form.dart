@@ -56,7 +56,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
             hintText: '아이디',
           ),
           keyboardType: TextInputType.text,
-          validator: (value) => value.isEmpty ? "아이디를 입력하세요." : null,
+//          validator: (value) => value.isEmpty ? "아이디를 입력하세요." : null,
           style: TextStyle(
             fontFamily: 'HDharmony',
             fontSize: 16.0,
@@ -87,15 +87,26 @@ class _IdLoginFormState extends State<IdLoginForm> {
           hintText: '비밀번호',
         ),
         obscureText: true,
-        validator: (value) => value.isEmpty ? "비밀번호를 입력하세요." : null,
+//        validator: (value) => value.isEmpty ? "비밀번호를 입력하세요." : null,
         style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
         controller: _passwordController,
       ),
     );
 
     Future<void> signIn(String username, String password) async {
-      if (_formKey.currentState.validate()) {
-        FocusScope.of(context).requestFocus(FocusNode());
+//      if (_formKey.currentState.validate()) {
+//        FocusScope.of(context).requestFocus(FocusNode());
+//        bloc.add(AuthEventSignIn(id: username, password: password));
+//      }
+      if (_idController.text=='') {
+        showToastMessage(text:'아이디를 입력하세요.');
+        return;
+      }
+      else if(_passwordController.text=='') {
+        showToastMessage(text:'패스워드를 입력하세요');
+        return;
+      }
+      else {
         bloc.add(AuthEventSignIn(id: username, password: password));
       }
     }
@@ -191,11 +202,11 @@ class _IdLoginFormState extends State<IdLoginForm> {
               ),
               idField,
               SizedBox(
-                height: 10,
+                height: 30,
               ),
               passwordField,
               SizedBox(
-                height: 20,
+                height: 40,
               ),
               loginButton,
               Row(

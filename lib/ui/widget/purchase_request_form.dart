@@ -457,70 +457,75 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
     );
 
     var buyItem = Container(
-      margin: EdgeInsets.only(top: 20.0),
+      margin: EdgeInsets.all(20.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.max,
         children: [
-          ButtonTheme(
-            padding: const EdgeInsets.fromLTRB(55, 15, 55, 15),
-            buttonColor: common.kPrimaryColor,
-            child: RaisedButton(
-              child: Text(
-                '장바구니',
-                style: TextStyle(
-                    fontFamily: 'HDharmony', fontSize: 15, color: Colors.white),
-                textAlign: TextAlign.center,
+          Expanded(
+            child: ButtonTheme(
+//            padding: const EdgeInsets.fromLTRB(55, 15, 55, 15),
+              buttonColor: common.kPrimaryColor,
+              child: RaisedButton(
+                child: Text(
+                  '장바구니',
+                  style: TextStyle(
+                      fontFamily: 'HDharmony', fontSize: 15, color: Colors.white),
+                  textAlign: TextAlign.center,
+                ),
+                onPressed: () async {
+                  addToCart();
+                },
               ),
-              onPressed: () async {
-                addToCart();
-              },
             ),
           ),
           SizedBox(
             width: 10,
           ),
-          Container(
+          Expanded(
+            child: Container(
 //            padding: EdgeInsets.symmetric(vertical: 2.0),
-            child: OutlineButton(
-              padding: const EdgeInsets.fromLTRB(55, 15, 55, 15),
-              borderSide: BorderSide(
-                color: common.kPrimaryColor, //Color of the border
-                style: BorderStyle.solid, //Style of the border
-                width: 1, //width of the border
+              child: OutlineButton(
+//              padding: const EdgeInsets.fromLTRB(55, 15, 55, 15),
+                borderSide: BorderSide(
+                  color: common.kPrimaryColor, //Color of the border
+                  style: BorderStyle.solid, //Style of the border
+                  width: 1, //width of the border
+                ),
+                child: Text(
+                  '바로구매',
+                  style: TextStyle(
+                      fontFamily: 'HDharmony',
+                      fontSize: 15,
+                      color: common.kPrimaryColor),
+                ),
+                onPressed: () async {
+                  CartModel cartItem = new CartModel(
+                      mutual: widget.result.mutual,
+                      deliveryCode: widget.result.stype == 'Y' ? 'P' : 'V',
+                      price: widget.price,
+                      krname: widget.koreanPartName,
+                      enname: widget.englishPartName,
+                      partNumber: widget.result.ptno,
+                      count: count,
+                      agentCode: widget.result.agentCode,
+                      sapCode: widget.result.sapCode
+                  );
+                  if (optionData[0].isSelected) {
+                    pushTo(
+                        context,
+                        DeliveryScreen(
+                            item: cartItem,
+                            count: count));
+                  } else if (optionData[1].isSelected) {
+                    pushTo(
+                        context,
+                        VisitScreen(
+                            item: cartItem,
+                            count: count));
+                  }
+                },
               ),
-              child: Text(
-                '바로구매',
-                style: TextStyle(
-                    fontFamily: 'HDharmony',
-                    fontSize: 15,
-                    color: common.kPrimaryColor),
-              ),
-              onPressed: () async {
-                CartModel cartItem = new CartModel(
-                    mutual: widget.result.mutual,
-                    deliveryCode: widget.result.stype == 'Y' ? 'P' : 'V',
-                    price: widget.price,
-                    krname: widget.koreanPartName,
-                    enname: widget.englishPartName,
-                    partNumber: widget.result.ptno,
-                    count: count,
-                    agentCode: widget.result.agentCode,
-                    sapCode: widget.result.sapCode
-                );
-                if (optionData[0].isSelected) {
-                  pushTo(
-                      context,
-                      DeliveryScreen(
-                          item: cartItem,
-                          count: count));
-                } else if (optionData[1].isSelected) {
-                  pushTo(
-                      context,
-                      VisitScreen(
-                          item: cartItem,
-                          count: count));
-                }
-              },
             ),
           )
         ],
