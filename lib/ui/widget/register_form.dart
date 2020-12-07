@@ -189,8 +189,10 @@ class _RegisterFormState extends State<RegisterForm> {
               color: kPrimaryColor,
             )),
         onPressed: () async {
-          if (await checkUsername(_idController.text) == false) {
+          if (await checkUsername(_idController.text.trim()) == false) {
             showToastMessage(text:'아이디가 이미 등록되여 있습니다.', position: 1);
+          } else {
+            showToastMessage(text: "사용할수 있는 아이디입니다.", position: 1);
           }
         },
       ),
@@ -239,8 +241,10 @@ class _RegisterFormState extends State<RegisterForm> {
               color: kPrimaryColor,
             )),
         onPressed: () async {
-          if (await checkEmail(_emailController.text) == false) {
+          if (await checkEmail(_emailController.text.trim()) == false) {
             showToastMessage(text:'이메일이 이미 등록되여 있습니다.', position: 1);
+          } else {
+            showToastMessage(text: '사용할수 있는 이메일입니다.', position: 1);
           }
         },
       ),
@@ -407,7 +411,7 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
         contentPadding: EdgeInsets.only(left: 10),
       ),
-      keyboardType: TextInputType.text,
+      keyboardType: TextInputType.number,
       style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       controller: _authNumberVerifyController,
     );
@@ -586,18 +590,18 @@ class _RegisterFormState extends State<RegisterForm> {
         onPressed: () async {
           if(_passwordController.text==_repasswordController.text)
             await registerUser(
-                _idController.text,
-                _phoneNumberController.text,
-                _emailController.text,
-                encryptPassword(_passwordController.text),
-                _nameController.text,
+                _idController.text.trim(),
+                _phoneNumberController.text.trim(),
+                _emailController.text.trim(),
+                encryptPassword(_passwordController.text.trim()),
+                _nameController.text.trim(),
                 _birthday,
                 sexCode,
-                _address1Controller.text,
-                _address2Controller.text,
-                _address3Controller.text,
-                _carNumber1Controller.text,
-                _carNumber2Controller.text);
+                _address1Controller.text.trim(),
+                _address2Controller.text.trim(),
+                _address3Controller.text.trim(),
+                _carNumber1Controller.text.trim(),
+                _carNumber2Controller.text.trim());
           else
             showToastMessage(text:'비밀번호가 일치하지 않습니다.', position: 1);
         },
