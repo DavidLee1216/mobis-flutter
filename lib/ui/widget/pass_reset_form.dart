@@ -1034,7 +1034,7 @@ class _GetPassFormState extends State<GetPassForm> {
                 ),
                 Container(
                   child: Text(
-                    foundEmail,
+                    foundEmail ?? '찾고 있는 아이디가 없습니다.',
                     style: TextStyle(
                         fontFamily: 'HDharmony',
                         fontSize: 14,

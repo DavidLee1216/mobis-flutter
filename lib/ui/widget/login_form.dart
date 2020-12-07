@@ -7,6 +7,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
 
+import '../../common.dart';
+import 'navigation_bar.dart';
+
 final GoogleSignIn _googleSignIn = GoogleSignIn();
 
 class LoginForm extends StatefulWidget {
@@ -17,13 +20,14 @@ class LoginForm extends StatefulWidget {
 class _LoginFormState extends State<LoginForm> {
   @override
   void initState() {
-    checkLocalAuth();
+    if(getStringValueSF() != '' && tokenExpired)
+      checkLocalAuth();
   }
 
-  Future<bool> checkLocalAuth() async {
+  Future<void> checkLocalAuth() async {
     var localAuth = LocalAuthentication();
     bool canCheckBiometrics = await localAuth.canCheckBiometrics;
-    if(!mounted) return false;
+    if(!mounted) return;
     if (canCheckBiometrics) {
       List<BiometricType> availableBiometrics =
           await localAuth.getAvailableBiometrics();
@@ -33,15 +37,16 @@ class _LoginFormState extends State<LoginForm> {
           useErrorDialogs: true,
           stickyAuth: false,
         );
-        return true;
+        if(didAuthenticate)
+        {
+          pushTo(context, NavigationBar(index: 1));
+        }
       } on PlatformException catch (e) {
         if (e.code == auth_error.notAvailable) {
           print(e);
         }
-        return false;
       }
     } else{
-      return false;
     }
   }
 

@@ -19,10 +19,28 @@ import 'model/user_model.dart';
 import 'model/product_model.dart';
 import 'model/cart_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 dynamic session = '';
 String accessToken = '';
 String refreshToken = '';
+bool tokenExpired = false;
+
+addStringToSF() async {
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  pref.setString('refreshToken', refreshToken);
+}
+
+getStringValueSF() async {
+  try{
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    String value = pref.getString('refreshToken');
+    return value;
+  } catch(e){
+    return '';
+  }
+}
+
 DateFormat dateformatter = DateFormat('yyyy.MM.dd');
 const List<String> hkgb_list = ['H', 'K'];
 const List<String> vtpy_list = ['P', 'R', 'C'];
@@ -393,6 +411,7 @@ Future<bool> signin(String username, String password) =>
         final jsonData = json.decode(response.body);
         accessToken = jsonData['accessToken'];
         refreshToken = jsonData['refreshToken'];
+        addStringToSF();
         return true;
       } else {
         showToastMessage(text: '로그인 실패', position: 1);
