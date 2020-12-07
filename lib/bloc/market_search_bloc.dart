@@ -196,6 +196,9 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
         yield state.success(ptno: ptno, searchResult: state.searchResult, nomore: true);
       }
       else{
+        bool nomore = false;
+        if(searchResult.length < globalRecordCountPerPage)
+          nomore = true;
         yield state.success(
             searchResult: searchResult,
             krname: productInfo.krname,
@@ -204,7 +207,7 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
             sido: sido,
             sigungu: sigungu,
             ptno: ptno,
-            nomore: false,
+            nomore: nomore,
             page: 1,
             );
       }

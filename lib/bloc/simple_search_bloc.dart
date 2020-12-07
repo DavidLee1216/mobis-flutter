@@ -196,7 +196,10 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
         yield state.success(keyword: keyword, searchResult: new List<SimpleSearchResultModel>(), searchType: searchType, nomore: true);
       }
       else {
-        yield state.success(keyword: keyword, searchResult: searchResult, searchType: searchType, searchResultCnt: searchResult[0].totalCnt, nomore: false, page: 1);
+        bool nomore = false;
+        if(searchResult.length < globalRecordCountPerPage)
+          nomore = true;
+        yield state.success(keyword: keyword, searchResult: searchResult, searchType: searchType, searchResultCnt: searchResult[0].totalCnt, nomore: nomore, page: 1);
       }
     } catch (e) {
       yield state.success(model: 0, searchResult: null, searchResultCnt: 0);

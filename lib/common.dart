@@ -342,6 +342,18 @@ Future<int> validateCode(String code) =>
     });
 
 // ignore: missing_return
+Future<String> getUsername(String code) async {
+  http.post(API + '/getUsername', body: jsonEncode({'seq': code}), headers: {
+    'Content-type': 'application/json',
+  }).then((response) {
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      return jsonData['username'];
+    }
+  });
+}
+
+// ignore: missing_return
 Future<String> getEmail(String code) async {
   http.post(API + '/getEmail', body: jsonEncode({'seq': code}), headers: {
     'Content-type': 'application/json',

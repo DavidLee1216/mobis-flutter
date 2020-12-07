@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kopo/kopo.dart';
 import 'package:mobispartsearch/common.dart';
 
 class MyInfoScreen extends StatefulWidget {
@@ -422,8 +423,19 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              onPressed: () {
-                showToastMessage(text: '아직 기능이 구현되지 않았습니다.', position: 1);
+              onPressed: () async {
+                KopoModel kopoModel = await Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) => Kopo(),
+                  ),
+                );
+                if(kopoModel != null){
+                  setState(() {
+                    _postCodeController.text = kopoModel.zonecode;
+                    _address1Controller.text = kopoModel.address;
+                  });
+                }
               },
             ),
           ),

@@ -1,8 +1,12 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/auth_bloc.dart';
 import 'package:mobispartsearch/model/user_model.dart';
 import 'package:mobispartsearch/common.dart';
+import 'package:kopo/kopo.dart';
 
 enum Gender { male, female }
 
@@ -38,6 +42,8 @@ class _RegisterFormState extends State<RegisterForm> {
   String _birthday = '';
 
   int seq = -1;
+
+  var postCode = '';
 
   @override
   void dispose() {
@@ -432,6 +438,17 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
     );
 
+    var address0Field = Container(
+      height: 50,
+      child: Text(this.postCode),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.grey,
+          width: 1,
+        ),
+      ),
+    );
+
     var address1Field = TextField(
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
@@ -500,8 +517,20 @@ class _RegisterFormState extends State<RegisterForm> {
               fontFamily: 'HDharmony',
               color: kPrimaryColor,
             )),
-        onPressed: () {
-          showToastMessage(text: '아직 기능이 구현되지 않았습니다.', position: 1);
+        onPressed: () async {
+          KopoModel kopoModel = await Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => Kopo(),
+            ),
+          );
+          if(kopoModel != null){
+            setState(() {
+              _address1Controller.text = kopoModel.zonecode;
+              _address2Controller.text = kopoModel.address;
+            });
+          }
+
         },
       ),
     );

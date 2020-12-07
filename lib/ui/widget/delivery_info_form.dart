@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kopo/kopo.dart';
 import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/model/cart_model.dart';
 
@@ -264,7 +265,20 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
                           fontFamily: 'HDharmony',
                           color: kPrimaryColor,
                         )),
-                    onPressed: () {},
+                    onPressed: () async {
+                      KopoModel kopoModel = await Navigator.push(
+                        context,
+                        CupertinoPageRoute(
+                          builder: (context) => Kopo(),
+                        ),
+                      );
+                      if(kopoModel != null){
+                        setState(() {
+                          addressController.text = kopoModel.zonecode;
+                          addressController2.text = kopoModel.address;
+                        });
+                      }
+                    },
                   ),
                 ),
               ],

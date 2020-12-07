@@ -103,7 +103,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
         return;
       }
       else if(_passwordController.text=='') {
-        showToastMessage(text:'패스워드를 입력하세요');
+        showToastMessage(text:'비밀번호를 입력하세요');
         return;
       }
       else {
@@ -167,7 +167,7 @@ class _IdLoginFormState extends State<IdLoginForm> {
           child: FlatButton(
             onPressed: onForgotButtonPressed,
             child: Text(
-              '이메일 / 비밀번호 찾기',
+              '아이디 / 비밀번호 찾기',
               textAlign: TextAlign.right,
               style: TextStyle(
                 fontFamily: 'HDharmony',

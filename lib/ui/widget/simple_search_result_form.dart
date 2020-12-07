@@ -90,7 +90,7 @@ class _SimpleSearchResultListWidgetState
     return BlocBuilder<SimpleSearchBloc, SimpleSearchState>(
         cubit: BlocProvider.of<SimpleSearchBloc>(context),
         builder: (BuildContext context, state) {
-          if (state.searchResult == null || state.searchResultCnt == 0) {
+          if (state.searchResult == null) {
             return Container();
           }
           return ListView.builder(

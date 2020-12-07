@@ -1,12 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:mobispartsearch/service/auth_service.dart';
 import 'package:mobispartsearch/ui/screen/id_login_screen.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:local_auth/local_auth.dart';
+import 'package:local_auth/error_codes.dart' as auth_error;
 
 final GoogleSignIn _googleSignIn = GoogleSignIn();
 
+class LoginForm extends StatefulWidget {
+  @override
+  _LoginFormState createState() => _LoginFormState();
+}
 
-class LoginForm extends StatelessWidget {
+class _LoginFormState extends State<LoginForm> {
+  @override
+  void initState() {
+    checkLocalAuth();
+  }
+
+  Future<bool> checkLocalAuth() async {
+    var localAuth = LocalAuthentication();
+    bool canCheckBiometrics = await localAuth.canCheckBiometrics;
+    if(!mounted) return false;
+    if (canCheckBiometrics) {
+      List<BiometricType> availableBiometrics =
+          await localAuth.getAvailableBiometrics();
+      try {
+        bool didAuthenticate = await localAuth.authenticateWithBiometrics(
+            localizedReason: '계속하려면 인증해주세요.',
+          useErrorDialogs: true,
+          stickyAuth: false,
+        );
+        return true;
+      } on PlatformException catch (e) {
+        if (e.code == auth_error.notAvailable) {
+          print(e);
+        }
+        return false;
+      }
+    } else{
+      return false;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -159,7 +197,9 @@ class LoginForm extends StatelessWidget {
                       ),
                     ],
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    signInWithGoogle(context);
+                  },
                 ),
               ),
               SizedBox(

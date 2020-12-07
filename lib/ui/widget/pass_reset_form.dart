@@ -14,7 +14,7 @@ class _GetPassFormState extends State<GetPassForm> {
   int birthDay = 1;
   String phoneCode = '+82';
   int authStep = 1;
-  bool mobileAuth = true; //if false, then email auth
+  bool mobileAuth = false; //if false, then email auth
   bool findEmail = true; //if false, then password reset
   int authSeq = -1;
   String foundEmail = '';
@@ -64,7 +64,7 @@ class _GetPassFormState extends State<GetPassForm> {
                 width: 10,
               ),
               Text(
-                '이메일 또는 비밀번호',
+                '아이디 또는 비밀번호',
                 style: TextStyle(
                   fontFamily: 'HDharmony',
                   color: const Color(0xFF004B87),
@@ -98,7 +98,7 @@ class _GetPassFormState extends State<GetPassForm> {
                       children: [
                         Container(
                             child: Text(
-                          '* 이메일 아이디를 찾으시려면 아래 버튼을 선택하세요.',
+                          '* 아이디를 찾으시려면 아래 버튼을 선택하세요.',
                           style: TextStyle(
                             fontFamily: 'HDharmony',
                             fontSize: 12,
@@ -111,16 +111,19 @@ class _GetPassFormState extends State<GetPassForm> {
                         Container(
                           height: 40,
                           width: MediaQuery.of(context).size.width * 0.72,
-                          child: OutlineButton(
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                            ),
+                          child: RaisedButton(
+                            color: mobileAuth && findEmail ? kPrimaryColor : Colors.white,
+                            shape: mobileAuth && findEmail
+                                ? Border.all(
+                                    color: Color.fromRGBO(0, 63, 114, 1), width: 1)
+                                : Border.all(
+                                    color: Colors.transparent, width: 1),
                             child: Text(
                               '아이디 찾기',
                               style: TextStyle(
                                   fontFamily: 'HDharmony',
                                   fontSize: 14,
-                                  color: Color(0xff7f7f7f)),
+                                  color: mobileAuth && findEmail ? Colors.white : Color(0xff7f7f7f)),
                             ),
                             onPressed: () {
                               if (authStep == 1)
@@ -154,16 +157,19 @@ class _GetPassFormState extends State<GetPassForm> {
                             Container(
                               width: MediaQuery.of(context).size.width * 0.35,
                               height: 40,
-                              child: OutlineButton(
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                ),
+                              child: RaisedButton(
+                                color: !mobileAuth && !findEmail ? kPrimaryColor : Colors.white,
+                                shape: !mobileAuth && !findEmail
+                                    ? Border.all(
+                                        color: Color.fromRGBO(0, 63, 114, 1), width: 1)
+                                    : Border.all(
+                                        color: Colors.transparent, width: 1),
                                 child: Text(
                                   '이메일 인증',
                                   style: TextStyle(
                                       fontFamily: 'HDharmony',
                                       fontSize: 14,
-                                      color: Color(0xff7f7f7f)),
+                                      color: !mobileAuth && !findEmail ? Colors.white : Color(0xff7f7f7f)),
                                 ),
                                 onPressed: () {
                                   if (authStep == 1)
@@ -183,16 +189,19 @@ class _GetPassFormState extends State<GetPassForm> {
                             Container(
                               height: 40,
                               width: MediaQuery.of(context).size.width * 0.35,
-                              child: OutlineButton(
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                ),
+                              child: RaisedButton(
+                                color: mobileAuth && !findEmail ? kPrimaryColor : Colors.white,
+                                shape: mobileAuth && !findEmail
+                                    ? Border.all(
+                                        color: Color.fromRGBO(0, 63, 114, 1), width: 1)
+                                    : Border.all(
+                                        color: Colors.transparent, width: 1),
                                 child: Text(
                                   '모바일 인증',
                                   style: TextStyle(
                                       fontFamily: 'HDharmony',
                                       fontSize: 14,
-                                      color: Color(0xff7f7f7f)),
+                                      color: mobileAuth && !findEmail ? Colors.white : Color(0xff7f7f7f)),
                                 ),
                                 onPressed: () {
                                   if (authStep == 1) {
@@ -534,6 +543,10 @@ class _GetPassFormState extends State<GetPassForm> {
                   borderRadius: BorderRadius.circular(0),
                   borderSide: BorderSide(color: Colors.black, width: 1),
                 ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(0),
+                  borderSide: BorderSide(color: Colors.black, width: 1),
+                ),
                 hintText: '가입하신 이메일을 입력하세요.',
                 contentPadding: EdgeInsets.only(left: 10),
               ),
@@ -563,7 +576,7 @@ class _GetPassFormState extends State<GetPassForm> {
               Padding(
                 padding: EdgeInsets.only(left: 20),
               ),
-              (authStep == 1) ? emptyCircleItem : checkedItem,
+              (authStep == 1) ? emptyCircleItem : circleNumber(2),
               SizedBox(
                 width: 10,
               ),
@@ -742,7 +755,7 @@ class _GetPassFormState extends State<GetPassForm> {
               Padding(
                 padding: EdgeInsets.only(left: 20),
               ),
-              (authStep < 3) ? emptyCircleItem : checkedItem,
+              (authStep < 3) ? emptyCircleItem : circleNumber(3),
               SizedBox(
                 width: 10,
               ),
@@ -830,6 +843,8 @@ class _GetPassFormState extends State<GetPassForm> {
                                       showToastMessage(text:'인증번호가 일치하지 않습니다.', position: 1);
                                       return;
                                     }
+                                    if(findEmail)
+                                      foundEmail = await getUsername(_authNumberController.text);
                                     setState(() {
                                       authStep++;
                                     });
@@ -860,6 +875,10 @@ class _GetPassFormState extends State<GetPassForm> {
               borderRadius: BorderRadius.circular(0),
               borderSide: BorderSide(color: Colors.grey, width: 1),
             ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide: BorderSide(color: Colors.grey, width: 1),
+            ),
             contentPadding: EdgeInsets.only(left: 10),
           ),
           obscureText: true,
@@ -876,6 +895,10 @@ class _GetPassFormState extends State<GetPassForm> {
         child: TextFormField(
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide: BorderSide(color: Colors.grey, width: 1),
+            ),
+            focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(0),
               borderSide: BorderSide(color: Colors.grey, width: 1),
             ),
@@ -993,7 +1016,7 @@ class _GetPassFormState extends State<GetPassForm> {
           children: [
             Container(
                 child: Text(
-              '* 이메일 주소',
+              '* 아이디',
               style: TextStyle(
                 fontFamily: 'HDharmony',
                 fontSize: 12,
@@ -1034,7 +1057,7 @@ class _GetPassFormState extends State<GetPassForm> {
               Padding(
                 padding: EdgeInsets.only(left: 20),
               ),
-              (authStep < 4) ? emptyCircleItem : checkedItem,
+              (authStep < 4) ? emptyCircleItem : circleNumber(4),
               SizedBox(
                 width: 10,
               ),
@@ -1086,14 +1109,14 @@ class _GetPassFormState extends State<GetPassForm> {
           Container(
             padding: EdgeInsets.all(10.0),
             child: Text(
-              '이메일 확인 및 비밀번호 초기화',
+              '아이디 찾기 및 비밀번호 초기화',
               style: TextStyle(fontFamily: 'HDharmony', fontSize: 16),
             ),
           ),
           Container(
             padding: EdgeInsets.all(10.0),
             child: Text(
-              '이메일 아이디 찾기 또는 비밀번호 초기화를 진행합니다.',
+              '아이디 찾기 또는 비밀번호 초기화를 진행합니다.',
               style: TextStyle(
                 fontFamily: 'HDharmony',
                 fontSize: 12,
@@ -1109,9 +1132,9 @@ class _GetPassFormState extends State<GetPassForm> {
             color: Colors.black54,
           ),
           emailOrPasswordItem,
-          authRequestItem,
-          authConfirmItem,
-          infoConfirmOrChangeItem,
+          authStep==1 ? Container() : authRequestItem,
+          authStep < 3 ? Container() : authConfirmItem,
+          authStep < 4 ? Container() : infoConfirmOrChangeItem,
           SizedBox(
             height: 10,
           ),

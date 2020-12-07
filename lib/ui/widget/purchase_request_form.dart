@@ -523,6 +523,8 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                         VisitScreen(
                             item: cartItem,
                             count: count));
+                  } else {
+                    common.showToastMessage(text:'수령방식을 선택하세요.', position: 1);
                   }
                 },
               ),

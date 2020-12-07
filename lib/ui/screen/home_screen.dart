@@ -22,6 +22,11 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
+  @override
+  void initState(){
+
+  }
   @override
   Widget build(BuildContext context) {
     final double topHeight = MediaQuery.of(context).size.height / 3.0;
@@ -166,7 +171,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           onPressed: () {
-                            if (globalSidoLoaded)
+//                            if (globalSidoLoaded)
                               Navigator.push(
                                   context,
                                   PageRouteBuilder(
@@ -205,7 +210,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ],
                           ),
                           onPressed: () {
-                            if (globalModelsLoaded)
+//                            if (globalModelsLoaded)
                               Navigator.push(
                                 context,
                                 PageRouteBuilder(
