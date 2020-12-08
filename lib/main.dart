@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:mobispartsearch/repository/cart_repository.dart';
 import 'package:mobispartsearch/repository/market_search_repository.dart';
 import 'package:mobispartsearch/repository/simple_search_repository.dart';
@@ -21,6 +22,7 @@ import 'package:mobispartsearch/common.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
 
   HttpOverrides.global = new TestHttpOverrides();
 

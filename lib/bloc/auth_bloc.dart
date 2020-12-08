@@ -23,10 +23,13 @@ class AuthEventSignUp extends AuthEvent {
 }
 
 class AuthEventSignOut extends AuthEvent {
-  final Function() completeCallback;
-
-  AuthEventSignOut({this.completeCallback});
 }
+
+class AuthEventGoogleSignin extends AuthEvent {}
+
+class AuthEventNaverSignin extends AuthEvent {}
+
+class AuthEventKakaoSignin extends AuthEvent {}
 
 class AuthState {
   String errorMsg;
@@ -106,7 +109,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         globalUsername = event.id;
         yield state.success(id: event.id);
       } else
-        yield state.unauthenticated('로그인 실패!');
+        yield state.unauthenticated('아이디 또는 패스워드 오류입니다.');
     } catch (e) {
       yield state.unauthenticated(e.toString());
     }
@@ -126,12 +129,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Stream<AuthState> _mapSignedOutToState(AuthEventSignOut event) async* {
     try {
+      yield state.submitting();
       await userRepository.signOut();
       globalUsername = '';
       yield state.success();
-      // if (event.completeCallback != null) {}
     } catch (e) {
       yield state.unauthenticated(e.toString());
     }
   }
+
+//  Stream<AuthState> _mapGoogleSigninToState(AuthEventGoogleSignin event) sync* {
+//    try {
+//
+//    }
+//  }
 }

@@ -39,7 +39,7 @@ class MarketSearchResultModel {
         adr: map['adr'],
         sigungu: map['sigungu'],
         url: map['url'],
-        totalCnt: map['tot_CNT'],
+        totalCnt: map['tot_cnt'],
         zipcd: map['zipcd'],
         sido: map['sido'],
         tel: map['tel'],

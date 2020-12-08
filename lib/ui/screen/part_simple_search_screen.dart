@@ -152,6 +152,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
     var cardKindItem = Container(
       height: 50,
       child: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 20.0),
@@ -163,58 +164,66 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
               ),
             ),
           ),
-          ButtonTheme(
-            minWidth: 0, //wraps child's width
-            height: 0, //wraps child's height
-            child: FlatButton(
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              child: RadioItem(carKindData[0]),
-              onPressed: () {
-                setState(() {
-                  carKindData.forEach((element) => element.isSelected = false);
-                  carKindData[0].isSelected = true;
-                  bloc.add(VTPYSimpleSearchEvent(0));
-                  vtpy = vtpy_list[0];
-                  vtpy_id = 0;
-                  modelDropdownValue = null;
-                });
-              },
-            ),
-          ),
-          ButtonTheme(
-            minWidth: 0, //wraps child's width
-            height: 0, //wraps child's height
-            child: FlatButton(
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              child: RadioItem(carKindData[1]),
-              onPressed: () {
-                setState(() {
-                  carKindData.forEach((element) => element.isSelected = false);
-                  carKindData[1].isSelected = true;
-                  bloc.add(VTPYSimpleSearchEvent(1));
-                  vtpy = vtpy_list[1];
-                  vtpy_id = 1;
-                  modelDropdownValue = null;
-                });
-              },
-            ),
-          ),
-          ButtonTheme(
-            minWidth: 0, //wraps child's width
-            height: 0, //wraps child's height
-            child: FlatButton(
-              materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-              child: RadioItem(carKindData[2]),
-              onPressed: () {
-                setState(() {
-                  carKindData.forEach((element) => element.isSelected = false);
-                  carKindData[2].isSelected = true;
-                  bloc.add(VTPYSimpleSearchEvent(2));
-                  vtpy = vtpy_list[2];
-                  vtpy_id = 2;
-                  modelDropdownValue = null;
-                });
-              },
+          Expanded(
+            child: ListView(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              children: [
+                ButtonTheme(
+                  minWidth: 0, //wraps child's width
+                  height: 0, //wraps child's height
+                  child: FlatButton(
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    child: RadioItem(carKindData[0]),
+                    onPressed: () {
+                      setState(() {
+                        carKindData.forEach((element) => element.isSelected = false);
+                        carKindData[0].isSelected = true;
+                        bloc.add(VTPYSimpleSearchEvent(0));
+                        vtpy = vtpy_list[0];
+                        vtpy_id = 0;
+                        modelDropdownValue = null;
+                      });
+                    },
+                  ),
+                ),
+                ButtonTheme(
+                  minWidth: 0, //wraps child's width
+                  height: 0, //wraps child's height
+                  child: FlatButton(
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    child: RadioItem(carKindData[1]),
+                    onPressed: () {
+                      setState(() {
+                        carKindData.forEach((element) => element.isSelected = false);
+                        carKindData[1].isSelected = true;
+                        bloc.add(VTPYSimpleSearchEvent(1));
+                        vtpy = vtpy_list[1];
+                        vtpy_id = 1;
+                        modelDropdownValue = null;
+                      });
+                    },
+                  ),
+                ),
+                ButtonTheme(
+                  minWidth: 0, //wraps child's width
+                  height: 0, //wraps child's height
+                  child: FlatButton(
+                    materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                    child: RadioItem(carKindData[2]),
+                    onPressed: () {
+                      setState(() {
+                        carKindData.forEach((element) => element.isSelected = false);
+                        carKindData[2].isSelected = true;
+                        bloc.add(VTPYSimpleSearchEvent(2));
+                        vtpy = vtpy_list[2];
+                        vtpy_id = 2;
+                        modelDropdownValue = null;
+                      });
+                    },
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -230,14 +239,16 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
                     value: modelDropdownValue,
-                    hint: Padding(
+                    hint: Container(
                       padding: EdgeInsets.only(left: 10),
                       child: Text(
                         '[선택]',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           fontFamily: 'HDharmony',
                         ),
                       ),
+                      alignment: Alignment.center,
                     ),
                     icon: Icon(Icons.keyboard_arrow_down),
                     iconSize: 14,
@@ -250,7 +261,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                       return DropdownMenuItem<String>(
                         value: item.modelname,
                         child: Container(
-                          width: 160,
+                          width: 200,
                           child: Text(
                             item.modelname,
                             textAlign: TextAlign.center,
@@ -259,7 +270,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                               fontSize: 14,
                             ),
                           ),
-                          alignment: Alignment.center,
+//                          alignment: Alignment.center,
                         ),
                       );
                     })?.toList()),

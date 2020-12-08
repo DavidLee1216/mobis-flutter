@@ -1,8 +1,12 @@
+import 'dart:developer';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/auth_bloc.dart';
 import 'package:mobispartsearch/model/user_model.dart';
 import 'package:mobispartsearch/common.dart';
+import 'package:kopo/kopo.dart';
 
 enum Gender { male, female }
 
@@ -38,6 +42,9 @@ class _RegisterFormState extends State<RegisterForm> {
   String _birthday = '';
 
   int seq = -1;
+  bool authConfirmed = false;
+
+  var postCode = '';
 
   @override
   void dispose() {
@@ -57,10 +64,14 @@ class _RegisterFormState extends State<RegisterForm> {
     super.dispose();
   }
 
-  messageBox(String string){
-     showDialog(context: context, builder: (context){
-      return AlertDialog(content: Text(string),);
-    });
+  messageBox(String string) {
+    showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Text(string),
+          );
+        });
   }
 
   @override
@@ -79,7 +90,8 @@ class _RegisterFormState extends State<RegisterForm> {
         String addressExtended,
         String vin,
         String vlp) async {
-      if (_formKey.currentState.validate() && seq != -1) {//
+      if (_formKey.currentState.validate() && seq != -1) {
+        //
         User user = User(
             address: address,
             addressExtended: addressExtended,
@@ -97,9 +109,8 @@ class _RegisterFormState extends State<RegisterForm> {
             vlp: vlp,
             zipcode: zipcode);
         bloc.add(AuthEventSignUp(user: user));
-      }
-      else if(seq == -1){
-        messageBox('인증번호를 확인하세요.');
+      } else if (seq == -1) {
+        showToastMessage(text: '인증번호를 확인하세요.', position: 1);
       }
     }
 
@@ -183,8 +194,10 @@ class _RegisterFormState extends State<RegisterForm> {
               color: kPrimaryColor,
             )),
         onPressed: () async {
-          if (await checkUsername(_idController.text) == false) {
-            messageBox('아이디가 이미 등록되여 있습니다.');
+          if (await checkUsername(_idController.text.trim()) == false) {
+            showToastMessage(text: '아이디가 이미 등록되여 있습니다.', position: 1);
+          } else {
+            showToastMessage(text: "사용할수 있는 아이디입니다.", position: 1);
           }
         },
       ),
@@ -233,8 +246,10 @@ class _RegisterFormState extends State<RegisterForm> {
               color: kPrimaryColor,
             )),
         onPressed: () async {
-          if (await checkEmail(_emailController.text) == false) {
-            messageBox('이메일이 이미 등록되여 있습니다.');
+          if (await checkEmail(_emailController.text.trim()) == false) {
+            showToastMessage(text: '이메일이 이미 등록되여 있습니다.', position: 1);
+          } else {
+            showToastMessage(text: '사용할수 있는 이메일입니다.', position: 1);
           }
         },
       ),
@@ -261,7 +276,7 @@ class _RegisterFormState extends State<RegisterForm> {
     Future<void> _selectedDate(BuildContext context) async {
       final DateTime picked = await showDatePicker(
         context: context,
-        locale : const Locale("ko","KR"),
+        locale: const Locale("ko", "KR"),
         initialDate: DateTime.now(),
         firstDate: DateTime(1900),
         lastDate: DateTime(2050),
@@ -342,27 +357,40 @@ class _RegisterFormState extends State<RegisterForm> {
       ],
     );
 
-    var phoneNumberField = TextFormField(
-      decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2),
-          borderSide: BorderSide(color: Colors.grey, width: 1),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2),
-          borderSide: BorderSide(color: Colors.grey, width: 1),
-        ),
-        contentPadding: EdgeInsets.only(left: 10),
-      ),
-      keyboardType: TextInputType.number,
-      style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
-      validator: (value) => value.isEmpty
-          ? "휴대폰 번호를 입력하세요."
-          : validateMobileString(value)
-              ? null
-              : "휴대폰 번호를 확인해주세요.",
-      controller: _phoneNumberController,
-    );
+    var phoneNumberField = !authConfirmed
+        ? TextFormField(
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(2),
+                borderSide: BorderSide(color: Colors.grey, width: 1),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(2),
+                borderSide: BorderSide(color: Colors.grey, width: 1),
+              ),
+              contentPadding: EdgeInsets.only(left: 10),
+            ),
+            keyboardType: TextInputType.number,
+            style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
+            validator: (value) => value.isEmpty
+                ? "휴대폰 번호를 입력하세요."
+                : validateMobileString(value)
+                    ? null
+                    : "휴대폰 번호를 확인해주세요.",
+            controller: _phoneNumberController,
+          )
+        : FocusScope(
+            node: new FocusScopeNode(),
+            child: new TextFormField(
+              enabled: false,
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  color: Colors.black26,
+                  fontSize: 16.0),
+              decoration: new InputDecoration(
+                hintText: _phoneNumberController.text,
+              ),
+            ));
 
     var phoneAuthGetButton = ButtonTheme(
       minWidth: MediaQuery.of(context).size.width / 4,
@@ -385,26 +413,40 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
         onPressed: () async {
           await validateSMS(_phoneNumberController.text);
+          showToastMessage(text: '인증번호가 발송되었습니다.', position: 1);
         },
       ),
     );
 
-    var phoneAuthField = TextField(
-      decoration: InputDecoration(
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2),
-          borderSide: BorderSide(color: Colors.grey, width: 1),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(2),
-          borderSide: BorderSide(color: Colors.grey, width: 1),
-        ),
-        contentPadding: EdgeInsets.only(left: 10),
-      ),
-      keyboardType: TextInputType.text,
-      style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
-      controller: _authNumberVerifyController,
-    );
+    var phoneAuthField = !authConfirmed
+        ? TextField(
+            decoration: InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(2),
+                borderSide: BorderSide(color: Colors.grey, width: 1),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(2),
+                borderSide: BorderSide(color: Colors.grey, width: 1),
+              ),
+              contentPadding: EdgeInsets.only(left: 10),
+            ),
+            keyboardType: TextInputType.number,
+            style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
+            controller: _authNumberVerifyController,
+          )
+        : FocusScope(
+            node: new FocusScopeNode(),
+            child: new TextFormField(
+              enabled: false,
+              style: TextStyle(
+                  fontFamily: 'HDharmony',
+                  color: Colors.black26,
+                  fontSize: 16.0),
+              decoration: new InputDecoration(
+                hintText: _authNumberVerifyController.text,
+              ),
+            ));
 
     var phoneAuthConfirmButton = ButtonTheme(
       minWidth: MediaQuery.of(context).size.width / 4,
@@ -425,14 +467,32 @@ class _RegisterFormState extends State<RegisterForm> {
             )),
         onPressed: () async {
           seq = await validateCode(_authNumberVerifyController.text);
-          if(seq == -1){
-            messageBox('인증번호가 일치하지 않습니다.');
+          if (seq == -1) {
+            showToastMessage(text: '인증번호가 일치하지 않습니다.', position: 1);
+          } else {
+            showToastMessage(text: '인증번호가 확인되었습니다.', position: 1);
+            setState(() {
+              authConfirmed = true;
+            });
+//            phoneNumberField.enabled = false;
           }
         },
       ),
     );
 
+    var address0Field = Container(
+      height: 50,
+      child: Text(this.postCode),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Colors.grey,
+          width: 1,
+        ),
+      ),
+    );
+
     var address1Field = TextField(
+      readOnly: true,
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(2),
@@ -500,7 +560,20 @@ class _RegisterFormState extends State<RegisterForm> {
               fontFamily: 'HDharmony',
               color: kPrimaryColor,
             )),
-        onPressed: () {},
+        onPressed: () async {
+          KopoModel kopoModel = await Navigator.push(
+            context,
+            CupertinoPageRoute(
+              builder: (context) => Kopo(),
+            ),
+          );
+          if (kopoModel != null) {
+            setState(() {
+              _address1Controller.text = kopoModel.zonecode;
+              _address2Controller.text = kopoModel.address;
+            });
+          }
+        },
       ),
     );
 
@@ -553,22 +626,22 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
         ),
         onPressed: () async {
-          if(_passwordController.text==_repasswordController.text)
+          if (_passwordController.text == _repasswordController.text)
             await registerUser(
-                _idController.text,
-                _phoneNumberController.text,
-                _emailController.text,
-                encryptPassword(_passwordController.text),
-                _nameController.text,
+                _idController.text.trim(),
+                _phoneNumberController.text.trim(),
+                _emailController.text.trim(),
+                encryptPassword(_passwordController.text.trim()),
+                _nameController.text.trim(),
                 _birthday,
                 sexCode,
-                _address1Controller.text,
-                _address2Controller.text,
-                _address3Controller.text,
-                _carNumber1Controller.text,
-                _carNumber2Controller.text);
+                _address1Controller.text.trim(),
+                _address2Controller.text.trim(),
+                _address3Controller.text.trim(),
+                _carNumber1Controller.text.trim(),
+                _carNumber2Controller.text.trim());
           else
-            messageBox('비밀번호가 일치하지 않습니다.');
+            showToastMessage(text: '비밀번호가 일치하지 않습니다.', position: 1);
         },
       ),
     );

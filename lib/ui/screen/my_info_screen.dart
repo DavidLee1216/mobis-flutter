@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kopo/kopo.dart';
 import 'package:mobispartsearch/common.dart';
 
 class MyInfoScreen extends StatefulWidget {
@@ -23,11 +24,11 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
 
-    _nameController.text = '양**';
-    _emailController.text = '1234@gmail.com';
-    _address1Controller.text = '서울특별시 강남구 테헤란로 203';
-    _address2Controller.text = 'SI타워 현대모비스(주)';
-    _postCodeController.text = '06141';
+    _nameController.text = globalUsername ?? '';
+    _emailController.text = globalUser.email ?? '';
+    _address1Controller.text = globalUser.address ?? '';
+    _address2Controller.text = globalUser.addressExtended ?? '';
+    _postCodeController.text = globalUser.zipcode ?? '';
 
     var userNameItem = Container(
       padding: EdgeInsets.only(top: 10.0),
@@ -211,7 +212,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
           Container(
             padding: EdgeInsets.fromLTRB(30, 10, 0, 10),
             child: Text(
-              '010-1234-5678',
+              globalUser.mobile ?? '',
               style: TextStyle(
                 fontFamily: 'HDharmony',
                 fontSize: 14,
@@ -422,7 +423,20 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              onPressed: () {},
+              onPressed: () async {
+                KopoModel kopoModel = await Navigator.push(
+                  context,
+                  CupertinoPageRoute(
+                    builder: (context) => Kopo(),
+                  ),
+                );
+                if(kopoModel != null){
+                  setState(() {
+                    _postCodeController.text = kopoModel.zonecode;
+                    _address1Controller.text = kopoModel.address;
+                  });
+                }
+              },
             ),
           ),
         ],

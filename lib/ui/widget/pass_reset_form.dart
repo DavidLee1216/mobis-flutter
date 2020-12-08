@@ -14,7 +14,7 @@ class _GetPassFormState extends State<GetPassForm> {
   int birthDay = 1;
   String phoneCode = '+82';
   int authStep = 1;
-  bool mobileAuth = true; //if false, then email auth
+  bool mobileAuth = false; //if false, then email auth
   bool findEmail = true; //if false, then password reset
   int authSeq = -1;
   String foundEmail = '';
@@ -64,7 +64,7 @@ class _GetPassFormState extends State<GetPassForm> {
                 width: 10,
               ),
               Text(
-                '이메일 또는 비밀번호',
+                '아이디 또는 비밀번호',
                 style: TextStyle(
                   fontFamily: 'HDharmony',
                   color: const Color(0xFF004B87),
@@ -98,7 +98,7 @@ class _GetPassFormState extends State<GetPassForm> {
                       children: [
                         Container(
                             child: Text(
-                          '* 이메일 아이디를 찾으시려면 아래 버튼을 선택하세요.',
+                          '* 아이디를 찾으시려면 아래 버튼을 선택하세요.',
                           style: TextStyle(
                             fontFamily: 'HDharmony',
                             fontSize: 12,
@@ -111,16 +111,19 @@ class _GetPassFormState extends State<GetPassForm> {
                         Container(
                           height: 40,
                           width: MediaQuery.of(context).size.width * 0.72,
-                          child: OutlineButton(
-                            borderSide: BorderSide(
-                              color: Colors.black,
-                            ),
+                          child: RaisedButton(
+                            color: mobileAuth && findEmail ? kPrimaryColor : Colors.white,
+                            shape: mobileAuth && findEmail
+                                ? Border.all(
+                                    color: Color.fromRGBO(0, 63, 114, 1), width: 1)
+                                : Border.all(
+                                    color: Colors.transparent, width: 1),
                             child: Text(
-                              '이메일 찾기',
+                              '아이디 찾기',
                               style: TextStyle(
                                   fontFamily: 'HDharmony',
                                   fontSize: 14,
-                                  color: Color(0xff7f7f7f)),
+                                  color: mobileAuth && findEmail ? Colors.white : Color(0xff7f7f7f)),
                             ),
                             onPressed: () {
                               if (authStep == 1)
@@ -129,6 +132,8 @@ class _GetPassFormState extends State<GetPassForm> {
                                   mobileAuth = true;
                                   authStep++;
                                 });
+                              else
+                                showToastMessage(text: '선택단계가 아닙니다.', position: 1);
                             },
                           ),
                         ),
@@ -152,14 +157,19 @@ class _GetPassFormState extends State<GetPassForm> {
                             Container(
                               width: MediaQuery.of(context).size.width * 0.35,
                               height: 40,
-                              child: OutlineButton(
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                ),
+                              child: RaisedButton(
+                                color: !mobileAuth && !findEmail ? kPrimaryColor : Colors.white,
+                                shape: !mobileAuth && !findEmail
+                                    ? Border.all(
+                                        color: Color.fromRGBO(0, 63, 114, 1), width: 1)
+                                    : Border.all(
+                                        color: Colors.transparent, width: 1),
                                 child: Text(
                                   '이메일 인증',
                                   style: TextStyle(
-                                      fontFamily: 'HDharmony', fontSize: 14),
+                                      fontFamily: 'HDharmony',
+                                      fontSize: 14,
+                                      color: !mobileAuth && !findEmail ? Colors.white : Color(0xff7f7f7f)),
                                 ),
                                 onPressed: () {
                                   if (authStep == 1)
@@ -168,6 +178,8 @@ class _GetPassFormState extends State<GetPassForm> {
                                       findEmail = false;
                                       authStep++;
                                     });
+                                  else
+                                    showToastMessage(text: '선택단계가 아닙니다.', position: 1);
                                 },
                               ),
                             ),
@@ -177,14 +189,19 @@ class _GetPassFormState extends State<GetPassForm> {
                             Container(
                               height: 40,
                               width: MediaQuery.of(context).size.width * 0.35,
-                              child: OutlineButton(
-                                borderSide: BorderSide(
-                                  color: Colors.black,
-                                ),
+                              child: RaisedButton(
+                                color: mobileAuth && !findEmail ? kPrimaryColor : Colors.white,
+                                shape: mobileAuth && !findEmail
+                                    ? Border.all(
+                                        color: Color.fromRGBO(0, 63, 114, 1), width: 1)
+                                    : Border.all(
+                                        color: Colors.transparent, width: 1),
                                 child: Text(
                                   '모바일 인증',
                                   style: TextStyle(
-                                      fontFamily: 'HDharmony', fontSize: 14),
+                                      fontFamily: 'HDharmony',
+                                      fontSize: 14,
+                                      color: mobileAuth && !findEmail ? Colors.white : Color(0xff7f7f7f)),
                                 ),
                                 onPressed: () {
                                   if (authStep == 1) {
@@ -193,6 +210,8 @@ class _GetPassFormState extends State<GetPassForm> {
                                       findEmail = false;
                                       authStep = 2;
                                     });
+                                  } else {
+                                    showToastMessage(text: '선택단계가 아닙니다.', position: 1);
                                   }
                                 },
                               ),
@@ -335,6 +354,7 @@ class _GetPassFormState extends State<GetPassForm> {
 
     dayDropdownmenu(int year, int month) {
       int days = getDaysFromYearMonth(year, month);
+      if (birthDay > getDaysFromYearMonth(year, month)) birthDay = 1;
       return Container(
           width: MediaQuery.of(context).size.width * 0.23,
           height: 40,
@@ -515,11 +535,15 @@ class _GetPassFormState extends State<GetPassForm> {
             height: 10,
           ),
           Container(
-            height: 30,
+            height: 40,
             width: 200,
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(0),
+                  borderSide: BorderSide(color: Colors.black, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(0),
                   borderSide: BorderSide(color: Colors.black, width: 1),
                 ),
@@ -552,7 +576,7 @@ class _GetPassFormState extends State<GetPassForm> {
               Padding(
                 padding: EdgeInsets.only(left: 20),
               ),
-              (authStep == 1) ? emptyCircleItem : checkedItem,
+              (authStep == 1) ? emptyCircleItem : circleNumber(2),
               SizedBox(
                 width: 10,
               ),
@@ -630,6 +654,8 @@ class _GetPassFormState extends State<GetPassForm> {
                                     setState(() {
                                       authStep--;
                                     });
+                                  } else {
+                                    showToastMessage(text:'인증요청 단계가 아닙니다.', position: 1);
                                   }
                                 },
                               ),
@@ -656,13 +682,14 @@ class _GetPassFormState extends State<GetPassForm> {
                                           phoneCode.substring(1) +
                                               "-" +
                                               _phoneNumberController.text;
-                                      print(phoneNumber);
                                       validateSMS(phoneNumber);
                                     } else
                                       validateEmail(_emailController.text);
                                     setState(() {
                                       authStep++;
                                     });
+                                  } else {
+                                    showToastMessage(text:'인증요청 단계가 아닙니다.', position: 1);
                                   }
                                 },
                               ),
@@ -696,7 +723,7 @@ class _GetPassFormState extends State<GetPassForm> {
           height: 10,
         ),
         Container(
-          width: MediaQuery.of(context).size.width * 0.9,
+//          width: MediaQuery.of(context).size.width * 0.7,
           height: 50,
           child: TextField(
             decoration: InputDecoration(
@@ -728,7 +755,7 @@ class _GetPassFormState extends State<GetPassForm> {
               Padding(
                 padding: EdgeInsets.only(left: 20),
               ),
-              (authStep < 3) ? emptyCircleItem : checkedItem,
+              (authStep < 3) ? emptyCircleItem : circleNumber(3),
               SizedBox(
                 width: 10,
               ),
@@ -787,34 +814,45 @@ class _GetPassFormState extends State<GetPassForm> {
                                   setState(() {
                                     authStep--;
                                   });
+                                else
+                                  showToastMessage(text: '인증확인 단계가 아닙니다.', position: 1);
                               },
                             ),
                           ),
                           SizedBox(
                             width: 10,
                           ),
-                          Container(
-                            height: 40,
-                            width: MediaQuery.of(context).size.width * 0.36,
-                            child: RaisedButton(
-                              color: kPrimaryColor,
-                              child: Text(
-                                '인증',
-                                style: TextStyle(
-                                    fontFamily: 'HDharmony',
-                                    fontSize: 14,
-                                    color: Colors.white),
+                          Expanded(
+                            child: Container(
+                              height: 40,
+                              width: MediaQuery.of(context).size.width * 0.36,
+                              child: RaisedButton(
+                                color: kPrimaryColor,
+                                child: Text(
+                                  '인증',
+                                  style: TextStyle(
+                                      fontFamily: 'HDharmony',
+                                      fontSize: 14,
+                                      color: Colors.white),
+                                ),
+                                onPressed: () async {
+                                  if (authStep == 3) {
+                                    authSeq = await validateCode(
+                                        _authNumberController.text);
+                                    if (authSeq == -1) {
+                                      showToastMessage(text:'인증번호가 일치하지 않습니다.', position: 1);
+                                      return;
+                                    }
+                                    if(findEmail)
+                                      foundEmail = await getUsername(_authNumberController.text);
+                                    setState(() {
+                                      authStep++;
+                                    });
+                                  } else {
+                                    showToastMessage(text: '인증확인 단계가 아닙니다.', position: 1);
+                                  }
+                                },
                               ),
-                              onPressed: () async {
-                                if (authStep == 3) {
-                                  authSeq = await validateCode(
-                                      _authNumberController.text);
-                                  if (authSeq == -1) return;
-                                  setState(() {
-                                    authStep++;
-                                  });
-                                }
-                              },
                             ),
                           ),
                         ],
@@ -830,10 +868,14 @@ class _GetPassFormState extends State<GetPassForm> {
     );
 
     var passField = Container(
-        height: 30,
+        height: 40,
         child: TextFormField(
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide: BorderSide(color: Colors.grey, width: 1),
+            ),
+            focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(0),
               borderSide: BorderSide(color: Colors.grey, width: 1),
             ),
@@ -849,10 +891,14 @@ class _GetPassFormState extends State<GetPassForm> {
           controller: _passwordController,
         ));
     var repassField = Container(
-        height: 30,
+        height: 40,
         child: TextFormField(
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(0),
+              borderSide: BorderSide(color: Colors.grey, width: 1),
+            ),
+            focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(0),
               borderSide: BorderSide(color: Colors.grey, width: 1),
             ),
@@ -886,7 +932,9 @@ class _GetPassFormState extends State<GetPassForm> {
               Text(
                 '* 비밀번호를 입력하고 변경 버튼을 누르세요.',
                 style: TextStyle(
-                    fontFamily: 'HDharmony', fontSize: 12, color: Colors.black),
+                    fontFamily: 'HDharmony',
+                    fontSize: 12,
+                    color: Color(0xff7f7f7f)),
                 textAlign: TextAlign.left,
               ),
               SizedBox(
@@ -940,6 +988,10 @@ class _GetPassFormState extends State<GetPassForm> {
                       resetPassword(
                           encryptPassword(_passwordController.text), authSeq);
                     }
+                    else if(_passwordController.text == '' || _repasswordController.text == '')
+                      showToastMessage(text:'비밀번호를 입력하세요.', position: 1);
+                    else
+                      showToastMessage(text:'비밀번호가 일치하지 않습니다. 다시 입력하세요.', position: 1);
                   },
                 ),
               ),
@@ -964,7 +1016,7 @@ class _GetPassFormState extends State<GetPassForm> {
           children: [
             Container(
                 child: Text(
-              '* 이메일 주소',
+              '* 아이디',
               style: TextStyle(
                 fontFamily: 'HDharmony',
                 fontSize: 12,
@@ -982,7 +1034,7 @@ class _GetPassFormState extends State<GetPassForm> {
                 ),
                 Container(
                   child: Text(
-                    foundEmail,
+                    foundEmail ?? '찾고 있는 아이디가 없습니다.',
                     style: TextStyle(
                         fontFamily: 'HDharmony',
                         fontSize: 14,
@@ -1005,7 +1057,7 @@ class _GetPassFormState extends State<GetPassForm> {
               Padding(
                 padding: EdgeInsets.only(left: 20),
               ),
-              (authStep < 4) ? emptyCircleItem : checkedItem,
+              (authStep < 4) ? emptyCircleItem : circleNumber(4),
               SizedBox(
                 width: 10,
               ),
@@ -1033,26 +1085,17 @@ class _GetPassFormState extends State<GetPassForm> {
       ),
     );
 
-    var gotoLoginButton = Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            color: Colors.black,
-            width: 1,
-          ),
+    var gotoLoginButton = Center(
+      child: FlatButton(
+        shape: Border(bottom: BorderSide(color: Color(0xff7f7f7f), width: 1)),
+        child: Text(
+          '로그인 페이지로 이동',
+          style: TextStyle(
+              fontFamily: 'HDharmony', fontSize: 14, color: Color(0xff7f7f7f)),
         ),
-      ),
-      child: Center(
-        child: FlatButton(
-          child: Text(
-            '로그인 페이지로',
-            style: TextStyle(
-                fontFamily: 'HDharmony', fontSize: 14, color: Colors.black),
-          ),
-          onPressed: () {
-            pushTo(context, IdLoginScreen());
-          },
-        ),
+        onPressed: () {
+          pushTo(context, IdLoginScreen());
+        },
       ),
     );
 
@@ -1066,14 +1109,14 @@ class _GetPassFormState extends State<GetPassForm> {
           Container(
             padding: EdgeInsets.all(10.0),
             child: Text(
-              '이메일 확인 및 비밀번호 초기화',
+              '아이디 찾기 및 비밀번호 초기화',
               style: TextStyle(fontFamily: 'HDharmony', fontSize: 16),
             ),
           ),
           Container(
             padding: EdgeInsets.all(10.0),
             child: Text(
-              '이메일 아이디 찾기 또는 비밀번호 초기화를 진행합니다.',
+              '아이디 찾기 또는 비밀번호 초기화를 진행합니다.',
               style: TextStyle(
                 fontFamily: 'HDharmony',
                 fontSize: 12,
@@ -1089,9 +1132,9 @@ class _GetPassFormState extends State<GetPassForm> {
             color: Colors.black54,
           ),
           emailOrPasswordItem,
-          authRequestItem,
-          authConfirmItem,
-          infoConfirmOrChangeItem,
+          authStep==1 ? Container() : authRequestItem,
+          authStep < 3 ? Container() : authConfirmItem,
+          authStep < 4 ? Container() : infoConfirmOrChangeItem,
           SizedBox(
             height: 10,
           ),
@@ -1102,6 +1145,9 @@ class _GetPassFormState extends State<GetPassForm> {
             height: 10,
           ),
           gotoLoginButton,
+          SizedBox(
+            height: 10,
+          )
         ],
       ),
     );

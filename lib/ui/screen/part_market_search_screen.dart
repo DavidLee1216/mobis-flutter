@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -242,7 +241,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
               return DropdownMenuItem<String>(
                 value: item.sido,
                 child: Container(
-                  width: 160,
+                  width: 200,
                   child: Text(
                     item.sido,
                     textAlign: TextAlign.center,
@@ -287,7 +286,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
               return DropdownMenuItem<String>(
                 value: item.sigungu,
                 child: Container(
-                  width: 160,
+                  width: 200,
                   child: Text(
                     item.sigungu,
                     textAlign: TextAlign.center,
@@ -345,7 +344,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                 ),
               ),
               SizedBox(
-                width: 20,
+                width: 10,
               ),
               Container(
                 width: MediaQuery.of(context).size.width * 0.7,
@@ -397,7 +396,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
               bloc.add(SearchMarketSearchEvent(ptno, sido, sigungu));
               setState(() {});
             } else {
-              messageBox('부품번호를 입력하세요.');
+              showToastMessage(text:'부품번호를 입력하세요.', position: 1);
             }
           },
         ),

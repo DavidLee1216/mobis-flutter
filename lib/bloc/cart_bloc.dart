@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/model/cart_model.dart';
 import 'package:mobispartsearch/model/product_model.dart';
@@ -191,7 +189,6 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       else
         yield state.success();
     } catch (e) {
-      log(e.toString());
       yield state.unprocessed('접속 실패');
     }
   }
