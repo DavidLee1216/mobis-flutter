@@ -46,6 +46,9 @@ class _RegisterFormState extends State<RegisterForm> {
 
   var postCode = '';
 
+  LoginType loginType = LoginType.NONE;
+  String gmail = '';
+
   @override
   void dispose() {
     _idController.dispose();
@@ -203,7 +206,7 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
     );
 
-    var emailField = TextFormField(
+    var emailField = (loginType == LoginType.NONE) ? TextFormField(
       decoration: InputDecoration(
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(2),
@@ -227,7 +230,22 @@ class _RegisterFormState extends State<RegisterForm> {
               ? null
               : "이메일을 확인해주세요.",
       controller: _emailController,
-    );
+    ) : FocusScope(
+        node: new FocusScopeNode(),
+        child: new TextFormField(
+          enabled: false,
+          style: TextStyle(
+              fontFamily: 'HDharmony',
+              color: Colors.black26,
+              fontSize: 16.0),
+          decoration: new InputDecoration(
+            hintText: gmail,
+            disabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(2),
+              borderSide: BorderSide(color: Colors.grey, width: 1),
+            ),
+          ),
+        ));
 
     var emailDupConfirmButton = ButtonTheme(
       minWidth: MediaQuery.of(context).size.width / 4,
@@ -246,7 +264,9 @@ class _RegisterFormState extends State<RegisterForm> {
               color: kPrimaryColor,
             )),
         onPressed: () async {
-          if (await checkEmail(_emailController.text.trim()) == false) {
+          if(_emailController.text.trim().isEmpty){
+            showToastMessage(text: '이메일을 입력하세요.', position: 1);
+          }else if (await checkEmail(_emailController.text.trim()) == false) {
             showToastMessage(text: '이메일이 이미 등록되여 있습니다.', position: 1);
           } else {
             showToastMessage(text: '사용할수 있는 이메일입니다.', position: 1);
@@ -480,17 +500,6 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
     );
 
-    var address0Field = Container(
-      height: 50,
-      child: Text(this.postCode),
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.grey,
-          width: 1,
-        ),
-      ),
-    );
-
     var address1Field = TextField(
       readOnly: true,
       decoration: InputDecoration(
@@ -646,431 +655,442 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
     );
 
-    return Container(
-      color: Colors.white,
-      child: Form(
-        key: _formKey,
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          shrinkWrap: true,
-          padding: EdgeInsets.all(20),
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(top: 20),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 10.0),
-                child: Text(
-                  '아이디',
-                  style: TextStyle(
-                    fontFamily: 'HDharmony',
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              height: 50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: idField,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    idDupConfirmButton,
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  '비밀번호',
-                  style: TextStyle(
-                    fontFamily: 'HDharmony',
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(height: 5),
-            Container(
-              height: 50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: passField,
-              ),
-            ),
-            SizedBox(height: 15),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  '비밀번호 확인',
-                  style: TextStyle(
-                    fontFamily: 'HDharmony',
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              height: 50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: repassField,
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.warning,
-                      size: 20,
-                      color: kPrimaryColor,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: Text(
-                        '8~20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.',
-                        style: TextStyle(
-                            fontFamily: 'HDharmony',
-                            color: kPrimaryColor,
-                            fontSize: 12),
+    return BlocBuilder<AuthBloc, AuthState>(
+      cubit: BlocProvider.of<AuthBloc>(context),
+      builder: (BuildContext context, state) {
+        if(state.loginType==LoginType.GOOGLE)
+        {
+          loginType = LoginType.GOOGLE;
+          gmail = googleUser.email;
+          _emailController.text = gmail;
+        }
+        return Container(
+          color: Colors.white,
+          child: Form(
+            key: _formKey,
+            child: ListView(
+              scrollDirection: Axis.vertical,
+              shrinkWrap: true,
+              padding: EdgeInsets.all(20),
+              children: <Widget>[
+                Container(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      '아이디',
+                      style: TextStyle(
+                        fontFamily: 'HDharmony',
+                        fontSize: 16,
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  '이메일',
-                  style: TextStyle(
-                    fontFamily: 'HDharmony',
-                    fontSize: 16,
                   ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              height: 50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  children: [
-                    Expanded(child: emailField),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    emailDupConfirmButton,
-                  ],
+                SizedBox(
+                  height: 5,
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  '이름',
-                  style: TextStyle(
-                    fontFamily: 'HDharmony',
-                    fontSize: 16,
+                Container(
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: idField,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        idDupConfirmButton,
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              height: 50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: nameField,
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  '생년월일',
-                  style: TextStyle(
-                    fontFamily: 'HDharmony',
-                    fontSize: 16,
-                  ),
+                SizedBox(
+                  height: 15,
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              height: 50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: birthdayField,
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  '성별',
-                  style: TextStyle(
-                    fontFamily: 'HDharmony',
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  maleRadio,
-                  SizedBox(
-                    width: 50,
-                  ),
-                  femaleRadio,
-                ],
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  '휴대폰',
-                  style: TextStyle(
-                    fontFamily: 'HDharmony',
-                    fontSize: 16,
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              height: 50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  children: [
-                    Expanded(child: phoneNumberField),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    phoneAuthGetButton,
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              height: 50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: phoneAuthField,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    phoneAuthConfirmButton,
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 20),
-                child: Row(
-                  children: [
-                    Icon(
-                      Icons.warning,
-                      size: 20,
-                      color: kPrimaryColor,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    Text(
-                      '공백 특수기호 없이 특수문자만 입력하세요',
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      '비밀번호',
                       style: TextStyle(
-                          fontFamily: 'HDharmony',
+                        fontFamily: 'HDharmony',
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(height: 5),
+                Container(
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: passField,
+                  ),
+                ),
+                SizedBox(height: 15),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      '비밀번호 확인',
+                      style: TextStyle(
+                        fontFamily: 'HDharmony',
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: repassField,
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.warning,
+                          size: 20,
                           color: kPrimaryColor,
-                          fontSize: 12),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text(
+                            '8~20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.',
+                            style: TextStyle(
+                                fontFamily: 'HDharmony',
+                                color: kPrimaryColor,
+                                fontSize: 12),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  '주소',
-                  style: TextStyle(
-                    fontFamily: 'HDharmony',
-                    fontSize: 16,
                   ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              height: 50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: address1Field,
-                    ),
-                    SizedBox(
-                      width: 10,
-                    ),
-                    postSearchButton,
-                  ],
+                SizedBox(
+                  height: 15,
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              height: 50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: address2Field,
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              height: 50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: address3Field,
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  '차량번호(옵션)',
-                  style: TextStyle(
-                    fontFamily: 'HDharmony',
-                    fontSize: 16,
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      '이메일',
+                      style: TextStyle(
+                        fontFamily: 'HDharmony',
+                        fontSize: 16,
+                      ),
+                    ),
                   ),
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              height: 50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: carNumber1Field,
-              ),
-            ),
-            SizedBox(
-              height: 15,
-            ),
-            Container(
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0),
-                child: Text(
-                  '차대번호(옵션)',
-                  style: TextStyle(
-                    fontFamily: 'HDharmony',
-                    fontSize: 16,
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Row(
+                      children: [
+                        Expanded(child: emailField),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        emailDupConfirmButton,
+                      ],
+                    ),
                   ),
                 ),
-              ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      '이름',
+                      style: TextStyle(
+                        fontFamily: 'HDharmony',
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: nameField,
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      '생년월일',
+                      style: TextStyle(
+                        fontFamily: 'HDharmony',
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: birthdayField,
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      '성별',
+                      style: TextStyle(
+                        fontFamily: 'HDharmony',
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    children: [
+                      maleRadio,
+                      SizedBox(
+                        width: 50,
+                      ),
+                      femaleRadio,
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      '휴대폰',
+                      style: TextStyle(
+                        fontFamily: 'HDharmony',
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Row(
+                      children: [
+                        Expanded(child: phoneNumberField),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        phoneAuthGetButton,
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: phoneAuthField,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        phoneAuthConfirmButton,
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Row(
+                      children: [
+                        Icon(
+                          Icons.warning,
+                          size: 20,
+                          color: kPrimaryColor,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          '공백 특수기호 없이 특수문자만 입력하세요',
+                          style: TextStyle(
+                              fontFamily: 'HDharmony',
+                              color: kPrimaryColor,
+                              fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      '주소',
+                      style: TextStyle(
+                        fontFamily: 'HDharmony',
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: address1Field,
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        postSearchButton,
+                      ],
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: address2Field,
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: address3Field,
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      '차량번호(옵션)',
+                      style: TextStyle(
+                        fontFamily: 'HDharmony',
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: carNumber1Field,
+                  ),
+                ),
+                SizedBox(
+                  height: 15,
+                ),
+                Container(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 8.0),
+                    child: Text(
+                      '차대번호(옵션)',
+                      style: TextStyle(
+                        fontFamily: 'HDharmony',
+                        fontSize: 16,
+                      ),
+                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 5,
+                ),
+                Container(
+                  height: 50,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: carNumber2Field,
+                  ),
+                ),
+                SizedBox(
+                  height: 50,
+                ),
+                registerButton,
+                SizedBox(
+                  height: 40,
+                ),
+              ],
             ),
-            SizedBox(
-              height: 5,
-            ),
-            Container(
-              height: 50,
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: carNumber2Field,
-              ),
-            ),
-            SizedBox(
-              height: 50,
-            ),
-            registerButton,
-            SizedBox(
-              height: 40,
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 }

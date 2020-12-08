@@ -5,6 +5,7 @@ import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase;
 import 'package:crypto/crypto.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
@@ -175,6 +176,8 @@ void showToastMessage({String text, int position = 0}) {
 const API = 'http://141.164.51.190:8080';
 
 String globalUsername = '';
+
+firebase.User googleUser;
 
 User globalUser = new User();
 bool globalSidoLoaded = false;
@@ -439,7 +442,10 @@ Future<bool> signup(User user) =>
       }
     });
 
-Future<void> signout() async {}
+Future<void> signout() async {
+  refreshToken = '';
+  addStringToSF();
+}
 
 Future<bool> order(Order order) =>
     http.post(API + '/order', body: jsonEncode(order.toMap()), headers: {

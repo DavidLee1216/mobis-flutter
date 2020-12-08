@@ -1,8 +1,12 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/model/user_model.dart';
 import 'package:mobispartsearch/repository/user_repository.dart';
 import 'package:meta/meta.dart';
+
+enum LoginType {NONE, GOOGLE, NAVER, KAKAO}
 
 abstract class AuthEvent {}
 
@@ -22,8 +26,7 @@ class AuthEventSignUp extends AuthEvent {
   });
 }
 
-class AuthEventSignOut extends AuthEvent {
-}
+class AuthEventSignOut extends AuthEvent {}
 
 class AuthEventGoogleSignin extends AuthEvent {}
 
@@ -37,6 +40,7 @@ class AuthState {
   String password;
   bool signUpSucc;
   bool isLoading;
+  LoginType loginType;
 
   AuthState({
     this.errorMsg = '',
@@ -44,6 +48,7 @@ class AuthState {
     this.password = '',
     this.signUpSucc = false,
     this.isLoading = false,
+    this.loginType = LoginType.NONE,
   });
 
   bool isAuthenticated() => id.isNotEmpty;
@@ -55,19 +60,22 @@ class AuthState {
           String id,
           String password,
           bool signUpSucc,
-          bool isLoading}) =>
+          bool isLoading,
+          LoginType loginType,
+          }) =>
       AuthState(
         errorMsg: errorMsg ?? '',
         id: id ?? this.id,
         password: password ?? this.password,
         signUpSucc: signUpSucc ?? false,
         isLoading: isLoading ?? this.isLoading,
+        loginType: loginType ?? LoginType.NONE,
       );
 
   factory AuthState.init() => AuthState();
 
-  AuthState success({String id, bool signUpSucc}) =>
-      _setProps(id: id, signUpSucc: signUpSucc, isLoading: false);
+  AuthState success({String id, bool signUpSucc, LoginType loginType}) =>
+      _setProps(id: id, signUpSucc: signUpSucc, isLoading: false, loginType: loginType);
 
   AuthState unauthenticated(String errorMsg) =>
       AuthState.init()..errorMsg = errorMsg;
@@ -95,6 +103,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
     if (event is AuthEventSignOut) {
       yield* _mapSignedOutToState(event);
+    }
+    if (event is AuthEventGoogleSignin) {
+      yield* _mapGoogleSigninToState(event);
     }
   }
 
@@ -138,9 +149,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-//  Stream<AuthState> _mapGoogleSigninToState(AuthEventGoogleSignin event) sync* {
-//    try {
-//
-//    }
-//  }
+  Stream<AuthState> _mapGoogleSigninToState(AuthEventGoogleSignin event) async* {
+    yield state.success(loginType: LoginType.GOOGLE);
+  }
+
 }
