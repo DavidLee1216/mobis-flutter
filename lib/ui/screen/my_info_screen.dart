@@ -24,11 +24,11 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
 
-    _nameController.text = globalUsername ?? '';
-    _emailController.text = globalUser.email ?? '';
-    _address1Controller.text = globalUser.address ?? '';
-    _address2Controller.text = globalUser.addressExtended ?? '';
-    _postCodeController.text = globalUser.zipcode ?? '';
+//    _nameController.text = globalUsername ?? '';
+//    _emailController.text = globalUser.email ?? '';
+//    _address1Controller.text = globalUser.address ?? '';
+//    _address2Controller.text = globalUser.addressExtended ?? '';
+//    _postCodeController.text = globalUser.zipcode ?? '';
 
     var userNameItem = Container(
       padding: EdgeInsets.only(top: 10.0),
@@ -383,6 +383,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               left: 20,
             ),
             child: TextField(
+              readOnly: true,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
@@ -394,7 +395,6 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
               ),
-              keyboardType: TextInputType.text,
               style: TextStyle(
                 fontFamily: 'HDharmony',
                 fontSize: 12,
@@ -496,6 +496,9 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
             postCodeItem,
             addressItem,
             changeButton,
+            SizedBox(
+              height: 50,
+            ),
           ],
         ), //
       ),

@@ -1,42 +1,41 @@
 {
   "project_info": {
-    "project_number": "718160528610",
-    "firebase_url": "https://mobis-flutter.firebaseio.com",
-    "project_id": "mobis-flutter",
-    "storage_bucket": "mobis-flutter.appspot.com"
+    "project_number": "31863183766",
+    "project_id": "hyundai-mobis-63d4a",
+    "storage_bucket": "hyundai-mobis-63d4a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:718160528610:android:5a3c502736f5fd14874abb",
+        "mobilesdk_app_id": "1:31863183766:android:df89b7a4ff50421cf765b7",
         "android_client_info": {
           "package_name": "kr.mobis.android.partsmarket"
         }
       },
       "oauth_client": [
         {
-          "client_id": "718160528610-81aa39bbg3vvreq2qmjvopcfe1n84aru.apps.googleusercontent.com",
+          "client_id": "31863183766-02529tnrcsm66lbkbl50s0t5b0lj7p77.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "kr.mobis.android.partsmarket",
-            "certificate_hash": "f3de96e4ce088abe7e13d0ffa1c5fd002680fc3f"
+            "certificate_hash": "023e921f832bd455e7b585532ef716b92e86a539"
           }
         },
         {
-          "client_id": "718160528610-qjb24hv05mrealjm5npnf2hghle7v2tu.apps.googleusercontent.com",
+          "client_id": "31863183766-mssabfofbhq5jcfj35mn1j8du9hnumh2.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBMk9XEeRQbYy3ZoXzvACMes8L5brmhkF4"
+          "current_key": "AIzaSyD1x2AmbD9rJOOscAOhJvQe-_wzGDI53B0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "718160528610-qjb24hv05mrealjm5npnf2hghle7v2tu.apps.googleusercontent.com",
+              "client_id": "31863183766-mssabfofbhq5jcfj35mn1j8du9hnumh2.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

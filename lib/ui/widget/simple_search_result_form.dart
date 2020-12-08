@@ -33,15 +33,15 @@ class _SimpleSearchResultsFormState extends State<SimpleSearchResultsForm> {
                             fontSize: 14,
                             color: kPrimaryColor),
                       ),
-                      Text(
-                        state.keyword != ''
-                            ? "에 대한 검색 결과(총 ${state.searchResultCnt}건)"
-                            : "검색 결과(총 ${state.searchResultCnt}건)",
-                        style: TextStyle(
-                            fontFamily: 'HDharmony',
-                            fontSize: 14,
-                            color: Colors.black),
-                      ),
+//                      Text(
+//                        state.keyword != ''
+//                            ? "에 대한 검색 결과(총 ${state.searchResultCnt}건)"
+//                            : "검색 결과(총 ${state.searchResultCnt}건)",
+//                        style: TextStyle(
+//                            fontFamily: 'HDharmony',
+//                            fontSize: 14,
+//                            color: Colors.black),
+//                      ),
                     ],
                   ),
                 ),
