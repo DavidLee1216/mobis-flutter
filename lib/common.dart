@@ -423,10 +423,11 @@ Future<bool> signup(User user) =>
     http.post(API + '/signup', body: jsonEncode(user.toMap()), headers: {
       'Content-type': 'application/json',
     }).then((response) {
+//      print(user.toMap());
       if (response.statusCode == 200) {
         return true;
       } else {
-        showToastMessage(text: '가입 실패', position: 1);
+//        showToastMessage(text: '가입 실패', position: 1);
         return false;
       }
     });

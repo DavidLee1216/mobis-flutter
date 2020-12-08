@@ -25,8 +25,8 @@ class RegisterScreen extends StatelessWidget {
         if (state.signUpSucc) {
           pushTo(context, IdLoginScreen());
         }
-        if(state.errorMsg != '')
-          showToastMessage(text:state.errorMsg, position: 1);
+//        if(state.errorMsg != '')
+//          showToastMessage(text:state.errorMsg, position: 1);
       },
       child: BlocBuilder<AuthBloc, AuthState>(
         cubit: BlocProvider.of<AuthBloc>(context),
