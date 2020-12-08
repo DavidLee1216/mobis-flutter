@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:io';
 import 'dart:math' as math;
 import 'dart:core';
 
@@ -22,6 +23,16 @@ import 'model/cart_model.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// FIXME: Testing code
+class TestHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
 dynamic session = '';
 String accessToken = '';
 String refreshToken = '';
@@ -33,11 +44,11 @@ addStringToSF() async {
 }
 
 getStringValueSF() async {
-  try{
+  try {
     SharedPreferences pref = await SharedPreferences.getInstance();
     String value = pref.getString('refreshToken');
     return value;
-  } catch(e){
+  } catch (e) {
     return '';
   }
 }
@@ -135,16 +146,16 @@ void messageBox(String string, BuildContext context) {
 }
 
 void showToastMessage({String text, int position = 0}) {
-  if(position==0)
+  if (position == 0)
     Fluttertoast.showToast(
-        msg: text,
-        toastLength: Toast.LENGTH_SHORT,
-        gravity: ToastGravity.TOP, // also possible "TOP" and "CENTER"
-        backgroundColor: Colors.black54,
-        textColor: Colors.white,
-        fontSize: 16.0,
+      msg: text,
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.TOP, // also possible "TOP" and "CENTER"
+      backgroundColor: Colors.black54,
+      textColor: Colors.white,
+      fontSize: 16.0,
     );
-  else if(position==1)
+  else if (position == 1)
     Fluttertoast.showToast(
       msg: text,
       toastLength: Toast.LENGTH_SHORT,
@@ -153,7 +164,7 @@ void showToastMessage({String text, int position = 0}) {
       textColor: Colors.white,
       fontSize: 16.0,
     );
-  else if(position==2)
+  else if (position == 2)
     Fluttertoast.showToast(
       msg: text,
       toastLength: Toast.LENGTH_SHORT,
@@ -173,7 +184,7 @@ void showToastMessage({String text, int position = 0}) {
     );
 }
 
-const API = 'http://141.164.51.190:8080';
+const API = 'https://pss.mobis.co.kr';
 
 String globalUsername = '';
 
