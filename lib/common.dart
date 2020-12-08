@@ -183,7 +183,7 @@ void showToastMessage({String text, int position = 0}) {
     );
 }
 
-const API = 'https://101.1.50.16:443';
+const API = 'https://pss.mobis.co.kr';
 
 String globalUsername = '';
 
