@@ -246,6 +246,12 @@ void getSigungu() async {
 // ignore: missing_return
 Future<bool> updateProfile(String addressExtended, String address,
     String password, String zipCode, String email) {
+//  log(jsonEncode({
+//    'addressExtended': addressExtended,
+//    'address': address,
+//    'password': password,
+//    'zipcode': zipCode,
+//    'email': email}).toString());
   http
       .post(API + '/profile',
           body: jsonEncode({
@@ -364,6 +370,7 @@ Future<String> getUsername(String code) async {
   http.post(API + '/getUsername', body: jsonEncode({'seq': code}), headers: {
     'Content-type': 'application/json',
   }).then((response) {
+    log(response.statusCode.toString());
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       return jsonData['username'];
