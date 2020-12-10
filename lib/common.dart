@@ -95,7 +95,7 @@ bool validateEmailString(String email) {
 }
 
 bool validateMobileString(String mobile) {
-  String pattern = r'^([0-9]{3})-([0-9]{3,4})-([0-9]{4})$';
+  String pattern = r'^([0-9]{3})([0-9]{3,4})([0-9]{4})$';
   RegExp regExp = new RegExp(pattern);
   return regExp.hasMatch(mobile);
 }
@@ -158,7 +158,7 @@ void showToastMessage({String text, int position = 0}) {
     Fluttertoast.showToast(
       msg: text,
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER, // also possible "TOP" and "CENTER"
+      gravity: ToastGravity.TOP, // also possible "TOP" and "CENTER"
       backgroundColor: Colors.black54,
       textColor: Colors.white,
       fontSize: 16.0,

@@ -30,7 +30,7 @@ class IdLoginScreen extends StatelessWidget {
           return;
         }
         if(state.errorMsg != '')
-          showToastMessage(text:state.errorMsg, position: 1);
+          showToastMessage(text:state.errorMsg);
       },
       child: BlocBuilder<AuthBloc, AuthState>(
           cubit: BlocProvider.of<AuthBloc>(context),

@@ -112,7 +112,7 @@ class _RegisterFormState extends State<RegisterForm> {
             zipcode: zipcode);
         bloc.add(AuthEventSignUp(user: user));
       } else if (seq == -1) {
-        showToastMessage(text: '인증번호를 확인하세요.', position: 1);
+        showToastMessage(text: '인증번호를 확인하세요.');
       }
     }
 
@@ -212,9 +212,9 @@ class _RegisterFormState extends State<RegisterForm> {
             )),
         onPressed: () async {
           if (await checkUsername(_idController.text.trim()) == false) {
-            showToastMessage(text: '아이디가 이미 등록되여 있습니다.', position: 1);
+            showToastMessage(text: '아이디가 이미 등록되여 있습니다.');
           } else {
-            showToastMessage(text: "사용할수 있는 아이디입니다.", position: 1);
+            showToastMessage(text: "사용할수 있는 아이디입니다.");
           }
         },
       ),
@@ -280,11 +280,11 @@ class _RegisterFormState extends State<RegisterForm> {
             )),
         onPressed: () async {
           if(_emailController.text.trim().isEmpty){
-            showToastMessage(text: '이메일을 입력하세요.', position: 1);
+            showToastMessage(text: '이메일을 입력하세요.');
           }else if (await checkEmail(_emailController.text.trim()) == false) {
-            showToastMessage(text: '이메일이 이미 등록되여 있습니다.', position: 1);
+            showToastMessage(text: '이메일이 이미 등록되여 있습니다.');
           } else {
-            showToastMessage(text: '사용할수 있는 이메일입니다.', position: 1);
+            showToastMessage(text: '사용할수 있는 이메일입니다.');
           }
         },
       ),
@@ -424,7 +424,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 ? "휴대폰 번호를 입력하세요."
                 : validateMobileString(value)
                     ? null
-                    : "휴대폰 번호는 숫자와 -로 입력해주세요.",
+                    : "휴대폰 번호는 숫자로만 입력해주세요.",
             controller: _phoneNumberController,
             onEditingComplete: () => _formKey.currentState.validate(),
         )
@@ -462,7 +462,7 @@ class _RegisterFormState extends State<RegisterForm> {
         ),
         onPressed: () async {
           await validateSMS(_phoneNumberController.text);
-          showToastMessage(text: '인증번호가 발송되었습니다.', position: 1);
+          showToastMessage(text: '인증번호가 발송되었습니다.');
         },
       ),
     );
@@ -521,9 +521,9 @@ class _RegisterFormState extends State<RegisterForm> {
         onPressed: () async {
           seq = await validateCode(_authNumberVerifyController.text);
           if (seq == -1) {
-            showToastMessage(text: '인증번호가 일치하지 않습니다.', position: 1);
+            showToastMessage(text: '인증번호가 일치하지 않습니다.');
           } else {
-            showToastMessage(text: '인증번호가 확인되었습니다.', position: 1);
+            showToastMessage(text: '인증번호가 확인되었습니다.');
             setState(() {
               authConfirmed = true;
             });
@@ -683,7 +683,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 _carNumber1Controller.text.trim(),
                 _carNumber2Controller.text.trim());
           else
-            showToastMessage(text: '비밀번호가 일치하지 않습니다.', position: 1);
+            showToastMessage(text: '비밀번호가 일치하지 않습니다.');
         },
       ),
     );
