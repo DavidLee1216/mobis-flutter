@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:kakao_flutter_sdk/all.dart';
 import 'package:mobispartsearch/repository/cart_repository.dart';
 import 'package:mobispartsearch/repository/market_search_repository.dart';
 import 'package:mobispartsearch/repository/simple_search_repository.dart';
@@ -69,6 +70,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    KakaoContext.clientId = "fe4df805f70e7971fdfae1a57941ed1e";
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,

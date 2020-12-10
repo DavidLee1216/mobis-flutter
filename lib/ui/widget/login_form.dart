@@ -7,6 +7,7 @@ import 'package:mobispartsearch/ui/screen/id_login_screen.dart';
 import 'package:mobispartsearch/ui/screen/register_screen.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
 
@@ -20,12 +21,14 @@ class LoginForm extends StatefulWidget {
 
 class _LoginFormState extends State<LoginForm> {
   MyGoogleSignin myGoogleSignin;
+  MyKakaoSignin myKakaoSignin;
 
   @override
   void initState() {
-    if(getStringValueSF() != '' && tokenExpired)
+    if(getStringValueSF() != '' && globalSigninInformation.tokenExpired)
       checkLocalAuth();
     myGoogleSignin = new MyGoogleSignin();
+    myKakaoSignin = new MyKakaoSignin();
   }
 
   Future<void> checkLocalAuth() async {
@@ -138,7 +141,9 @@ class _LoginFormState extends State<LoginForm> {
                         ),
                       ],
                     ),
-                    onPressed: () {},
+                    onPressed: () async {
+                      NaverLoginResult res = await FlutterNaverLogin.logIn();
+                    },
                   ),
                 ),
                 SizedBox(
@@ -176,7 +181,9 @@ class _LoginFormState extends State<LoginForm> {
                         ),
                       ],
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      myKakaoSignin.signinWithKakao(context);
+                    },
                   ),
                 ),
                 SizedBox(

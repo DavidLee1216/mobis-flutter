@@ -5,6 +5,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/cupertino.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:kakao_flutter_sdk/all.dart' as kakao;
+import 'package:kakao_flutter_sdk/common.dart';
 import 'package:mobispartsearch/bloc/auth_bloc.dart';
 import 'package:mobispartsearch/ui/screen/register_screen.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
@@ -96,4 +98,32 @@ class MyGoogleSignin{
     }
   }
 
+}
+
+class MyKakaoSignin{
+  issueAccessToken(String authCode) async {
+    try{
+      var token = await kakao.AuthApi.instance.issueAccessToken(authCode);
+      kakao.AccessTokenStore.instance.toStore(token);
+    } catch(e){
+      print('kakao issue access token error');
+    }
+  }
+
+  signinWithKakao(BuildContext context) async{
+    try{
+      final installed = await isKakaoTalkInstalled();
+//      if(installed==false)
+//        return false;
+      final authCode = installed ? await kakao.AuthCodeClient.instance.requestWithTalk() : await kakao.AuthCodeClient.instance.request();
+      kakao.AccessTokenResponse token = await kakao.AuthApi.instance.issueAccessToken(authCode);
+      kakao.AccessTokenStore.instance.toStore(token);
+      common.kakaoUser = await kakao.UserApi.instance.me();
+      print(common.kakaoUser.kakaoAccount.email);
+    } on KakaoAuthException catch (e) {
+      print('kakao login auth error');
+    } catch(e) {
+      print('kakao login catch error');
+    }
+  }
 }

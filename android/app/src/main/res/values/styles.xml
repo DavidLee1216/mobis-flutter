@@ -15,4 +15,8 @@
     <style name="NormalTheme" parent="@android:style/Theme.Black.NoTitleBar">
         <item name="android:windowBackground">@android:color/white</item>
     </style>
+    <string name="client_id">[client_id]</string>
+    <string name="client_secret">[client_secret]</string>
+    <string name="client_name">[client_name]</string>
+    <string name="kakao_app_key">[kakao_app_key]</string>
 </resources>

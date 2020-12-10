@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kopo/kopo.dart';
+import 'package:mobispartsearch/bloc/user_history_bloc.dart';
 import 'package:mobispartsearch/common.dart';
 
 class MyInfoScreen extends StatefulWidget {
@@ -212,7 +214,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
           Container(
             padding: EdgeInsets.fromLTRB(30, 10, 0, 10),
             child: Text(
-              globalUser.mobile ?? '',
+              '',
               style: TextStyle(
                 fontFamily: 'HDharmony',
                 fontSize: 14,
@@ -505,3 +507,4 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
     );
   }
 }
+

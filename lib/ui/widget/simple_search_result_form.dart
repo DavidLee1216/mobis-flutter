@@ -174,7 +174,7 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                       child: SizedBox(
                         height: 40,
                         child: Center(
-                          child: Text(
+                          child: SelectableText(
                             widget.partNumber,
                             style: TextStyle(
                                 fontFamily: 'HDharmony',

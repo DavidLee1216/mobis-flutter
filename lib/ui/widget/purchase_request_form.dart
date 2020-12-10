@@ -64,7 +64,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
           deliveryCode: deliveryCode,
           partNumber: widget.partNumber,
           username: common.globalUsername !='' ? common.globalUsername : null,
-          session: common.session,
+          session: common.globalSigninInformation.session,
           count: count);
       bloc.add(AddCartEvent(product));
     }

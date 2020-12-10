@@ -7,9 +7,12 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
 import 'package:firebase_auth/firebase_auth.dart' as firebase;
+import 'package:kakao_flutter_sdk/all.dart' as kakao;
 import 'package:crypto/crypto.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:mobispartsearch/model/UserHistoryModel.dart';
+import 'package:mobispartsearch/model/signin_information.dart';
 
 import 'model/carModel_model.dart';
 import 'model/location_model.dart';
@@ -33,14 +36,10 @@ class TestHttpOverrides extends HttpOverrides {
   }
 }
 
-dynamic session = '';
-String accessToken = '';
-String refreshToken = '';
-bool tokenExpired = false;
 
 addStringToSF() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
-  pref.setString('refreshToken', refreshToken);
+  pref.setString('refreshToken', globalSigninInformation.refreshToken);
 }
 
 getStringValueSF() async {
@@ -102,8 +101,8 @@ bool validateMobileString(String mobile) {
 }
 
 void getSession() async {
-  session = await FlutterSession().get('mobis_session');
-  if (session == null) {
+  globalSigninInformation.session = await FlutterSession().get('mobis_session');
+  if (globalSigninInformation.session == null) {
     DateTime time = DateTime.now();
     String ss = getRandomString(10);
     List<int> newCodes = new List<int>();
@@ -118,7 +117,7 @@ void getSession() async {
     String sss = String.fromCharCodes(newCodes);
     String sessionStr = ss + sss;
     await FlutterSession().set('mobis_session', sessionStr);
-    session = await FlutterSession().get('mobis_session');
+    globalSigninInformation.session = await FlutterSession().get('mobis_session');
   }
 }
 
@@ -184,13 +183,16 @@ void showToastMessage({String text, int position = 0}) {
     );
 }
 
-const API = 'https://pss.mobis.co.kr';
+const API = 'https://101.1.50.16:8080'; //'https://pss.mobis.co.kr';
 
 String globalUsername = '';
 
 firebase.User googleUser;
+kakao.User kakaoUser;
 
 User globalUser = new User();
+SigninInformation globalSigninInformation = new SigninInformation();
+
 bool globalSidoLoaded = false;
 bool globalModelsLoaded = false;
 
@@ -322,7 +324,7 @@ Future<List<CartModel>> loadCart() async {
   if (globalUsername != '')
     url = API + '/carts?id=$globalUsername';
   else
-    url = API + '/carts?id=$session';
+    url = API + '/carts?id=${globalSigninInformation.session}';
   final response = await http.get(url);
   if (response.statusCode == 200) {
     try {
@@ -421,20 +423,39 @@ Future<bool> resetPassword(String password, int seq) async {
   });
 }
 
+Future<User> getUserProfile(int seq) =>
+  http.get(API + '/profile/$seq').then((response) {
+    if (response.statusCode == 200) {
+      final jsonData = json.decode(response.body);
+      globalSigninInformation.lastPasswordUpdateDate = jsonData['lastUpdatePasswordTime'];
+      globalSigninInformation.isTempPassword = (jsonData['isTempPassword']==1);
+      return User.fromMap(jsonData);
+    } else
+      return null;
+  });
+
 Future<bool> signin(String username, String password) =>
     http.post(API + '/signin',
         body: jsonEncode({'password': password, 'username': username}),
         headers: {
           'Content-type': 'application/json',
-        }).then((response) {
+        }).then((response) async {
       if (response.statusCode == 200) {
         globalUsername = username;
         final jsonData = json.decode(response.body);
-        accessToken = jsonData['accessToken'];
-        refreshToken = jsonData['refreshToken'];
+        globalSigninInformation.accessToken = jsonData['accessToken'];
+        globalSigninInformation.refreshToken = jsonData['refreshToken'];
+        globalSigninInformation.userProfileId = jsonData['id'];
+        globalSigninInformation.lastPasswordUpdateDate = DateTime.parse(jsonData['lastupdatepasswordtime']);
         addStringToSF();
+        globalUser = await getUserProfile(globalSigninInformation.userProfileId);
+        DateTime today = DateTime.now();
+        int diffDays = today.difference(globalSigninInformation.lastPasswordUpdateDate).inDays;
+        if(diffDays > 89)
+          showToastMessage(text: '비밀번호를 변경한 때로부터 90일이 되였습니다. \n비밀번호변경을 권장합니다.', position: 1);
         return true;
       } else {
+        print(response.statusCode);
         showToastMessage(text: '로그인 실패', position: 1);
         return false;
       }
@@ -454,8 +475,20 @@ Future<bool> signup(User user) =>
     });
 
 Future<void> signout() async {
-  refreshToken = '';
+  globalSigninInformation.refreshToken = '';
+  globalSigninInformation.accessToken = '';
   addStringToSF();
+  http.post(API + '/signout', body: jsonEncode({'accessToken': globalSigninInformation.accessToken}), headers: {
+    'Content-type': 'application/json',
+  }).then((response) {
+    if (response.statusCode == 200) {
+      log('signout success');
+      return true;
+    } else {
+      log('signout' + response.statusCode.toString());
+      return false;
+    }
+  });
 }
 
 Future<bool> order(Order order) =>
@@ -551,6 +584,7 @@ Future<List<MarketSearchResultModel>> marketSearchPart(
       return null;
     }
   } else {
+    print(response.statusCode);
     showToastMessage(text: '서버 접속 오류', position: 1);
     return null;
   }
@@ -567,6 +601,7 @@ Future<MarketSearchResultProductInfo> getProductInfoFromPtno(
       return null;
     }
   } else {
+    print(response.statusCode);
     showToastMessage(text: '서버 접속 오류', position: 1);
     return null;
   }
@@ -615,13 +650,34 @@ Future<List<Notice>> getContentNoticeStream(
 }
 
 Future<bool> getToken() => http.post(API + '/token',
-        body: jsonEncode({'refreshToken': refreshToken}),
+        body: jsonEncode({'refreshToken': globalSigninInformation.refreshToken}),
         headers: {'Content-type': 'application/json'}).then((response) {
       if (response.statusCode == 200) {
-        accessToken = json.decode(response.body)['accessToken'];
+        globalSigninInformation.accessToken = json.decode(response.body)['accessToken'];
         return true;
       } else {
         showToastMessage(text: '서버 접속 오류', position: 1);
         return false;
       }
     });
+
+Future<List<UserHistoryModel>> getUserHistoryStream(
+    {String username, int page = 1, int limit = 10}) async {
+  final response = await http.get(
+      API + '/appuserhistory/$username?limit=$limit&page=$page');
+  if (response.statusCode == 200) {
+    final data =
+    json.decode(utf8.decode(response.bodyBytes))['content'] as List;
+    return data.map((e) {
+      return UserHistoryModel(
+        id: e['id'],
+        username: e['username'],
+        ip: e['ip'],
+        regDtm: DateTime.parse(e['regDtm']),
+      );
+    }).toList();
+  } else {
+    showToastMessage(text: '서버 접속 오류', position: 1);
+    throw Exception('error');
+  }
+}

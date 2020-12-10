@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mobispartsearch/ui/screen/home_screen.dart';
 import 'package:mobispartsearch/ui/screen/my_coupon_screen.dart';
+import 'package:mobispartsearch/ui/screen/my_info_screen.dart';
 import 'package:mobispartsearch/ui/screen/my_page_query_screen.dart';
 import 'package:mobispartsearch/ui/screen/my_page_screen.dart';
 import 'package:mobispartsearch/ui/screen/notice_screen.dart';
@@ -31,6 +32,7 @@ class _NavigationBarState extends State<NavigationBar> {
     NoticeScreen(),
     CartScreen(),
     MyCouponScreen(),
+    MyInfoScreen(),
   ];
   @override
   void initState() {

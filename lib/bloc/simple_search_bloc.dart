@@ -209,6 +209,7 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
   Stream<SimpleSearchState> _mapSearchMoreEventToState() async* {
     try {
       yield state.submitting();
+      print(state.page);
       List<SimpleSearchResultModel> searchResult = (state.searchType == false)
           ? await simpleSearchRepository.searchPartGeneral(
           hkgb: state.hkgb,
@@ -222,13 +223,14 @@ class SimpleSearchBloc extends Bloc<SimpleSearchEvent, SimpleSearchState> {
           ptno: state.keyword,
           firstIndex: state.page * globalRecordCountPerPage,
           recordCountPerPage: globalRecordCountPerPage);
+      print(searchResult);
       if (searchResult == null || searchResult.length == 0)
       {
         yield state.success(nomore: true);
       }
       else {
         state.searchResult.addAll(searchResult);
-        yield state.success(searchResult: searchResult, nomore: false, page: state.page + 1);
+        yield state.success(searchResult: state.searchResult, nomore: false, page: state.page + 1);
       }
     } catch (e) {
       yield state.success(model: 0, searchResult: null);

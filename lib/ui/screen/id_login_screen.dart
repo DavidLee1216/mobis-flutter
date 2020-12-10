@@ -21,7 +21,12 @@ class IdLoginScreen extends StatelessWidget {
       cubit: BlocProvider.of<AuthBloc>(context),
       listener: (BuildContext context, state) {
         if (state.isAuthenticated()) {
-          pushTo(context, NavigationBar(index: 1));
+          if(globalSigninInformation.isTempPassword)
+            pushTo(context, NavigationBar(index: 9,));
+          else
+          {
+            pushTo(context, NavigationBar(index: 1));
+          }
           return;
         }
         if(state.errorMsg != '')
