@@ -194,8 +194,8 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                         ),
                         onDoubleTap: () {
                           BlocProvider.of<MarketSearchBloc>(context).add(SetMarketMarketSearchEvent(0));
-                          BlocProvider.of<MarketSearchBloc>(context).add(HKGBMarketSearchEvent(0));
-                          BlocProvider.of<MarketSearchBloc>(context).add(SearchMarketSearchEvent(widget.partNumber, '', ''));
+                          BlocProvider.of<MarketSearchBloc>(context).add(HKGBMarketSearchEvent(widget.hkgb=='H'?0:1));
+                          BlocProvider.of<MarketSearchBloc>(context).add(SetPtnoMarketSearchEvent(widget.partNumber));
                           Navigator.push(
                               context,
                               PageRouteBuilder(

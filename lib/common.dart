@@ -183,7 +183,7 @@ void showToastMessage({String text, int position = 0}) {
     );
 }
 
-const API = 'http://192.168.20.127:8080'; //'https://pss.mobis.co.kr';
+const API = 'https://pss.mobis.co.kr'; //'http://192.168.20.127:8080'; //
 
 String globalUsername = '';
 
@@ -520,14 +520,12 @@ Future<bool> signout() =>
         'Content-type': 'application/json',
       }).then((response) {
     if (response.statusCode == 200) {
-      log('signout success');
       globalSigninInformation.refreshToken = '';
       globalSigninInformation.accessToken = '';
       addStringToSF();
       globalUsername = '';
       return true;
     } else {
-      log('signout' + response.statusCode.toString());
       return false;
     }
   });
@@ -612,7 +610,7 @@ Future<List<MarketSearchResultModel>> marketSearchPart(
   if (ptno != '') url = url + '&ptno=$ptno';
   if (sido != '' && sido != null && sido != '전체') {
     url = url + '&sido=$sido';
-    if (sigungu != null && sigungu != '전체') url = url + '&sigungu=$sigungu';
+    if (sigungu != '' && sigungu != null && sigungu != '전체') url = url + '&sigungu=$sigungu';
   }
   final response = await http.get(url);
   if (response.statusCode == 200) {

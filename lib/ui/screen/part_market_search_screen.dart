@@ -509,8 +509,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                   ),
                   searchButton,
                   SizedBox(height: 30),
-                  searched && state.searchResult.length > 0 ? MarketSearchResultsForm() : Container(),
-                  (searched && state.nomore==false && state.searchResult.length > 0) ? searchMoreButton : Container(),
+                  state.searchResult.length > 0 ? MarketSearchResultsForm() : Container(),
+                  (state.nomore==false && state.searchResult.length > 0) ? searchMoreButton : Container(),
                 ],
               ),
               Positioned(
