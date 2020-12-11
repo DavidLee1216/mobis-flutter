@@ -31,7 +31,8 @@ class UserHistoryBloc extends Bloc<UserHistoryEvent, UserHistoryState>{
         final stream = await getUserHistoryStream(username: globalUsername,
             page: state.page + 1,
             limit: globalRecordCountPerPage);
-        yield UserHistoryState(userHistoryList: stream, page: state.page + 1);
+        yield stream.isEmpty
+            ? state : UserHistoryState(userHistoryList: state.userHistoryList + stream, page: state.page + 1);
       }
     } catch(e){
       yield UserHistoryState();

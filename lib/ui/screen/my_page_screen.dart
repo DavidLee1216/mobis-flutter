@@ -102,239 +102,237 @@ class MyPageWidget extends StatelessWidget {
         cubit: BlocProvider.of<AuthBloc>(context),
         builder: (BuildContext context, state) {
           return Expanded(
-            child: Container(
-              color: Colors.white,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 50,
-                  ),
-                  state.isAuthenticated()
-                      ? greetingAuthentcated(state.id)
-                      : greetingUnauthenticated,
-                  SizedBox(
-                    height: 50,
-                  ),
-                  state.isAuthenticated()
-                      ? Container()
-                      : Column(children: [
-                          loginButton,
-                          SizedBox(
-                            height: 20,
-                          ),
-                        ]),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: screenWidth * 0.9,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(5.0),
-                            color: Colors.white,
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(1.0, 3.0),
-                                blurRadius: 8.0,
-                                spreadRadius: 1.0,
-                              )
-                            ]),
-                        child: Column(
-                          children: [
-                            if (state.isAuthenticated())
-                              Column(
-                                children: [
-                                  Container(
-                                    height: 50,
-                                    child: ListTile(
-                                      title: Text(
-                                        'My info (차량 정보 등 고객 정보 수정)',
-                                        style: TextStyle(
-                                            fontFamily: 'HDharmony',
-                                            fontSize: 16),
-                                      ),
-                                      trailing: Padding(
-                                        padding: EdgeInsets.all(14),
-                                        child: Image.asset(
-                                            'assets/images/arrow.png'),
-                                      ),
-                                      onTap: () {
-                                        pushTo(context, MyInfoScreen());
-                                      },
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Divider(
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            Container(
-                              height: 50,
-                              child: ListTile(
-                                title: Text(
-                                  '문의하기',
-                                  style: TextStyle(
-                                    fontFamily: 'HDharmony',
-                                    fontSize: 16,
-                                  ),
-                                ),
-
-                                trailing: Padding(
-                                  padding: EdgeInsets.all(14),
-                                  child: Image.asset('assets/images/arrow.png'),
-                                ),
-
-                                onTap: () {
-                                  queryModal.mainModalBottomSheet(context);
-                                }, //askDialog(),
-                              ),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Divider(
-                                color: Colors.black54,
-                              ),
-                            ),
-                            if (state.isAuthenticated())
-                              Column(
-                                children: [
-                                  Container(
-                                    height: 50,
-                                    child: ListTile(
-                                      title: Text(
-                                        'My 쿠폰',
-                                        style: TextStyle(
-                                            fontFamily: 'HDharmony',
-                                            fontSize: 16),
-                                      ),
-                                      trailing: Padding(
-                                        padding: EdgeInsets.all(14),
-                                        child: Image.asset(
-                                            'assets/images/arrow.png'),
-                                      ),
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          PageRouteBuilder(
-                                            pageBuilder: (_, __, ___) =>
-                                                NavigationBar(
-                                              index: 8,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Divider(
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            if (state.isAuthenticated())
-                              Column(
-                                children: [
-                                  Container(
-                                    height: 50,
-                                    child: ListTile(
-                                      title: Text(
-                                        '사용자접속기록',
-                                        style: TextStyle(
-                                            fontFamily: 'HDharmony',
-                                            fontSize: 16),
-                                      ),
-                                      trailing: Padding(
-                                        padding: EdgeInsets.all(14),
-                                        child: Image.asset(
-                                            'assets/images/arrow.png'),
-                                      ),
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          PageRouteBuilder(
-                                            pageBuilder: (_, __, ___) =>
-                                                NavigationBar(
-                                                  index: 8,
-                                                ),
-                                          ),
-                                        );
-                                      },
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10),
-                                    child: Divider(
-                                      color: Colors.black54,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            Container(
-                              height: 50,
-                              margin: const EdgeInsets.only(bottom: 10),
-                              child: ListTile(
-                                title: Text(
-                                  '알림',
-                                  textAlign: TextAlign.left,
-                                  style: TextStyle(
-                                      fontFamily: 'HDharmony', fontSize: 16),
-                                ),
-                                trailing: Padding(
-                                  padding: EdgeInsets.all(14),
-                                  child: Image.asset('assets/images/arrow.png'),
-                                ),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    PageRouteBuilder(
-                                      pageBuilder: (_, __, ___) =>
-                                          NavigationBar(
-                                        index: 0,
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
-                            ),
-                          ],
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                SizedBox(
+                  height: 50,
+                ),
+                state.isAuthenticated()
+                    ? greetingAuthentcated(state.id)
+                    : greetingUnauthenticated,
+                SizedBox(
+                  height: 50,
+                ),
+                state.isAuthenticated()
+                    ? Container()
+                    : Column(children: [
+                        loginButton,
+                        SizedBox(
+                          height: 20,
                         ),
-                      ),
-                    ],
-                  ),
-                  if (state.isAuthenticated())
+                      ]),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                     Container(
                       width: screenWidth * 0.9,
-                      child: Row(
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(5.0),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey,
+                              offset: Offset(1.0, 3.0),
+                              blurRadius: 8.0,
+                              spreadRadius: 1.0,
+                            )
+                          ]),
+                      child: Column(
                         children: [
-                          Expanded(
-                            child: SizedBox(
-                              width: 20,
+                          if (state.isAuthenticated())
+                            Column(
+                              children: [
+                                Container(
+                                  height: 50,
+                                  child: ListTile(
+                                    title: Text(
+                                      'My info (차량 정보 등 고객 정보 수정)',
+                                      style: TextStyle(
+                                          fontFamily: 'HDharmony',
+                                          fontSize: 16),
+                                    ),
+                                    trailing: Padding(
+                                      padding: EdgeInsets.all(14),
+                                      child: Image.asset(
+                                          'assets/images/arrow.png'),
+                                    ),
+                                    onTap: () {
+                                      pushTo(context, MyInfoScreen());
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Divider(
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          Container(
+                            height: 50,
+                            child: ListTile(
+                              title: Text(
+                                '문의하기',
+                                style: TextStyle(
+                                  fontFamily: 'HDharmony',
+                                  fontSize: 16,
+                                ),
+                              ),
+
+                              trailing: Padding(
+                                padding: EdgeInsets.all(14),
+                                child: Image.asset('assets/images/arrow.png'),
+                              ),
+
+                              onTap: () {
+                                queryModal.mainModalBottomSheet(context);
+                              }, //askDialog(),
                             ),
                           ),
-                          FlatButton(
-                            child: Text(
-                              '로그아웃',
-                              style: TextStyle(
-                                  fontFamily: 'HDharmony',
-                                  fontSize: 14,
-                                  color: Colors.black54),
+                          Padding(
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10),
+                            child: Divider(
+                              color: Colors.black54,
                             ),
-                            onPressed: () => bloc.add(AuthEventSignOut()),
+                          ),
+                          if (state.isAuthenticated())
+                            Column(
+                              children: [
+                                Container(
+                                  height: 50,
+                                  child: ListTile(
+                                    title: Text(
+                                      'My 쿠폰',
+                                      style: TextStyle(
+                                          fontFamily: 'HDharmony',
+                                          fontSize: 16),
+                                    ),
+                                    trailing: Padding(
+                                      padding: EdgeInsets.all(14),
+                                      child: Image.asset(
+                                          'assets/images/arrow.png'),
+                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          pageBuilder: (_, __, ___) =>
+                                              NavigationBar(
+                                            index: 8,
+                                          ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Divider(
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          if (state.isAuthenticated())
+                            Column(
+                              children: [
+                                Container(
+                                  height: 50,
+                                  child: ListTile(
+                                    title: Text(
+                                      '사용자접속기록',
+                                      style: TextStyle(
+                                          fontFamily: 'HDharmony',
+                                          fontSize: 16),
+                                    ),
+                                    trailing: Padding(
+                                      padding: EdgeInsets.all(14),
+                                      child: Image.asset(
+                                          'assets/images/arrow.png'),
+                                    ),
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        PageRouteBuilder(
+                                          pageBuilder: (_, __, ___) =>
+                                              NavigationBar(
+                                                index: 9,
+                                              ),
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: Divider(
+                                    color: Colors.black54,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          Container(
+                            height: 50,
+                            margin: const EdgeInsets.only(bottom: 10),
+                            child: ListTile(
+                              title: Text(
+                                '알림',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                    fontFamily: 'HDharmony', fontSize: 16),
+                              ),
+                              trailing: Padding(
+                                padding: EdgeInsets.all(14),
+                                child: Image.asset('assets/images/arrow.png'),
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  PageRouteBuilder(
+                                    pageBuilder: (_, __, ___) =>
+                                        NavigationBar(
+                                      index: 0,
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
                           ),
                         ],
                       ),
-                    )
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                if (state.isAuthenticated())
+                  Container(
+                    width: screenWidth * 0.9,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: SizedBox(
+                            width: 20,
+                          ),
+                        ),
+                        FlatButton(
+                          child: Text(
+                            '로그아웃',
+                            style: TextStyle(
+                                fontFamily: 'HDharmony',
+                                fontSize: 14,
+                                color: Colors.black54),
+                          ),
+                          onPressed: () => bloc.add(AuthEventSignOut()),
+                        ),
+                      ],
+                    ),
+                  )
+              ],
             ),
           );
         });

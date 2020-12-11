@@ -214,7 +214,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
           Container(
             padding: EdgeInsets.fromLTRB(30, 10, 0, 10),
             child: Text(
-              '',
+              globalUser.mobile ?? '',
               style: TextStyle(
                 fontFamily: 'HDharmony',
                 fontSize: 14,
@@ -468,7 +468,8 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
           String email = _emailController.text.trim();
           String password = _passwordController.text.trim();
           String zipCode = _postCodeController.text.trim();
-          updateProfile(addressExtended, address, encryptPassword(password), zipCode, email);
+          String mobile = globalUser.mobile;
+          updateProfile(addressExtended, address, mobile, encryptPassword(password), zipCode, email);
         },
       ),
     );

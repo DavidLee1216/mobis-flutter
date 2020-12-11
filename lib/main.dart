@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:kakao_flutter_sdk/all.dart';
+import 'package:mobispartsearch/bloc/user_history_bloc.dart';
 import 'package:mobispartsearch/repository/cart_repository.dart';
 import 'package:mobispartsearch/repository/market_search_repository.dart';
 import 'package:mobispartsearch/repository/simple_search_repository.dart';
@@ -59,6 +60,9 @@ Future<void> main() async {
               lazy: false,
               create: (context) => MarketSearchBloc(
                   marketSearchRepository: marketSearchRepository)),
+          BlocProvider<UserHistoryBloc>(
+              lazy: false,
+              create: (context) => UserHistoryBloc()),
         ],
         child: MyApp(),
       ),

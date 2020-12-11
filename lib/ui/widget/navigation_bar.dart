@@ -9,6 +9,7 @@ import 'package:mobispartsearch/ui/screen/notification_screen.dart';
 import 'package:mobispartsearch/ui/screen/part_market_search_screen.dart';
 import 'package:mobispartsearch/ui/screen/part_simple_search_screen.dart';
 import 'package:mobispartsearch/ui/screen/cart_screen.dart';
+import 'package:mobispartsearch/ui/screen/user_history_screen.dart';
 
 class NavigationBar extends StatefulWidget {
   final int
@@ -32,7 +33,7 @@ class _NavigationBarState extends State<NavigationBar> {
     NoticeScreen(),
     CartScreen(),
     MyCouponScreen(),
-    MyInfoScreen(),
+    UserHistoryScreen(),
   ];
   @override
   void initState() {

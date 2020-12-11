@@ -36,7 +36,6 @@ class TestHttpOverrides extends HttpOverrides {
   }
 }
 
-
 addStringToSF() async {
   SharedPreferences pref = await SharedPreferences.getInstance();
   pref.setString('refreshToken', globalSigninInformation.refreshToken);
@@ -117,7 +116,8 @@ void getSession() async {
     String sss = String.fromCharCodes(newCodes);
     String sessionStr = ss + sss;
     await FlutterSession().set('mobis_session', sessionStr);
-    globalSigninInformation.session = await FlutterSession().get('mobis_session');
+    globalSigninInformation.session =
+        await FlutterSession().get('mobis_session');
   }
 }
 
@@ -260,7 +260,7 @@ void getSigungu() async {
 }
 
 // ignore: missing_return
-Future<bool> updateProfile(String addressExtended, String address,
+Future<bool> updateProfile(String addressExtended, String address, String mobile,
     String password, String zipCode, String email) {
 //  log(jsonEncode({
 //    'addressExtended': addressExtended,
@@ -368,8 +368,7 @@ Future<bool> delAllFromCart(List<Map<String, dynamic>> seqs) =>
     http.post(API + '/delCarts', body: jsonEncode(seqs), headers: {
       'Content-type': 'application/json',
     }).then((response) {
-      print(jsonEncode({'seqs': seqs}));
-      if(response.statusCode == 200) {
+      if (response.statusCode == 200) {
         return true;
       } else {
         print(response.statusCode);
@@ -400,16 +399,17 @@ Future<int> validateCode(String code) =>
 
 // ignore: missing_return
 Future<String> getUsername(int code) =>
-  http.post(API + '/getUsername', body: jsonEncode({'seq': code}), headers: {
-    'Content-type': 'application/json', 'accept': 'application/json'
-  }).then((response) {
-    log(response.statusCode.toString());
-    if (response.statusCode == 200) {
-      final jsonData = json.decode(response.body);
-      return jsonData['username'];
-    } else
-      return null;
-  });
+    http.post(API + '/getUsername', body: jsonEncode({'seq': code}), headers: {
+      'Content-type': 'application/json',
+      'accept': 'application/json'
+    }).then((response) {
+      log(response.statusCode.toString());
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        return jsonData['username'];
+      } else
+        return null;
+    });
 
 // ignore: missing_return
 Future<String> getEmail(String code) async {
@@ -425,31 +425,32 @@ Future<String> getEmail(String code) async {
 
 // ignore: missing_return
 Future<bool> resetPassword(String password, int seq) =>
-   http.post(API + '/resetPassword',
-      body: jsonEncode({'password': password, 'seq': seq}),
-      headers: {
-        'Content-type': 'application/json',
-      }).then((response) {
-    if (response.statusCode == 200) {
-      showToastMessage(text: '비밀번호를 발급하였습니다.', position: 1);
-      return true;
-    } else {
-      showToastMessage(text: '비밀번호 변경 실패', position: 1);
-      return false;
-    }
-  });
-
+    http.post(API + '/resetPassword',
+        body: jsonEncode({'password': password, 'seq': seq}),
+        headers: {
+          'Content-type': 'application/json',
+        }).then((response) {
+      if (response.statusCode == 200) {
+        showToastMessage(text: '비밀번호를 발급하였습니다.', position: 1);
+        return true;
+      } else {
+        showToastMessage(text: '비밀번호 변경 실패', position: 1);
+        return false;
+      }
+    });
 
 Future<User> getUserProfile(int seq) =>
-  http.get(API + '/profile/$seq').then((response) {
-    if (response.statusCode == 200) {
-      final jsonData = json.decode(response.body);
-      globalSigninInformation.lastPasswordUpdateDate = jsonData['lastUpdatePasswordTime'];
-      globalSigninInformation.isTempPassword = (jsonData['isTempPassword']==1);
-      return User.fromMap(jsonData);
-    } else
-      return null;
-  });
+    http.get(API + '/profile/$seq').then((response) {
+      if (response.statusCode == 200) {
+        final jsonData = json.decode(response.body);
+        globalSigninInformation.lastPasswordUpdateDate =
+            jsonData['lastUpdatePasswordTime'];
+        globalSigninInformation.isTempPassword =
+            (jsonData['isTempPassword'] == 1);
+        return User.fromMap(jsonData);
+      } else
+        return null;
+    });
 
 Future<bool> signin(String username, String password) =>
     http.post(API + '/signin',
@@ -457,26 +458,40 @@ Future<bool> signin(String username, String password) =>
         headers: {
           'Content-type': 'application/json',
         }).then((response) async {
-      if (response.statusCode == 200) {
-        globalUsername = username;
-        final jsonData = json.decode(response.body);
-        globalSigninInformation.accessToken = jsonData['accessToken'];
-        globalSigninInformation.refreshToken = jsonData['refreshToken'];
-        globalSigninInformation.userProfileId = jsonData['id'];
-        globalSigninInformation.lastPasswordUpdateDate = DateTime.parse(jsonData['lastupdatepasswordtime']);
-        addStringToSF();
-        globalUser = await getUserProfile(globalSigninInformation.userProfileId);
-        DateTime today = DateTime.now();
-        int diffDays = today.difference(globalSigninInformation.lastPasswordUpdateDate).inDays;
-        if(diffDays > 89)
-          showToastMessage(text: '비밀번호를 변경한 때로부터 90일이 되였습니다. \n비밀번호변경을 권장합니다.', position: 1);
-        return true;
-      } else {
-        if(response.statusCode==401){
-          showToastMessage(text: '해당 회원은 현재 계정이 잠금되였습니다. 한시간이후에 다시 로그인을 시도하세요.');
+      try {
+        if (response.statusCode == 200) {
+          globalUsername = username;
+          final jsonData = json.decode(response.body);
+          globalSigninInformation.accessToken = jsonData['accesstoken'];
+          globalSigninInformation.refreshToken = jsonData['refreshtoken'];
+          globalSigninInformation.userProfileId = jsonData['id'];
+          globalSigninInformation.lastPasswordUpdateDate =
+              DateTime.parse(jsonData['lastUpdatePasswordTime']);
+          addStringToSF();
+          globalUser =
+              await getUserProfile(globalSigninInformation.userProfileId);
+          DateTime today = DateTime.now();
+          int diffDays = 0;
+          if(globalSigninInformation.lastPasswordUpdateDate != null)
+            diffDays = today
+              .difference(globalSigninInformation.lastPasswordUpdateDate)
+              .inDays;
+          if (diffDays > 89)
+            showToastMessage(
+                text: '비밀번호를 변경한 때로부터 90일이 되였습니다. \n비밀번호변경을 권장합니다.',
+                position: 1);
+          return true;
+        } else {
+          if (response.statusCode == 401) {
+            showToastMessage(
+                text: '해당 회원은 현재 계정이 잠금되였습니다. 한시간이후에 다시 로그인을 시도하세요.');
+          }
+          print(response.statusCode);
+          showToastMessage(text: '로그인 실패', position: 1);
+          return false;
         }
-        print(response.statusCode);
-        showToastMessage(text: '로그인 실패', position: 1);
+      } catch (e) {
+        print(e);
         return false;
       }
     });
@@ -498,9 +513,11 @@ Future<void> signout() async {
   globalSigninInformation.refreshToken = '';
   globalSigninInformation.accessToken = '';
   addStringToSF();
-  http.post(API + '/signout', body: jsonEncode({'accessToken': globalSigninInformation.accessToken}), headers: {
-    'Content-type': 'application/json',
-  }).then((response) {
+  http.post(API + '/signout',
+      body: jsonEncode({'accessToken': globalSigninInformation.accessToken}),
+      headers: {
+        'Content-type': 'application/json',
+      }).then((response) {
     if (response.statusCode == 200) {
       log('signout success');
       return true;
@@ -671,10 +688,12 @@ Future<List<Notice>> getContentNoticeStream(
 }
 
 Future<bool> getToken() => http.post(API + '/token',
-        body: jsonEncode({'refreshToken': globalSigninInformation.refreshToken}),
+        body:
+            jsonEncode({'refreshToken': globalSigninInformation.refreshToken}),
         headers: {'Content-type': 'application/json'}).then((response) {
       if (response.statusCode == 200) {
-        globalSigninInformation.accessToken = json.decode(response.body)['accessToken'];
+        globalSigninInformation.accessToken =
+            json.decode(response.body)['accessToken'];
         return true;
       } else {
         showToastMessage(text: '서버 접속 오류', position: 1);
@@ -684,16 +703,17 @@ Future<bool> getToken() => http.post(API + '/token',
 
 Future<List<UserHistoryModel>> getUserHistoryStream(
     {String username, int page = 1, int limit = 10}) async {
-  final response = await http.get(
-      API + '/appuserhistory/$username?limit=$limit&page=$page');
+  final response =
+      await http.get(API + '/appuserhistory/$username?limit=$limit&page=$page');
   if (response.statusCode == 200) {
     final data =
-    json.decode(utf8.decode(response.bodyBytes))['content'] as List;
+        json.decode(utf8.decode(response.bodyBytes))['content'] as List;
     return data.map((e) {
       return UserHistoryModel(
         id: e['id'],
         username: e['username'],
         ip: e['ip'],
+        result: e['result'],
         regDtm: DateTime.parse(e['regDtm']),
       );
     }).toList();

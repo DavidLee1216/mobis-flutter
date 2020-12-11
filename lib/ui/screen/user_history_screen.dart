@@ -22,7 +22,7 @@ class _UserHistoryScreenState extends State<UserHistoryScreen> {
         appBar: AppBar(
       leading: BackButton(color: Colors.black),
       title: Text(
-        '공지사항',
+        '사용자접속기록',
         style: TextStyle(
           fontFamily: 'HDharmony',
         ),
@@ -86,7 +86,7 @@ class _UserHistoryListWidgetState extends State<UserHistoryListWidget> {
                 subtitle: Padding(
                     padding: EdgeInsets.only(left: 8),
                     child: Text(
-                      state.userHistoryList[index].result=='success'? '접속성공' : '접속실패',
+                      state.userHistoryList[index].result=='Success'? '접속성공' : '접속실패',
                       style: TextStyle(
                           fontFamily: 'HDharmony',
                           fontSize: 10,
@@ -104,10 +104,10 @@ class _UserHistoryListWidgetState extends State<UserHistoryListWidget> {
   void _onScroll() {
     final maxScroll = _scrollController.position.maxScrollExtent;
     final currentScroll = _scrollController.position.pixels;
-    if (maxScroll - currentScroll > 5 &&
+    if (maxScroll - currentScroll > 10 &&
         maxScroll - currentScroll <= _scrollThreshold) {
       BlocProvider.of<UserHistoryBloc>(context).add(UserHistoryLoadEvent());
-      Future.delayed(Duration(milliseconds: 200), () {});
+      Future.delayed(Duration(milliseconds: 100), () {});
     }
   }
 }
