@@ -10,6 +10,7 @@ import 'package:mobispartsearch/utils/navigation.dart';
 import '../../common.dart';
 
 class IdLoginScreen extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     void messageBox(String string){
@@ -21,12 +22,12 @@ class IdLoginScreen extends StatelessWidget {
       cubit: BlocProvider.of<AuthBloc>(context),
       listener: (BuildContext context, state) {
         if (state.isAuthenticated()) {
-          if(globalSigninInformation.isTempPassword)
-            pushTo(context, NavigationBar(index: 9,));
-          else
-          {
+//          if(globalSigninInformation.isTempPassword)
+//            pushTo(context, NavigationBar(index: 9,));
+//          else
+//          {
             pushTo(context, NavigationBar(index: 1));
-          }
+//          }
           return;
         }
         if(state.errorMsg != '')

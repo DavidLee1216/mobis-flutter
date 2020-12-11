@@ -604,8 +604,8 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 ),
                 searchButton,
                 SizedBox(height: 30),
-                searched ? SimpleSearchResultsForm() : Container(),
-                (searched && state.nomore==false) ? searchMoreButton : Container(),
+                searched && state.searchResult.length > 0? SimpleSearchResultsForm() : Container(),
+                (searched && state.nomore==false && state.searchResult.length > 0) ? searchMoreButton : Container(),
               ],
             ),
             Positioned(

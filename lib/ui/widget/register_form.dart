@@ -7,6 +7,7 @@ import 'package:mobispartsearch/bloc/auth_bloc.dart';
 import 'package:mobispartsearch/model/user_model.dart';
 import 'package:mobispartsearch/common.dart';
 import 'package:kopo/kopo.dart';
+import 'package:sprintf/sprintf.dart';
 
 enum Gender { male, female }
 
@@ -211,11 +212,17 @@ class _RegisterFormState extends State<RegisterForm> {
               color: kPrimaryColor,
             )),
         onPressed: () async {
+          if(_idController.text.trim()==''){
+            showToastMessage(text: '아이디를 입력해주세요.');
+            return;
+          }
+          bloc.add(AuthEventLoading());
           if (await checkUsername(_idController.text.trim()) == false) {
             showToastMessage(text: '아이디가 이미 등록되여 있습니다.');
           } else {
             showToastMessage(text: "사용할수 있는 아이디입니다.");
           }
+          bloc.add(AuthEventUnLoading());
         },
       ),
     );
@@ -279,6 +286,7 @@ class _RegisterFormState extends State<RegisterForm> {
               color: kPrimaryColor,
             )),
         onPressed: () async {
+          bloc.add(AuthEventLoading());
           if(_emailController.text.trim().isEmpty){
             showToastMessage(text: '이메일을 입력하세요.');
           }else if (await checkEmail(_emailController.text.trim()) == false) {
@@ -286,6 +294,7 @@ class _RegisterFormState extends State<RegisterForm> {
           } else {
             showToastMessage(text: '사용할수 있는 이메일입니다.');
           }
+          bloc.add(AuthEventUnLoading());
         },
       ),
     );
@@ -333,9 +342,7 @@ class _RegisterFormState extends State<RegisterForm> {
           "월" +
           selectedDate.day.toString() +
           "일";
-      _birthday = selectedDate.year.toString() +
-          selectedDate.month.toString() +
-          selectedDate.day.toString();
+      _birthday = sprintf('%04i%02i%02i', [selectedDate.year, selectedDate.month, selectedDate.day]);
     }
 
     var birthdayField = TextFormField(
@@ -424,7 +431,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 ? "휴대폰 번호를 입력하세요."
                 : validateMobileString(value)
                     ? null
-                    : "휴대폰 번호는 숫자로만 입력해주세요.",
+                    : "숫자만 입력해주세요.",
             controller: _phoneNumberController,
             onEditingComplete: () => _formKey.currentState.validate(),
         )
@@ -461,7 +468,9 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
         ),
         onPressed: () async {
+          bloc.add(AuthEventLoading());
           await validateSMS(_phoneNumberController.text);
+          bloc.add(AuthEventUnLoading());
           showToastMessage(text: '인증번호가 발송되었습니다.');
         },
       ),
@@ -519,6 +528,7 @@ class _RegisterFormState extends State<RegisterForm> {
               color: kPrimaryColor,
             )),
         onPressed: () async {
+          bloc.add(AuthEventLoading());
           seq = await validateCode(_authNumberVerifyController.text);
           if (seq == -1) {
             showToastMessage(text: '인증번호가 일치하지 않습니다.');
@@ -529,6 +539,7 @@ class _RegisterFormState extends State<RegisterForm> {
             });
 //            phoneNumberField.enabled = false;
           }
+          bloc.add(AuthEventUnLoading());
         },
       ),
     );
@@ -999,7 +1010,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         width: 10,
                       ),
                       Text(
-                        '공백 특수기호 없이 특수문자만 입력하세요',
+                        '공백 특수기호 없이 문자만 입력하세요',
                         style: TextStyle(
                             fontFamily: 'HDharmony',
                             color: kPrimaryColor,

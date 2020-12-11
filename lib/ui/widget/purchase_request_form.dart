@@ -9,6 +9,7 @@ import 'package:mobispartsearch/ui/screen/cart_screen.dart';
 import 'package:mobispartsearch/ui/screen/delivery_screen.dart';
 import 'package:mobispartsearch/ui/screen/visit_screen.dart';
 import 'package:mobispartsearch/ui/widget/custom_radio_button.dart';
+import 'package:mobispartsearch/ui/widget/loading.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
 import 'package:mobispartsearch/common.dart' as common;
 import 'package:mobispartsearch/model/product_model.dart';
@@ -223,7 +224,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                     fontSize: 13,
                     color: Color(0xff666666),
                     fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+                textAlign: TextAlign.left,
               ),
             ),
           ),
@@ -543,12 +544,14 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 ));
           } else if (state.errorMsg != '') {
             common.messageBox(state.errorMsg, context);
+            BlocProvider.of<CartBloc>(context).add(InitCartEvent());
           }
         },
         child: BlocBuilder<CartBloc, CartState>(
             cubit: BlocProvider.of<CartBloc>(context),
             builder: (BuildContext context, state) {
               return Stack(
+                alignment: AlignmentDirectional.center,
                 children: [
                   Container(
                     child: Column(children: [
@@ -589,9 +592,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                       )
                     ]),
                   ),
-                  Positioned(
-                    child: LoadingIndicator(isLoading: state.isLoading),
-                  ),
+                  state.isLoading ? LoadingData() : Container(),
                 ],
               );
             }));

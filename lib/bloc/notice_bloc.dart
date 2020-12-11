@@ -32,11 +32,13 @@ class NoticeState {
   int page;
   List<Notice> noticeList;
   int initialLimit;
-  NoticeState({this.kind, this.keyword, this.noticeList, this.page=0, this.initialLimit=20});
+  bool isLoading;
 
-  NoticeState _setProps({EnumNoticeEvent kind, List<Notice> noticeList}) =>
+  NoticeState({this.kind, this.keyword, this.noticeList, this.page=0, this.initialLimit=20, this.isLoading=false});
+
+  NoticeState _setProps({EnumNoticeEvent kind, List<Notice> noticeList, bool isLoading}) =>
       NoticeState(
-          kind: kind ?? this.kind, noticeList: noticeList ?? this.noticeList);
+          kind: kind ?? this.kind, noticeList: noticeList ?? this.noticeList, isLoading: isLoading ?? false);
 
   factory NoticeState.init() => NoticeState();
   NoticeState searchTitle(List<Notice> noticeList) =>
@@ -46,6 +48,8 @@ class NoticeState {
 
   bool isSearch() => (kind == EnumNoticeEvent.TitleSearch ||
       kind == EnumNoticeEvent.ContentSearch);
+
+  NoticeState submitting() => _setProps(isLoading: true);
 }
 
 class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
@@ -54,6 +58,7 @@ class NoticeBloc extends Bloc<NoticeEvent, NoticeState> {
 
   @override
   Stream<NoticeState> mapEventToState(NoticeEvent event) async* {
+    yield state.submitting();
     if(event is NoticeLoadEvent){
       try{
         final stream = await noticeRepository.getTitleNoticeStream(title:'', page: 1, limit: event.limit);

@@ -26,6 +26,10 @@ class AuthEventSignUp extends AuthEvent {
   });
 }
 
+class AuthEventLoading extends AuthEvent {}
+
+class AuthEventUnLoading extends AuthEvent {}
+
 class AuthEventSignOut extends AuthEvent {}
 
 class AuthEventGoogleSignin extends AuthEvent {}
@@ -74,8 +78,8 @@ class AuthState {
 
   factory AuthState.init() => AuthState();
 
-  AuthState success({String id, bool signUpSucc, LoginType loginType}) =>
-      _setProps(id: id, signUpSucc: signUpSucc, isLoading: false, loginType: loginType);
+  AuthState success({String id, String password, bool signUpSucc, LoginType loginType}) =>
+      _setProps(id: id, password: password, signUpSucc: signUpSucc, isLoading: false, loginType: loginType);
 
   AuthState unauthenticated(String errorMsg) =>
       AuthState.init()..errorMsg = errorMsg;
@@ -107,6 +111,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (event is AuthEventGoogleSignin) {
       yield* _mapGoogleSigninToState(event);
     }
+    if(event is AuthEventLoading){
+      yield* _mapLoadingToState(event);
+    }
+    if(event is AuthEventUnLoading){
+      yield* _mapUnloadingToState(event);
+    }
   }
 
   Stream<AuthState> _mapAppStartedToState(AuthEventAppStarted event) async* {
@@ -118,7 +128,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       yield state.submitting();
       if (await userRepository.signIn(event.id, event.password) == true) {
         globalUsername = event.id;
-        yield state.success(id: event.id);
+        yield state.success(id: event.id, password: event.password);
       } else
         yield state.unauthenticated('아이디 또는 패스워드 오류입니다.');
     } catch (e) {
@@ -130,7 +140,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       yield state.submitting();
       if (await userRepository.signUp(event.user) == true)
-        yield state.success(signUpSucc: true);
+      {
+        yield state.success(id: event.user.username, password: event.user.password, signUpSucc: true);
+      }
       else
         yield state.unauthenticated('가입 실패!');
     } catch (e) {
@@ -151,6 +163,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Stream<AuthState> _mapGoogleSigninToState(AuthEventGoogleSignin event) async* {
     yield state.success(loginType: LoginType.GOOGLE);
+  }
+
+  Stream<AuthState> _mapLoadingToState(AuthEventLoading event) async*{
+    yield state.submitting();
+  }
+
+  Stream<AuthState> _mapUnloadingToState(AuthEventUnLoading) async*{
+    yield state.success();
   }
 
 }

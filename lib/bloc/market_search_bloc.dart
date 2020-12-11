@@ -19,6 +19,12 @@ class HKGBMarketSearchEvent extends MarketSearchEvent {
   HKGBMarketSearchEvent(this.idx);
 }
 
+class SetPtnoMarketSearchEvent extends MarketSearchEvent {
+  final String ptno;
+
+  SetPtnoMarketSearchEvent(this.ptno);
+}
+
 class SetMarketMarketSearchEvent extends MarketSearchEvent {
   final int idx;
 
@@ -130,6 +136,8 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
   Stream<MarketSearchState> mapEventToState(MarketSearchEvent event) async* {
     if (event is InitMarketSearchEvent) yield* _mapInitEventToState();
     if (event is HKGBMarketSearchEvent) yield* _mapHKGBEventToState(event.idx);
+    if (event is SetPtnoMarketSearchEvent)
+      yield* _mapSetPtnoEventToState(event.ptno);
     if (event is SetMarketMarketSearchEvent)
       yield* _mapSetMarketEventToState(event.idx);
     if (event is SearchMarketSearchEvent)
@@ -155,6 +163,17 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
       yield state.submitting();
       yield state.success(
         hkgb: hkgb_list[idx],
+      );
+    } catch (e) {
+      yield state.success();
+    }
+  }
+
+  Stream<MarketSearchState> _mapSetPtnoEventToState(String ptno) async* {
+    try {
+      yield state.submitting();
+      yield state.success(
+        ptno: ptno,
       );
     } catch (e) {
       yield state.success();

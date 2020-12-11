@@ -463,12 +463,12 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               fontFamily: 'HDharmony', fontSize: 18, color: Colors.white),
         ),
         onPressed: () {
-          String addressExtended = _address2Controller.text;
-          String address = _address1Controller.text;
-          String email = _emailController.text;
-          String password = _passwordController.text;
-          String zipCode = _postCodeController.text;
-          updateProfile(addressExtended, address, password, zipCode, email);
+          String addressExtended = _address2Controller.text.trim();
+          String address = _address1Controller.text.trim();
+          String email = _emailController.text.trim();
+          String password = _passwordController.text.trim();
+          String zipCode = _postCodeController.text.trim();
+          updateProfile(addressExtended, address, encryptPassword(password), zipCode, email);
         },
       ),
     );

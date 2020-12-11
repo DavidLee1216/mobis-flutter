@@ -367,6 +367,9 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                     fontWeight: FontWeight.bold,
                   ),
                   controller: partNumberController,
+                  onEditingComplete: () {
+                    bloc.add(SetPtnoMarketSearchEvent(partNumberController.text));
+                  },
                 ),
               )
             ],
@@ -435,6 +438,9 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
     return BlocBuilder<MarketSearchBloc, MarketSearchState>(
     cubit: BlocProvider.of<MarketSearchBloc>(context),
     builder: (BuildContext context, state) {
+      partNumberController.text = state.ptno;
+        manufacturerData[0].isSelected = state.hkgb=='H'? true : false;
+        manufacturerData[1].isSelected = state.hkgb=='H'? false : true;
         return Stack(
             children: [
               ListView(
@@ -503,8 +509,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                   ),
                   searchButton,
                   SizedBox(height: 30),
-                  searched ? MarketSearchResultsForm() : Container(),
-                  (searched && state.nomore==false) ? searchMoreButton : Container(),
+                  searched && state.searchResult.length > 0 ? MarketSearchResultsForm() : Container(),
+                  (searched && state.nomore==false && state.searchResult.length > 0) ? searchMoreButton : Container(),
                 ],
               ),
               Positioned(

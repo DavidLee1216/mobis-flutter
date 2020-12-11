@@ -183,7 +183,7 @@ void showToastMessage({String text, int position = 0}) {
     );
 }
 
-const API = 'https://101.1.50.16:8080'; //'https://pss.mobis.co.kr';
+const API = 'http://192.168.20.127:8080'; //'https://pss.mobis.co.kr';
 
 String globalUsername = '';
 
@@ -312,8 +312,10 @@ Future<bool> checkEmail(String email) =>
 Future<bool> validateSMS(String mobile) =>
     http.get(API + '/validateSMS/$mobile').then((response) {
       if (response.statusCode == 200) {
+        showToastMessage(text: '인증번호를 발송하였습니다.');
         return true;
       } else {
+        showToastMessage(text: '인증번호를 발송하지 못했습니다.');
         return false;
       }
     });
@@ -362,12 +364,27 @@ Future<bool> delFromCart(int seq) =>
       }
     });
 
+Future<bool> delAllFromCart(List<Map<String, dynamic>> seqs) =>
+    http.post(API + '/delCarts', body: jsonEncode(seqs), headers: {
+      'Content-type': 'application/json',
+    }).then((response) {
+      print(jsonEncode({'seqs': seqs}));
+      if(response.statusCode == 200) {
+        return true;
+      } else {
+        print(response.statusCode);
+        return false;
+      }
+    });
+
 // ignore: missing_return
 Future<bool> validateEmail(String email) =>
     http.get(API + '/validateEmail/$email').then((response) {
       if (response.statusCode == 200) {
+        showToastMessage(text: '인증번호를 발송하였습니다.');
         return true;
       } else {
+        showToastMessage(text: '인증번호를 발송하지 못했습니다.');
         return false;
       }
     });
@@ -382,17 +399,17 @@ Future<int> validateCode(String code) =>
     });
 
 // ignore: missing_return
-Future<String> getUsername(String code) async {
+Future<String> getUsername(int code) =>
   http.post(API + '/getUsername', body: jsonEncode({'seq': code}), headers: {
-    'Content-type': 'application/json',
+    'Content-type': 'application/json', 'accept': 'application/json'
   }).then((response) {
     log(response.statusCode.toString());
     if (response.statusCode == 200) {
       final jsonData = json.decode(response.body);
       return jsonData['username'];
-    }
+    } else
+      return null;
   });
-}
 
 // ignore: missing_return
 Future<String> getEmail(String code) async {
@@ -407,21 +424,21 @@ Future<String> getEmail(String code) async {
 }
 
 // ignore: missing_return
-Future<bool> resetPassword(String password, int seq) async {
-  await http.post(API + '/resetPassword',
+Future<bool> resetPassword(String password, int seq) =>
+   http.post(API + '/resetPassword',
       body: jsonEncode({'password': password, 'seq': seq}),
       headers: {
         'Content-type': 'application/json',
       }).then((response) {
     if (response.statusCode == 200) {
-      showToastMessage(text: '비밀번호 변경 성공', position: 1);
+      showToastMessage(text: '비밀번호를 발급하였습니다.', position: 1);
       return true;
     } else {
       showToastMessage(text: '비밀번호 변경 실패', position: 1);
       return false;
     }
   });
-}
+
 
 Future<User> getUserProfile(int seq) =>
   http.get(API + '/profile/$seq').then((response) {
@@ -455,6 +472,9 @@ Future<bool> signin(String username, String password) =>
           showToastMessage(text: '비밀번호를 변경한 때로부터 90일이 되였습니다. \n비밀번호변경을 권장합니다.', position: 1);
         return true;
       } else {
+        if(response.statusCode==401){
+          showToastMessage(text: '해당 회원은 현재 계정이 잠금되였습니다. 한시간이후에 다시 로그인을 시도하세요.');
+        }
         print(response.statusCode);
         showToastMessage(text: '로그인 실패', position: 1);
         return false;
@@ -611,6 +631,7 @@ Future<List<Notice>> getTitleNoticeStream(
     {String title, int page = 1, int limit = 10}) async {
   final response = await http
       .get(API + '/notice?kind=title&limit=$limit&page=$page&search=$title');
+  print(response.statusCode);
   if (response.statusCode == 200) {
     final data =
         json.decode(utf8.decode(response.bodyBytes))['content'] as List;

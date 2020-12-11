@@ -1,8 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobispartsearch/bloc/market_search_bloc.dart';
 import 'package:mobispartsearch/bloc/simple_search_bloc.dart';
 import 'package:mobispartsearch/ui/screen/home_screen.dart';
+import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
+import 'package:mobispartsearch/utils/navigation.dart';
 
 class SimpleSearchResultsForm extends StatefulWidget {
   @override
@@ -104,6 +107,7 @@ class _SimpleSearchResultListWidgetState
                   koreanPartName: state.searchResult[index].krname,
                   englishParName: state.searchResult[index].enname,
                   price: state.searchResult[index].price.toString() + '원',
+                  hkgb: state.hkgb,
                 );
               });
         });
@@ -115,12 +119,15 @@ class SimpleSearchResultForm extends StatefulWidget {
   final String koreanPartName;
   final String englishParName;
   final String price;
+  final String hkgb;
   SimpleSearchResultForm(
       {Key key,
       this.partNumber,
       this.koreanPartName,
       this.englishParName,
-      this.price})
+      this.price,
+      this.hkgb,
+      })
       : super(key: key);
   @override
   _SimpleSearchResultFormState createState() => _SimpleSearchResultFormState();
@@ -171,18 +178,32 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                       ),
                     ),
                     TableCell(
-                      child: SizedBox(
-                        height: 40,
-                        child: Center(
-                          child: SelectableText(
-                            widget.partNumber,
-                            style: TextStyle(
-                                fontFamily: 'HDharmony',
-                                fontSize: 12,
-                                color: Colors.black),
-                            textAlign: TextAlign.left,
+                      child: GestureDetector(
+                        child: SizedBox(
+                          height: 40,
+                          child: Center(
+                            child: SelectableText(
+                              widget.partNumber,
+                              style: TextStyle(
+                                  fontFamily: 'HDharmony',
+                                  fontSize: 12,
+                                  color: Colors.black),
+                              textAlign: TextAlign.left,
+                            ),
                           ),
                         ),
+                        onDoubleTap: () {
+                          BlocProvider.of<MarketSearchBloc>(context).add(SetMarketMarketSearchEvent(0));
+                          BlocProvider.of<MarketSearchBloc>(context).add(HKGBMarketSearchEvent(0));
+                          BlocProvider.of<MarketSearchBloc>(context).add(SearchMarketSearchEvent(widget.partNumber, '', ''));
+                          Navigator.push(
+                              context,
+                              PageRouteBuilder(
+                                  pageBuilder: (_, __, ___) =>
+                                      NavigationBar(
+                                        index: 4,
+                                      )));
+                        }
                       ),
                     )
                   ]),

@@ -12,49 +12,9 @@ showLoading(BuildContext context) {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
         content: Column(
           mainAxisSize: MainAxisSize.min,
-          children: [LoadingData(), SizedBox(height: 5), Text('Please wait...')],
+          children: [LoadingData(), SizedBox(height: 5), Text('잠시만 기다려주세요.')],
         ),
       );
     },
   );
-}
-
-
-void showToastMessage({String text, int position = 0}) {
-  if(position==0)
-    Fluttertoast.showToast(
-      msg: text,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.TOP, // also possible "TOP" and "CENTER"
-      backgroundColor: Colors.black54,
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
-  else if(position==1)
-    Fluttertoast.showToast(
-      msg: text,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER, // also possible "TOP" and "CENTER"
-      backgroundColor: Colors.black54,
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
-  else if(position==2)
-    Fluttertoast.showToast(
-      msg: text,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM, // also possible "TOP" and "CENTER"
-      backgroundColor: Colors.black54,
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
-  else
-    Fluttertoast.showToast(
-      msg: text,
-      toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.BOTTOM, // also possible "TOP" and "CENTER"
-      backgroundColor: Colors.black54,
-      textColor: Colors.white,
-      fontSize: 16.0,
-    );
 }

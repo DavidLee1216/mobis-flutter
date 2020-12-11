@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/notice_bloc.dart';
+import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 import 'package:mobispartsearch/ui/widget/notice_form.dart';
 import 'package:mobispartsearch/ui/screen/home_screen.dart';
 import 'package:mobispartsearch/common.dart' as common;
@@ -41,21 +42,30 @@ class _NoticeScreenState extends State<NoticeScreen> {
           ),
         ],
       ),
-      body: SafeArea(
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            children: [
-              searchIconClicked ? SearchBarWidget() : Container(),
-              Divider(
-                height: 3,
-                color: Colors.black54,
-              ),
-              Expanded(child: NoticeListWidget()),
-            ],
-          ),
-        ), //
-      ),
+      body: BlocBuilder<NoticeBloc, NoticeState>(
+          cubit: BlocProvider.of<NoticeBloc>(context),
+          builder: (context, state) {
+            return SafeArea(
+              child: Stack(children: [
+                Container(
+                  color: Colors.white,
+                  child: Column(
+                    children: [
+                      searchIconClicked ? SearchBarWidget() : Container(),
+                      Divider(
+                        height: 3,
+                        color: Colors.black54,
+                      ),
+                      Expanded(child: NoticeListWidget()),
+                    ],
+                  ),
+                ),
+//                Positioned(
+//                  child: LoadingIndicator(isLoading: state.isLoading), //
+//                ),
+              ]), //
+            );
+          }),
     );
   }
 }

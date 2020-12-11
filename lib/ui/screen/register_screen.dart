@@ -23,6 +23,7 @@ class RegisterScreen extends StatelessWidget {
       cubit: BlocProvider.of<AuthBloc>(context),
       listener: (BuildContext context, state) {
         if (state.signUpSucc) {
+          BlocProvider.of<AuthBloc>(context).add(AuthEventSignIn(id: state.id, password: state.password));
           pushTo(context, IdLoginScreen());
         }
 //        if(state.errorMsg != '')
