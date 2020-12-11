@@ -543,7 +543,8 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 CartScreen(
                 ));
           } else if (state.errorMsg != '') {
-            common.messageBox(state.errorMsg, context);
+//            common.messageBox(state.errorMsg, context);
+            common.showToastMessage(text: state.errorMsg);
             BlocProvider.of<CartBloc>(context).add(InitCartEvent());
           }
         },

@@ -513,8 +513,7 @@ Future<bool> signup(User user) =>
       }
     });
 
-Future<void> signout() async {
-  print(globalSigninInformation.accessToken);
+Future<bool> signout() =>
   http.post(API + '/signout',
       body: jsonEncode({'accessToken': globalSigninInformation.accessToken}),
       headers: {
@@ -532,7 +531,7 @@ Future<void> signout() async {
       return false;
     }
   });
-}
+
 
 Future<bool> order(Order order) =>
     http.post(API + '/order', body: jsonEncode(order.toMap()), headers: {

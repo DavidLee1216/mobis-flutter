@@ -5,6 +5,7 @@ import 'package:mobispartsearch/ui/screen/login_screen.dart';
 import 'package:mobispartsearch/ui/screen/my_info_screen.dart';
 import 'package:mobispartsearch/ui/screen/notification_screen.dart';
 import 'package:mobispartsearch/ui/screen/my_page_query_screen.dart';
+import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
 
@@ -18,24 +19,33 @@ class _MyPageScreenState extends State<MyPageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          '마이페이지',
-          style: TextStyle(
-            fontFamily: 'HDharmony',
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            MyPageWidget(),
-          ],
-        ),
-      ),
-    );
+    return BlocBuilder<AuthBloc, AuthState>(
+        cubit: BlocProvider.of<AuthBloc>(context),
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text(
+                '마이페이지',
+                style: TextStyle(
+                  fontFamily: 'HDharmony',
+                ),
+              ),
+              centerTitle: true,
+            ),
+            body: Stack(children: [
+              SafeArea(
+                child: Column(
+                  children: [
+                    MyPageWidget(),
+                  ],
+                ),
+              ),
+              Positioned(
+                child: LoadingIndicator(isLoading: state.isLoading), //
+              ),
+            ]),
+          );
+        });
   }
 }
 
@@ -193,8 +203,7 @@ class MyPageWidget extends StatelessWidget {
                             ),
                           ),
                           Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 10),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Divider(
                               color: Colors.black54,
                             ),
@@ -261,8 +270,8 @@ class MyPageWidget extends StatelessWidget {
                                         PageRouteBuilder(
                                           pageBuilder: (_, __, ___) =>
                                               NavigationBar(
-                                                index: 9,
-                                              ),
+                                            index: 9,
+                                          ),
                                         ),
                                       );
                                     },
@@ -295,8 +304,7 @@ class MyPageWidget extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   PageRouteBuilder(
-                                    pageBuilder: (_, __, ___) =>
-                                        NavigationBar(
+                                    pageBuilder: (_, __, ___) => NavigationBar(
                                       index: 0,
                                     ),
                                   ),

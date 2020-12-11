@@ -9,5 +9,5 @@ class UserRepository {
 
   Future<bool> signUp(User user) => signup(user);
 
-  Future<void> signOut() => signout();
+  Future<bool> signOut() => signout();
 }

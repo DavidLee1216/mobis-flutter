@@ -153,8 +153,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> _mapSignedOutToState(AuthEventSignOut event) async* {
     try {
       yield state.submitting();
-      await userRepository.signOut();
-      yield state.success();
+      if(await userRepository.signOut() == true)
+        yield state.unauthenticated('');
+      else
+        yield state.success();
     } catch (e) {
       yield state.unauthenticated(e.toString());
     }
