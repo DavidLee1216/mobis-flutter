@@ -514,9 +514,7 @@ Future<bool> signup(User user) =>
     });
 
 Future<void> signout() async {
-  globalSigninInformation.refreshToken = '';
-  globalSigninInformation.accessToken = '';
-  addStringToSF();
+  print(globalSigninInformation.accessToken);
   http.post(API + '/signout',
       body: jsonEncode({'accessToken': globalSigninInformation.accessToken}),
       headers: {
@@ -524,6 +522,10 @@ Future<void> signout() async {
       }).then((response) {
     if (response.statusCode == 200) {
       log('signout success');
+      globalSigninInformation.refreshToken = '';
+      globalSigninInformation.accessToken = '';
+      addStringToSF();
+      globalUsername = '';
       return true;
     } else {
       log('signout' + response.statusCode.toString());

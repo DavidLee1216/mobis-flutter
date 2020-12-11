@@ -154,7 +154,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       yield state.submitting();
       await userRepository.signOut();
-      globalUsername = '';
       yield state.success();
     } catch (e) {
       yield state.unauthenticated(e.toString());
