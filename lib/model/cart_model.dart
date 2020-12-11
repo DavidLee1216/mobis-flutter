@@ -28,3 +28,15 @@ class CartModel{
     sapCode: map['sap_code'],
   );
 }
+
+class DelCartModel{
+  int seq;
+
+  DelCartModel({this.seq});
+
+  Map<String, dynamic> toMap() {
+    return {
+      'seq': seq,
+    };
+  }
+}

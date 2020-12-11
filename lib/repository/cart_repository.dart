@@ -18,4 +18,8 @@ class CartRepository {
   Future<bool> delFromCart(int seq) async {
     return await common.delFromCart(seq);
   }
+
+  Future<bool> delAllFromCart(List<Map<String, dynamic>> seqs) async{
+    return await common.delAllFromCart(seqs);
+  }
 }

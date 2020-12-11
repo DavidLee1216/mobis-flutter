@@ -223,7 +223,9 @@ void getSido() async {
       final data = json.decode(utf8.decode(response.bodyBytes)) as List;
       globalSido = data.map((e) => Sido.fromMap(e)).toList();
       getSigungu();
-    } else {}
+    } else {
+      showToastMessage(text: '서버 접속 오류입니다.');
+    }
   });
 }
 
@@ -347,6 +349,7 @@ Future<bool> addToCart(Product product) =>
       'Content-type': 'application/json',
     }).then((response) {
       if (response.statusCode == 200) {
+        showToastMessage(text: '장바구니에 담았습니다.');
         return true;
       } else {
         return false;
@@ -366,8 +369,9 @@ Future<bool> delFromCart(int seq) =>
 
 Future<bool> delAllFromCart(List<Map<String, dynamic>> seqs) =>
     http.post(API + '/delCarts', body: jsonEncode(seqs), headers: {
-      'Content-type': 'application/json',
+      'Content-type': 'application/json', 'accept': 'application/json',
     }).then((response) {
+      print(seqs);
       if (response.statusCode == 200) {
         return true;
       } else {

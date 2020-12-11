@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/model/cart_model.dart';
 import 'package:mobispartsearch/model/product_model.dart';
 import 'package:mobispartsearch/repository/cart_repository.dart';
@@ -105,6 +106,23 @@ class CartState {
     return _setProps(productList: productList, isLoading: false);
   }
 
+  CartState removeProductItems(List<Map<String, dynamic>> seqs){
+    int i = 0;
+    for( i = 0; i < seqs.length; i++){
+      print('seq + $i' + seqs[i]['seq'].toString());
+      for(int idx = 0; idx < productList.length; idx++)
+      {
+        print('productList + $idx' + productList[idx].seq.toString());
+        if(productList[idx].seq == seqs[i]['seq'])
+        {
+          productList.removeAt(idx);
+          break;
+        }
+      }
+    }
+    return _setProps(productList: productList, isLoading: false);
+  }
+
   int getTotalPrice() {
     int val = 0;
     for(int i = 0; i < productList.length; i++) {
@@ -168,12 +186,21 @@ class CartBloc extends Bloc<CartEvent, CartState> {
   }
 
   Stream<CartState> mapEventDelAllToState(DelAllEvent event) async* {
-//    yield state.submitting();
-//    for (CartModel item in state.productList) {
-//      if (item.checked) await cartRepository.delFromCart(item.seq);
-//    }
-//    List<CartModel> productList = await cartRepository.loadCart();
-//    yield CartState(productList: productList);
+    yield state.submitting();
+    List<Map<String, dynamic>> delList = new List<Map<String, dynamic>>();
+    for (CartModel item in state.productList) {
+      if (state.checkAllState || item.checked)
+      {
+        DelCartModel delModel = new DelCartModel(seq: item.seq);
+        delList.add(delModel.toMap());
+      }
+    }
+//    print(delList);
+    if( await cartRepository.delAllFromCart(delList)) {
+      yield state.removeProductItems(delList);
+    } else {
+      yield state.unprocessed('삭제 실패');
+    }
   }
 
   Stream<CartState> mapEventLoadToState(LoadCartEvent event) async* {

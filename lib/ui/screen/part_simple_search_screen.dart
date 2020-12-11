@@ -257,7 +257,7 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                       getCatSeq(modelDropdownValue);
                       setState(() {});
                     },
-                    items: globalModels[hkgb_id][vtpy_id].map<DropdownMenuItem<String>>((item) {
+                    items: globalModels[hkgb_id][vtpy_id]?.map<DropdownMenuItem<String>>((item) {
                       return DropdownMenuItem<String>(
                         value: item.modelname,
                         child: Container(
