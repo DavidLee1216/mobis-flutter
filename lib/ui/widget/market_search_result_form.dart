@@ -91,7 +91,7 @@ class _MarketSearchResultListWidgetState
     return BlocBuilder<MarketSearchBloc, MarketSearchState>(
         cubit: BlocProvider.of<MarketSearchBloc>(context),
         builder: (BuildContext context, state) {
-          if (state.searchResult == null || state.searchResult.length == 0) {
+          if (state.searchResult == null || state.searchResult?.length == 0) {
             return Container();
           }
           return ListView.builder(

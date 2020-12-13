@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:bloc/bloc.dart';
-import 'package:mobispartsearch/common.dart';
+import 'package:mobispartsearch/app_config.dart';
 import 'package:mobispartsearch/model/user_model.dart';
 import 'package:mobispartsearch/repository/user_repository.dart';
 import 'package:meta/meta.dart';

@@ -1,18 +1,21 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
+import 'dart:async';
 import 'dart:math' as math;
 import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_session/flutter_session.dart';
-import 'package:firebase_auth/firebase_auth.dart' as firebase;
-import 'package:kakao_flutter_sdk/all.dart' as kakao;
 import 'package:crypto/crypto.dart';
-import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 import 'package:mobispartsearch/model/UserHistoryModel.dart';
-import 'package:mobispartsearch/model/signin_information.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:mobispartsearch/ui/screen/login_screen.dart';
+import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
+import 'package:mobispartsearch/utils/navigation.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'model/carModel_model.dart';
 import 'model/location_model.dart';
@@ -23,8 +26,7 @@ import 'model/simple_search_model.dart';
 import 'model/user_model.dart';
 import 'model/product_model.dart';
 import 'model/cart_model.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'app_config.dart';
 
 // FIXME: Testing code
 class TestHttpOverrides extends HttpOverrides {
@@ -50,10 +52,6 @@ getStringValueSF() async {
     return '';
   }
 }
-
-DateFormat dateformatter = DateFormat('yyyy.MM.dd');
-const List<String> hkgb_list = ['H', 'K'];
-const List<String> vtpy_list = ['P', 'R', 'C'];
 
 const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
 math.Random _rnd = math.Random();
@@ -121,19 +119,6 @@ void getSession() async {
   }
 }
 
-enum Gender { male, female }
-
-const kPrimaryColor = Color.fromRGBO(0, 71, 135, 1);
-const kTitleStyle =
-    TextStyle(fontFamily: 'HDharmony', fontSize: 18, color: Colors.white);
-const kSubtitleStyle =
-    TextStyle(fontFamily: 'HDharmony', fontSize: 14, color: Colors.white);
-const kButtonTextStyle =
-    TextStyle(fontFamily: 'HDharmony', fontSize: 14, color: Colors.white);
-const kMenuTextStyle = TextStyle(fontFamily: 'HDharmony', fontSize: 12);
-const kMarginSpace = 40.0;
-const kImageWidth = 80.0;
-
 void messageBox(String string, BuildContext context) {
   showDialog(
       context: context,
@@ -183,20 +168,8 @@ void showToastMessage({String text, int position = 0}) {
     );
 }
 
-const API = 'https://pss.mobis.co.kr'; //'http://192.168.20.127:8080'; //
-
-String globalUsername = '';
-
-firebase.User googleUser;
-kakao.User kakaoUser;
-
-User globalUser = new User();
-SigninInformation globalSigninInformation = new SigninInformation();
-
 bool globalSidoLoaded = false;
 bool globalModelsLoaded = false;
-
-int globalRecordCountPerPage = 10;
 
 List<Sido> globalSido = new List<Sido>();
 var globalModels = List.generate(2, (i) => List(3), growable: false);
@@ -262,29 +235,33 @@ void getSigungu() async {
 }
 
 // ignore: missing_return
-Future<bool> updateProfile(String addressExtended, String address, String mobile,
-    String password, String zipCode, String email) {
-//  log(jsonEncode({
-//    'addressExtended': addressExtended,
-//    'address': address,
-//    'password': password,
-//    'zipcode': zipCode,
-//    'email': email}).toString());
-  http
+Future<bool> updateProfile(String addressExtended, String address,
+    String mobile, String password, String zipCode, String email) async {
+  await http
       .post(API + '/profile',
-          body: jsonEncode({
-            'addressExtended': addressExtended,
-            'address': address,
-            'password': password,
-            'zipcode': zipCode,
-            'email': email
-          }))
-      .then((response) {
+          body: jsonEncode(
+            {
+              'addressExtended': addressExtended,
+              'address': address,
+              'password': password,
+              'zipcode': zipCode,
+              'mobile': mobile,
+              'email': email
+            },
+          ),
+          headers: requestHeader(globalSigninInformation.accessToken))
+      .then((response) async {
     if (response.statusCode == 200) {
-      log('profile success');
+      showToastMessage(text: '정보가 변경되었습니다.');
       return true;
     } else {
       log('profile ${response.statusCode}');
+      log(response.body);
+      if (response.statusCode == 401) {
+        if (await signout()) {
+          showToastMessage(text: '로그아웃 되었습니다. 다시 로그인하세요.');
+        }
+      }
       return false;
     }
   });
@@ -314,7 +291,7 @@ Future<bool> checkEmail(String email) =>
 Future<bool> validateSMS(String mobile) =>
     http.get(API + '/validateSMS/$mobile').then((response) {
       if (response.statusCode == 200) {
-        showToastMessage(text: '인증번호를 발송하였습니다.');
+        showToastMessage(text: '인증번호가 발송되었습니다.');
         return true;
       } else {
         showToastMessage(text: '인증번호를 발송하지 못했습니다.');
@@ -329,7 +306,8 @@ Future<List<CartModel>> loadCart() async {
     url = API + '/carts?id=$globalUsername';
   else
     url = API + '/carts?id=${globalSigninInformation.session}';
-  final response = await http.get(url);
+  final response = await http.get(url,
+      headers: requestHeader(globalSigninInformation.accessToken));
   if (response.statusCode == 200) {
     try {
       final data = json.decode(utf8.decode(response.bodyBytes)) as List;
@@ -340,42 +318,58 @@ Future<List<CartModel>> loadCart() async {
       return null;
     }
   } else {
+    if (response.statusCode == 401) {
+      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+    }
     return null;
   }
 }
 
-Future<bool> addToCart(Product product) =>
-    http.post(API + '/addCart', body: jsonEncode(product.toMap()), headers: {
-      'Content-type': 'application/json',
-    }).then((response) {
+Future<bool> addToCart(Product product) => http
+        .post(API + '/addCart',
+            body: jsonEncode(product.toMap()),
+            headers: requestHeader(globalSigninInformation.accessToken))
+        .then((response) async {
       if (response.statusCode == 200) {
+        print(response.body);
         showToastMessage(text: '장바구니에 담았습니다.');
         return true;
       } else {
+        if (response.statusCode == 401) {
+          if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+        }
         return false;
       }
     });
 
-Future<bool> delFromCart(int seq) =>
-    http.post(API + '/delCart', body: jsonEncode({'seq': seq}), headers: {
-      'Content-type': 'application/json',
-    }).then((response) {
+Future<bool> delFromCart(int seq) => http
+        .post(API + '/delCart',
+            body: jsonEncode({'seq': seq}),
+            headers: requestHeader(globalSigninInformation.accessToken))
+        .then((response) async {
       if (response.statusCode == 200) {
         return true;
       } else {
+        if (response.statusCode == 401) {
+          if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+        }
         return false;
       }
     });
 
-Future<bool> delAllFromCart(List<Map<String, dynamic>> seqs) =>
-    http.post(API + '/delCarts', body: jsonEncode(seqs), headers: {
-      'Content-type': 'application/json', 'accept': 'application/json',
-    }).then((response) {
+Future<bool> delAllFromCart(List<Map<String, dynamic>> seqs) => http
+        .post(API + '/delCarts',
+            body: jsonEncode(seqs),
+            headers: requestHeader(globalSigninInformation.accessToken))
+        .then((response) async {
       print(seqs);
       if (response.statusCode == 200) {
         return true;
       } else {
         print(response.statusCode);
+        if (response.statusCode == 401) {
+          if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+        }
         return false;
       }
     });
@@ -443,10 +437,12 @@ Future<bool> resetPassword(String password, int seq) =>
       }
     });
 
-Future<User> getUserProfile(int seq) =>
-    http.get(API + '/profile/$seq').then((response) {
+Future<User> getUserProfile(int seq) => http
+        .get(API + '/profile/$seq',
+            headers: requestHeader(globalSigninInformation.accessToken))
+        .then((response) {
       if (response.statusCode == 200) {
-        final jsonData = json.decode(response.body);
+        final jsonData = json.decode(utf8.decode(response.bodyBytes));
         globalSigninInformation.lastPasswordUpdateDate =
             jsonData['lastUpdatePasswordTime'];
         globalSigninInformation.isTempPassword =
@@ -476,14 +472,17 @@ Future<bool> signin(String username, String password) =>
               await getUserProfile(globalSigninInformation.userProfileId);
           DateTime today = DateTime.now();
           int diffDays = 0;
-          if(globalSigninInformation.lastPasswordUpdateDate != null)
+          if (globalSigninInformation.lastPasswordUpdateDate != null)
             diffDays = today
-              .difference(globalSigninInformation.lastPasswordUpdateDate)
-              .inDays;
+                .difference(globalSigninInformation.lastPasswordUpdateDate)
+                .inDays;
           if (diffDays > 89)
             showToastMessage(
                 text: '비밀번호를 변경한 때로부터 90일이 되였습니다. \n비밀번호변경을 권장합니다.',
                 position: 1);
+          else if (globalSigninInformation.isTempPassword) {
+            showToastMessage(text: '임시 비밀번호를 사용하고 있습니다. \n비밀번호변경을 권장합니다.');
+          }
           return true;
         } else {
           if (response.statusCode == 401) {
@@ -491,6 +490,7 @@ Future<bool> signin(String username, String password) =>
                 text: '해당 회원은 현재 계정이 잠금되였습니다. 한시간이후에 다시 로그인을 시도하세요.');
           }
           print(response.statusCode);
+          print(response.body);
           showToastMessage(text: '로그인 실패', position: 1);
           return false;
         }
@@ -513,33 +513,35 @@ Future<bool> signup(User user) =>
       }
     });
 
-Future<bool> signout() =>
-  http.post(API + '/signout',
-      body: jsonEncode({'accessToken': globalSigninInformation.accessToken}),
-      headers: {
-        'Content-type': 'application/json',
-      }).then((response) {
-    if (response.statusCode == 200) {
-      globalSigninInformation.refreshToken = '';
-      globalSigninInformation.accessToken = '';
-      addStringToSF();
-      globalUsername = '';
-      return true;
-    } else {
-      return false;
-    }
-  });
+Future<bool> signout() => http.post(API + '/signout',
+        body: jsonEncode({'accessToken': globalSigninInformation.accessToken}),
+        headers: {
+          'Content-type': 'application/json',
+        }).then((response) {
+      if (response.statusCode == 200) {
+        globalSigninInformation.refreshToken = '';
+        globalSigninInformation.accessToken = '';
+        addStringToSF();
+        globalUsername = '';
+        return true;
+      } else {
+        return false;
+      }
+    });
 
-
-Future<bool> order(Order order) =>
-    http.post(API + '/order', body: jsonEncode(order.toMap()), headers: {
-      'Content-type': 'application/json',
-    }).then((response) {
+Future<bool> order(Order order) => http
+        .post(API + '/order',
+            body: jsonEncode(order.toMap()),
+            headers: requestHeader(globalSigninInformation.accessToken))
+        .then((response) async {
       if (response.statusCode == 200) {
         log('order success');
         return true;
       } else {
         log('order' + response.statusCode.toString());
+        if (response.statusCode == 401) {
+          if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+        }
         return false;
       }
     });
@@ -552,6 +554,7 @@ Future<List<ModelSeq>> getModelsFromRemote(String hkgb, String vtpy) async {
       return ModelSeq.fromMap(item);
     }).toList();
   } else {
+    print(response.statusCode);
     throw Exception('error');
   }
 }
@@ -568,14 +571,18 @@ Future<List<SimpleSearchResultModel>> simpleSearchPartByName(
   if (vtpy != '') url = url + '&vtyp=$vtpy';
   if (catSeq != 0) url = url + '&catSeq=$catSeq';
   if (searchWord != '') url = url + '&inText=$searchWord';
-  final response = await http.get(url);
+  final response = await http.get(url,
+      headers: requestHeader(globalSigninInformation.accessToken));
   if (response.statusCode == 200) {
     final data = json.decode(utf8.decode(response.bodyBytes)) as List;
     return data.map((item) {
       return SimpleSearchResultModel.fromMap(item);
     }).toList();
   } else {
-    showToastMessage(text: '검색 실패', position: 1);
+    if (response.statusCode == 401) {
+      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+    } else
+      showToastMessage(text: '검색 실패', position: 1);
     return null;
   }
 }
@@ -585,14 +592,18 @@ Future<List<SimpleSearchResultModel>> simpleSearchPartByPtno(
   String url = API +
       '/partPrcList?hkgb=$hkgb&firstIndex=$firstIndex&recordCountPerPage=$recordCountPerPage';
   if (ptno != '') url = url + '&ptno=$ptno';
-  final response = await http.get(url);
+  final response = await http.get(url,
+      headers: requestHeader(globalSigninInformation.accessToken));
   if (response.statusCode == 200) {
     final data = json.decode(utf8.decode(response.bodyBytes)) as List;
     return data.map((item) {
       return SimpleSearchResultModel.fromMap(item);
     }).toList();
   } else {
-    showToastMessage(text: '검색 실패', position: 1);
+    if (response.statusCode == 401) {
+      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+    } else
+      showToastMessage(text: '검색 실패', position: 1);
     return null;
   }
 }
@@ -610,9 +621,11 @@ Future<List<MarketSearchResultModel>> marketSearchPart(
   if (ptno != '') url = url + '&ptno=$ptno';
   if (sido != '' && sido != null && sido != '전체') {
     url = url + '&sido=$sido';
-    if (sigungu != '' && sigungu != null && sigungu != '전체') url = url + '&sigungu=$sigungu';
+    if (sigungu != '' && sigungu != null && sigungu != '전체')
+      url = url + '&sigungu=$sigungu';
   }
-  final response = await http.get(url);
+  final response = await http.get(url,
+      headers: requestHeader(globalSigninInformation.accessToken));
   if (response.statusCode == 200) {
     if (response.body.isNotEmpty) {
       final data = json.decode(utf8.decode(response.bodyBytes)) as List;
@@ -625,14 +638,18 @@ Future<List<MarketSearchResultModel>> marketSearchPart(
     }
   } else {
     print(response.statusCode);
-    showToastMessage(text: '서버 접속 오류', position: 1);
+    if (response.statusCode == 401) {
+      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+    } else
+      showToastMessage(text: '서버 접속 오류', position: 1);
     return null;
   }
 }
 
 Future<MarketSearchResultProductInfo> getProductInfoFromPtno(
     String ptno) async {
-  final response = await http.get(API + '/part?ptno=$ptno');
+  final response = await http.get(API + '/part?ptno=$ptno',
+      headers: requestHeader(globalSigninInformation.accessToken));
   if (response.statusCode == 200) {
     if (response.body != '') {
       final data = json.decode(utf8.decode(response.bodyBytes));
@@ -642,15 +659,19 @@ Future<MarketSearchResultProductInfo> getProductInfoFromPtno(
     }
   } else {
     print(response.statusCode);
-    showToastMessage(text: '서버 접속 오류', position: 1);
+    if (response.statusCode == 401) {
+      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+    } else
+      showToastMessage(text: '서버 접속 오류', position: 1);
     return null;
   }
 }
 
 Future<List<Notice>> getTitleNoticeStream(
     {String title, int page = 1, int limit = 10}) async {
-  final response = await http
-      .get(API + '/notice?kind=title&limit=$limit&page=$page&search=$title');
+  final response = await http.get(
+      API + '/notice?kind=title&limit=$limit&page=$page&search=$title',
+      headers: requestHeader(globalSigninInformation.accessToken));
   print(response.statusCode);
   if (response.statusCode == 200) {
     final data =
@@ -664,7 +685,10 @@ Future<List<Notice>> getTitleNoticeStream(
       );
     }).toList();
   } else {
-    showToastMessage(text: '서버 접속 오류', position: 1);
+    if (response.statusCode == 401) {
+      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+    } else
+      showToastMessage(text: '서버 접속 오류', position: 1);
     throw Exception('error');
   }
 }
@@ -672,7 +696,8 @@ Future<List<Notice>> getTitleNoticeStream(
 Future<List<Notice>> getContentNoticeStream(
     {String keyword, int page = 1, int limit = 10}) async {
   final response = await http.get(
-      API + '/notice?kind=content&limit=$limit&page=$page&search=$keyword');
+      API + '/notice?kind=content&limit=$limit&page=$page&search=$keyword',
+      headers: requestHeader(globalSigninInformation.accessToken));
   if (response.statusCode == 200) {
     final data =
         json.decode(utf8.decode(response.bodyBytes))['content'] as List;
@@ -685,29 +710,38 @@ Future<List<Notice>> getContentNoticeStream(
       );
     }).toList();
   } else {
-    showToastMessage(text: '서버 접속 오류', position: 1);
+    if (response.statusCode == 401) {
+      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+    } else
+      showToastMessage(text: '서버 접속 오류', position: 1);
     throw Exception('error');
   }
 }
 
-Future<bool> getToken() => http.post(API + '/token',
-        body:
-            jsonEncode({'refreshToken': globalSigninInformation.refreshToken}),
-        headers: {'Content-type': 'application/json'}).then((response) {
+Future<bool> getToken() => http
+        .post(API + '/token',
+            body: jsonEncode(
+                {'refreshToken': globalSigninInformation.refreshToken}),
+            headers: requestHeader(globalSigninInformation.accessToken))
+        .then((response) async {
       if (response.statusCode == 200) {
         globalSigninInformation.accessToken =
             json.decode(response.body)['accessToken'];
         return true;
       } else {
-        showToastMessage(text: '서버 접속 오류', position: 1);
+        if (response.statusCode == 401) {
+          if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+        } else
+          showToastMessage(text: '서버 접속 오류', position: 1);
         return false;
       }
     });
 
 Future<List<UserHistoryModel>> getUserHistoryStream(
     {String username, int page = 1, int limit = 10}) async {
-  final response =
-      await http.get(API + '/appuserhistory/$username?limit=$limit&page=$page');
+  final response = await http.get(
+      API + '/appuserhistory/$username?limit=$limit&page=$page',
+      headers: requestHeader(globalSigninInformation.accessToken));
   if (response.statusCode == 200) {
     final data =
         json.decode(utf8.decode(response.bodyBytes))['content'] as List;
@@ -721,7 +755,10 @@ Future<List<UserHistoryModel>> getUserHistoryStream(
       );
     }).toList();
   } else {
-    showToastMessage(text: '서버 접속 오류', position: 1);
+    if (response.statusCode == 401) {
+      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+    } else
+      showToastMessage(text: '서버 접속 오류', position: 1);
     throw Exception('error');
   }
 }

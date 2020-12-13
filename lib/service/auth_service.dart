@@ -11,6 +11,7 @@ import 'package:mobispartsearch/bloc/auth_bloc.dart';
 import 'package:mobispartsearch/ui/screen/register_screen.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
 import 'package:mobispartsearch/common.dart' as common;
+import 'package:mobispartsearch/app_config.dart';
 import 'alert_service.dart';
 
 checkIfUserExists() async {
@@ -78,20 +79,12 @@ class MyGoogleSignin{
       );
 
       final UserCredential authResult = await _auth.signInWithCredential(credential);
-      common.googleUser = authResult.user;
-
-      assert(common.googleUser.email != null);
-      assert(common.googleUser.displayName != null);
-      assert(common.googleUser.photoURL != null);
-      assert(!common.googleUser.isAnonymous);
-      assert(await common.googleUser.getIdToken() != null);
+      googleUser = authResult.user;
 
       Navigator.of(context, rootNavigator: true).pop('dialog');
-
-
       return true;
     } catch (e) {
-      common.googleUser = null;
+      googleUser = null;
       Navigator.of(context, rootNavigator: true).pop('dialog');
       common.showToastMessage(text: '구글계정이 연결되지 않았습니다.');
       return false;
@@ -118,8 +111,8 @@ class MyKakaoSignin{
       final authCode = installed ? await kakao.AuthCodeClient.instance.requestWithTalk() : await kakao.AuthCodeClient.instance.request();
       kakao.AccessTokenResponse token = await kakao.AuthApi.instance.issueAccessToken(authCode);
       kakao.AccessTokenStore.instance.toStore(token);
-      common.kakaoUser = await kakao.UserApi.instance.me();
-      print(common.kakaoUser.kakaoAccount.email);
+      kakaoUser = await kakao.UserApi.instance.me();
+      print(kakaoUser.kakaoAccount.email);
     } on KakaoAuthException catch (e) {
       print('kakao login auth error');
     } catch(e) {

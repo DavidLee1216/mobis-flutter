@@ -4,6 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:kopo/kopo.dart';
 import 'package:mobispartsearch/bloc/user_history_bloc.dart';
 import 'package:mobispartsearch/common.dart';
+import 'package:mobispartsearch/ui/widget/loading.dart';
+import 'package:mobispartsearch/ui/widget/loading_indication.dart';
+
+import '../../app_config.dart';
 
 class MyInfoScreen extends StatefulWidget {
   @override
@@ -14,23 +18,27 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
   final _nameController = TextEditingController();
   final _passwordController = TextEditingController();
   final _repasswordController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _address1Controller = TextEditingController();
+  final _address2Controller = TextEditingController();
+  final _postCodeController = TextEditingController();
 
-  var _emailController = TextEditingController();
+  bool isLoading = false;
 
-  var _address1Controller = TextEditingController();
-  var _address2Controller = TextEditingController();
+  @override
+  void initState() {
+    _nameController.text = globalUser.legalName ?? '';
+    _emailController.text = globalUser.email ?? '';
+    _address1Controller.text = globalUser.address ?? '';
+    _address2Controller.text = globalUser.addressExtended ?? '';
+    _postCodeController.text = globalUser.zipcode ?? '';
 
-  var _postCodeController = TextEditingController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     var screenWidth = MediaQuery.of(context).size.width;
-
-//    _nameController.text = globalUsername ?? '';
-//    _emailController.text = globalUser.email ?? '';
-//    _address1Controller.text = globalUser.address ?? '';
-//    _address2Controller.text = globalUser.addressExtended ?? '';
-//    _postCodeController.text = globalUser.zipcode ?? '';
 
     var userNameItem = Container(
       padding: EdgeInsets.only(top: 10.0),
@@ -60,6 +68,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               horizontal: 20,
             ),
             child: TextField(
+              readOnly: true,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
@@ -253,6 +262,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               horizontal: 20,
             ),
             child: TextField(
+              readOnly: true,
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
@@ -432,7 +442,7 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
                     builder: (context) => Kopo(),
                   ),
                 );
-                if(kopoModel != null){
+                if (kopoModel != null) {
                   setState(() {
                     _postCodeController.text = kopoModel.zonecode;
                     _address1Controller.text = kopoModel.address;
@@ -462,14 +472,32 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
           style: TextStyle(
               fontFamily: 'HDharmony', fontSize: 18, color: Colors.white),
         ),
-        onPressed: () {
+        onPressed: () async {
           String addressExtended = _address2Controller.text.trim();
           String address = _address1Controller.text.trim();
           String email = _emailController.text.trim();
           String password = _passwordController.text.trim();
+          String repassword = _repasswordController.text.trim();
           String zipCode = _postCodeController.text.trim();
           String mobile = globalUser.mobile;
-          updateProfile(addressExtended, address, mobile, encryptPassword(password), zipCode, email);
+          if (password == '') {
+            showToastMessage(text: '비밀번호를 입력하세요.');
+            return;
+          } else if (repassword == '') {
+            showToastMessage(text: '비밀번호 확인을 입력하세요.');
+            return;
+          }
+          if (password == repassword) {
+            setState(() {
+              isLoading = true;
+            });
+            await updateProfile(addressExtended, address, mobile,
+                encryptPassword(password), zipCode, email);
+            setState(() {
+              isLoading = false;
+            });
+          } else
+            showToastMessage(text: '비밀번호와 비밀번호 확인이 일치하지 않습니다.');
         },
       ),
     );
@@ -485,8 +513,8 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
         ),
         centerTitle: true,
       ),
-      body: SafeArea(
-        child: ListView(
+      body: Stack(children: [
+        ListView(
           children: [
             SizedBox(
               height: 20,
@@ -503,9 +531,12 @@ class _MyInfoScreenState extends State<MyInfoScreen> {
               height: 50,
             ),
           ],
-        ), //
-      ),
+        ),
+//        isLoading ? LoadingData() : Container(),//
+        Positioned(
+          child: LoadingIndicator(isLoading: isLoading), //
+        ),
+      ]),
     );
   }
 }
-

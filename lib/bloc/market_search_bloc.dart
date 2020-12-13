@@ -1,7 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:mobispartsearch/common.dart';
+import 'package:mobispartsearch/app_config.dart';
 import 'package:mobispartsearch/model/market_search_model.dart';
 import 'package:mobispartsearch/model/page_model.dart';
 import 'package:mobispartsearch/repository/market_search_repository.dart';
@@ -152,7 +152,7 @@ class MarketSearchBloc extends Bloc<MarketSearchEvent, MarketSearchState> {
       yield state.submitting();
       List<MarketSearchResultModel> searchResult =
           new List<MarketSearchResultModel>();
-      yield state.success(searchResult: searchResult, page: 1);
+      yield state.success(searchResult: searchResult, hkgb: 'H', ptno: '', market: 'ALL', sido: '', sigungu: '', page: 1);
     } catch (e) {
       yield state.success();
     }

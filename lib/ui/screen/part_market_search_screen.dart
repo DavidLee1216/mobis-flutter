@@ -59,17 +59,15 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
   @override
   void initState() {
     super.initState();
-    manufacturerData.add(RadioModel(false, '', '현대'));
+    manufacturerData.add(RadioModel(true, '', '현대'));
     manufacturerData.add(RadioModel(false, '', '기아'));
-    marketData.add(RadioModel(false, '', '전체'));
+    marketData.add(RadioModel(true, '', '전체'));
     marketData.add(RadioModel(false, '', '직영점'));
     marketData.add(RadioModel(false, '', '대리점(매장)'));
     marketData.add(RadioModel(false, '', '대리점(온라인몰)'));
-    manufacturerData[0].isSelected = true;
-    marketData[0].isSelected = true;
+
 
     bloc = BlocProvider.of<MarketSearchBloc>(context);
-    bloc.add(InitMarketSearchEvent());
   }
 
   void messageBox(String string){
@@ -438,7 +436,7 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
     return BlocBuilder<MarketSearchBloc, MarketSearchState>(
     cubit: BlocProvider.of<MarketSearchBloc>(context),
     builder: (BuildContext context, state) {
-      partNumberController.text = state.ptno;
+        partNumberController.text = state.ptno;
         manufacturerData[0].isSelected = state.hkgb=='H'? true : false;
         manufacturerData[1].isSelected = state.hkgb=='H'? false : true;
         return Stack(
@@ -509,8 +507,8 @@ class _MarketSearchListWidgetState extends State<MarketSearchListWidget> {
                   ),
                   searchButton,
                   SizedBox(height: 30),
-                  state.searchResult.length > 0 ? MarketSearchResultsForm() : Container(),
-                  (state.nomore==false && state.searchResult.length > 0) ? searchMoreButton : Container(),
+                  state.searchResult!=null && state.searchResult.length > 0 ? MarketSearchResultsForm() : Container(),
+                  (state.nomore==false && state.searchResult!=null && state.searchResult.length > 0) ? searchMoreButton : Container(),
                 ],
               ),
               Positioned(

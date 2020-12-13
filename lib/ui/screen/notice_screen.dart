@@ -4,7 +4,9 @@ import 'package:mobispartsearch/bloc/notice_bloc.dart';
 import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 import 'package:mobispartsearch/ui/widget/notice_form.dart';
 import 'package:mobispartsearch/ui/screen/home_screen.dart';
-import 'package:mobispartsearch/common.dart' as common;
+import 'package:mobispartsearch/app_config.dart';
+
+import '../../app_config.dart' as appConfig;
 
 class NoticeScreen extends StatefulWidget {
   @override
@@ -129,7 +131,7 @@ class _SearchBarWidgetState extends State<SearchBarWidget> {
     var searchButton = ButtonTheme(
       minWidth: MediaQuery.of(context).size.width / 5,
       height: 40,
-      buttonColor: kPrimaryColor,
+      buttonColor: appConfig.kPrimaryColor,
       child: RaisedButton(
         child: Text('검색',
             textAlign: TextAlign.center,
@@ -223,7 +225,7 @@ class _NoticeListWidgetState extends State<NoticeListWidget> {
             itemBuilder: (BuildContext context, int index) {
               return NoticeForm(
                 title: state.noticeList[index].title,
-                date: common.dateformatter.format(state.noticeList[index].date),
+                date: dateformatter.format(state.noticeList[index].date),
                 text: state.noticeList[index].content,
               );
             },

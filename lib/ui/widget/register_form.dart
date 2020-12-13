@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/auth_bloc.dart';
 import 'package:mobispartsearch/model/user_model.dart';
 import 'package:mobispartsearch/common.dart';
+import 'package:mobispartsearch/app_config.dart';
 import 'package:kopo/kopo.dart';
 import 'package:sprintf/sprintf.dart';
 
@@ -35,6 +36,17 @@ class _RegisterFormState extends State<RegisterForm> {
   final _address3Controller = TextEditingController();
   final _carNumber1Controller = TextEditingController();
   final _carNumber2Controller = TextEditingController();
+
+  static const String idValidationMessage = "아이디를 입력하세요.";
+  static const String passwordValidationMessage = "비밀번호를 입력하세요.";
+  static const String repasswordValidationMessage = "비밀번호를 다시 입력하세요.";
+  static const String emailValidationMessage = "이메일을 입력하세요.";
+  static const String nameValidationMessage = "이름을 입력하세요.";
+  static const String birthdayValidationMessage = "생년월일을 입력하세요.";
+  static const String phoneValidationMessage = "휴대폰 번호를 입력하세요.";
+  static const String authValidationMessage = '인증번호를 입력하세요.';
+  static const String postCodeValidationMessage = '우편번호를 검색해주세요.';
+  static const String address2ValidationMessage = '주소를 입력하세요.';
 
   final _formKey = GlobalKey<FormState>();
 
@@ -136,7 +148,7 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
       keyboardType: TextInputType.text,
       style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
-      validator: (value) => value.isEmpty ? "아이디를 입력하세요." : null,
+      validator: (value) => value.isEmpty ? idValidationMessage : null,
       controller: _idController,
       onEditingComplete: () => _formKey.currentState.validate(),
     );
@@ -156,11 +168,12 @@ class _RegisterFormState extends State<RegisterForm> {
           borderSide: BorderSide(color: Colors.redAccent, width: 1),
         ),
         contentPadding: EdgeInsets.only(left: 10),
+        errorMaxLines: 3,
       ),
       obscureText: true,
       style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       validator: (value) => value.isEmpty
-          ? "암호를 입력하세요."
+          ? passwordValidationMessage
           : validatePassword(value)
               ? null
               : "8-20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.",
@@ -183,13 +196,14 @@ class _RegisterFormState extends State<RegisterForm> {
           borderSide: BorderSide(color: Colors.redAccent, width: 1),
         ),
         contentPadding: EdgeInsets.only(left: 10),
+        errorMaxLines: 3,
       ),
       obscureText: true,
       style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       validator: (value) => value.isEmpty
-          ? "암호를 다시 입력하세요."
+          ? repasswordValidationMessage
           : validatePassword(value)
-              ? null
+              ? (_passwordController.text.trim()==_repasswordController.text.trim() ? null : '비밀번호와 비밀번호 확인이 일치하지 않습니다.')
               : "8-20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.",
       controller: _repasswordController,
       onEditingComplete: () => _formKey.currentState.validate(),
@@ -213,7 +227,7 @@ class _RegisterFormState extends State<RegisterForm> {
             )),
         onPressed: () async {
           if(_idController.text.trim()==''){
-            showToastMessage(text: '아이디를 입력해주세요.');
+            showToastMessage(text: idValidationMessage);
             return;
           }
           bloc.add(AuthEventLoading());
@@ -246,7 +260,7 @@ class _RegisterFormState extends State<RegisterForm> {
       keyboardType: TextInputType.emailAddress,
       style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
       validator: (value) => value.isEmpty
-          ? "이메일을 입력하세요."
+          ? emailValidationMessage
           : validateEmailString(value)
               ? null
               : "이메일을 확인해주세요.",
@@ -317,7 +331,7 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
       keyboardType: TextInputType.text,
       style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
-      validator: (value) => value.isEmpty ? "이름을 입력하세요." : null,
+      validator: (value) => value.isEmpty ? nameValidationMessage : null,
       controller: _nameController,
       onEditingComplete: () => _formKey.currentState.validate(),
     );
@@ -363,7 +377,7 @@ class _RegisterFormState extends State<RegisterForm> {
       ),
       keyboardType: TextInputType.datetime,
       style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
-      validator: (value) => value.isEmpty ? "생일을 입력하세요." : null,
+      validator: (value) => value.isEmpty ? birthdayValidationMessage : null,
       controller: _birthdayController,
       onTap: () => _selectedDate(context),
     );
@@ -428,7 +442,7 @@ class _RegisterFormState extends State<RegisterForm> {
             keyboardType: TextInputType.number,
             style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
             validator: (value) => value.isEmpty
-                ? "휴대폰 번호를 입력하세요."
+                ? phoneValidationMessage
                 : validateMobileString(value)
                     ? null
                     : "숫자만 입력해주세요.",
@@ -471,13 +485,12 @@ class _RegisterFormState extends State<RegisterForm> {
           bloc.add(AuthEventLoading());
           await validateSMS(_phoneNumberController.text);
           bloc.add(AuthEventUnLoading());
-          showToastMessage(text: '인증번호가 발송되었습니다.');
         },
       ),
     );
 
     var phoneAuthField = !authConfirmed
-        ? TextField(
+        ? TextFormField(
             decoration: InputDecoration(
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(2),
@@ -495,6 +508,9 @@ class _RegisterFormState extends State<RegisterForm> {
             ),
             keyboardType: TextInputType.number,
             style: TextStyle(fontFamily: 'HDharmony', fontSize: 16.0),
+            validator: (value) => value.isEmpty
+                ? authValidationMessage
+                : null,
             controller: _authNumberVerifyController,
           )
         : FocusScope(
@@ -679,6 +695,29 @@ class _RegisterFormState extends State<RegisterForm> {
           ),
         ),
         onPressed: () async {
+          if(_idController.text.trim()==''){
+            showToastMessage(text: idValidationMessage);
+            return;
+          } else if(_passwordController.text.trim()=='') {
+            showToastMessage(text: passwordValidationMessage); return;
+          } else if(_repasswordController.text.trim()==''){
+            showToastMessage(text: repasswordValidationMessage);
+            return;
+          } else if(_emailController.text.trim()==''){
+            showToastMessage(text: emailValidationMessage); return;
+          } else if(_nameController.text.trim()==''){
+            showToastMessage(text: nameValidationMessage); return;
+          } else if(_birthdayController.text.trim()==''){
+            showToastMessage(text: birthdayValidationMessage); return;
+          } else if(_phoneNumberController.text.trim()==''){
+            showToastMessage(text: phoneValidationMessage); return;
+          } else if(_authNumberVerifyController.text.trim()==''){
+            showToastMessage(text: authValidationMessage); return;
+          } else if(_address1Controller.text.trim()==''){
+            showToastMessage(text: postCodeValidationMessage); return;
+          } else if(_address2Controller.text.trim()==''){
+            showToastMessage(text: address2ValidationMessage); return;
+          }
           if (_passwordController.text == _repasswordController.text)
             await registerUser(
                 _idController.text.trim(),
@@ -694,7 +733,7 @@ class _RegisterFormState extends State<RegisterForm> {
                 _carNumber1Controller.text.trim(),
                 _carNumber2Controller.text.trim());
           else
-            showToastMessage(text: '비밀번호가 일치하지 않습니다.');
+            showToastMessage(text: '비밀번호와 비밀번호 확인이 일치하지 않습니다.');
         },
       ),
     );
@@ -795,35 +834,35 @@ class _RegisterFormState extends State<RegisterForm> {
                   child: repassField,
                 ),
               ),
-              SizedBox(
-                height: 5,
-              ),
-              Container(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: Row(
-                    children: [
-                      Icon(
-                        Icons.warning,
-                        size: 20,
-                        color: kPrimaryColor,
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
-                      Expanded(
-                        child: Text(
-                          '8~20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.',
-                          style: TextStyle(
-                              fontFamily: 'HDharmony',
-                              color: kPrimaryColor,
-                              fontSize: 12),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
+//              SizedBox(
+//                height: 5,
+//              ),
+//              Container(
+//                child: Padding(
+//                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+//                  child: Row(
+//                    children: [
+//                      Icon(
+//                        Icons.warning,
+//                        size: 20,
+//                        color: kPrimaryColor,
+//                      ),
+//                      SizedBox(
+//                        width: 10,
+//                      ),
+//                      Expanded(
+//                        child: Text(
+//                          '8~20자의 영문 대/소문자, 숫자, 특수문자 중 3가지 이상 혼용하여 입력해주세요.',
+//                          style: TextStyle(
+//                              fontFamily: 'HDharmony',
+//                              color: kPrimaryColor,
+//                              fontSize: 12),
+//                        ),
+//                      ),
+//                    ],
+//                  ),
+//                ),
+//              ),
               SizedBox(
                 height: 15,
               ),
@@ -1010,7 +1049,7 @@ class _RegisterFormState extends State<RegisterForm> {
                         width: 10,
                       ),
                       Text(
-                        '공백 특수기호 없이 문자만 입력하세요',
+                        '공백 특수기호 없이 숫자만 입력하세요',
                         style: TextStyle(
                             fontFamily: 'HDharmony',
                             color: kPrimaryColor,

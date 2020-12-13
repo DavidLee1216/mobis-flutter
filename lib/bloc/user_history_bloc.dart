@@ -1,6 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/model/UserHistoryModel.dart';
+import 'package:mobispartsearch/app_config.dart';
 
 abstract class UserHistoryEvent {}
 

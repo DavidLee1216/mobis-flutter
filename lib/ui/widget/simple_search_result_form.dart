@@ -178,7 +178,7 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                       ),
                     ),
                     TableCell(
-                      child: GestureDetector(
+                      child: InkWell(
                         child: SizedBox(
                           height: 40,
                           child: Center(
@@ -192,7 +192,7 @@ class _SimpleSearchResultFormState extends State<SimpleSearchResultForm> {
                             ),
                           ),
                         ),
-                        onDoubleTap: () {
+                        onTap: () {
                           BlocProvider.of<MarketSearchBloc>(context).add(SetMarketMarketSearchEvent(0));
                           BlocProvider.of<MarketSearchBloc>(context).add(HKGBMarketSearchEvent(widget.hkgb=='H'?0:1));
                           BlocProvider.of<MarketSearchBloc>(context).add(SetPtnoMarketSearchEvent(widget.partNumber));

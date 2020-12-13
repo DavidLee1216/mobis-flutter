@@ -14,6 +14,7 @@ import 'package:mobispartsearch/utils/navigation.dart';
 import 'package:mobispartsearch/common.dart' as common;
 import 'package:mobispartsearch/model/product_model.dart';
 
+import '../../app_config.dart';
 import 'loading_indication.dart';
 
 class PurchaseRequestForm extends StatefulWidget {
@@ -64,8 +65,8 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
           sapCode: widget.result.sapCode != '' ? widget.result.sapCode : null,
           deliveryCode: deliveryCode,
           partNumber: widget.partNumber,
-          username: common.globalUsername !='' ? common.globalUsername : null,
-          session: common.globalSigninInformation.session,
+          username: globalUsername !='' ? globalUsername : null,
+          session: globalSigninInformation.session,
           count: count);
       bloc.add(AddCartEvent(product));
     }
@@ -440,14 +441,14 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 Padding(padding: const EdgeInsets.fromLTRB(0, 20, 0, 20)),
                 Icon(
                   Icons.warning,
-                  color: common.kPrimaryColor,
+                  color: kPrimaryColor,
                   size: 15,
                 ),
                 Text(
                   '공백 특수기호 없이 특수문자만 입력하세요',
                   style: TextStyle(
                       fontFamily: 'HDharmony',
-                      color: common.kPrimaryColor,
+                      color: kPrimaryColor,
                       fontSize: 12),
                 ),
               ],
@@ -466,7 +467,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
           Expanded(
             child: ButtonTheme(
 //            padding: const EdgeInsets.fromLTRB(55, 15, 55, 15),
-              buttonColor: common.kPrimaryColor,
+              buttonColor: kPrimaryColor,
               child: RaisedButton(
                 child: Text(
                   '장바구니',
@@ -489,7 +490,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               child: OutlineButton(
 //              padding: const EdgeInsets.fromLTRB(55, 15, 55, 15),
                 borderSide: BorderSide(
-                  color: common.kPrimaryColor, //Color of the border
+                  color: kPrimaryColor, //Color of the border
                   style: BorderStyle.solid, //Style of the border
                   width: 1, //width of the border
                 ),
@@ -498,7 +499,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                   style: TextStyle(
                       fontFamily: 'HDharmony',
                       fontSize: 15,
-                      color: common.kPrimaryColor),
+                      color: kPrimaryColor),
                 ),
                 onPressed: () async {
                   CartModel cartItem = new CartModel(

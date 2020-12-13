@@ -1,9 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:mobispartsearch/bloc/market_search_bloc.dart';
 import 'package:mobispartsearch/ui/screen/login_screen.dart';
 import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
 import 'package:mobispartsearch/common.dart';
+
+import '../../app_config.dart';
 
 const kPrimaryColor = Color.fromRGBO(7, 75, 136, 1);
 const kTitleStyle =
@@ -172,7 +176,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                           onPressed: () {
 //                            if (globalSidoLoaded)
-                              Navigator.push(
+                            BlocProvider.of<MarketSearchBloc>(context).add(InitMarketSearchEvent());
+                            Navigator.push(
                                   context,
                                   PageRouteBuilder(
                                       pageBuilder: (_, __, ___) =>

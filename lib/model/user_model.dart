@@ -55,21 +55,21 @@ class User {
   }
 
   factory User.fromMap(Map<String, dynamic> map) => User(
-    address: map['address'],
-    addressExtended: map['addressExtended'],
-    dateofBirth: map['dateOfBirth'],
+    address: map['adr'],
+    addressExtended: map['adrDtl'],
+    dateofBirth: map['dobDate'],
     email: map['email'],
     gtoken: map['gtoken'],
     ktoken: map['ktoken'],
-    legalName: map['legalName'],
-    mobile: map['mobile'],
+    legalName: map['name'],
+    mobile: map['telNumber'],
     ntoken: map['ntoken'],
-    password: map['password'],
-    sexCode: map['sexCode'],
+    password: map['pass'],
+    sexCode: map['sexCd'],
     username: map['username'],
-    vin: map['vin'],
-    vlp: map['vlp'],
-    zipcode: map['zipcode'],
+    vin: '',
+    vlp: '',
+    zipcode: map['zipcd'],
   );
 
 }

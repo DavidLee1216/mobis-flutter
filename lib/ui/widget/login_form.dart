@@ -11,6 +11,7 @@ import 'package:flutter_naver_login/flutter_naver_login.dart';
 import 'package:local_auth/local_auth.dart';
 import 'package:local_auth/error_codes.dart' as auth_error;
 
+import '../../app_config.dart';
 import '../../common.dart';
 import 'navigation_bar.dart';
 
@@ -81,6 +82,7 @@ class _LoginFormState extends State<LoginForm> {
               )),
           Center(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.start,
               children: [

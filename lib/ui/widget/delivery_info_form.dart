@@ -1,8 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:kopo/kopo.dart';
 import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/model/cart_model.dart';
+
+import '../../app_config.dart';
 
 class DeliveryInfoForm extends StatefulWidget {
   final CartModel item;
@@ -38,9 +41,9 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
 
     var phoneCodeDropdownmenu = Container(
         width: (screenWidth - 60) / 3,
-        height: 30,
+        height: 40,
         decoration: BoxDecoration(
-          border: Border.all(),
+          border: Border.all(color: Colors.grey),
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
@@ -73,18 +76,29 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
         ));
 
     var phoneNumberItem = Container(
-      height: 30,
+      height: 40,
       width: (screenWidth - 60) * 2 / 3 + 10,
       margin: EdgeInsets.only(left: 10),
       child: Row(
         children: [
           Container(
             width: (screenWidth - 60) / 3,
-            child: TextField(
-              decoration: InputDecoration(
+            child: TextFormField(
+                inputFormatters: [
+                  LengthLimitingTextInputFormatter(4),
+                ],
+                decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(color: Colors.redAccent, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
               ),
@@ -103,11 +117,22 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
           )),
           Container(
             width: (screenWidth - 60) / 3,
-            child: TextField(
+            child: TextFormField(
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(4),
+              ],
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(color: Colors.redAccent, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
               ),
@@ -227,8 +252,13 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
                     width: screenWidth * 0.6,
                     height: 40,
                     child: TextField(
+                      readOnly: true,
                       decoration: InputDecoration(
                         enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(2),
+                          borderSide: BorderSide(color: Colors.grey, width: 1),
+                        ),
+                        focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(2),
                           borderSide: BorderSide(color: Colors.grey, width: 1),
                         ),
@@ -239,7 +269,6 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
                         fontFamily: 'HDharmony',
                         fontSize: 14,
                       ),
-                      keyboardType: TextInputType.text,
                     ),
                   ),
                 ),
@@ -294,6 +323,10 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
                     borderRadius: BorderRadius.circular(2),
                     borderSide: BorderSide(color: Colors.grey, width: 1),
                   ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(2),
+                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                  ),
                   contentPadding: EdgeInsets.only(left: 10),
                 ),
                 controller: addressController2,
@@ -309,6 +342,10 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
               child: TextField(
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(2),
+                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(2),
                     borderSide: BorderSide(color: Colors.grey, width: 1),
                   ),
@@ -338,6 +375,10 @@ class _DeliveryInfoFormState extends State<DeliveryInfoForm> {
               child: TextField(
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(2),
+                    borderSide: BorderSide(color: Colors.grey, width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(2),
                     borderSide: BorderSide(color: Colors.grey, width: 1),
                   ),

@@ -10,6 +10,8 @@ import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 import 'package:mobispartsearch/ui/widget/simple_search_result_form.dart';
 import 'package:mobispartsearch/ui/widget/custom_radio_button.dart';
 
+import '../../app_config.dart';
+
 class PartSimpleSearchScreen extends StatefulWidget {
   @override
   _PartSimpleSearchScreenState createState() => _PartSimpleSearchScreenState();
@@ -604,8 +606,8 @@ class _SimpleSearchListWidgetState extends State<SimpleSearchListWidget> {
                 ),
                 searchButton,
                 SizedBox(height: 30),
-                searched && state.searchResult.length > 0? SimpleSearchResultsForm() : Container(),
-                (searched && state.nomore==false && state.searchResult.length > 0) ? searchMoreButton : Container(),
+                state.searchResult != null && state.searchResult.length > 0? SimpleSearchResultsForm() : Container(),
+                (state.nomore==false && state.searchResult != null && state.searchResult.length > 0) ? searchMoreButton : Container(),
               ],
             ),
             Positioned(

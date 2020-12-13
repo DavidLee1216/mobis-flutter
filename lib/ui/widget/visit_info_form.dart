@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/model/cart_model.dart';
 import 'package:mobispartsearch/model/market_search_model.dart';
 import 'package:mobispartsearch/ui/widget/custom_selection_button.dart';
+
+import '../../app_config.dart';
 
 class VisitInfoForm extends StatefulWidget {
   final CartModel item;
@@ -101,15 +104,15 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
     var phoneCodes = ['010', '011', '012'];
 
     var times = List.generate(48, (index) {
-      String t = (index % 2 == 0) ? '${index ~/ 2}' : '${index ~/ 2}:30';
+      String t = (index % 2 == 0) ? '${index ~/ 2}:00' : '${index ~/ 2}:30';
       return t;
     });
 
     var phoneCodeDropdownmenu = Container(
         width: (screenWidth - 60) / 3,
-        height: 30,
+        height: 40,
         decoration: BoxDecoration(
-          border: Border.all(),
+          border: Border.all(color: Colors.grey),
         ),
         child: DropdownButtonHideUnderline(
           child: DropdownButton<String>(
@@ -142,18 +145,29 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
         ));
 
     var phoneNumberItem = Container(
-      height: 30,
+      height: 40,
       width: (screenWidth - 60) * 2 / 3 + 10,
       margin: EdgeInsets.only(left: 10),
       child: Row(
         children: [
           Container(
             width: (screenWidth - 60) / 3,
-            child: TextField(
+            child: TextFormField(
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(4),
+              ],
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(color: Colors.redAccent, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
               ),
@@ -168,15 +182,26 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
           ),
           Expanded(
               child: SizedBox(
-            width: 10,
-          )),
+                width: 10,
+              )),
           Container(
             width: (screenWidth - 60) / 3,
-            child: TextField(
+            child: TextFormField(
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(4),
+              ],
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(color: Colors.redAccent, width: 1),
                 ),
                 contentPadding: EdgeInsets.only(left: 10),
               ),
@@ -432,6 +457,10 @@ class _VisitInfoFormState extends State<VisitInfoForm> {
             child: TextField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(2),
+                  borderSide: BorderSide(color: Colors.grey, width: 1),
+                ),
+                focusedBorder: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(2),
                   borderSide: BorderSide(color: Colors.grey, width: 1),
                 ),

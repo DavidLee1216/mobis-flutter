@@ -109,10 +109,8 @@ class CartState {
   CartState removeProductItems(List<Map<String, dynamic>> seqs){
     int i = 0;
     for( i = 0; i < seqs.length; i++){
-      print('seq + $i' + seqs[i]['seq'].toString());
       for(int idx = 0; idx < productList.length; idx++)
       {
-        print('productList + $idx' + productList[idx].seq.toString());
         if(productList[idx].seq == seqs[i]['seq'])
         {
           productList.removeAt(idx);

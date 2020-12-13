@@ -4,6 +4,7 @@ import 'package:mobispartsearch/service/alert_service.dart';
 import 'package:mobispartsearch/ui/screen/id_login_screen.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
 
+import '../../app_config.dart';
 import 'loading.dart';
 
 class GetPassForm extends StatefulWidget {
