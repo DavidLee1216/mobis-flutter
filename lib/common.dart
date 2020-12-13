@@ -799,8 +799,9 @@ Future<List<UserHistoryModel>> getUserHistoryStream(
         showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
         navService.pushNamed('/login');
       }
-    } else
-      showToastMessage(text: '서버 접속 오류', position: 1);
+    }
+//    else
+//      showToastMessage(text: '서버 접속 오류', position: 1);
     throw Exception('error');
   }
 }

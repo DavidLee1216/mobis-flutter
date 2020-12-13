@@ -66,4 +66,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     api "androidx.core:core:1.1.0-alpha03"
+    implementation group: 'com.kakao.sdk', name: 'usermgmt', version: '1.30.4'
+    implementation group: 'com.kakao.sdk', name: 'kakaotalk', version: '1.30.4'
+    implementation group: 'com.kakao.sdk', name: 'kakaolink', version: '1.30.4'
+    implementation group: 'com.kakao.sdk', name: 'kakaonavi', version: '1.30.4'
 }
