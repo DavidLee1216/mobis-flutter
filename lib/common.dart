@@ -260,6 +260,7 @@ Future<bool> updateProfile(String addressExtended, String address,
       if (response.statusCode == 401) {
         if (await signout()) {
           showToastMessage(text: '로그아웃 되었습니다. 다시 로그인하세요.');
+          navService.pushNamed('/login');
         }
       }
       return false;
@@ -319,7 +320,10 @@ Future<List<CartModel>> loadCart() async {
     }
   } else {
     if (response.statusCode == 401) {
-      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+      if (await signout()){
+        showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+        navService.pushNamed('/login');
+      }
     }
     return null;
   }
@@ -336,7 +340,10 @@ Future<bool> addToCart(Product product) => http
         return true;
       } else {
         if (response.statusCode == 401) {
-          if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+          if (await signout()) {
+            showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+            navService.pushNamed('/login');
+          }
         }
         return false;
       }
@@ -351,7 +358,10 @@ Future<bool> delFromCart(int seq) => http
         return true;
       } else {
         if (response.statusCode == 401) {
-          if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+          if (await signout()) {
+            showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+            navService.pushNamed('/login');
+          }
         }
         return false;
       }
@@ -368,7 +378,10 @@ Future<bool> delAllFromCart(List<Map<String, dynamic>> seqs) => http
       } else {
         print(response.statusCode);
         if (response.statusCode == 401) {
-          if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+          if (await signout()){
+            showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+            navService.pushNamed('/login');
+          }
         }
         return false;
       }
@@ -540,7 +553,10 @@ Future<bool> order(Order order) => http
       } else {
         log('order' + response.statusCode.toString());
         if (response.statusCode == 401) {
-          if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+          if (await signout()){
+            showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+            navService.pushNamed('/login');
+          }
         }
         return false;
       }
@@ -580,7 +596,10 @@ Future<List<SimpleSearchResultModel>> simpleSearchPartByName(
     }).toList();
   } else {
     if (response.statusCode == 401) {
-      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+      if (await signout()) {
+        showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+        navService.pushNamed('/login');
+      }
     } else
       showToastMessage(text: '검색 실패', position: 1);
     return null;
@@ -601,7 +620,10 @@ Future<List<SimpleSearchResultModel>> simpleSearchPartByPtno(
     }).toList();
   } else {
     if (response.statusCode == 401) {
-      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+      if (await signout()) {
+        showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+        navService.pushNamed('/login');
+      }
     } else
       showToastMessage(text: '검색 실패', position: 1);
     return null;
@@ -639,7 +661,10 @@ Future<List<MarketSearchResultModel>> marketSearchPart(
   } else {
     print(response.statusCode);
     if (response.statusCode == 401) {
-      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+      if (await signout()) {
+        showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+        navService.pushNamed('/login');
+      }
     } else
       showToastMessage(text: '서버 접속 오류', position: 1);
     return null;
@@ -660,7 +685,10 @@ Future<MarketSearchResultProductInfo> getProductInfoFromPtno(
   } else {
     print(response.statusCode);
     if (response.statusCode == 401) {
-      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+      if (await signout()) {
+        showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+        navService.pushNamed('/login');
+      }
     } else
       showToastMessage(text: '서버 접속 오류', position: 1);
     return null;
@@ -686,7 +714,10 @@ Future<List<Notice>> getTitleNoticeStream(
     }).toList();
   } else {
     if (response.statusCode == 401) {
-      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+      if (await signout()) {
+        showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+        navService.pushNamed('/login');
+      }
     } else
       showToastMessage(text: '서버 접속 오류', position: 1);
     throw Exception('error');
@@ -711,7 +742,10 @@ Future<List<Notice>> getContentNoticeStream(
     }).toList();
   } else {
     if (response.statusCode == 401) {
-      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+      if (await signout()) {
+        showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+        navService.pushNamed('/login');
+      }
     } else
       showToastMessage(text: '서버 접속 오류', position: 1);
     throw Exception('error');
@@ -730,7 +764,10 @@ Future<bool> getToken() => http
         return true;
       } else {
         if (response.statusCode == 401) {
-          if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+          if (await signout()) {
+            showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+            navService.pushNamed('/login');
+          }
         } else
           showToastMessage(text: '서버 접속 오류', position: 1);
         return false;
@@ -756,7 +793,10 @@ Future<List<UserHistoryModel>> getUserHistoryStream(
     }).toList();
   } else {
     if (response.statusCode == 401) {
-      if (await signout()) showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+      if (await signout()) {
+        showToastMessage(text: '로그아웃되었습니다. 다시 로그인하세요.');
+        navService.pushNamed('/login');
+      }
     } else
       showToastMessage(text: '서버 접속 오류', position: 1);
     throw Exception('error');

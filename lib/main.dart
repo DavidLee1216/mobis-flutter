@@ -15,7 +15,9 @@ import 'package:mobispartsearch/bloc/auth_bloc.dart';
 import 'package:mobispartsearch/bloc/notice_bloc.dart';
 import 'package:mobispartsearch/repository/user_repository.dart';
 import 'package:mobispartsearch/repository/notice_repository.dart';
+import 'package:mobispartsearch/ui/screen/login_screen.dart';
 import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
+import 'package:no_context_navigation/no_context_navigation.dart';
 import 'bloc/cart_bloc.dart';
 import 'bloc/market_search_bloc.dart';
 import 'bloc/simple_search_bloc.dart';
@@ -80,6 +82,7 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
     return MaterialApp(
+      navigatorKey: NavigationService.navigationKey,
       debugShowCheckedModeBanner: false,
       localizationsDelegates: [GlobalMaterialLocalizations.delegate],
       supportedLocales: [
@@ -93,6 +96,14 @@ class MyApp extends StatelessWidget {
       home: NavigationBar(
         index: 1,
       ),
+      onGenerateRoute: (RouteSettings settings) {
+        switch (settings.name) {
+          case '/login':
+            return MaterialPageRoute(builder: (_) => LoginScreen());
+          default:
+            return null;
+        }
+      },
     );
   }
 }

@@ -65,7 +65,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
           sapCode: widget.result.sapCode != '' ? widget.result.sapCode : null,
           deliveryCode: deliveryCode,
           partNumber: widget.partNumber,
-          username: globalUsername !='' ? globalUsername : null,
+          username: globalUsername != '' ? globalUsername : null,
           session: globalSigninInformation.session,
           count: count);
       bloc.add(AddCartEvent(product));
@@ -337,6 +337,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 color: Colors.black,
                 width: 1,
               ),
+              color: Color(0xffcccccc),
             ),
             child: Row(children: [
               Container(
@@ -352,7 +353,9 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
               Text(
                 count.toString(),
                 style: TextStyle(
-                    fontFamily: 'HDharmony', fontSize: 14, color: Colors.red),
+                    fontFamily: 'HDharmony',
+                    fontSize: 14,
+                    color: kPrimaryColor),
               ),
               Text(
                 '개',
@@ -376,12 +379,19 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                             color: Colors.black),
                       ),
                       Text(
-                        totalPrice.toString() + " 원",
+                        totalPrice.toString(),
+                        style: TextStyle(
+                            fontFamily: 'HDharmony',
+                            fontSize: 16,
+                            color: kPrimaryColor),
+                      ),
+                      Text(
+                        ' 원',
                         style: TextStyle(
                             fontFamily: 'HDharmony',
                             fontSize: 14,
-                            color: Colors.red),
-                      ),
+                            color: Colors.black),
+                      )
                     ],
                   ))
             ]),
@@ -472,7 +482,9 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                 child: Text(
                   '장바구니',
                   style: TextStyle(
-                      fontFamily: 'HDharmony', fontSize: 15, color: Colors.white),
+                      fontFamily: 'HDharmony',
+                      fontSize: 15,
+                      color: Colors.white),
                   textAlign: TextAlign.center,
                 ),
                 onPressed: () async {
@@ -511,22 +523,14 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                       partNumber: widget.result.ptno,
                       count: count,
                       agentCode: widget.result.agentCode,
-                      sapCode: widget.result.sapCode
-                  );
+                      sapCode: widget.result.sapCode);
                   if (optionData[0].isSelected) {
                     pushTo(
-                        context,
-                        DeliveryScreen(
-                            item: cartItem,
-                            count: count));
+                        context, DeliveryScreen(item: cartItem, count: count));
                   } else if (optionData[1].isSelected) {
-                    pushTo(
-                        context,
-                        VisitScreen(
-                            item: cartItem,
-                            count: count));
+                    pushTo(context, VisitScreen(item: cartItem, count: count));
                   } else {
-                    common.showToastMessage(text:'수령방식을 선택하세요.', position: 1);
+                    common.showToastMessage(text: '수령방식을 선택하세요.', position: 1);
                   }
                 },
               ),
@@ -539,10 +543,7 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
         cubit: BlocProvider.of<CartBloc>(context),
         listener: (BuildContext context, state) {
           if (state.isAdded) {
-            pushTo(
-                context,
-                CartScreen(
-                ));
+            pushTo(context, CartScreen());
           } else if (state.errorMsg != '') {
 //            common.messageBox(state.errorMsg, context);
             common.showToastMessage(text: state.errorMsg);
@@ -577,11 +578,232 @@ class _PurchaseRequestFormState extends State<PurchaseRequestForm> {
                         padding: EdgeInsets.fromLTRB(20, 30, 20, 20),
                         child: Column(
                           children: [
-                            partNumberItem,
-                            koreanPartNameItem,
-                            englishPartNameItem,
-                            priceItem,
-                            companyMarkItem,
+                            Container(
+                                child: Table(
+                              columnWidths: {
+                                0: FixedColumnWidth(screenWidth * 0.26),
+                                1: FixedColumnWidth(screenWidth * 0.66),
+                              },
+                              border: TableBorder(
+                                top:
+                                    BorderSide(color: Colors.black, width: 1.5),
+                                bottom: BorderSide(
+                                  color: Colors.black,
+                                  width: 1.5,
+                                ),
+                                left: BorderSide(color: Colors.black, width: 1.5),
+                                right: BorderSide(color: Colors.black, width: 1.5),
+                                horizontalInside: BorderSide(
+                                    width: 1,
+                                    color: Color(0xff666666),
+                                    style: BorderStyle.solid),
+                                verticalInside: BorderSide(
+                                    color: Color(0xff666666), width: 1),
+                              ),
+                              children: [
+                                TableRow(children: [
+                                  TableCell(
+                                    child: SizedBox(
+                                      height: 40,
+                                      child: Container(
+                                        width: firstColumnWidth,
+                                        color: Color(0xffcccccc),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          '부품 번호',
+                                          style: TextStyle(
+                                              fontFamily: 'HDharmony',
+                                              fontSize: 14,
+                                              color: Color(0xff666666),
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: SizedBox(
+                                      height: 40,
+                                      child: Container(
+                                        width: secondColumnWidth,
+                                        alignment: Alignment.centerLeft,
+                                        padding: EdgeInsets.only(left: 10),
+                                        child: Text(
+                                          widget.partNumber ?? '',
+                                          style: TextStyle(
+                                            fontFamily: 'HDharmony',
+                                            fontSize: 14,
+                                          ),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ]),
+                                TableRow(children: [
+                                  TableCell(
+                                    child: SizedBox(
+                                      height: 40,
+                                      child: Container(
+                                        width: firstColumnWidth,
+                                        alignment: Alignment.center,
+                                        color: Color(0xffcccccc),
+                                        child: Text(
+                                          '한글 부품명',
+                                          style: TextStyle(
+                                              fontFamily: 'HDharmony',
+                                              fontSize: 14,
+                                              color: Color(0xff666666),
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: SizedBox(
+                                      height: 40,
+                                      child: Container(
+                                        width: secondColumnWidth,
+                                        alignment: Alignment.centerLeft,
+                                        padding: EdgeInsets.only(left: 10),
+                                        child: Text(
+                                          widget.koreanPartName,
+                                          style: TextStyle(
+                                            fontFamily: 'HDharmony',
+                                            fontSize: 14,
+                                          ),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ]),
+                                TableRow(children: [
+                                  TableCell(
+                                    child: SizedBox(
+                                      height: 40,
+                                      child: Container(
+                                        width: firstColumnWidth,
+                                        color: Color(0xffcccccc),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          '영어 부품명',
+                                          style: TextStyle(
+                                              fontFamily: 'HDharmony',
+                                              fontSize: 14,
+                                              color: Color(0xff666666),
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: SizedBox(
+                                      height: 40,
+                                      child: Container(
+                                        width: secondColumnWidth,
+                                        alignment: Alignment.centerLeft,
+                                        padding: EdgeInsets.only(left: 10),
+                                        child: Text(
+                                          widget.englishPartName,
+                                          style: TextStyle(
+                                            fontFamily: 'HDharmony',
+                                            fontSize: 14,
+                                          ),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ]),
+                                TableRow(children: [
+                                  TableCell(
+                                    child: SizedBox(
+                                      height: 40,
+                                      child: Container(
+                                        width: firstColumnWidth,
+                                        color: Color(0xffcccccc),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          '가격(부가세포함)',
+                                          style: TextStyle(
+                                              fontFamily: 'HDharmony',
+                                              fontSize: 14,
+                                              color: Color(0xff666666),
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: SizedBox(
+                                      height: 40,
+                                      child: Container(
+                                        width: secondColumnWidth,
+                                        alignment: Alignment.centerLeft,
+                                        padding: EdgeInsets.only(left: 10),
+                                        child: Text(
+                                          widget.price.toString() + "원",
+                                          style: TextStyle(
+                                              fontFamily: 'HDharmony',
+                                              fontSize: 14,
+                                              color: Color(0xff666666),
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ]),
+                                TableRow(children: [
+                                  TableCell(
+                                    child: SizedBox(
+                                      height: 40,
+                                      child: Container(
+                                        width: firstColumnWidth,
+                                        color: Color(0xffcccccc),
+                                        alignment: Alignment.center,
+                                        child: Text(
+                                          '판매점 상호명',
+                                          style: TextStyle(
+                                              fontFamily: 'HDharmony',
+                                              fontSize: 14,
+                                              color: Color(0xff666666),
+                                              fontWeight: FontWeight.bold),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  TableCell(
+                                    child: SizedBox(
+                                      height: 40,
+                                      child: Container(
+                                        width: secondColumnWidth,
+                                        alignment: Alignment.centerLeft,
+                                        padding: EdgeInsets.only(left: 10),
+                                        child: Text(
+                                          widget.result.mutual ?? '',
+                                          style: TextStyle(
+                                            fontFamily: 'HDharmony',
+                                            fontSize: 14,
+                                          ),
+                                          textAlign: TextAlign.left,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                ])
+                              ],
+                            )),
+//                            partNumberItem,
+//                            koreanPartNameItem,
+//                            englishPartNameItem,
+//                            priceItem,
+//                            companyMarkItem,
                             ticketItem,
                             optionItem,
                             Divider(

@@ -149,8 +149,8 @@ class _MarketSearchResultFormState extends State<MarketSearchResultForm> {
             padding: EdgeInsets.fromLTRB(20, 10, 20, 10),
             child: Table(
               columnWidths: {
-                0: FixedColumnWidth(screenWidth * 0.26),
-                1: FixedColumnWidth(screenWidth * 0.66),
+                0: FixedColumnWidth(screenWidth * 0.32),
+                1: FixedColumnWidth(screenWidth * 0.6),
               },
               border: TableBorder(
                 top: BorderSide(color: Colors.black, width: 1.5),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:kakao_flutter_sdk/all.dart' as kakao;
 import 'package:intl/intl.dart';
 import 'package:mobispartsearch/model/signin_information.dart';
+import 'package:no_context_navigation/no_context_navigation.dart';
 
 import 'model/user_model.dart';
 
@@ -23,6 +24,8 @@ kakao.User kakaoUser;
 
 User globalUser = new User();
 SigninInformation globalSigninInformation = new SigninInformation();
+
+final NavigationService navService = NavigationService();
 
 Map<String, String> requestHeader(String token){
   if(token != '')
