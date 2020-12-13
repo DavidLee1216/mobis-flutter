@@ -208,45 +208,45 @@ class MyPageWidget extends StatelessWidget {
                               color: Colors.black54,
                             ),
                           ),
-                          if (state.isAuthenticated())
-                            Column(
-                              children: [
-                                Container(
-                                  height: 50,
-                                  child: ListTile(
-                                    title: Text(
-                                      'My 쿠폰',
-                                      style: TextStyle(
-                                          fontFamily: 'HDharmony',
-                                          fontSize: 16),
-                                    ),
-                                    trailing: Padding(
-                                      padding: EdgeInsets.all(14),
-                                      child: Image.asset(
-                                          'assets/images/arrow.png'),
-                                    ),
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        PageRouteBuilder(
-                                          pageBuilder: (_, __, ___) =>
-                                              NavigationBar(
-                                            index: 8,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  ),
-                                ),
-                                Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10),
-                                  child: Divider(
-                                    color: Colors.black54,
-                                  ),
-                                ),
-                              ],
-                            ),
+//                          if (state.isAuthenticated())
+//                            Column(
+//                              children: [
+//                                Container(
+//                                  height: 50,
+//                                  child: ListTile(
+//                                    title: Text(
+//                                      'My 쿠폰',
+//                                      style: TextStyle(
+//                                          fontFamily: 'HDharmony',
+//                                          fontSize: 16),
+//                                    ),
+//                                    trailing: Padding(
+//                                      padding: EdgeInsets.all(14),
+//                                      child: Image.asset(
+//                                          'assets/images/arrow.png'),
+//                                    ),
+//                                    onTap: () {
+//                                      Navigator.push(
+//                                        context,
+//                                        PageRouteBuilder(
+//                                          pageBuilder: (_, __, ___) =>
+//                                              NavigationBar(
+//                                            index: 8,
+//                                          ),
+//                                        ),
+//                                      );
+//                                    },
+//                                  ),
+//                                ),
+//                                Padding(
+//                                  padding: const EdgeInsets.symmetric(
+//                                      horizontal: 10),
+//                                  child: Divider(
+//                                    color: Colors.black54,
+//                                  ),
+//                                ),
+//                              ],
+//                            ),
                           if (state.isAuthenticated())
                             Column(
                               children: [

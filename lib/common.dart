@@ -435,13 +435,15 @@ Future<String> getEmail(String code) async {
 }
 
 // ignore: missing_return
-Future<bool> resetPassword(String password, int seq) =>
+Future<bool> resetPassword(String password, String hashedPassword, int seq, int type) =>
     http.post(API + '/resetPassword',
-        body: jsonEncode({'password': password, 'seq': seq}),
+        body: jsonEncode({'password': password, 'hashedPassword': hashedPassword, 'seq': seq, 'type': type, }),
         headers: {
           'Content-type': 'application/json',
         }).then((response) {
       if (response.statusCode == 200) {
+        print(password);
+        print(hashedPassword);
         showToastMessage(text: '비밀번호를 발급하였습니다.', position: 1);
         return true;
       } else {
@@ -457,7 +459,7 @@ Future<User> getUserProfile(int seq) => http
       if (response.statusCode == 200) {
         final jsonData = json.decode(utf8.decode(response.bodyBytes));
         globalSigninInformation.lastPasswordUpdateDate =
-            jsonData['lastUpdatePasswordTime'];
+            DateTime.parse(jsonData['lastUpdatePasswordTime']);
         globalSigninInformation.isTempPassword =
             (jsonData['isTempPassword'] == 1);
         return User.fromMap(jsonData);

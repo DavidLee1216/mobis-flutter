@@ -533,7 +533,7 @@ class _GetPassFormState extends State<GetPassForm> {
                   color: kPrimaryColor,
                 ),
                 Text(
-                  '공백 특수기호 없이 문자만 입력하세요',
+                  '공백 특수기호 없이 숫자만 입력하세요',
                   style: TextStyle(
                       fontFamily: 'HDharmony',
                       color: kPrimaryColor,
@@ -1049,7 +1049,8 @@ class _GetPassFormState extends State<GetPassForm> {
                             setState(() {
                               isLoading = true;
                             });
-                            sentPass = await resetPassword('', authSeq);
+                            String password = getRandomString(7)+'#';
+                            sentPass = await resetPassword(password, encryptPassword(password), authSeq, mobileAuth?1:0);
                             setState(() {
                               isLoading = false;
                             });
