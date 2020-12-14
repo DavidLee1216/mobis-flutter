@@ -463,10 +463,8 @@ Future<User> getUserProfile(int seq) => http
               DateTime.parse(jsonData['lastUpdatePasswordTime']);
         else
           globalSigninInformation.lastPasswordUpdateDate = null;
-        print('666');
         globalSigninInformation.isTempPassword =
             (jsonData['isTempPassword'] == 1);
-        print('777');
         return User.fromMap(jsonData);
       } else
         return null;

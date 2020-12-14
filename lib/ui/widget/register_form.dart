@@ -747,6 +747,18 @@ class _RegisterFormState extends State<RegisterForm> {
           gmail = googleUser.email;
           _emailController.text = gmail;
         }
+        if(state.loginType==LoginType.KAKAO)
+        {
+          loginType = LoginType.KAKAO;
+          gmail = kakaoUser.kakaoAccount.email;
+          _emailController.text = gmail;
+        }
+        if(state.loginType==LoginType.NAVER)
+        {
+          loginType = LoginType.NAVER;
+//          gmail = naverUser.email;
+          _emailController.text = gmail;
+        }
         return Form(
           key: _formKey,
           child: ListView(

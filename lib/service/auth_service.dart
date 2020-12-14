@@ -60,7 +60,7 @@ class MyGoogleSignin{
     return null;
   }
 
-  signInWithGoogle(BuildContext context) async {
+  Future<bool> signInWithGoogle(BuildContext context) async {
     try {
       showLoading(context);
       final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -103,20 +103,25 @@ class MyKakaoSignin{
     }
   }
 
-  signinWithKakao(BuildContext context) async{
+  Future<bool> signinWithKakao(BuildContext context) async{
     try{
       final installed = await isKakaoTalkInstalled();
 //      if(installed==false)
 //        return false;
+      print(installed);
       final authCode = installed ? await kakao.AuthCodeClient.instance.requestWithTalk() : await kakao.AuthCodeClient.instance.request();
       kakao.AccessTokenResponse token = await kakao.AuthApi.instance.issueAccessToken(authCode);
       kakao.AccessTokenStore.instance.toStore(token);
       kakaoUser = await kakao.UserApi.instance.me();
       print(kakaoUser.kakaoAccount.email);
+      Navigator.of(context, rootNavigator: true).pop('dialog');
+      return true;
     } on KakaoAuthException catch (e) {
-      print('kakao login auth error');
+      print(e);
+      return false;
     } catch(e) {
-      print('kakao login catch error');
+      print(e);
+      return false;
     }
   }
 }

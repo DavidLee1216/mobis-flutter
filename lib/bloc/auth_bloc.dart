@@ -111,6 +111,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (event is AuthEventGoogleSignin) {
       yield* _mapGoogleSigninToState(event);
     }
+    if (event is AuthEventKakaoSignin) {
+      yield* _mapKakaoSigninToState(event);
+    }
+    if (event is AuthEventNaverSignin) {
+      yield* _mapNaverSigninToState(event);
+    }
     if(event is AuthEventLoading){
       yield* _mapLoadingToState(event);
     }
@@ -164,6 +170,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Stream<AuthState> _mapGoogleSigninToState(AuthEventGoogleSignin event) async* {
     yield state.success(loginType: LoginType.GOOGLE);
+  }
+
+  Stream<AuthState> _mapKakaoSigninToState(AuthEventKakaoSignin event) async* {
+    yield state.success(loginType: LoginType.KAKAO);
+  }
+
+  Stream<AuthState> _mapNaverSigninToState(AuthEventNaverSignin event) async* {
+    yield state.success(loginType: LoginType.NAVER);
   }
 
   Stream<AuthState> _mapLoadingToState(AuthEventLoading event) async*{

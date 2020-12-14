@@ -64,7 +64,7 @@ class _LoginFormState extends State<LoginForm> {
     return BlocListener<AuthBloc, AuthState>(
       cubit: BlocProvider.of<AuthBloc>(context),
       listener: (BuildContext context, state) {
-        if (state.loginType==LoginType.GOOGLE) {
+        if (state.loginType==LoginType.GOOGLE || state.loginType==LoginType.KAKAO || state.loginType==LoginType.NAVER) {
           pushTo(context, RegisterScreen());
         }
       },
@@ -183,8 +183,11 @@ class _LoginFormState extends State<LoginForm> {
                         ),
                       ],
                     ),
-                    onPressed: () {
-                      myKakaoSignin.signinWithKakao(context);
+                    onPressed: () async {
+                      bool res = await myKakaoSignin.signinWithKakao(context);
+                      if(res){
+                        bloc.add(AuthEventKakaoSignin());
+                      }
                     },
                   ),
                 ),
