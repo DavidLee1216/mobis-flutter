@@ -458,8 +458,7 @@ Future<User> getUserProfile(int seq) => http
         .then((response) {
       if (response.statusCode == 200) {
         final jsonData = json.decode(utf8.decode(response.bodyBytes));
-        print('555');
-        if(jsonData['lastUpdatePasswordTime'])
+        if(jsonData['lastUpdatePasswordTime'] != null)
           globalSigninInformation.lastPasswordUpdateDate =
               DateTime.parse(jsonData['lastUpdatePasswordTime']);
         else
@@ -489,13 +488,10 @@ Future<bool> signin(String username, String password) =>
           globalSigninInformation.lastPasswordUpdateDate =
               DateTime.parse(jsonData['lastUpdatePasswordTime']);
           addStringToSF();
-          print('111');
           globalUser =
               await getUserProfile(globalSigninInformation.userProfileId);
-          print('222');
           DateTime today = DateTime.now();
           int diffDays = 0;
-          print('333');
           if (globalSigninInformation.lastPasswordUpdateDate != null)
             diffDays = today
                 .difference(globalSigninInformation.lastPasswordUpdateDate)
