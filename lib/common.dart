@@ -458,10 +458,16 @@ Future<User> getUserProfile(int seq) => http
         .then((response) {
       if (response.statusCode == 200) {
         final jsonData = json.decode(utf8.decode(response.bodyBytes));
-        globalSigninInformation.lastPasswordUpdateDate =
-            DateTime.parse(jsonData['lastUpdatePasswordTime']);
+        print('555');
+        if(jsonData['lastUpdatePasswordTime'])
+          globalSigninInformation.lastPasswordUpdateDate =
+              DateTime.parse(jsonData['lastUpdatePasswordTime']);
+        else
+          globalSigninInformation.lastPasswordUpdateDate = null;
+        print('666');
         globalSigninInformation.isTempPassword =
             (jsonData['isTempPassword'] == 1);
+        print('777');
         return User.fromMap(jsonData);
       } else
         return null;
@@ -483,10 +489,13 @@ Future<bool> signin(String username, String password) =>
           globalSigninInformation.lastPasswordUpdateDate =
               DateTime.parse(jsonData['lastUpdatePasswordTime']);
           addStringToSF();
+          print('111');
           globalUser =
               await getUserProfile(globalSigninInformation.userProfileId);
+          print('222');
           DateTime today = DateTime.now();
           int diffDays = 0;
+          print('333');
           if (globalSigninInformation.lastPasswordUpdateDate != null)
             diffDays = today
                 .difference(globalSigninInformation.lastPasswordUpdateDate)
@@ -523,6 +532,8 @@ Future<bool> signup(User user) =>
       if (response.statusCode == 200) {
         return true;
       } else {
+        print('signup'+response.statusCode.toString());
+        print('signup'+response.body.toString());
 //        showToastMessage(text: '가입 실패', position: 1);
         return false;
       }
