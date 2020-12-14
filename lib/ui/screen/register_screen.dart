@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/auth_bloc.dart';
 import 'package:mobispartsearch/common.dart';
 import 'package:mobispartsearch/ui/widget/loading_indication.dart';
+import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
 import 'package:mobispartsearch/ui/widget/register_form.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
 
@@ -24,7 +25,8 @@ class RegisterScreen extends StatelessWidget {
       listener: (BuildContext context, state) {
         if (state.signUpSucc) {
           BlocProvider.of<AuthBloc>(context).add(AuthEventSignIn(id: state.id, password: state.password));
-          pushTo(context, IdLoginScreen());
+          pushTo(context, NavigationBar(index: 1));
+//          pushTo(context, IdLoginScreen());
         }
 //        if(state.errorMsg != '')
 //          showToastMessage(text:state.errorMsg, position: 1);

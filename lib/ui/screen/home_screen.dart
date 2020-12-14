@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:mobispartsearch/bloc/auth_bloc.dart';
 import 'package:mobispartsearch/bloc/market_search_bloc.dart';
 import 'package:mobispartsearch/ui/screen/login_screen.dart';
+import 'package:mobispartsearch/ui/widget/loading_indication.dart';
 import 'package:mobispartsearch/ui/widget/navigation_bar.dart';
 import 'package:mobispartsearch/utils/navigation.dart';
 import 'package:mobispartsearch/common.dart';
@@ -281,6 +282,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
+              ),
+              Positioned(
+                child: LoadingIndicator(isLoading: state.isLoading),//
               ),
             ]),
           );
